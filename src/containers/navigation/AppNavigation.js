@@ -3,6 +3,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 
 import Login from '../screens/Login/index';
+import entryNavigation from '../screens/entryNavigation/index';
 
 const loginNavigation = createStackNavigator({
     // Intro: { screen: Intro, navigationOptions: { header: null, tabBarVisible: false } },
@@ -15,9 +16,10 @@ const loginNavigation = createStackNavigator({
 
 export default createAppContainer(createSwitchNavigator(
     {
-        Login: loginNavigation
+      entryNavigation:entryNavigation,
+      Login: loginNavigation
     },
     {
-        initialRouteName: 'Login'
+        initialRouteName: 'entryNavigation'
     }
 ));

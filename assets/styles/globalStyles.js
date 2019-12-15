@@ -14,6 +14,10 @@ export default StyleSheet.create({
         alignItems: 'center',
         height: 50,
     },
+    intro_logo: {
+        width: 258, 
+        height: 145, 
+    },
     input:  {
         flexDirection: "column",
     },
@@ -201,6 +205,37 @@ export default StyleSheet.create({
     pad17: {
         padding: 17,
     },
+    pad_bottom: {
+        marginBottom: 15,
+    },
+    pad_bottom50: {
+        marginBottom: 50,
+    },
+    pad_bottom30: {
+        marginBottom: 30,
+    },
+    pad_bottom20: {
+        marginBottom: 20,
+    },
+    pad_bottom_mini: {
+        marginBottom: 4,
+    },
+    pad_bottom_mini_6: {
+        marginBottom: 6,
+    },
+    pad_bottom_mini_1: { 
+        marginBottom: 1,
+    },
+    pad_bottom_mini_3: {
+        marginBottom: 3,
+    },
+    padTopBottom: {
+        marginBottom: 7,
+        marginTop: 12,
+    },
+    pad_bottom10: {
+        marginBottom: 10,
+    },
     row: {
         flexDirection : 'row',
         alignItems: 'center',
@@ -214,6 +249,10 @@ export default StyleSheet.create({
     margin_top_bottom30: {
         marginTop: 30,
         marginBottom: 30
+    },
+    margin_left_right_25: {
+        marginLeft: 25,
+        marginRight: 25
     },
     sign_up_header: {
         flex:1,flexDirection: 

@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-keyboard-aware-scroll-view
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-config
 
 PATH: 
-  C:\Users\esther.akinloose\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\esther.akinloose\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Program Files (x86)\Yarn\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Users\esther.akinloose\AppData\Local\Microsoft\WindowsApps;C:\Users\esther.akinloose\AppData\Local\Yarn\bin;C:\Users\esther.akinloose\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\esther.akinloose\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;C:\Users\esther.akinloose\Library\Android\sdk\emulator;C:\Users\esther.akinloose\Library\Android\sdk\tools;C:\Users\esther.akinloose\Library\Android\sdk\tools\bin;C:\Users\esther.akinloose\Library\Android\sdk\platform-tools;C:\Users\esther.akinloose\Android\Sdk\emulator;C:\Users\esther.akinloose\Android\Sdk\tools;C:\Users\esther.akinloose\Android\Sdk\tools\bin;C:\Users\esther.akinloose\Android\Sdk\platform-tools
+  C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\esther.akinloose\AppData\Local\Microsoft\WindowsApps;C:\Users\esther.akinloose\AppData\Local\Yarn\bin;C:\Users\esther.akinloose\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\esther.akinloose\AppData\Roaming\npm
 
 Yarn version: 
   1.19.1
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\esther.akinloose\Documents\Lendsqr\poolcoop\node_modules\@babel\generator\node_modules\.bin'
+  Error: EPERM: operation not permitted, lstat 'C:\Users\esther.akinloose\Documents\Lendsqr\poolcoop\node_modules\.bin'
 
 npm manifest: 
   {
@@ -27,11 +27,14 @@ npm manifest:
       "eject": "expo eject"
     },
     "dependencies": {
+      "@react-native-community/async-storage": "^1.7.1",
       "expo": "~36.0.0",
       "react": "~16.9.0",
       "react-dom": "~16.9.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
       "react-native-gesture-handler": "^1.5.2",
+      "react-native-keyboard-aware-scroll-view": "^0.9.1",
+      "react-native-loading-spinner-overlay": "^1.0.1",
       "react-native-typography": "^1.4.1",
       "react-native-web": "~0.11.7",
       "react-navigation": "^4.0.10",
@@ -1001,6 +1004,11 @@ Lockfile:
       "@types/istanbul-lib-coverage" "^2.0.0"
       "@types/istanbul-reports" "^1.1.1"
       "@types/yargs" "^13.0.0"
+  
+  "@react-native-community/async-storage@^1.7.1":
+    version "1.7.1"
+    resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.7.1.tgz#ef2104d865de61ad91bba66613e57e689ff4e6a1"
+    integrity sha512-/oX/x+EU4xNaqIaC/epVKzO8XghzImPA7l8cLz3USEFmtFiXFjBbTeeIFjjEm/u4/cv38Wi1xMEa10PHIWygRg==
   
   "@react-native-community/cli-debugger-ui@^3.0.0":
     version "3.0.0"
@@ -4352,6 +4360,26 @@ Lockfile:
       hoist-non-react-statics "^2.3.1"
       invariant "^2.2.4"
       prop-types "^15.7.2"
+  
+  react-native-iphone-x-helper@^1.0.3:
+    version "1.2.1"
+    resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
+    integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+  
+  react-native-keyboard-aware-scroll-view@^0.9.1:
+    version "0.9.1"
+    resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.1.tgz#9e54b565a5f19b30bed12221d48921781f7630af"
+    integrity sha512-tBZ8rmjELN0F6t5UBp5CW3NYmZXgVnJSzVCssv/OqG2t6kiB+OUTqxNvUP24K+HARX4H+XaW0aEJSFQkQCv6KA==
+    dependencies:
+      prop-types "^15.6.2"
+      react-native-iphone-x-helper "^1.0.3"
+  
+  react-native-loading-spinner-overlay@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/react-native-loading-spinner-overlay/-/react-native-loading-spinner-overlay-1.0.1.tgz#07f85a072b6f7d05b8749668cd626df4cc330347"
+    integrity sha512-njZZWs+cgyq6Ni7tkYEowMmuAuHVljuH4CqTWA0plNOfSzZhEcrW209y7WcgHjRWz0RvvEYF5oWGT8DWtTq8bA==
+    dependencies:
+      prop-types "^15.6.2"
   
   react-native-safe-area-view@^0.14.1:
     version "0.14.8"

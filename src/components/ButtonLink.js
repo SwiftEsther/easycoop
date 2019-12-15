@@ -3,7 +3,7 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import theme from '../../assets/styles/globalStyles';
 import * as colors from '../../assets/styles/colors';
 
-export default class BlackButton extends Component {
+export default class ButtonLink extends Component {
 
     constructor(props) {
       super(props);
@@ -13,7 +13,7 @@ export default class BlackButton extends Component {
         return (
           <View>
                 <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={this.props.handlePress}>
-                    <Text style={[styles.defaultButton, theme.typo_bold, {backgroundColor: 'black'}]}>{this.props.button_text}</Text>
+                    <Text style={[styles.defaultButton, theme.typo_bold, this.props.extraStyles, {backgroundColor: '#fff'}]}>{this.props.button_text}</Text>
                 </TouchableOpacity>
           </View>
         );
@@ -23,10 +23,9 @@ export default class BlackButton extends Component {
 const styles = StyleSheet.create({
     defaultButton: {
         fontSize: 17,
-        padding: 23,
-        color: '#fff',
-        borderWidth: StyleSheet.hairlineWidth,
+        padding: 17,
+        color: '#138516',
+        borderRadius:3,
         textAlign: 'center',
-        borderWidth: 0.8,  
     }
 })
