@@ -3,8 +3,8 @@ import { View, Image, AsyncStorage, TouchableOpacity, ImageBackground, StatusBar
 import style from './style';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
-// import * as constants from '../../../lib/constants';
-// import '../../../lib/helpers';
+import * as constants from '../../../../lib/constants';
+import '../../../../lib/helpers';
 
 export default class index extends Component {
 
@@ -12,68 +12,46 @@ export default class index extends Component {
     super(props);
   }
   
-//   componentDidMount() {
+  componentDidMount() {
+    // this.createNotificationCount();
+    setTimeout(() => {
+      this.loadData();
+    }, 3000);
+  }
 
-//     this.createNotificationCount();
-//     setTimeout(() => {
-//       this.loadData();
-//     }, 3000);
-//   }
+  //Get notifications
 
 //   createNotificationCount = async () => {
 //     let data = JSON.parse(await AsyncStorage.getItem(constants.NOTIFICATION_COUNT) || '{}');
 //     if(!data.friend)
 //       setGlobalState(constants.NOTIFICATION_COUNT, JSON.stringify({friend: 0, challenge: 0, event: 0, group: 0}));
 //   }
-
-//   tokenNotExpired = (token) => {  
-//     let not_expired = true;
-//     if(token !== "") {
-//       let jwtDecode = require('jwt-decode');
-//       let decoded = jwtDecode(token, { body: true });
-//       if(new Date(decoded.exp * 1000).getTime() < new Date().getTime()) {
-//         not_expired = false;
-//       }
-//     }
-//     return not_expired;
-//   }
   
-//   resetData = () => {
-//     setGlobalState(constants.ECASH_BALANCE, "0.0");
-//     setGlobalState(constants.ECASH_CARD, "");
-//     setGlobalState(constants.LAST_FETCHED_POSTS, "[]");
-//     setGlobalState(constants.LAST_FETCHED_CHALLENGE, "[]");
-//     setGlobalState(constants.LAST_FETCHED_GROUP, "[]");
-//     setGlobalState(constants.USER_DATA, "{}");
-//     setGlobalState(constants.FITNESS_DATA, "{}");
-//   }
+  resetData = () => {
+    setGlobalState(constants.USER_DATA, "{}");
+  }
 
-//   loadData = async () => {
+  loadData = async () => {
 
-//     let userData = JSON.parse(await AsyncStorage.getItem(constants.USER_DATA) || '{}');
-//     let status = "";
-//     let token = "";  
- 
-//     if(userData.status)
-//       status = userData.status;
-    
-//     if(userData.access_token)
-//       token = userData.access_token;
+    // let userData = JSON.parse(await AsyncStorage.getItem(constants.USER_DATA) || '{}');
+    // let status = "";
+    // let token = "";  if needed
 
-//     if(status === "LOGGEDIN") {
-//       if(this.tokenNotExpired(token)) {
-//         this.props.navigation.navigate('homeNavigation');
-//       }
-//       else {
-//         this.resetData();
-//         Toast("Your session has expired. Login again.", "OK");
-//         this.props.navigation.navigate('Login');
-//       }
-//     }  
-//     else {
-//       this.props.navigation.navigate('loginNavigation');
-//     }
-//   };
+    // if(status === "LOGGEDIN") {
+    //   if(token) {
+    //     this.props.navigation.navigate('homeNavigation');
+    //   }
+    //   else {
+    //     this.resetData();
+    //     Toast("Your session has expired. Login again.", "OK");
+    //     this.props.navigation.navigate('Login');
+    //   }
+    // }  
+    // else {
+    //   this.props.navigation.navigate('loginNavigation');
+    // }
+    this.props.navigation.navigate('loginNavigation');
+  };
 
   render() {
     return (

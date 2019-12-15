@@ -191,7 +191,7 @@ export default class index extends Component {
                                 >Forgot Password ?</Text>
                                 
                                 <BlackButton button_text='Sign In' handlePress= {this.validate}/>
-                                <ButtonLink button_text='Submit Message' extraStyles={theme.box_gap12} handlePress={() => console.log('Delete app')} />
+                                <ButtonLink button_text='Sign Up' extraStyles={theme.box_gap12} handlePress={() => console.log('Delete app')} />
                             </View>
                         </View>
                         

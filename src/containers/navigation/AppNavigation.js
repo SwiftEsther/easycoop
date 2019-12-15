@@ -8,7 +8,7 @@ import entryNavigation from '../screens/entryNavigation/index';
 const loginNavigation = createStackNavigator({
     // Intro: { screen: Intro, navigationOptions: { header: null, tabBarVisible: false } },
     Login: { screen: Login, navigationOptions: { header: null, tabBarVisible: false } }
-}, 
+  },
   {
     initialRouteName:  'Login',
   }
@@ -17,9 +17,9 @@ const loginNavigation = createStackNavigator({
 export default createAppContainer(createSwitchNavigator(
     {
       entryNavigation:entryNavigation,
-      Login: loginNavigation
+      loginNavigation: loginNavigation
     },
     {
-        initialRouteName: 'entryNavigation'
+        initialRouteName: 'loginNavigation'
     }
 ));
