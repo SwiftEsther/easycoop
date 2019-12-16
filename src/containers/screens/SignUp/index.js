@@ -1,5 +1,7 @@
+
 import React, { Component } from 'react';
 import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
 import * as constants from '../../../../lib/constants';
@@ -8,6 +10,7 @@ import API from '../../../../lib/api';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
+import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 
@@ -40,7 +43,7 @@ export default class index extends Component {
     }
 
     loadData = async () => {
-        console.log('load data')
+        this.setState({username: (await AsyncStorage.getItem())});
     }
 
     changeState = (value) => {
@@ -84,42 +87,16 @@ export default class index extends Component {
     }
 
     redirect = (_stage) => {
-        if(_stage === "LOGGEDIN") {
-          this.props.navigation.navigate('Dashboard');
+        _CURRENT_TOKEN = '';
+        if(_stage === "VERIFICATION") {
+            this.props.navigation.navigate('OTP');
+        }
+        else if(_stage === "LOGGEDIN") {
+            this.props.navigation.navigate('Dashboard');
         }
         else {
-            this.props.navigation.navigate('Register');
+            this.props.navigation.navigate('Signup');
         }
-    }
-
-    onFocus() {
-        this.setState({
-            backgroundColor: '#fff',
-            borderWidth: 0,
-            shadowColor: "#fdfdfd",
-            shadowOffset: {
-                width: 0,
-                height: 4,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-            elevation: 24
-        });
-    }
-
-    onBlur() {
-        this.setState({
-            backgroundColor: '#fdfdfd',
-            borderWidth: StyleSheet.hairlineWidth,
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 0,
-            },
-            shadowOpacity: 0,
-            shadowRadius: 0,
-            elevation: 0
-        })
     }
 
     render() {
