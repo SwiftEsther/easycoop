@@ -110,7 +110,6 @@ export default class index extends Component {
     }
 
     render() {
-        const {navigate} = this.props.navigation;
         return (
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
@@ -119,13 +118,6 @@ export default class index extends Component {
                     <View style={[theme.screen_pad]}>
                         <AuthenticationHeader text='Sign In' backFunction={() => this.props.navigation.goBack(null)}/>
                         <View style={[theme.margin_left_right_25]}>
-<<<<<<< HEAD
-                            <View style={[theme.sign_up_header, theme.box_gap_more]}>
-                                <Text style={[theme.sign_up_header_text, theme.typo_bold]}>Sign In</Text>
-                                <Image style={{marginTop: -12}} source={require('../../../../assets/icons/Group.png')} />
-                            </View>
-=======
->>>>>>> f70a62552f7b479588a908e6a0664fa38fa6ac9b
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
                                 <View style={[theme.input_margin_bottom]}>
