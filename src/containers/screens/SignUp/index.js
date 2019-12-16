@@ -101,9 +101,9 @@ export default class index extends Component {
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    {/* <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
+                                    <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
-                                    />  */}
+                                    /> 
                                 </View> 
                                 
                                 <BlackButton button_text="Next" handlePress= {() => console.log('Next clicked')}/>

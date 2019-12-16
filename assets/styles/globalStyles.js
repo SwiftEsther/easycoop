@@ -261,7 +261,7 @@ export default StyleSheet.create({
         marginBottom: 71,
     },
     sign_up_header_text: {
-        fontSize:25,
+        fontSize:20,
         paddingBottom:10,
         borderBottomColor: '#138516', 
         borderBottomWidth: 4, 

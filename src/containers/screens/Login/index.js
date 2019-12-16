@@ -5,7 +5,7 @@ import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import API from '../../../../lib/api';
+import {LOGIN} from '../../../../lib/constants';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
@@ -60,7 +60,7 @@ export default class index extends Component {
         headers.append("Authorization", "Basic " + base64.encode(this.state.username+":"+this.state.password));
 
         try {
-            fetch('http://137.117.211.230:8000/credentials/v1/api/login', {headers: headers})
+            fetch(`${BASE_URL}${LOGIN}`, {headers: headers})
             .then((response) => response.json())
             .then((responseJson) => {
                 // get the response data from {responseJson} e.g responseJson.lastName
@@ -68,38 +68,6 @@ export default class index extends Component {
         } catch(err) {
             
         }
-        // let {username, password} = this.state;
-
-        // if(username !== '' && password !== '') {
-        //     if(username.length > 0 ) {
-        //         let data = {username, password};
-        //         this.setState({spinner: true});
-        //         let response = await API.login(constants.LOGIN); 
-        //         this.setState({spinner: false});
-
-        //         if(response) {
-        //             if(typeof response.status !== 'undefined') {
-        //                 Alert(constants.BACKEND_ISSUE);
-        //             }
-
-        //             if(response['status'] == 200) {
-        //                 let data = response['data'];
-        //                 _CURRENT_TOKEN = 'some token'; // set token here
-        //                 setGlobalState(constants.USER_DATA, JSON.stringify(data));
-        //                 this.redirect('LOGEDIN');
-        //             }
-        //         }
-        //         else {
-        //             Alert(constants.UNKNOWN_ERROR_MESSAGE); 
-        //         }
-        //     }
-        //     else {
-        //         Alert('Invalid Username.')
-        //     }
-        // }
-        // else {
-        //     Toast(constants.FIELD_REQUIRED, 'OK');
-        // }
     }
 
     redirect = (_stage) => {
