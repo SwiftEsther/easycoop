@@ -4,12 +4,14 @@ import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import API from '../../../../lib/api';
+import {LOGIN} from '../../../../lib/constants';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
+import SignUp from '../../../containers/screens/SignUp/index';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
+import base64 from 'base-64';
 
 export default class index extends Component {
     constructor(props) {
@@ -47,40 +49,24 @@ export default class index extends Component {
         this.setState(value);
     }
 
+    _navigate = () => {
+        this.props.navigation.navigate('SignUp');
+    }
+
     validate = async () => {
-        console.log('Sign In clicked')
-        // let {username, password} = this.state;
 
-        // if(username !== '' && password !== '') {
-        //     if(username.length > 0 ) {
-        //         let data = {username, password};
-        //         this.setState({spinner: true});
-        //         let response = await API.login(constants.LOGIN); 
-        //         this.setState({spinner: false});
+        var headers = new Headers();
+        headers.append("Authorization", "Basic " + base64.encode(this.state.username+":"+this.state.password));
 
-        //         if(response) {
-        //             if(typeof response.status !== 'undefined') {
-        //                 Alert(constants.BACKEND_ISSUE);
-        //             }
-
-        //             if(response['status'] == 200) {
-        //                 let data = response['data'];
-        //                 _CURRENT_TOKEN = 'some token'; // set token here
-        //                 setGlobalState(constants.USER_DATA, JSON.stringify(data));
-        //                 this.redirect('LOGEDIN');
-        //             }
-        //         }
-        //         else {
-        //             Alert(constants.UNKNOWN_ERROR_MESSAGE); 
-        //         }
-        //     }
-        //     else {
-        //         Alert('Invalid Username.')
-        //     }
-        // }
-        // else {
-        //     Toast(constants.FIELD_REQUIRED, 'OK');
-        // }
+        try {
+            fetch(`${BASE_URL}${LOGIN}`, {headers: headers})
+            .then((response) => response.json())
+            .then((responseJson) => {
+                // get the response data from {responseJson} e.g responseJson.lastName
+            })
+        } catch(err) {
+            
+        }
     }
 
     redirect = (_stage) => {
@@ -123,6 +109,7 @@ export default class index extends Component {
     }
 
     render() {
+        const {navigate} = this.props.navigation;
         return (
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
@@ -192,7 +179,7 @@ export default class index extends Component {
                                 >Forgot Password ?</Text>
                                 
                                 <BlackButton button_text='Sign In' handlePress= {this.validate}/>
-                                <ButtonLink button_text='Sign Up' extraStyles={theme.box_gap12} handlePress={() => console.log('Delete app')} />
+                                <ButtonLink button_text='Sign Up' extraStyles={theme.box_gap12} handlePress={this._navigate} />
                             </View>
                         </View>
                         
