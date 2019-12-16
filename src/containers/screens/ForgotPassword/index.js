@@ -19,11 +19,8 @@ export default class index extends Component {
     constructor(props) {
         super(props);
 
-        this.onBlur = this.onBlur.bind(this);
-        this.onFocus = this.onFocus.bind(this);
-
         this.state = {
-            action: '',
+            number: "",
             spinner: false,
             backgroundColor: '#fdfdfd',
             shadowColor: "#000",
@@ -43,7 +40,7 @@ export default class index extends Component {
     }
 
     loadData = async () => {
-        this.setState({action: 'Next'});
+       
     }
 
     changeState = (value) => {
@@ -51,9 +48,7 @@ export default class index extends Component {
     }
 
     redirect = (_stage) => {
-        if(_stage === "LOGGEDIN") {
-          this.props.navigation.navigate('Dashboard');
-        }
+        
     }
 
     onFocus() {
@@ -93,17 +88,17 @@ export default class index extends Component {
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
                     <View style={[theme.screen_pad]}>
-                            <AuthenticationHeader text='Sign Up'backFunction={() => this.props.navigation.goBack(null)} />
+                            <AuthenticationHeader text='Forgot Password' backFunction={() => this.props.navigation.goBack(null)} />
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.box_gap_more, theme.fill]}>
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>First Name</Text>
+                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force number / AP Number</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
+                                    <CustomInput value={this.state.number} onChangeText={number => this.changeState({number:number.trim()})} onFocus={this.onFocus} maxLength={100} 
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
-                                
-                                <BlackButton button_text="Next" handlePress= {() => console.log('Next clicked')}/>
+                                <Text style={{textAlign: "center", color: "green", marginBottom: 60}} >validating number</Text>
+                                <BlackButton button_text="Recover Password" handlePress= {() => this.props.navigation.navigate('AuthenticationPage')}/>
                             </View>
                         </View>
                         

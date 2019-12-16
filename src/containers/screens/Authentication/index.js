@@ -19,11 +19,7 @@ export default class index extends Component {
     constructor(props) {
         super(props);
 
-        this.onBlur = this.onBlur.bind(this);
-        this.onFocus = this.onFocus.bind(this);
-
         this.state = {
-            action: '',
             spinner: false,
             backgroundColor: '#fdfdfd',
             shadowColor: "#000",
@@ -43,7 +39,7 @@ export default class index extends Component {
     }
 
     loadData = async () => {
-        this.setState({action: 'Next'});
+       
     }
 
     changeState = (value) => {
@@ -51,9 +47,7 @@ export default class index extends Component {
     }
 
     redirect = (_stage) => {
-        if(_stage === "LOGGEDIN") {
-          this.props.navigation.navigate('Dashboard');
-        }
+        
     }
 
     onFocus() {
@@ -93,17 +87,14 @@ export default class index extends Component {
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
                     <View style={[theme.screen_pad]}>
-                            <AuthenticationHeader text='Sign Up'backFunction={() => this.props.navigation.goBack(null)} />
+                            <AuthenticationHeader text='Authentication' backFunction={() => this.props.navigation.goBack(null)} />
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.box_gap_more, theme.fill]}>
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>First Name</Text>
-                                <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
-                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
-                                    /> 
-                                </View> 
-                                
-                                <BlackButton button_text="Next" handlePress= {() => console.log('Next clicked')}/>
+                                <View>
+                                    <Text style={{textAlign: "center", color: "green", marginBottom: 60, flexWrap: "wrap"}} >vA textasdbaksbd asdfkhbasfkj sdkfhbaskfbskjbfdasdfh
+                                    sdfjhabsdfjkasvdhjbfaksjdhfabsvdmnf </Text>
+                                </View>
+                                <BlackButton button_text="Send Password" handlePress= {() => console.log('send clicked')}/>
                             </View>
                         </View>
                         

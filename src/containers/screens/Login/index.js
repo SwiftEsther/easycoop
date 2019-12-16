@@ -171,7 +171,7 @@ export default class index extends Component {
                                         theme.margin_top_bottom30
                                     ]
                                 }
-                                onPress= {() => console.log('Forgot Password clicked')}
+                                onPress= {() => this.props.navigation.navigate('ForgotPasswordPage')}
                                 >Forgot Password ?</Text>
                                 
                                 <BlackButton button_text='Sign In' handlePress= {this.validate}/>
