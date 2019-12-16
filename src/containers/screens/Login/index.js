@@ -59,6 +59,7 @@ export default class index extends Component {
             fetch('http://137.117.211.230:8000/credentials/v1/api/login', {headers: headers})
             .then((response) => response.json())
             .then((responseJson) => {
+                // get the response data from {responseJson} e.g responseJson.lastName
             })
         } catch(err) {
             
