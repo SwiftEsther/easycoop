@@ -12,6 +12,7 @@ import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
+import base64 from 'base-64';
 
 export default class index extends Component {
     constructor(props) {
@@ -50,7 +51,18 @@ export default class index extends Component {
     }
 
     validate = async () => {
-        console.log('Sign In clicked')
+
+        var headers = new Headers();
+        headers.append("Authorization", "Basic " + base64.encode(this.state.username+":"+this.state.password));
+
+        try {
+            fetch('http://137.117.211.230:8000/credentials/v1/api/login', {headers: headers})
+            .then((response) => response.json())
+            .then((responseJson) => {
+            })
+        } catch(err) {
+            
+        }
         // let {username, password} = this.state;
 
         // if(username !== '' && password !== '') {
