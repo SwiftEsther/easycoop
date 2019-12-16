@@ -96,10 +96,14 @@ export default class index extends Component {
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.sign_up_header, theme.box_gap_more]}>
                                 <Text style={[theme.sign_up_header_text, theme.typo_bold]}>Sign Up</Text>
-                                <Image source={require('../../../../assets/icons/Group.png')} />
+                                <Image style={{marginTop: -12}} source={require('../../../../assets/icons/Group.png')} />
+                            </View>
+                            <View style={[theme.sign_up_header]}>
+                                <BlackButton style={{backgroundColor:"green"}} button_text="Personal Info" handlePress= {() => console.log('p clicked')}/>
+                                <BlackButton button_text="Force Info" handlePress= {() => console.log('f clicked')}/>
                             </View>
                             <View style={[theme.box_gap_more, theme.fill]}>
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
+                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>First Name</Text>
                                 <View style={[theme.input_margin_bottom]}>
                                     <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
