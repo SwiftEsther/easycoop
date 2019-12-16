@@ -33,6 +33,10 @@ export default class index extends Component {
   openModal = () => {
     this.setState({modalVisible: true});
   }
+
+  _navigate = () => {
+      this.props.navigation.navigate('SignUp');
+  }
   _renderItem = ({item, index}) => {
     return (
         <View>
