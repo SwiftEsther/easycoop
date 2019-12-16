@@ -15,7 +15,7 @@ export default class index extends Component {
   componentDidMount() {
     // this.createNotificationCount();
     setTimeout(() => {
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('Walkthrough');
     }, 3000);
   }
 

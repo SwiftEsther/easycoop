@@ -27,7 +27,7 @@ export default class index extends Component {
           text: 'Savings'
         }
       ],
-      activeSlide: 1
+      activeSlide: 0
     }
   }
   openModal = () => {
@@ -35,7 +35,7 @@ export default class index extends Component {
   }
 
   _navigate = () => {
-      this.props.navigation.navigate('SignUp');
+    this.props.navigation.navigate('Onboarding');
   }
   _renderItem = ({item, index}) => {
     return (
@@ -78,11 +78,12 @@ export default class index extends Component {
               renderItem={this._renderItem}
               sliderWidth={410}
               itemWidth={340}
+              autoplay={true}
               onSnapToItem={(index) => this.setState({ activeSlide: index })}
             />
             {this.pagination}
-            <TouchableOpacity activeOpacity={0.4} style={[theme.fill, {alignItems:'center'}]}>
-              <Image source={require('../../../../assets/icons/White_arrow.png')} onPress={() => this.props.navigation.navigate('Onboarding')}/>
+            <TouchableOpacity activeOpacity={0.4} style={[theme.fill, {alignItems:'center'}]} onPress={this._navigate}>
+              <Image source={require('../../../../assets/icons/White_arrow.png')}/>
           </TouchableOpacity> 
       </View>
     );
