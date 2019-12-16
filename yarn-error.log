@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-native-carousel
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
 
 PATH: 
   C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Docker\Docker\Resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\php;C:\Users\esther.akinloose\AppData\Local\Microsoft\WindowsApps;C:\Users\esther.akinloose\AppData\Local\Yarn\bin;C:\Users\esther.akinloose\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\esther.akinloose\AppData\Roaming\npm
@@ -28,6 +28,8 @@ npm manifest:
     },
     "dependencies": {
       "@react-native-community/async-storage": "^1.7.1",
+      "axios": "^0.19.0",
+      "base-64": "^0.1.0",
       "@react-native-community/viewpager": "2.0.2",
       "expo": "~36.0.0",
       "react": "~16.9.0",
@@ -39,6 +41,7 @@ npm manifest:
       "react-native-keyboard-aware-scroll-view": "^0.9.1",
       "react-native-loading-spinner-overlay": "^1.0.1",
       "react-native-snackbar": "^2.0.4",
+      "react-native-snap-carousel": "^3.8.4",
       "react-native-swiper": "^1.5.14",
       "react-native-typography": "^1.4.1",
       "react-native-web": "~0.11.7",
@@ -4403,6 +4406,14 @@ Lockfile:
       minimist "^1.2.0"
       strip-json-comments "~2.0.1"
   
+  react-addons-shallow-compare@15.6.2:
+    version "15.6.2"
+    resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.2.tgz#198a00b91fc37623db64a28fd17b596ba362702f"
+    integrity sha1-GYoAuR/DdiPbZKKP0XtZa6NicC8=
+    dependencies:
+      fbjs "^0.8.4"
+      object-assign "^4.1.0"
+  
   react-devtools-core@^3.6.3:
     version "3.6.3"
     resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-3.6.3.tgz#977d95b684c6ad28205f0c62e1e12c5f16675814"
@@ -4501,6 +4512,14 @@ Lockfile:
     version "2.0.4"
     resolved "https://registry.yarnpkg.com/react-native-snackbar/-/react-native-snackbar-2.0.4.tgz#cc9587600b6c67267b5a96eb74e693d2e3eee054"
     integrity sha512-q0NhXYV3uBebN4z9MenR8SIycFGM7QN8NWgwcbJn1zuEiRp49jaJRR/KX7ucS385BvqzBdUu+QqF7SrFN7HiRA==
+  
+  react-native-snap-carousel@^3.8.4:
+    version "3.8.4"
+    resolved "https://registry.yarnpkg.com/react-native-snap-carousel/-/react-native-snap-carousel-3.8.4.tgz#4c749c6a714d46ed82de527233850cb5da41bc62"
+    integrity sha512-KMxLl75Tyf12DzeTCtV7xU0KuPZQQs/2+2iM90cgxcm3lrg4+hLXff5/61ynasBkzzJ5v4bTRq5CEy/qGUJVQw==
+    dependencies:
+      prop-types "^15.6.1"
+      react-addons-shallow-compare "15.6.2"
   
   react-native-status-bar-height@^2.2.0:
     version "2.4.0"

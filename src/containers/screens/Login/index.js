@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
+import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {LOGIN} from '../../../../lib/constants';
@@ -115,13 +116,9 @@ export default class index extends Component {
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
-                    <View style={[theme.screen_pad, theme.gap_3]}>
-                        <Image source={require('../../../../assets/icons/back_24px.png')} />
+                    <View style={[theme.screen_pad]}>
+                        <AuthenticationHeader text='Sign In' backFunction={() => this.props.navigation.goBack(null)}/>
                         <View style={[theme.margin_left_right_25]}>
-                            <View style={[theme.sign_up_header, theme.box_gap_more]}>
-                                <Text style={[theme.sign_up_header_text, theme.typo_bold]}>Sign In</Text>
-                                <Image source={require('../../../../assets/icons/Group.png')} />
-                            </View>
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
                                 <View style={[theme.input_margin_bottom]}>
