@@ -254,18 +254,4 @@ export default StyleSheet.create({
         marginLeft: 25,
         marginRight: 25
     },
-    sign_up_header: {
-        flex:1,flexDirection: 
-        'row',alignItems: 'flex-start', 
-        justifyContent: 'space-between',
-        marginBottom: 71,
-    },
-    sign_up_header_text: {
-        fontSize:20,
-        paddingBottom:10,
-        borderBottomColor: '#138516', 
-        borderBottomWidth: 4, 
-        width: 87, 
-        borderRadius:2
-    },
 });
