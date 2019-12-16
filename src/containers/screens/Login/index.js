@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
-import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
 import * as constants from '../../../../lib/constants';
@@ -43,7 +42,7 @@ export default class index extends Component {
     }
 
     loadData = async () => {
-        this.setState({username: (await AsyncStorage.getItem())});
+        console.log('load data')
     }
 
     changeState = (value) => {
@@ -73,6 +72,9 @@ export default class index extends Component {
     redirect = (_stage) => {
         if(_stage === "LOGGEDIN") {
           this.props.navigation.navigate('Dashboard');
+        }
+        else {
+            this.props.navigation.navigate('Register');
         }
     }
 

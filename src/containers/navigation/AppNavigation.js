@@ -5,15 +5,26 @@ import { createStackNavigator } from 'react-navigation-stack';
 import Login from '../screens/Login/index';
 import SignUpPage from '../screens/SignUp/index';
 import entryNavigation from '../screens/entryNavigation/index';
+import Onboarding from '../screens/Onboarding/index';
+import Walkthrough from '../screens/Walkthrough/index';
 
-const AppNavigation = createStackNavigator({
-    entryNavigation:entryNavigation,
+const loginNavigation = createStackNavigator({
+    Walkthrough: {screen: Walkthrough, navigationOptions: { header: null, tabBarVisible: false }},
+    Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
     Login: { screen: Login, navigationOptions: { header: null, tabBarVisible: false } },
-    SignUp: SignUpPage
+    SignUp: { screen: SignUpPage, navigationOptions: { header: null, tabBarVisible: false } },
   },
   {
-    initialRouteName:  'entryNavigation',
+    initialRouteName:  'Walkthrough',
   }
 );
 
-export default createAppContainer(AppNavigation);
+export default createAppContainer(createSwitchNavigator(
+    {
+      entryNavigation:entryNavigation,
+      loginNavigation: loginNavigation
+    },
+    {
+        initialRouteName: 'entryNavigation'
+    }
+));
