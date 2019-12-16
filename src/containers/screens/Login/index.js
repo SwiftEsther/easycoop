@@ -9,7 +9,7 @@ import API from '../../../../lib/api';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
-import Space from '../../../components/Space';
+import SignUp from '../../../containers/screens/SignUp/index';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import base64 from 'base-64';
@@ -48,6 +48,10 @@ export default class index extends Component {
 
     changeState = (value) => {
         this.setState(value);
+    }
+
+    _navigate = () => {
+        this.props.navigation.navigate('SignUp');
     }
 
     validate = async () => {
@@ -135,6 +139,7 @@ export default class index extends Component {
     }
 
     render() {
+        const {navigate} = this.props.navigation;
         return (
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
@@ -204,7 +209,7 @@ export default class index extends Component {
                                 >Forgot Password ?</Text>
                                 
                                 <BlackButton button_text='Sign In' handlePress= {this.validate}/>
-                                <ButtonLink button_text='Sign Up' extraStyles={theme.box_gap12} handlePress={() => console.log('Delete app')} />
+                                <ButtonLink button_text='Sign Up' extraStyles={theme.box_gap12} handlePress={this._navigate} />
                             </View>
                         </View>
                         

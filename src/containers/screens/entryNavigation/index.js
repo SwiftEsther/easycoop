@@ -15,7 +15,7 @@ export default class index extends Component {
   componentDidMount() {
     // this.createNotificationCount();
     setTimeout(() => {
-      this.loadData();
+      this.props.navigation.navigate('Login');
     }, 3000);
   }
 
@@ -31,27 +31,27 @@ export default class index extends Component {
     setGlobalState(constants.USER_DATA, "{}");
   }
 
-  loadData = async () => {
+  // loadData = async () => {
 
-    // let userData = JSON.parse(await AsyncStorage.getItem(constants.USER_DATA) || '{}');
-    // let status = "";
-    // let token = "";  if needed
+  //   // let userData = JSON.parse(await AsyncStorage.getItem(constants.USER_DATA) || '{}');
+  //   // let status = "";
+  //   // let token = "";  if needed
 
-    // if(status === "LOGGEDIN") {
-    //   if(token) {
-    //     this.props.navigation.navigate('homeNavigation');
-    //   }
-    //   else {
-    //     this.resetData();
-    //     Toast("Your session has expired. Login again.", "OK");
-    //     this.props.navigation.navigate('Login');
-    //   }
-    // }  
-    // else {
-    //   this.props.navigation.navigate('loginNavigation');
-    // }
-    this.props.navigation.navigate('loginNavigation');
-  };
+  //   // if(status === "LOGGEDIN") {
+  //   //   if(token) {
+  //   //     this.props.navigation.navigate('homeNavigation');
+  //   //   }
+  //   //   else {
+  //   //     this.resetData();
+  //   //     Toast("Your session has expired. Login again.", "OK");
+  //   //     this.props.navigation.navigate('Login');
+  //   //   }
+  //   // }  
+  //   // else {
+  //   //   this.props.navigation.navigate('loginNavigation');
+  //   // }
+  //   this.props.navigation.navigate('loginNavigation');
+  // };
 
   render() {
     return (
