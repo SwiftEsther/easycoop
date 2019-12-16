@@ -120,7 +120,7 @@ export default class index extends Component {
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.sign_up_header, theme.box_gap_more]}>
                                 <Text style={[theme.sign_up_header_text, theme.typo_bold]}>Sign In</Text>
-                                <Image source={require('../../../../assets/icons/Group.png')} />
+                                <Image style={{marginTop: -12}} source={require('../../../../assets/icons/Group.png')} />
                             </View>
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
