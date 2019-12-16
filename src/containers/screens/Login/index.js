@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
-import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
 import * as constants from '../../../../lib/constants';
@@ -43,7 +42,7 @@ export default class index extends Component {
     }
 
     loadData = async () => {
-        this.setState({username: (await AsyncStorage.getItem())});
+        console.log('load data')
     }
 
     changeState = (value) => {
@@ -73,6 +72,9 @@ export default class index extends Component {
     redirect = (_stage) => {
         if(_stage === "LOGGEDIN") {
           this.props.navigation.navigate('Dashboard');
+        }
+        else {
+            this.props.navigation.navigate('Register');
         }
     }
 
@@ -118,7 +120,7 @@ export default class index extends Component {
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.sign_up_header, theme.box_gap_more]}>
                                 <Text style={[theme.sign_up_header_text, theme.typo_bold]}>Sign In</Text>
-                                <Image style={{marginTop: -12}} source={require('../../../../assets/icons/Group.png')} />
+                                <Image source={require('../../../../assets/icons/Group.png')} />
                             </View>
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
