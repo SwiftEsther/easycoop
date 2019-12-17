@@ -20,7 +20,6 @@ export default class index extends Component {
         super(props);
 
         this.state = {
-            number: "",
             spinner: false,
             backgroundColor: '#fdfdfd',
             shadowColor: "#000",
@@ -35,50 +34,8 @@ export default class index extends Component {
         }
     }
 
-    componentDidMount() {
-        this.loadData();
-    }
-
-    loadData = async () => {
-       
-    }
-
     changeState = (value) => {
         this.setState(value);
-    }
-
-    redirect = (_stage) => {
-        
-    }
-
-    onFocus() {
-        this.setState({
-            backgroundColor: '#fff',
-            borderWidth: 0,
-            shadowColor: "#fdfdfd",
-            shadowOffset: {
-                width: 0,
-                height: 4,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-            elevation: 24
-        });
-    }
-
-    onBlur() {
-        this.setState({
-            backgroundColor: '#fdfdfd',
-            borderWidth: StyleSheet.hairlineWidth,
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 0,
-            },
-            shadowOpacity: 0,
-            shadowRadius: 0,
-            elevation: 0
-        })
     }
 
     render() {
@@ -93,7 +50,7 @@ export default class index extends Component {
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force number / AP Number</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.number} onChangeText={number => this.changeState({number:number.trim()})} onFocus={this.onFocus} maxLength={100} 
+                                    <CustomInput 
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
