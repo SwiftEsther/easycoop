@@ -7,7 +7,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignItems: 'stretch',
-        marginRight: 78,
-        marginLeft: 78,
+        marginRight: 70,
+        marginLeft: 70,
     }
 });

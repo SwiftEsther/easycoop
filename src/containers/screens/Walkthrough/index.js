@@ -82,7 +82,7 @@ export default class index extends Component {
               onSnapToItem={(index) => this.setState({ activeSlide: index })}
             />
             {this.pagination}
-            <TouchableOpacity activeOpacity={0.4} style={[theme.fill, {alignItems:'center'}]} onPress={this._navigate}>
+            <TouchableOpacity activeOpacity={0.4} style={[theme.fill, {alignItems: 'center', justifyContent:'flex-end'}]} onPress={this._navigate}>
               <Image source={require('../../../../assets/icons/White_arrow.png')}/>
           </TouchableOpacity> 
       </View>
