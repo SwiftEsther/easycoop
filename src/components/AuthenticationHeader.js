@@ -32,7 +32,7 @@ const style = StyleSheet.create({
     sign_up_header_text: {
         fontSize:30,
         paddingBottom:10,
-        width: 100
+        width: 250
     },
     fixed_up: {
         top: 0

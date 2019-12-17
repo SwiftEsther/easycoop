@@ -110,7 +110,6 @@ export default class index extends Component {
     }
 
     render() {
-        const {navigate} = this.props.navigation;
         return (
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
@@ -173,7 +172,7 @@ export default class index extends Component {
                                         theme.margin_top_bottom30
                                     ]
                                 }
-                                onPress= {() => console.log('Forgot Password clicked')}
+                                onPress= {() => this.props.navigation.navigate('ForgotPasswordPage')}
                                 >Forgot Password ?</Text>
                                 
                                 <BlackButton button_text='Sign In' handlePress= {this.validate}/>
