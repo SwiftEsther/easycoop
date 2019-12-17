@@ -122,9 +122,9 @@ export default class index extends Component {
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
-                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
-                                    /> 
+                                <CustomInput value={this.state.email} onChangeText={email => this.changeState({email: email.trim()})} onFocus={this.onFocus} maxLength={100} 
+                                    style={[theme.flex1, theme.caption, theme.typo_regular]} 
+                                /> 
                                 </View>
                                 <Text style={[theme.caption, theme.gap_2, theme.flex1, theme.padded_label]}>Password</Text>
                                 <View 
@@ -153,6 +153,7 @@ export default class index extends Component {
                                         onFocus={this.onFocus}
                                         onBlur={this.onBlur}
                                         maxLength={100} 
+                                        underlineColorAndroid={'transparent'}
                                         style={
                                             [
                                                 theme.flex1, 
