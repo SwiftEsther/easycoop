@@ -4,7 +4,7 @@ import theme from '../../assets/styles/globalStyles';
 import GreenLineSeparator from './GreenLineSeparator';
 
 const AuthenticationHeader = (props) => (
-    <View>
+    <View style={style.fixed_up}>
         <TouchableOpacity activeOpacity={0.4} onPress={props.backFunction}>
             <Image source={require('../../assets/icons/back_24px.png')} />
         </TouchableOpacity>
@@ -27,12 +27,15 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-start', 
         justifyContent: 'space-between',
-        marginBottom: 71,
+        marginBottom: 40,
     },
     sign_up_header_text: {
         fontSize:30,
         paddingBottom:10,
         width: 250
+    },
+    fixed_up: {
+        top: 0
     },
 })
 

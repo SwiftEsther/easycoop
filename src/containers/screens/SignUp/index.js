@@ -19,71 +19,18 @@ export default class index extends Component {
     constructor(props) {
         super(props);
 
-        this.onBlur = this.onBlur.bind(this);
-        this.onFocus = this.onFocus.bind(this);
-
         this.state = {
             action: '',
             spinner: false,
-            backgroundColor: '#fdfdfd',
-            shadowColor: "#000",
-            borderWidth: StyleSheet.hairlineWidth,
-            shadowOffset: {
-                width: 0,
-                height: 0,
-            },
-            shadowOpacity: 0,
-            shadowRadius: 0,
-            elevation: 0
+            firstName: '',
+            surname: '',
+            email: '',
+            phone: ''
         }
-    }
-
-    componentDidMount() {
-        this.loadData();
-    }
-
-    loadData = async () => {
-        this.setState({action: 'Next'});
     }
 
     changeState = (value) => {
         this.setState(value);
-    }
-
-    redirect = (_stage) => {
-        if(_stage === "LOGGEDIN") {
-          this.props.navigation.navigate('Dashboard');
-        }
-    }
-
-    onFocus() {
-        this.setState({
-            backgroundColor: '#fff',
-            borderWidth: 0,
-            shadowColor: "#fdfdfd",
-            shadowOffset: {
-                width: 0,
-                height: 4,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-            elevation: 24
-        });
-    }
-
-    onBlur() {
-        this.setState({
-            backgroundColor: '#fdfdfd',
-            borderWidth: StyleSheet.hairlineWidth,
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 0,
-            },
-            shadowOpacity: 0,
-            shadowRadius: 0,
-            elevation: 0
-        })
     }
 
     render() {
@@ -93,16 +40,37 @@ export default class index extends Component {
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
                     <View style={[theme.screen_pad]}>
-                            <AuthenticationHeader text='Sign Up'backFunction={() => this.props.navigation.goBack(null)} />
+                        <AuthenticationHeader text='Sign Up'backFunction={() => this.props.navigation.goBack(null)} />
                         <View style={[theme.margin_left_right_25]}>
-                            <View style={[theme.box_gap_more, theme.fill]}>
+                            <View style={[theme.fill]}>
+                                <View style={[style.buttons,theme.flex1]}>
+                                    <Text style={[style.link,style.primary, {backgroundColor: '#138516'}]} onPress={() => console.log('Personal Info')}>Personal Info</Text>
+                                    <Text style={[style.link,style.secondary, {backgroundColor: '#e8e7e7'}]} onPress={() => console.log('Force Info')}>Force Info</Text>
+                                </View>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>First Name</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
+                                    <CustomInput value={this.state.firstName} onChangeText={firstName=> this.changeState({firstName:firstName.trim()})}
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
-                                
+                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Surname</Text>
+                                <View style={[theme.input_margin_bottom]}>
+                                    <CustomInput value={this.state.surname} onChangeText={surname=> this.changeState({surname:surname.trim()})}
+                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
+                                    /> 
+                                </View> 
+                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Email Address</Text>
+                                <View style={[theme.input_margin_bottom]}>
+                                    <CustomInput value={this.state.email} onChangeText={email=> this.changeState({email:email.trim()})}
+                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
+                                    /> 
+                                </View> 
+                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Phone Number</Text>
+                                <View style={[theme.input_margin_bottom]}>
+                                    <CustomInput value={this.state.phone} onChangeText={phone=> this.changeState({phone:phone.trim()})}
+                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
+                                    /> 
+                                </View> 
                                 <BlackButton button_text="Next" handlePress= {() => console.log('Next clicked')}/>
                             </View>
                         </View>
@@ -113,3 +81,26 @@ export default class index extends Component {
         );
     }
 }
+
+const style = StyleSheet.create({
+    buttons: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start'
+    },
+    link: {
+        fontSize: 15,
+        ...systemWeights.bold,
+        paddingBottom: 16,
+        paddingTop: 16,
+        marginBottom: 28
+    },
+    primary: {
+        paddingRight: 38,
+        paddingLeft: 38,
+    },
+    secondary: {
+        paddingRight: 44,
+        paddingLeft: 44
+    }
+});
