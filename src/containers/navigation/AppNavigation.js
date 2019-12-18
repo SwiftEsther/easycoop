@@ -12,7 +12,6 @@ import AuthenticationPage from '../screens/Authentication/index';
 import ChangePasswordPage from '../screens/Settings/Change_Password/index';
 import SupportPage from '../screens/Support/index';
 
-
 const loginNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
     Login: { screen: Login, navigationOptions: { header: null, tabBarVisible: false } },
