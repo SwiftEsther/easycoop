@@ -5,7 +5,6 @@ import { systemWeights } from 'react-native-typography';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        overflow: 'hidden',
         backgroundColor: '#f4f6fa',
         position: 'relative'
     },
@@ -32,7 +31,7 @@ export default StyleSheet.create({
         borderBottomColor: '#737373',
         borderBottomWidth: 1,
     },
-    texttyles: {
+    textstyles: {
         ...systemWeights.bold,
         fontSize: 15
     },
@@ -44,7 +43,8 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
-        bottom: -150
+        position: 'absolute',
+        bottom: 0
     },
     link: {
         fontSize: 17,
@@ -54,7 +54,4 @@ export default StyleSheet.create({
         paddingBottom: 25,
         paddingTop: 25
     },
-    contents: {
-      marginTop: 60
-    }
 });

@@ -14,6 +14,7 @@ import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import base64 from 'base-64';
+import GreenLineSeparator from '../../../components/GreenLineSeparator';
 
 export default class index extends Component {
     constructor(props) {
@@ -38,15 +39,30 @@ export default class index extends Component {
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
-                    <View style={[theme.screen_pad]}>
-                        <AuthenticationHeader text='Sign Up'backFunction={() => this.props.navigation.goBack(null)} />
+                <View style={[style.headerContainer]}>
+                    <TouchableOpacity activeOpacity={0.4} onPress={() => this.props.navigation.goBack(null)}>
+                        <Image source={require('../../../../assets/icons/back_24px.png')} />
+                    </TouchableOpacity>
+                    <View style={[theme.margin_left_right_25, {marginTop: 10}]}>
+                        <View style={[style.sign_up_header, theme.box_gap_more, {marginRight: 30}]}>
+                            <View>
+                                <Text style={[style.sign_up_header_text, theme.typo_bold]}>Sign Up</Text>
+                                <GreenLineSeparator/>
+                            </View>
+                            
+                            <Image source={require('../../../../assets/icons/Group.png')}/>
+                        </View>
+                    </View>
+                </View>
+                        
+                <View style={[style.buttons, {justifyContent: 'center', marginTop: 40}]}>
+                    <Text style={[style.link,style.primary, {backgroundColor: '#138516'}]} onPress={() => console.log('Personal Info')}>Personal Info</Text>
+                    <Text style={[style.link,style.secondary, {backgroundColor: '#e8e7e7'}]} onPress={() => console.log('Force Info')}>Force Info</Text>
+                </View>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                    <View style={theme.padding_left_right_25}>
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.fill]}>
-                                <View style={[style.buttons,theme.flex1]}>
-                                    <Text style={[style.link,style.primary, {backgroundColor: '#138516'}]} onPress={() => console.log('Personal Info')}>Personal Info</Text>
-                                    <Text style={[style.link,style.secondary, {backgroundColor: '#e8e7e7'}]} onPress={() => console.log('Force Info')}>Force Info</Text>
-                                </View>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>First Name</Text>
                                 <View style={[theme.input_margin_bottom]}>
                                     <CustomInput value={this.state.firstName} onChangeText={firstName=> this.changeState({firstName:firstName.trim()})}
@@ -71,7 +87,10 @@ export default class index extends Component {
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
-                                <BlackButton button_text="Next" handlePress= {() => console.log('Next clicked')}/>
+                                <View>
+                                    <BlackButton button_text="Next" handlePress= {() => console.log('Next clicked')}/>
+                                </View>
+                                
                             </View>
                         </View>
                         
@@ -102,5 +121,21 @@ const style = StyleSheet.create({
     secondary: {
         paddingRight: 44,
         paddingLeft: 44
-    }
+    },
+    headerContainer: {
+        marginRight: 50,
+        marginLeft: 25,
+        marginTop: 25
+    },
+    sign_up_header: {
+        flex:1,
+        flexDirection: 'row',
+        alignItems: 'center', 
+        marginBottom: 40,
+    },
+    sign_up_header_text: {
+        fontSize:30,
+        paddingBottom:10,
+        width: 250
+    },
 });

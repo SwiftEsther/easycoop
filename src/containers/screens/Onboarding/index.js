@@ -13,7 +13,7 @@ export default class Onboarding extends Component {
         return (
             <View style={[style.container]} >
                 <StatusBar hidden />
-                <View >
+                <View style={[style.imageContainer]}>
                     <Circle />
                     <Image style={[style.imageStyles]} source={require('../../../../assets/images/onboarding.png')} />
                 </View>
@@ -25,7 +25,7 @@ export default class Onboarding extends Component {
                     </View>
                     <View style={[style.alignCenter]}>
                         <View style={style.separator} />
-                        <Text style={[style.texttyles]}>
+                        <Text style={[style.textstyles]}>
                             Poolcoop
                         </Text>
                     </View>

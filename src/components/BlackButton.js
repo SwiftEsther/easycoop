@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
         borderWidth: StyleSheet.hairlineWidth,
         textAlign: 'center',
         borderWidth: 0.8,  
+        marginTop: 10
     }
 })

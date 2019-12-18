@@ -254,4 +254,8 @@ export default StyleSheet.create({
         marginLeft: 25,
         marginRight: 25
     },
+    padding_left_right_25: {
+        paddingLeft: 25,
+        paddingRight: 25
+    },
 });

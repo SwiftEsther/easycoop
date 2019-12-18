@@ -45,14 +45,14 @@ export default class CustomInput extends BaseInput {
         this.setState({
             backgroundColor: '#fff',
             borderWidth: 0,
-            shadowColor: "#fdfdfd",
+            shadowColor: "rgba(141, 141, 141, 0.23)",
             shadowOffset: {
                 width: 0,
-                height: 4,
+                height: 3,
             },
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-            elevation: 24
+            shadowOpacity: 0.8,
+            shadowRadius: 30,
+            elevation: 1
         });
     }
 
@@ -96,7 +96,7 @@ export default class CustomInput extends BaseInput {
                     },
                     shadowOpacity: this.state.shadowOpacity,
                     shadowRadius: this.state.shadowRadius,
-                    elevation: this.state.elevation
+                    elevation: this.state.elevation,
                 },
                 ]}
                 onLayout={this._onLayout}
@@ -127,7 +127,6 @@ export default class CustomInput extends BaseInput {
 
 const styles = StyleSheet.create({
     container: {
-        overflow: 'hidden',
     },
     textInput: {
     },

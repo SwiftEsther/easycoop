@@ -7,8 +7,7 @@ export default StyleSheet.create({
         color: '#000',
         backgroundColor: '#fff',
         lineHeight: 27,
-        marginTop: -50,
-        marginBottom: 50
+        bottom: 10,
     },
     image: {
         alignItems: 'center',
@@ -16,6 +15,7 @@ export default StyleSheet.create({
         width: 340,
     },
     container: {
-        marginTop: 35
+        marginTop: 10,
+        justifyContent: 'space-between'
     }
 });
