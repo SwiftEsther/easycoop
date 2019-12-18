@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, Platform, StyleSheet } from 'react-native'
 import * as colors from '../../../../assets/styles/colors';
+
+const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     text: {
@@ -15,7 +18,9 @@ export default StyleSheet.create({
         width: 340,
     },
     container: {
-        marginTop: 10,
-        justifyContent: 'space-between'
+        // marginTop: 10,
+        justifyContent: 'space-between',
+        height: deviceHeight,
+        width: deviceWidth
     }
 });
