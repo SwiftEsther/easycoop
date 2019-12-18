@@ -21,7 +21,7 @@ export default class index extends Component {
 
         this.state = {
             spinner: false,
-            old_password: '',
+            oldPassword: '',
             newPassword: '',
             confirmPassword: ''
         }
@@ -32,7 +32,7 @@ export default class index extends Component {
     }
 
     changePassword = () => {
-        if (this.state.newPassword.length == 0 || this.state.old_password.length == 0 || this.state.confirmPassword.length == 0) {
+        if (this.state.newPassword.length == 0 || this.state.oldPassword.length == 0 || this.state.confirmPassword.length == 0) {
             return (
                 Alert.alert(
                     'Warning',
@@ -44,13 +44,13 @@ export default class index extends Component {
                 )
             );
         } else {
-            console.log(this.state.old_password, this.state.confirmPassword, this.state.newPassword);
+            console.log(this.state.oldPassword, this.state.confirmPassword, this.state.newPassword);
             try {
                 fetch(`${BASE_URL}${RESET_PASSWORD}`, {
                     method: 'POST',
                     body: {
                         confirmPassword: this.state.confirmPassword,
-                        oldPassword: this.state.old_password,
+                        oldPassword: this.state.oldPassword,
                         password: this.state.newPassword,
                     }
                 })
@@ -95,8 +95,8 @@ export default class index extends Component {
                             <View style={[theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Old Password</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.old_password}
-                                        onChangeText={old_password => this.changeState({old_password: old_password.trim()})}
+                                    <CustomInput value={this.state.oldPassword}
+                                        onChangeText={oldPassword => this.changeState({oldPassword: oldPassword.trim()})}
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
