@@ -5,7 +5,7 @@ import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {CHANGE_PASSWORD} from '../../../../lib/constants';
+import {RESET_PASSWORD} from '../../../../lib/constants';
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -52,7 +52,7 @@ export default class index extends Component {
                 )
             );
         } else {
-            const api = `${BASE_URL}${CHANGE_PASSWORD}`
+            const api = `${BASE_URL}${RESET_PASSWORD}`
             var url = new URL(api),
             params = {username: this.state.username}
             Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))

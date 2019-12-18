@@ -9,7 +9,7 @@ import Onboarding from '../screens/Onboarding/index';
 import Walkthrough from '../screens/Walkthrough/index';
 import ForgotPasswordPage from '../screens/ForgotPassword/index';
 import AuthenticationPage from '../screens/Authentication/index';
-import ChangePasswordPage from '../screens/Settings/Reset_Password/index';
+import ChangePasswordPage from '../screens/Settings/Change_Password/index';
 import SupportPage from '../screens/Support/index';
 
 const loginNavigation = createStackNavigator({

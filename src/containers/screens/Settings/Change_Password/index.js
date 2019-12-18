@@ -6,6 +6,7 @@ import * as colors from '../../../../../assets/styles/colors';
 import * as constants from '../../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import API from '../../../../../lib/api';
+import {RESET_PASSWORD} from '../../../../../lib/constants';
 import AuthenticationHeader from '../../../../components/AuthenticationHeader';
 import '../../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -13,25 +14,72 @@ import CustomInput from '../../../../components/CustomTextInput/CustomInput';
 import Space from '../../../../components/Space';
 import GreenButton from '../../../../components/GreenButton';
 import ButtonLink from '../../../../components/ButtonLink';
-import base64 from 'base-64';
 
 export default class index extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            action: '',
             spinner: false,
-            firstName: '',
-            surname: '',
-            email: '',
-            phone: ''
+            old_password: '',
+            newPassword: '',
+            confirmPassword: ''
         }
     }
 
     changeState = (value) => {
         this.setState(value);
     }
+
+    changePassword = () => {
+        if (this.state.newPassword.length == 0 || this.state.old_password.length == 0 || this.state.confirmPassword.length == 0) {
+            return (
+                Alert.alert(
+                    'Warning',
+                    'Fill every input',
+                    [
+                        {text: 'close', style: 'cancel'},
+                    ],
+                    { cancelable: false }
+                )
+            );
+        } else {
+            console.log(this.state.old_password, this.state.confirmPassword, this.state.newPassword);
+            try {
+                fetch(`${BASE_URL}${RESET_PASSWORD}`, {
+                    method: 'POST',
+                    body: {
+                        confirmPassword: this.state.confirmPassword,
+                        oldPassword: this.state.old_password,
+                        password: this.state.newPassword,
+                    }
+                })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    // get the response data from {responseJson} e.g responseJson.lastName
+                    console.log(responseJson)
+                    if (responseJson.errorcode != 200) {
+                        // failed
+                        return (
+                            Alert.alert(
+                                'Warning',
+                                'Wrong password or username',
+                                [
+                                    {text: 'close', style: 'cancel'},
+                                ],
+                                { cancelable: false }
+                            )
+                        );
+                    } else {
+                        // sucessful login
+                    }
+                })
+            } catch(err) {
+                
+            }
+        }
+    }
+
 
     render() {
         return (
@@ -47,7 +95,8 @@ export default class index extends Component {
                             <View style={[theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Old Password</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.oldPassword} onChangeText={oldPassword=> this.changeState({oldPassword:oldPassword.trim()})}
+                                    <CustomInput value={this.state.old_password}
+                                        onChangeText={old_password => this.changeState({old_password: old_password.trim()})}
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
@@ -63,7 +112,7 @@ export default class index extends Component {
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
-                                <GreenButton button_text="Rest Passwrd" handlePress= {() => console.log('reset clicked')}/>
+                                <GreenButton button_text="Rest Password" handlePress={this.changePassword}/>
                             </View>
                         </View>
                         
