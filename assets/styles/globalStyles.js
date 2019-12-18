@@ -24,7 +24,7 @@ export default StyleSheet.create({
     input_margin_bottom: {
         marginBottom: 20
     },
-    padded_label: {paddingBottom: 20},
+    padded_label: {paddingBottom: 10},
     image_icon: {
         margin: 10,
     },
@@ -236,6 +236,52 @@ export default StyleSheet.create({
     pad_bottom10: {
         marginBottom: 10,
     },
+    pad: {
+        padding: 11,
+    },
+    pad9: {
+        padding: 9,
+    },
+    pad6: {
+        padding: 6,
+    },
+    pad3: {
+        padding: 3,
+    },
+    pad2: {
+        padding: 2,
+    },
+    pad_mid: {
+        padding: 14,
+    },
+    pad_25: {
+        padding: 25,
+    },
+    pad_mid_top: {
+        padding: 14,
+        paddingTop: 17,
+    },
+    pad_top12: {
+        paddingTop: 12,
+    },
+    pad_top15: {
+        paddingTop: 15,
+    },
+    pad_top20: {
+        paddingTop: 20,
+    },
+    pad_top30: {
+        paddingTop: 30,
+    },
+    pad_top8: {
+        paddingTop: 8,
+    },
+    pad17: {
+        padding: 17,
+    },
+    padTop6: {
+        paddingTop: 6,
+    },
     row: {
         flexDirection : 'row',
         alignItems: 'center',
@@ -257,5 +303,39 @@ export default StyleSheet.create({
     padding_left_right_25: {
         paddingLeft: 25,
         paddingRight: 25
+    },
+    box: {
+      backgroundColor: '#e8e7e7',
+    },
+    pad_plus: {
+        padding: 14,
+        marginRight: 75,
+    },
+    pad_mini: {
+        padding: 8,
+    },
+    pad_mini4: {
+        padding: 4,
+    },
+    pad_mini6: {
+        padding: 6,
+    },
+    pad_wide: {
+        padding: 20,
+    },
+    pad_left: {
+        paddingLeft: 8,
+    },
+    pad_left_25: {
+        paddingLeft: 25,
+    },
+    tab_left_green_bg: {
+        backgroundColor: '#138516',
+    },
+    tab_right_green_bg: {
+        backgroundColor: '#138516'
+    },
+    light_border: {
+        borderColor: '#d0d0d0'
     },
 });

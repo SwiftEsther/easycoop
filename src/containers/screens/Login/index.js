@@ -9,7 +9,6 @@ import {LOGIN} from '../../../../lib/constants';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
-import SignUp from '../../../containers/screens/SignUp/index';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import base64 from 'base-64';
@@ -121,9 +120,9 @@ export default class index extends Component {
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                <CustomInput value={this.state.email} onChangeText={email => this.changeState({email: email.trim()})} onFocus={this.onFocus} maxLength={100} 
-                                    style={[theme.flex1, theme.caption, theme.typo_regular]} 
-                                /> 
+                                    <CustomInput value={this.state.email} onChangeText={email => this.changeState({email: email.trim()})} onFocus={this.onFocus} maxLength={100} 
+                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
+                                    /> 
                                 </View>
                                 <Text style={[theme.caption, theme.gap_2, theme.flex1, theme.padded_label]}>Password</Text>
                                 <View 
