@@ -5,7 +5,7 @@ import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import API from '../../../../lib/api';
+import {CHANGE_PASSWORD} from '../../../../lib/constants';
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -20,6 +20,7 @@ export default class index extends Component {
         super(props);
 
         this.state = {
+            username: "",
             spinner: false,
             backgroundColor: '#fdfdfd',
             shadowColor: "#000",
@@ -38,6 +39,36 @@ export default class index extends Component {
         this.setState(value);
     }
 
+    forgotPassword = () => {
+        if (this.state.username.length == 0) {
+            return(
+                Alert.alert(
+                    'Warning',
+                    'Fill input',
+                    [
+                      {text: 'close', style: 'cancel'},
+                    ],
+                    { cancelable: false }
+                )
+            );
+        } else {
+            const api = `${BASE_URL}${CHANGE_PASSWORD}`
+            var url = new URL(api),
+            params = {username: this.state.username}
+            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
+            try {
+                fetch(url)
+                .then((response) => response.json())
+                    .then((responseJson) => {
+                        // get the response data from {responseJson} e.g responseJson.lastName
+                        console.log(responseJson);
+                    })
+            } catch (err) {
+
+            }
+        }
+    }
+
     render() {
         return (
             <SafeAreaView style={[theme.container]}>
@@ -51,11 +82,12 @@ export default class index extends Component {
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force number / AP Number</Text>
                                 <View style={[theme.input_margin_bottom]}>
                                     <CustomInput 
+                                        value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})}
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
                                 <Text style={{textAlign: "center", color: "green", marginBottom: 60}} >validating number</Text>
-                                <BlackButton button_text="Recover Password" handlePress= {() => this.props.navigation.navigate('AuthenticationPage')}/>
+                                <BlackButton button_text="Recover Password" handlePress= {this.forgotPassword}/>
                             </View>
                         </View>
                         
