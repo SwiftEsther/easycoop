@@ -42,7 +42,6 @@ export default class index extends Component {
     }
 
     loadData = async () => {
-        console.log('load data')
     }
 
     changeState = (value) => {
@@ -54,18 +53,45 @@ export default class index extends Component {
     }
 
     validate = async () => {
+        if (this.state.username.length == 0 || this.state.password.length == 0) {
+            return(
+                Alert.alert(
+                    'Warning',
+                    'Fill every input',
+                    [
+                      {text: 'close', style: 'cancel'},
+                    ],
+                    { cancelable: false }
+                )
+            );
+        } else {
+            var headers = new Headers();
+            headers.append("Authorization", "Basic " + base64.encode(this.state.username+":"+this.state.password));
 
-        var headers = new Headers();
-        headers.append("Authorization", "Basic " + base64.encode(this.state.username+":"+this.state.password));
-
-        try {
-            fetch(`${BASE_URL}${LOGIN}`, {headers: headers})
-            .then((response) => response.json())
-            .then((responseJson) => {
-                // get the response data from {responseJson} e.g responseJson.lastName
-            })
-        } catch(err) {
-            
+            try {
+                fetch(`${BASE_URL}${LOGIN}`, {headers: headers})
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    // get the response data from {responseJson} e.g responseJson.lastName
+                    if (responseJson.errorcode != 200) {
+                        // failed
+                        return (
+                            Alert.alert(
+                                'Warning',
+                                'Wrong password or username',
+                                [
+                                  {text: 'close', style: 'cancel'},
+                                ],
+                                { cancelable: false }
+                            )
+                        );
+                    } else {
+                        // sucessful login
+                    }
+                })
+            } catch(err) {
+                
+            }
         }
     }
 
@@ -120,9 +146,9 @@ export default class index extends Component {
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.email} onChangeText={email => this.changeState({email: email.trim()})} onFocus={this.onFocus} maxLength={100} 
-                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
-                                    /> 
+                                <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
+                                    style={[theme.flex1, theme.caption, theme.typo_regular]} 
+                                /> 
                                 </View>
                                 <Text style={[theme.caption, theme.gap_2, theme.flex1, theme.padded_label]}>Password</Text>
                                 <View 

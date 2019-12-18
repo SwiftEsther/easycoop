@@ -9,6 +9,8 @@ import Onboarding from '../screens/Onboarding/index';
 import Walkthrough from '../screens/Walkthrough/index';
 import ForgotPasswordPage from '../screens/ForgotPassword/index';
 import AuthenticationPage from '../screens/Authentication/index';
+import ChangePasswordPage from '../screens/Settings/Change_Password/index';
+import SupportPage from '../screens/Support/index';
 
 
 const loginNavigation = createStackNavigator({
@@ -17,6 +19,8 @@ const loginNavigation = createStackNavigator({
     ForgotPasswordPage: { screen: ForgotPasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
     AuthenticationPage: { screen: AuthenticationPage, navigationOptions: { header: null, tabBarVisible: false } },
     SignUp: { screen: SignUp, navigationOptions: { header: null, tabBarVisible: false } },
+    ChangePasswordPage: { screen: ChangePasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
+    SupportPage: { screen: SupportPage, navigationOptions: { header: null, tabBarVisible: false } }
   },
   {
     initialRouteName:  'Onboarding',
