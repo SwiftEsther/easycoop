@@ -1,17 +1,22 @@
-import { StyleSheet } from 'react-native'
+import { Dimensions, Platform, StyleSheet } from 'react-native'
 import * as colors from '../../../../assets/styles/colors';
 import { systemWeights } from 'react-native-typography';
+
+const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f4f6fa',
-        position: 'relative'
+        position: 'relative',
+        height: deviceHeight,
+        width: deviceWidth
     },
     imageStyles: {
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        width: 424,
+        width: deviceWidth,
         left: 0,
         position: 'absolute',
         top: -240,
@@ -42,7 +47,7 @@ export default StyleSheet.create({
     buttons: {
         flexDirection: 'row',
         alignItems: 'flex-end',
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         position: 'absolute',
         bottom: 0
     },
