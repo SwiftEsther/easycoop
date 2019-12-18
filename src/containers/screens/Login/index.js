@@ -42,7 +42,6 @@ export default class index extends Component {
     }
 
     loadData = async () => {
-        console.log('load data')
     }
 
     changeState = (value) => {
@@ -66,7 +65,6 @@ export default class index extends Component {
                 )
             );
         } else {
-            console.log(this.state.username, this.state.password)
             var headers = new Headers();
             headers.append("Authorization", "Basic " + base64.encode(this.state.username+":"+this.state.password));
 

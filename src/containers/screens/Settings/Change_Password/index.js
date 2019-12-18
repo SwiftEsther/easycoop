@@ -44,7 +44,6 @@ export default class index extends Component {
                 )
             );
         } else {
-            console.log(this.state.oldPassword, this.state.confirmPassword, this.state.newPassword);
             try {
                 fetch(`${BASE_URL}${RESET_PASSWORD}`, {
                     method: 'POST',
@@ -57,13 +56,12 @@ export default class index extends Component {
                 .then((response) => response.json())
                 .then((responseJson) => {
                     // get the response data from {responseJson} e.g responseJson.lastName
-                    console.log(responseJson)
                     if (responseJson.errorcode != 200) {
                         // failed
                         return (
                             Alert.alert(
                                 'Warning',
-                                'Wrong password or username',
+                                'An error occured',
                                 [
                                     {text: 'close', style: 'cancel'},
                                 ],
