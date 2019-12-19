@@ -1,6 +1,7 @@
 import { Dimensions, Platform, StyleSheet } from 'react-native'
 import * as colors from '../../../../assets/styles/colors';
 import { systemWeights } from 'react-native-typography';
+import { scale } from '../../../helpers/scale';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
@@ -11,28 +12,29 @@ export default StyleSheet.create({
         backgroundColor: '#f4f6fa',
         position: 'relative',
         height: deviceHeight,
-        width: deviceWidth
+        width: deviceWidth,
+        justifyContent: 'space-between'
+    },
+    imageContainer: {
+        alignItems: 'center',
+        flex: 7
     },
     imageStyles: {
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        width: deviceWidth,
-        left: 0,
+        width: scale(deviceWidth),
         position: 'absolute',
-        top: -240,
-        resizeMode: 'cover'
+        top: scale(-210),
     },
     iconGroup: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginRight: 140,
-        marginLeft: 140
+        marginRight: scale(140),
+        marginLeft: scale(140)
     },
     separator: {
-        width: 80,
-        marginTop: 23.5,
-        marginBottom: 23.5,
+        width: scale(80),
+        marginTop: scale(10),
+        marginBottom: scale(10),
         borderBottomColor: '#737373',
         borderBottomWidth: 1,
     },
@@ -48,14 +50,17 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'center',
-        position: 'absolute',
-        bottom: 0
+        alignSelf: 'stretch',
+        flex: 1
     },
     link: {
         ...systemWeights.bold,
-        paddingRight: 80,
-        paddingLeft: 80,
-        paddingBottom: 25,
-        paddingTop: 25
+        paddingRight: scale(75),
+        paddingLeft: scale(75),
+        paddingBottom: scale(20),
+        paddingTop: scale(20)
     },
+    contents: {
+        flex: 1
+    }
 });
