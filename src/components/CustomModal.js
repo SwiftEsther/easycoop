@@ -1,7 +1,7 @@
 /*Example of Bottom Sheet (Material Design)*/
 import React, { Component } from 'react';
 //import react in our project
-import { StyleSheet, View, Platform, Text, Button, Image } from 'react-native';
+import { StyleSheet, View, Platform, Text, Button, Image, Dimensions } from 'react-native';
 //import basic react native components
 import { BottomSheet } from 'react-native-btr';
 //import for the bottom sheet
@@ -14,7 +14,7 @@ export default class CustomModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: true,
+      visible: true
     };
   }
   

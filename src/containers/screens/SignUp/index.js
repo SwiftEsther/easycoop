@@ -25,22 +25,53 @@ export default class index extends Component {
         super(props);
 
         this.state = {
-            action: '',
             spinner: false,
             selected: "1",
             showProfileInfo: true,
             showForceInfo: false,
-            policeIdType: '',
             policeId: '',
             rank: '',
             payPoint: '',
             id: '',
+            surname: '',
+            phone: '',
+            email: '',
+            firstName: '',
             showTC: false
         }
     }
 
     changeState = (value) => {
         this.setState(value);
+    }
+
+    signUp = () => {
+        const isValid = this.validate();
+        if (isValid) {
+            this.setState({showTC: true})
+        } else {
+            return(
+                Alert.alert(
+                    'Warning',
+                    'Fill every input',
+                    [
+                      {text: 'close', style: 'cancel'},
+                    ],
+                    { cancelable: false }
+                )
+            );
+        }
+    }
+
+    validate = () => {
+        const fields = [this.state.email, this.state.firstName, this.state.payPoint, this.state.phone, this.state.surname, this.state.id, this.state.rank, this.state.policeId];
+        console.log(fields)
+        for (let i = 0; i < fields.length; i++) {
+            if (fields[i].length == 0) {
+                return false;
+            }
+        }
+        return true
     }
 
     // _toggleView = () => {
@@ -93,7 +124,7 @@ export default class index extends Component {
                                 </View> 
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop:20}]}>Police ID</Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.phone} keyboardType="number-pad" onChangeText={phone=> this.changeState({phone:phone.trim()})}
+                                    <CustomInput value={this.state.policeId} keyboardType="number-pad" onChangeText={policeId=> this.changeState({policeId:policeId.trim()})}
                                         style={[theme.flex1, theme.caption, theme.typo_regular, {borderColor: '#d0d0d0'}]} 
                                     /> 
                                 </View> 
@@ -122,7 +153,7 @@ export default class index extends Component {
                                 </View>
                                 
                                 <View style={style.button}>
-                                    <BlackButton button_text="Sign Up" handlePress= {() => this.setState({showTC: true})}/>
+                                    <BlackButton button_text="Sign Up" handlePress={this.signUp}/>
                                 </View>
                                 
                             </View>
