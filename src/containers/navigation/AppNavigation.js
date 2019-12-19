@@ -11,6 +11,7 @@ import ForgotPasswordPage from '../screens/ForgotPassword/index';
 import AuthenticationPage from '../screens/Authentication/index';
 import ChangePasswordPage from '../screens/Settings/Change_Password/index';
 import SupportPage from '../screens/Support/index';
+import LoanPage from '../screens/Loan/index';
 
 const loginNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
@@ -19,7 +20,8 @@ const loginNavigation = createStackNavigator({
     AuthenticationPage: { screen: AuthenticationPage, navigationOptions: { header: null, tabBarVisible: false } },
     SignUp: { screen: SignUp, navigationOptions: { header: null, tabBarVisible: false } },
     ChangePasswordPage: { screen: ChangePasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
-    SupportPage: { screen: SupportPage, navigationOptions: { header: null, tabBarVisible: false } }
+    SupportPage: { screen: SupportPage, navigationOptions: { header: null, tabBarVisible: false } },
+    LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } }
   },
   {
     initialRouteName:  'Onboarding',

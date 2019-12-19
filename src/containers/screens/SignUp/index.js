@@ -5,7 +5,7 @@ import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../../assets/styles/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import API from '../../../../lib/api';
+import {SIGN_UP} from '../../../../lib/constants';
 import style from './style';
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import '../../../../lib/helpers';
@@ -49,6 +49,27 @@ export default class index extends Component {
         const isValid = this.validate();
         if (isValid) {
             this.setState({showTC: true})
+            try {
+                fetch(`${BASE_URL}${SIGN_UP}`, {
+                    method: 'POST',
+                    body: {
+                        policeId: this.state.policeId,
+                        rank: this.state.rank,
+                        payPoint: this.state.payPoint,
+                        id: this.state.id,
+                        surname: this.state.surname,
+                        phone: this.state.phone,
+                        email: this.state.email,
+                        firstName: this.state.firstName
+                    }
+                })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    console.log(responseJson)
+                });
+            } catch(err) {
+
+            }
         } else {
             return(
                 Alert.alert(
