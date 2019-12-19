@@ -1,5 +1,6 @@
 import { StyleSheet, Platform } from 'react-native';
 import { systemWeights } from 'react-native-typography';
+import {scale} from '../../src/helpers/scale';
 
 export default StyleSheet.create({
     container: {
@@ -15,8 +16,8 @@ export default StyleSheet.create({
         height: 50,
     },
     intro_logo: {
-        width: 258, 
-        height: 145, 
+        width: scale(258), 
+        height: scale(145), 
     },
     input:  {
         flexDirection: "column",

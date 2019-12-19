@@ -6,8 +6,5 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'stretch',
-        marginRight: 70,
-        marginLeft: 70,
     }
 });

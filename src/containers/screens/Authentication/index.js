@@ -12,6 +12,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
+import SuccessModal from '../../../components/SuccessModal';
 import ButtonLink from '../../../components/ButtonLink';
 import base64 from 'base-64';
 
@@ -30,13 +31,16 @@ export default class index extends Component {
             },
             shadowOpacity: 0,
             shadowRadius: 0,
-            elevation: 0
+            elevation: 0,
+            success: false
         }
     }
 
     componentDidMount() {
         this.loadData();
     }
+
+    showSuccessModal=()=>this.setState({success: !this.state.success})
 
     loadData = async () => {
        
@@ -94,12 +98,15 @@ export default class index extends Component {
                                     <Text style={{textAlign: "center", color: "green", marginBottom: 60, flexWrap: "wrap"}} >vA textasdbaksbd asdfkhbasfkj sdkfhbaskfbskjbfdasdfh
                                     sdfjhabsdfjkasvdhjbfaksjdhfabsvdmnf </Text>
                                 </View>
-                                <BlackButton button_text="Send Password" handlePress= {() => console.log('send clicked')}/>
+                                <BlackButton button_text="Send Password"  handlePress={()=>this.setState({success: !this.state.success})}/>
                             </View>
                         </View>
                         
                     </View>
                 </KeyboardAwareScrollView>
+                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} 
+                    subtitle="Recovery Password Sent"
+                    message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
             </SafeAreaView>
         );
     }
