@@ -52,7 +52,6 @@ export default StyleSheet.create({
         bottom: 0
     },
     link: {
-        fontSize: 17,
         ...systemWeights.bold,
         paddingRight: 80,
         paddingLeft: 80,

@@ -22,7 +22,7 @@ export default class GreenButton extends Component {
 
 const styles = StyleSheet.create({
     defaultButton: {
-        fontSize: 17,
+
         padding: 18,
         color: '#fff',
         borderRadius:3,
