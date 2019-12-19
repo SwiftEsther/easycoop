@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Platform, Text, Image } from 'react-native';
+import { StyleSheet, View, Platform, Text, Button, Image, Dimensions } from 'react-native';
 import { BottomSheet } from 'react-native-btr';
 import theme from '../../assets/styles/globalStyles';
 import GreenButton from '../components/GreenButton';
@@ -18,13 +18,13 @@ const CustomModal = (props) =>(
             <Image source={require('../../assets/icons/take_a_note_2.png')} style={[theme.pad_bottom20]}/>
             <Text style={[theme.typo_bold, theme.font15, theme.pad_bottom]}>Terms and Conditions</Text>
             <Text style={[theme.typo_regular, theme.margin_left_right_25, theme.pad9, {textAlign: 'center', fontSize: 14}]}>
-            Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:
+              Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:
             </Text>
             <View style={{marginBottom: 40, marginTop: 40, bottom:0}}>
-                <GreenButton button_text='I Accept Terms &amp; Conditions'onClick={props.handleClick}/>
+              <GreenButton button_text='I Accept Terms &amp; Conditions'onClick={props.handleClick}/>
             </View>
-            </View>
-        </View>
+          </View>
+      </View>
     </BottomSheet>
   </View>
 );
