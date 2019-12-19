@@ -14,10 +14,12 @@ const SuccessModal = (props) =>(
       onBackdropPress={props._toggleView}
     >
       <View style={styles.bottomNavigationView}>
-          <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView}/>
+          {props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.bareIcon]} handlePress={props._toggleView}/>}
+          {!props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView}/>}
           <View style={[theme.center, theme.padding_left_right_25]}>
             <Image source={require('../../assets/icons/check_circle.png')} style={[theme.pad_bottom30]}/>
-            <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(14), lineHeight: 20}]}>
+            {props.subtitle && <Text style={[theme.typo_bold, theme.font15, theme.pad_bottom]}>{props.subtitle}</Text>}
+            <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(14)}]}>
               {props.message}
             </Text>
           </View>
@@ -44,12 +46,21 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-  icon: {
+  bareIcon: {
     color: '#138516', 
     borderRadius:50, 
     fontSize: scale(25), 
     padding:scale(6), 
-    top: -150,
+    top: -200,
+    right:0, 
+    position: 'absolute'
+  },
+  icon: {
+    backgroundColor: '#fff', 
+    borderRadius:50, 
+    fontSize: scale(25), 
+    padding:scale(6), 
+    top: -200,
     right:0, 
     position: 'absolute'
   },

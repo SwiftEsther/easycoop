@@ -87,7 +87,7 @@ export default class index extends Component {
                                     /> 
                                 </View> 
                                 <Text style={{textAlign: "center", color: "green", marginBottom: 60}} >validating number</Text>
-                                <BlackButton button_text="Recover Password" handlePress= {this.forgotPassword}/>
+                                <BlackButton button_text="Recover Password" handlePress= {()=> this.props.navigation.navigate('AuthenticationPage')}/>
                             </View>
                         </View>
                         

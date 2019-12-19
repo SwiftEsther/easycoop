@@ -204,7 +204,8 @@ export default class index extends Component {
                     }
                 </KeyboardAwareScrollView>
                 <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})} handleClick={()=>this.setState({success: !this.state.success})}/>
-                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
+                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} bare={true}
+                    message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
             </SafeAreaView>
         );
     }
