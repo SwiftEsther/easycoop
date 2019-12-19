@@ -12,7 +12,8 @@ export default class Tabs extends Component {
 
    render() {
       return (
-       <View style={[style.buttons, {justifyContent: 'center', marginTop: 40}]}>
+       <View>
+           <View style={[style.buttons, {justifyContent: 'center', marginTop: 40, display:this.props.buttonTabStyle}]}>
            <View>
                <Text style={[style.link,style.primary,(this.props.selected === "1" && {backgroundColor: '#138516'})]} onPress={this.props.tab1Event}>Personal Info</Text>
            </View>
@@ -20,6 +21,15 @@ export default class Tabs extends Component {
                 <Text style={[style.link,style.secondary, (this.props.selected === "2" && {backgroundColor: '#138516'})]} onPress={this.props.tab2Event}>Force Info</Text>
             </View>
         </View>
+        <View style={[this.props.tabStyle , {justifyContent: 'center', marginTop: 40, display: (this.props.buttonTabStyle == "none") ? "flex" : "none"}]}>
+            <View>
+                <Text style={[style.link, style.primary,(this.props.selected === "1" && this.props.leftTabStyle)]} onPress={this.props.tab1Event}>Loan</Text>
+            </View>
+            <View>
+                <Text style={[style.link,style.secondary, (this.props.selected === "2" && this.props.rightTabStyle)]} onPress={this.props.tab2Event}>Guarantor request</Text>
+            </View>
+        </View>
+       </View>
       )
    }
 }
