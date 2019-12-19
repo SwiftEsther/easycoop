@@ -2,7 +2,6 @@
   "expo": {
     "name": "easycoop",
     "slug": "easycoop",
-    "privacy": "private",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",

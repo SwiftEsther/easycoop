@@ -18,6 +18,7 @@ import base64 from 'base-64';
 import GreenLineSeparator from '../../../components/GreenLineSeparator';
 import Tabs from '../../../components/Tabs';
 import CustomModal from '../../../components/CustomModal';
+import SuccessModal from '../../../components/SuccessModal';
 
 
 export default class index extends Component {
@@ -37,13 +38,16 @@ export default class index extends Component {
             phone: '',
             email: '',
             firstName: '',
-            showTC: false
+            showTC: false,
+            success: false
         }
     }
 
     changeState = (value) => {
         this.setState(value);
     }
+
+    showSuccessModal=()=>this.setState({success: !this.state.success})
 
     signUp = () => {
         const isValid = this.validate();
@@ -199,7 +203,8 @@ export default class index extends Component {
                     </View>
                     }
                 </KeyboardAwareScrollView>
-                <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})} handleClick={()=>console.log('confirm')}/>
+                <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})} handleClick={()=>this.setState({success: !this.state.success})}/>
+                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
             </SafeAreaView>
         );
     }
