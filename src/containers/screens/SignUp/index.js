@@ -168,7 +168,7 @@ export default class index extends Component {
                     </View>
                     }
                 </KeyboardAwareScrollView>
-                <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})}/>
+                <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})} handleClick={()=>console.log('confirm')}/>
             </SafeAreaView>
         );
     }
