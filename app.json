@@ -2,7 +2,7 @@
   "expo": {
     "name": "easycoop",
     "slug": "easycoop",
-    "privacy": "public",
+    "privacy": "private",
     "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
@@ -22,7 +22,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "com.africaprudential.easycoop"
+    },
+    "android": {
+      "package": "com.africaprudential.easycoop"
     },
     "description": ""
   }

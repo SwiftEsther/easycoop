@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, TouchableOpacity, StatusBar, Modal, StyleSheet, ImageBackground, Text, View} from 'react-native';
+import {Image, TouchableOpacity, StatusBar, Modal, StyleSheet, ImageBackground, Text, View, ScrollView} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import { Icon } from 'react-native-elements';
 import Swiper from 'react-native-swiper';
@@ -7,6 +7,7 @@ import style from './style';
 import theme from '../../../../assets/styles/globalStyles';
 import * as constants from '../../../../lib/constants';
 import { systemWeights } from 'react-native-typography';
+import {scale} from '../../../helpers/scale';
 
 export default class index extends Component {
 
@@ -39,9 +40,9 @@ export default class index extends Component {
   }
   _renderItem = ({item, index}) => {
     return (
-        <View>
+        <View style={{alignItems: 'center', flexDirection: 'column', justifyContent:'center'}}>
             <Image style={[style.image]} source={item.imageUrl}/>
-            <Text style={[theme.textCenter,theme.typo_bold, style.text]}>{item.text}</Text>
+            <Text style={[theme.typo_bold, style.text]}>{item.text}</Text>
         </View>
     );
   }
@@ -53,16 +54,15 @@ export default class index extends Component {
           dotsLength={entries.length}
           activeDotIndex={activeSlide}
           dotStyle={{
-              width: 10,
-              height: 10,
-              borderRadius: 5,
-              marginHorizontal: 0,
-              backgroundColor: '#138516'
+              width: scale(10),
+              height: scale(10),
+              borderRadius: scale(5),
+              backgroundColor: '#138516',
           }}
           inactiveDotStyle={{
             backgroundColor: '#e3e3e3'
           }}
-          inactiveDotScale={0.6}
+          inactiveDotScale={scale(0.6)}
         />
     );
   }
@@ -72,18 +72,22 @@ export default class index extends Component {
  
     return (  
         <View style={[style.container]}>
-          <Carousel
+          <View style={{ top: scale(-45)}}>
+            <Carousel
               ref={(c) => { this._carousel = c; }}
               data={this.state.entries}
               renderItem={this._renderItem}
-              sliderWidth={410}
-              itemWidth={340}
+              sliderWidth={scale(360)}
+              itemWidth={scale(299)}
               autoplay={true}
               onSnapToItem={(index) => this.setState({ activeSlide: index })}
             />
-            {this.pagination}
-            <TouchableOpacity activeOpacity={0.4} style={[theme.fill, {alignItems: 'center', justifyContent:'flex-end'}]} onPress={this._navigate}>
-              <Image source={require('../../../../assets/icons/White_arrow.png')}/>
+          </View>
+            <View style={style.pagination}>
+              {this.pagination}
+            </View>
+            <TouchableOpacity activeOpacity={0.4} style={[theme.fill, style.arrow_btn]} onPress={this._navigate}>
+              <Image source={require('../../../../assets/icons/White_arrow.png')} style={{height: scale(100), width: scale(120)}}/>
           </TouchableOpacity> 
       </View>
     );

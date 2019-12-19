@@ -1,26 +1,41 @@
 import { Dimensions, Platform, StyleSheet } from 'react-native'
 import * as colors from '../../../../assets/styles/colors';
+import { scale } from '../../../helpers/scale';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     text: {
-        fontSize: 20,
+        fontSize: scale(20),
         color: '#000',
-        backgroundColor: '#fff',
-        lineHeight: 27,
-        bottom: 10,
+        lineHeight: scale(27),
+        marginTop: scale(-65),
+        paddingVertical: scale(5),
+        marginBottom: scale(50),
     },
     image: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 340,
+        width: scale(299),
+        height: scale(525),
     },
     container: {
-        // marginTop: 10,
-        justifyContent: 'space-between',
-        height: deviceHeight,
-        width: deviceWidth
+        width: scale(deviceWidth),
+        height: scale(deviceHeight),
+        justifyContent: 'center',
+        flex: 1,
+    },
+    arrow_btn:{
+        alignItems: 'center', 
+        flex: 2,
+        position: 'absolute',
+        bottom: scale(-5),
+        left: scale(120),
+    },
+    pagination: {
+        flex: 1,
+        alignSelf: 'stretch',
+        position: 'absolute',
+        bottom: scale(70),
+        left: scale(125)
     }
 });
