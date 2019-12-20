@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Withdraw from '../../screens/Withdraw/index';
 import Header from '../../../components/Header';
 import SuccessModal from '../../../components/SuccessModal';
+import FailureModal from '../../../components/FailureModal';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Contributions from '../../screens/Contribution/index';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -17,7 +18,9 @@ export default class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showContributionsBalance: false
+            showContributionsBalance: false,
+            requestSuccess: false,
+            failure: false
         }
     }
 
@@ -27,7 +30,9 @@ export default class index extends Component {
     //     message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
     // )
 
-    showSuccessModal=()=>this.setState({showContributionsBalance: !this.state.showContributionsBalance})
+    showContributionsBal=()=>this.setState({showContributionsBalance: !this.state.showContributionsBalance})
+    showRequestSuccess=()=>this.setState({requestSuccess: !this.state.requestSuccess})
+    showFailureModal=()=>this.setState({failure: !this.state.failure})
 
     render() {
         const deviceHeight = Dimensions.get('window').height;
@@ -43,7 +48,7 @@ export default class index extends Component {
                                 <View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
-                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.setState({showContributionsBalance: !this.state.showContributionsBalance})}>
+                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.setState({failure: !this.state.failure})}>
                                             <View style={[styles.card]}>
                                                 <Image style={[]} source={require('../../../../assets/icons/wallet.png')} />
 
@@ -80,9 +85,15 @@ export default class index extends Component {
                                 </View>
                             </View>
                         </KeyboardAwareScrollView>
-                        <Contributions visible={this.state.showContributionsBalance} _toggleView={this.showSuccessModal} 
+                        {/* <Contributions visible={this.state.showContributionsBalance} _toggleView={this.showSuccessModal} 
                             subtitle="Recovery Password Sent"
-                            message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
+                            message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/> */}
+                            {/* <SuccessModal visible={this.state.requestSuccess} _toggleView={this.showRequestSuccess} 
+                                subtitle="Request Submitted Successfully"
+                                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
+                            <FailureModal visible={this.state.failure} _toggleView={this.showFailureModal} 
+                                subtitle="Request Submission Failed"
+                                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
                     </View>
                     <Header />
                     {/* <Withdraw visible={this.state.withdraw} _toggleView={()=>this.setState({withdraw: !this.state.withdraw})}/> */}
