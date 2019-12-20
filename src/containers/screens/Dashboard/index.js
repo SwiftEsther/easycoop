@@ -13,6 +13,7 @@ import FailureModal from '../../../components/FailureModal';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Contributions from '../../screens/Contribution/index';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import DeleteModal from '../../../components/DeleteModal';
 
 export default class index extends Component {
     constructor(props) {
@@ -91,8 +92,10 @@ export default class index extends Component {
                             {/* <SuccessModal visible={this.state.requestSuccess} _toggleView={this.showRequestSuccess} 
                                 subtitle="Request Submitted Successfully"
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
-                            <FailureModal visible={this.state.failure} _toggleView={this.showFailureModal} 
+                            {/* <FailureModal visible={this.state.failure} _toggleView={this.showFailureModal} 
                                 subtitle="Request Submission Failed"
+                                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
+                            <DeleteModal visible={this.state.failure} _toggleView={this.showFailureModal} 
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
                     </View>
                     <Header />
