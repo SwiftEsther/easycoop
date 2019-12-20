@@ -10,14 +10,14 @@ import Withdraw from '../../screens/Withdraw/index';
 import Header from '../../../components/Header';
 import SuccessModal from '../../../components/SuccessModal';
 import BottomSheet from 'reanimated-bottom-sheet';
-import Contributions from '../../screens/Contribution/ContributionsBalance';
+import Contributions from '../../screens/Contribution/index';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export default class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            success: false
+            showContributionsBalance: false
         }
     }
 
@@ -27,7 +27,7 @@ export default class index extends Component {
     //     message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
     // )
 
-    showSuccessModal=()=>this.setState({success: !this.state.success})
+    showSuccessModal=()=>this.setState({showContributionsBalance: !this.state.showContributionsBalance})
 
     render() {
         const deviceHeight = Dimensions.get('window').height;
@@ -43,7 +43,7 @@ export default class index extends Component {
                                 <View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
-                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.setState({success: !this.state.success})}>
+                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.setState({showContributionsBalance: !this.state.showContributionsBalance})}>
                                             <View style={[styles.card]}>
                                                 <Image style={[]} source={require('../../../../assets/icons/wallet.png')} />
 
@@ -80,9 +80,9 @@ export default class index extends Component {
                                 </View>
                             </View>
                         </KeyboardAwareScrollView>
-                    <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} 
-                        subtitle="Recovery Password Sent"
-                        message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
+                        <Contributions visible={this.state.showContributionsBalance} _toggleView={this.showSuccessModal} 
+                            subtitle="Recovery Password Sent"
+                            message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
                     </View>
                     <Header />
                     {/* <Withdraw visible={this.state.withdraw} _toggleView={()=>this.setState({withdraw: !this.state.withdraw})}/> */}
