@@ -15,18 +15,18 @@ export default class Tabs extends Component {
        <View>
            <View style={[style.buttons, {justifyContent: 'center', marginTop: 40, display:this.props.buttonTabStyle}]}>
            <View>
-               <Text style={[style.link,style.primary,(this.props.selected === "1" && {backgroundColor: '#138516'})]} onPress={this.props.tab1Event}>Personal Info</Text>
+      <Text style={[style.link,style.primary,(this.props.selected === "1" && {backgroundColor: '#138516'})]} onPress={this.props.tab1Event}>{this.props.tab1Text}</Text>
            </View>
             <View>
-                <Text style={[style.link,style.secondary, (this.props.selected === "2" && {backgroundColor: '#138516'})]} onPress={this.props.tab2Event}>Force Info</Text>
+                <Text style={[style.link,style.secondary, (this.props.selected === "2" && {backgroundColor: '#138516'})]} onPress={this.props.tab2Event}>{this.props.tab2Text}</Text>
             </View>
         </View>
         <View style={[this.props.tabStyle , {justifyContent: 'center', marginTop: 40, display: (this.props.buttonTabStyle == "none") ? "flex" : "none"}]}>
             <View>
-                <Text style={[style.link, style.primary,(this.props.selected === "1" && this.props.leftTabStyle)]} onPress={this.props.tab1Event}>Loan</Text>
+                <Text style={[style.link, style.primary,(this.props.selected === "1" && this.props.leftTabStyle)]} onPress={this.props.tab1Event}>{this.props.tab1Text}</Text>
             </View>
             <View>
-                <Text style={[style.link,style.secondary, (this.props.selected === "2" && this.props.rightTabStyle)]} onPress={this.props.tab2Event}>Guarantor request</Text>
+                <Text style={[style.link,style.secondary, (this.props.selected === "2" && this.props.rightTabStyle)]} onPress={this.props.tab2Event}>{this.props.tab2Text}</Text>
             </View>
         </View>
        </View>

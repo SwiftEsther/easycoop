@@ -31,7 +31,7 @@ export default class Onboarding extends Component {
                     </View>
                 </View>
                 <View style={[style.buttons]}>
-                    <Text style={[style.link, {backgroundColor: '#fff'}]} onPress={() => this.props.navigation.navigate('SignUp')}>Sign Up</Text>
+                    <Text style={[style.link, {backgroundColor: '#fff'}]} onPress={() => this.props.navigation.navigate('LoanPage')}>Sign Up</Text>
                     <Text style={[style.link, {backgroundColor: '#138516'}]} onPress={() => this.props.navigation.navigate('Login')}>Sign In</Text>
                 </View>
             </View>

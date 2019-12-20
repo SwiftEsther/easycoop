@@ -17,7 +17,7 @@ import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import GreenLineSeparator from '../../../components/GreenLineSeparator';
 import Tabs from '../../../components/Tabs';
-import CustomModal from '../../../components/CustomModal';
+import ApplyLoanModal from '../../../components/ApplyLoanModal';
 
 
 export default class index extends Component {
@@ -30,13 +30,16 @@ export default class index extends Component {
             selected: "1",
             showProfileInfo: true,
             showForceInfo: false,
-            showTC: false
+            showTC: false,
+            success: false
         }
     }
 
     changeState = (value) => {
         this.setState(value);
     }
+
+    showSuccessModal=()=>this.setState({success: !this.state.success})
 
     render() {
        return (
@@ -45,7 +48,7 @@ export default class index extends Component {
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
 
                 <Tabs buttonTabStyle={this.state.buttonStyle} tabStyle={design.tabStyle} leftTabStyle={design.leftTabStyle}
-                  tab1Text="Profile Info" tab2Text="Force Info" selected={this.state.selected}
+                  tab1Text="Loan" tab2Text="Gurantor request" selected={this.state.selected}
                   tab1Event={() => this.setState({showForceInfo: false, selected: "1", showProfileInfo:true})} 
                   tab2Event={() => this.setState({ showProfileInfo: false, selected: "2", showForceInfo: true})} />
                     
@@ -76,14 +79,16 @@ export default class index extends Component {
                         </View>
 
                         <View>
-                            <ApplyLoan/>
+                            <ApplyLoan applyLoan={()=>this.setState({success: !this.state.success})}/>
                         </View>
                         <View>
                             <CalculateLoan/>
                         </View>
                     </View>}
                 </KeyboardAwareScrollView>
-                {/* <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})}/> */}
+                <ApplyLoanModal visible={this.state.success} _toggleView={this.showSuccessModal} 
+                    subtitle="Recovery Password Sent"
+                    message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
             </SafeAreaView>
         );
     }
