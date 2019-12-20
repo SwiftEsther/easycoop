@@ -200,7 +200,7 @@ export default class index extends Component {
                                 onPress= {() => this.props.navigation.navigate('ForgotPasswordPage')}
                                 >Forgot Password ?</Text>
                                 
-                                <BlackButton button_text='Sign In' handlePress= {this.validate}/>
+                                <BlackButton button_text='Sign In' handlePress= {this.props.navigation.navigate('Dashboard')}/>
                                 <ButtonLink button_text='Sign Up' extraStyles={theme.box_gap12} handlePress={this._navigate} />
                             </View>
                         </View>

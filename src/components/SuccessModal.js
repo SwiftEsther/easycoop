@@ -4,7 +4,7 @@ import { BottomSheet } from 'react-native-btr';
 import theme from '../../assets/styles/globalStyles';
 import GreenButton from '../components/GreenButton';
 import { Icon } from 'react-native-elements';
-import { scale } from '../helpers/scale';
+import { scale, scaleHeight } from '../helpers/scale';
 
 const SuccessModal = (props) =>(
   <ScrollView>
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   bottomNavigationView: {
     backgroundColor: '#fff',
     width: '100%',
-    height: scale(400),
+    height: scaleHeight(300),
     justifyContent: 'center',
     alignItems: 'flex-end',
     borderTopLeftRadius: 20,
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     borderRadius:50, 
     fontSize: scale(25), 
     padding:scale(6), 
-    top: -200,
+    top: scaleHeight(-105),
     right:0, 
     position: 'absolute'
   },
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderRadius:50, 
     fontSize: scale(25), 
     padding:scale(6), 
-    top: -200,
+    top: scaleHeight(-105),
     right:0, 
     position: 'absolute'
   },
