@@ -6,6 +6,7 @@ import GreenButton from '../../../components/GreenButton';
 import { Icon } from 'react-native-elements';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SuccessModal from '../../../components/SuccessModal';
 import { systemWeights } from 'react-native-typography';
 import { render } from 'react-dom';
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     bottomNavigationView: {
         backgroundColor: '#fff',
         width: '100%',
-        height: height / 1.3,
+        height: height / 1.6,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         borderTopLeftRadius: 20,

@@ -4,6 +4,7 @@ import { BottomSheet } from 'react-native-btr';
 import theme from '../../../../assets/styles/globalStyles';
 import GreenButton from '../../../components/GreenButton';
 import { Icon } from 'react-native-elements';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import { systemWeights } from 'react-native-typography';
 import ChangeBalance from './ChangeBalance.js';
@@ -33,7 +34,7 @@ export default class Contributions extends Component {
 
   render() {
     return (
-      <ScrollView>
+      <KeyboardAwareScrollView>
         <BottomSheet
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
@@ -43,7 +44,7 @@ export default class Contributions extends Component {
           <View style={styles.bottomNavigationView}>
             <View style={[theme.container, styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
               <Image style={{}} source={require('../../../../assets/icons/wallet.png')} />
-              <Text style={[theme.typo_bold, theme.font17, { paddingRight: scale(100), paddingLeft: scale(20), paddingVertical: scaleHeight(15) }]}>Contributors Balance</Text>
+              <Text style={[theme.typo_bold, theme.font17, { width: width-80, paddingLeft: scale(20), paddingVertical: scaleHeight(15) }]}>Contributors Balance</Text>
             </View>
             <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', justifyContent: 'space-between', marginVertical: scaleHeight(50), flex: 4 }]}>
               <View >
@@ -63,16 +64,16 @@ export default class Contributions extends Component {
             </View>
             <View style={[styles.buttons]}>
               <TouchableOpacity activeOpacity={0.7} style={{flex:1}} onPress={this.showChangeForm}>
-                <Text style={[styles.link, { backgroundColor: '#fff' }]}>Request to change Voluntary Savings Amount</Text>
+                <Text style={[styles.link, theme.font14, { backgroundColor: '#fff', paddingLeft: scale(10)}]}>Request to change Voluntary Savings Amount</Text>
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={0.7} style={{flex:1}}>
-              <Text style={[styles.link, { backgroundColor: '#138516', color: '#fff', textAlign: 'center' }]}>Make /  RequestView</Text>
+              <Text style={[styles.link, theme.font14, { backgroundColor: '#138516', color: '#fff', textAlign: 'center', width: width/2.2}]}>Make /  RequestView</Text>
 </TouchableOpacity>
           </View>
           </View>
         </BottomSheet>
       <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} handleClick={() => console.log('gdjdhhhh')} />
-      </ScrollView >
+      </KeyboardAwareScrollView >
     )
   }
 }
@@ -125,15 +126,14 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: scaleHeight(5),
     flex: 2,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: '#efefef'
+    borderTopColor: '#efefef',
   },
   link: {
     alignSelf: 'center',
     alignContent: 'center',
-    paddingHorizontal: scale(15),
     paddingVertical: scaleHeight(20),
     fontSize: 12
   },
