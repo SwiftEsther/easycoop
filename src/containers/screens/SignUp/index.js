@@ -51,30 +51,81 @@ export default class index extends Component {
         this.setState({showTC: false})
         // Not properly working
         try {
-            fetch(`${BASE_URL}${SIGN_UP}`, {
+            fetch(`${SIGN_UP}`, {
                 method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
                 body: {
-                    policeId: this.state.policeId,
-                    rank: this.state.rank,
-                    payPoint: this.state.payPoint,
-                    id: this.state.id,
-                    surname: this.state.surname,
-                    phone: this.state.phone,
-                    email: this.state.email,
-                    firstName: this.state.firstName
+                    "policeId": this.state.policeId,
+                    "rank": this.state.rank,
+                    "payPoint": this.state.payPoint,
+                    "forceNo": this.state.id,
+                    "lastName": this.state.surname,
+                    "phoneNumber": this.state.phone,
+                    "emailAddress": this.state.email,
+                    "firstName": this.state.firstName,
+                    "acceptedTermsAndConditions":  false,
+                    "accountClosed":  false,
+                    "accountCreationDate": "",
+                    "accountNumber": "",
+                    "accountSuspended":  false,
+                    "addressLine1": "",
+                    "addressLine2": "",
+                    "addressLine3": " ",
+                    "alternateEmailAddress": "",
+                    "alternatePhoneNumber": "",
+                    "bank": "",
+                    "bankId": 0,
+                    "bankVerificationNumber": "",
+                    "branchId": 0,
+                    "contributionAmount": 0,
+                    "contributionWithdrawalCount": 0,
+                    "cooperative": "",
+                    "cooperativeCode": "",
+                    "cooperativeId": 2,
+                    "cooperativeMembershipNumber": 0,
+                    "country": "",
+                    "dateOfBirth": "",
+                    "firstTime":  false,
+                    "gender": "",
+                    "genderId": 0,
+                    "hasEmailAddress":  false,
+                    "hasPhoneNumber":  false,
+                    "hasSecurityQuestions":  false,
+                    "id": 0,
+                    "ippisNo": "",
+                    "isAccountModuleAdmin":  false,
+                    "isCooperativeAdmin":  false,
+                    "isSystemAdmin":  false,
+                    "lastLoginDate": "",
+                    "lga": "",
+                    "locked":  false,
+                    "middleName": "",
+                    "occupation": "",
+                    "participating":  false,
+                    "state": "",
+                    "stateId": 0,
+                    "systemAdminPosition": "",
+                    "yearlyIncome": 0
                 }
             })
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({success: true})
-                // console.log(responseJson)
+                console.log(responseJson)
             });
         } catch(err) {
-
+            console.log(err)
         }
     }
 
     showSuccessModal=()=>this.setState({success: !this.state.success})
+
+    navigate = () => {
+        this.props.navigation.navigate("Login")
+    }
 
     signUp = () => {
         const isValid = this.validate();
@@ -231,7 +282,7 @@ export default class index extends Component {
                     }
                 </KeyboardAwareScrollView>
                 <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})} handleClick={this.acceptTerms}/>
-                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} bare={true}
+                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} bare={true} close={this.navigate}
                     message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
             </SafeAreaView>
         );

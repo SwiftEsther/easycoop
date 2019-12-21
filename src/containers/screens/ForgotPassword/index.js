@@ -62,6 +62,7 @@ export default class index extends Component {
                     .then((responseJson) => {
                         // get the response data from {responseJson} e.g responseJson.lastName
                         console.log(responseJson);
+                        this.props.navigation.navigate('AuthenticationPage')
                     })
             } catch (err) {
 
@@ -87,7 +88,7 @@ export default class index extends Component {
                                     /> 
                                 </View> 
                                 <Text style={{textAlign: "center", color: "green", marginBottom: 60}} >validating number</Text>
-                                <BlackButton button_text="Recover Password" handlePress= {()=> this.props.navigation.navigate('AuthenticationPage')}/>
+                                <BlackButton button_text="Recover Password" handlePress= {this.forgotPassword}/>
                             </View>
                         </View>
                         
