@@ -15,7 +15,7 @@ const SuccessModal = (props) =>(
     >
       <View style={styles.bottomNavigationView}>
           {props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.bareIcon]} handlePress={props._toggleView}/>}
-          {!props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView}/>}
+          {!props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} onPress={props.close}/>}
           <View style={[theme.center, theme.padding_left_right_25]}>
             <Image source={require('../../assets/icons/check_circle.png')} style={[theme.pad_bottom30]}/>
             {props.subtitle && <Text style={[theme.typo_bold, theme.font15, theme.pad_bottom20, {color:'#138516'}]}>{props.subtitle}</Text>}

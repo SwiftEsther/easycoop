@@ -5,7 +5,7 @@ import GreenLineSeparator from './GreenLineSeparator';
 
 const ApplyLoan = (props) => (
     <View>
-        <TouchableOpacity style={style.container} activeOpacity={0.4} onPress={props.backFunction}>
+        <TouchableOpacity style={style.container} activeOpacity={0.4} onPress={props.applyLoan}>
             <View><Image source={require('../../assets/icons/Group.png')}/></View>
             <View style={{flexDirection: "column", justifyContent: "space-between"}}>
                 <Text style={[style.textHeader]}>Apply for loans</Text>

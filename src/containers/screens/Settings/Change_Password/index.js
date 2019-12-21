@@ -55,7 +55,8 @@ export default class index extends Component {
                 })
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    // get the response data from {responseJson} e.g responseJson.lastName
+                    // get the response data from {responseJson} e.g responseJson.lastName]
+                    console.log(responseJson)
                     if (responseJson.errorcode != 200) {
                         // failed
                         return (
@@ -70,6 +71,7 @@ export default class index extends Component {
                         );
                     } else {
                         // sucessful login
+                        console.log(responseJson)
                     }
                 })
             } catch(err) {
@@ -110,10 +112,9 @@ export default class index extends Component {
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
-                                <GreenButton button_text="Rest Password" handlePress={this.changePassword}/>
+                                <GreenButton button_text="Reset Password" handlePress={this.changePassword}/>
                             </View>
                         </View>
-                        
                     </View>
                 </KeyboardAwareScrollView>
             </SafeAreaView>

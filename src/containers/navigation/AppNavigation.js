@@ -34,9 +34,10 @@ const drawernav = createDrawerNavigator({
 const homeNavigation = createStackNavigator({
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
+    LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
   },
   {
-    initialRouteName:  'Dashboard',
+    initialRouteName:  '',
   }
 );
 
