@@ -36,18 +36,14 @@ export default class index extends Component {
         }
     }
 
-    componentDidMount() {
-        this.loadData();
-    }
-
     showSuccessModal=()=>this.setState({success: !this.state.success})
-
-    loadData = async () => {
-       
-    }
 
     changeState = (value) => {
         this.setState(value);
+    }
+
+    navigate = () => {
+        console.log("here")
     }
 
     redirect = (_stage) => {
@@ -106,6 +102,7 @@ export default class index extends Component {
                 </KeyboardAwareScrollView>
                 <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} 
                     subtitle="Recovery Password Sent"
+                    close={this.navigate}
                     message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
             </SafeAreaView>
         );

@@ -6,6 +6,7 @@ import * as colors from '../../../../assets/styles/colors';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import { SafeAreaView } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {FIRSTNAME} from '../../../../lib/constants';
 import Withdraw from '../../screens/Withdraw/index';
 import Header from '../../../components/Header';
 import SuccessModal from '../../../components/SuccessModal';
@@ -22,7 +23,8 @@ export default class index extends Component {
         this.state = {
             contributions: false,
             requestSuccess: false,
-            failure: false
+            failure: false,
+            userData: this.props.navigation.state.params.userData
         }
     }
 
@@ -31,8 +33,6 @@ export default class index extends Component {
     showFailureModal=()=>this.setState({failure: !this.state.failure})
 
     render() {
-        const deviceHeight = Dimensions.get('window').height;
-        const deviceWidth = Dimensions.get('window').width;
         return (
             <>
                 <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
@@ -40,7 +40,7 @@ export default class index extends Component {
                     <View style={[theme.container, { backgroundColor: '#f4f6fa', }]}>
                         <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} style={theme.footerPad}>
                             <View style={[theme.box_gap_tabbar, { paddingHorizontal: scaleHeight(12) }]}>
-                                <Text style={[theme.typo_bold, { fontSize: 18, marginTop: scaleHeight(10), marginBottom: scaleHeight(20) }]}>Hi, Joshua</Text>
+                                <Text style={[theme.typo_bold, { fontSize: 18, marginTop: scaleHeight(10), marginBottom: scaleHeight(20) }]}>{this.state.userData.firstName}</Text>
                                 <View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
@@ -62,7 +62,7 @@ export default class index extends Component {
                                     </View>
 
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
-                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => console.log('My Loans')}>
+                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.props.navigation.navigate("LoanPage")}>
                                             <View style={[styles.card]}>
                                                 <Image style={[]} source={require('../../../../assets/icons/wallet.png')} />
 
