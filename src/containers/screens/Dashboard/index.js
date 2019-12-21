@@ -15,25 +15,20 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import Contributions from '../../screens/Contribution/index';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DeleteModal from '../../../components/DeleteModal';
+import DeleteSuccess from '../../../components/DeleteSuccess';
 
 export default class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showContributionsBalance: false,
+            contributions: false,
             requestSuccess: false,
             failure: false,
             userData: this.props.navigation.state.params.userData
         }
     }
 
-    // renderContent = () => (
-    //     <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} 
-    //     subtitle="Recovery Password Sent"
-    //     message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
-    // )
-
-    showContributionsBal=()=>this.setState({showContributionsBalance: !this.state.showContributionsBalance})
+    showContributionsBal=()=>this.setState({contributions: !this.state.contributions})
     showRequestSuccess=()=>this.setState({requestSuccess: !this.state.requestSuccess})
     showFailureModal=()=>this.setState({failure: !this.state.failure})
 
@@ -49,7 +44,7 @@ export default class index extends Component {
                                 <View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
-                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.setState({failure: !this.state.failure})}>
+                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.setState({contributions: !this.state.contributions})}>
                                             <View style={[styles.card]}>
                                                 <Image style={[]} source={require('../../../../assets/icons/wallet.png')} />
 
@@ -86,17 +81,15 @@ export default class index extends Component {
                                 </View>
                             </View>
                         </KeyboardAwareScrollView>
-                        {/* <Contributions visible={this.state.showContributionsBalance} _toggleView={this.showSuccessModal} 
-                            subtitle="Recovery Password Sent"
-                            message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/> */}
+                        <Contributions visible={this.state.contributions} _toggleView={this.showContributionsBal} />
                             {/* <SuccessModal visible={this.state.requestSuccess} _toggleView={this.showRequestSuccess} 
                                 subtitle="Request Submitted Successfully"
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
                             {/* <FailureModal visible={this.state.failure} _toggleView={this.showFailureModal} 
                                 subtitle="Request Submission Failed"
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
-                            <DeleteModal visible={this.state.failure} _toggleView={this.showFailureModal} 
-                                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+                            {/* <DeleteSuccess visible={this.state.failure} _toggleView={this.showFailureModal} 
+                                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
                     </View>
                     <Header />
                     {/* <Withdraw visible={this.state.withdraw} _toggleView={()=>this.setState({withdraw: !this.state.withdraw})}/> */}

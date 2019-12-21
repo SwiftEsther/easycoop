@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import theme from '../../assets/styles/globalStyles';
 import * as colors from '../../assets/styles/colors';
+import {scale} from '../helpers/scale.js';
 
 export default class GreenButton extends Component {
 
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         borderRadius:3,
         textAlign: 'center',
-        paddingRight: 62,
-        paddingLeft: 62
+        paddingRight: scale(62),
+        paddingLeft: scale(62)
     }
 })

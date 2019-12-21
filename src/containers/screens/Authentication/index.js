@@ -43,7 +43,7 @@ export default class index extends Component {
     }
 
     navigate = () => {
-        console.log("here")
+        this.props.navigation.navigate("Login")
     }
 
     redirect = (_stage) => {

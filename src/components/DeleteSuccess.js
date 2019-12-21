@@ -6,7 +6,7 @@ import GreenButton from '../components/GreenButton';
 import { Icon } from 'react-native-elements';
 import { scale, scaleHeight } from '../helpers/scale';
 
-const DeleteModal = (props) => (
+const DeleteSuccess = (props) => (
   <ScrollView>
     <BottomSheet
       visible={props.visible}
@@ -17,7 +17,7 @@ const DeleteModal = (props) => (
         <View style={[styles.header]}>
           <Text style={[theme.typo_bold, theme.font17, { marginVertical: scaleHeight(25)}]}>Delete Request</Text>
         </View>
-        <View style={{ flex: 3 }}>
+        <View>
           <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView} />
           <View style={[theme.center, theme.padding_left_right_25]}>
             <Image source={require('../../assets/icons/bin.png')} style={[theme.pad_bottom30, {marginTop: scale(10)}]} />
@@ -25,9 +25,6 @@ const DeleteModal = (props) => (
               {props.smallText}
             </Text>
           </View>
-        <View style={styles.button}>
-          <GreenButton button_text='Delete Request' handlePress={props.handleClick} />
-        </View>
         </View>
       </View>
     </BottomSheet>
@@ -46,7 +43,7 @@ const styles = StyleSheet.create({
   bottomNavigationView: {
     backgroundColor: '#fff',
     width: '100%',
-    height: scale(350),
+    height: scale(270),
     justifyContent: 'center',
     alignItems: 'flex-start',
     borderTopLeftRadius: 20,
@@ -62,20 +59,13 @@ const styles = StyleSheet.create({
     right: 0,
     position: 'absolute'
   },
-  button: {
-    marginTop: scaleHeight(20),
-    bottom: 0,
-    flex: 1,
-    marginHorizontal: scale(20)
-  },
   header: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#efefef',
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    flex: 1,
     width: width,
     paddingHorizontal: scale(20)
   },
 });
-export default DeleteModal;
+export default DeleteSuccess;

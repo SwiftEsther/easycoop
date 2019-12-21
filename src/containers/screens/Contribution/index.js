@@ -23,9 +23,9 @@ export default class Contributions extends  Component{
         >
             <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={this.props._toggleView}/>
           <View style={styles.bottomNavigationView}>
-              <View style={[theme.container, styles.MainContainer,styles.header]}>
-                <Image source={require('../../../../assets/icons/wallet.png')}/>
-                <Text style={[theme.typo_bold, theme.font17,{marginVertical: scaleHeight(20),paddingRight: scale(100), paddingLeft: scale(20)}]}>Contributors Balance</Text>
+              <View style={[theme.container, styles.MainContainer,styles.header,{marginVertical: scaleHeight(20)}]}>
+                <Image style={{width: scale(43), height: scaleHeight(43)}} source={require('../../../../assets/icons/wallet.png')}/>
+                <Text style={[theme.typo_bold, theme.font17,{paddingRight: scale(100), paddingLeft: scale(20), paddingVertical: scaleHeight(10)}]}>Contributors Balance</Text>
               </View>
               <View style={[theme.container, styles.MainContainer,{alignItems: 'flex-start', justifyContent: 'space-between', marginVertical: scaleHeight(50), flex: 4}]}>
                 <View >
