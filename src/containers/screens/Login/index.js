@@ -5,7 +5,7 @@ import * as colors from '../../../../assets/styles/colors';
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {LOGIN} from '../../../../lib/constants';
+import {LOGIN, FIRSTNAME} from '../../../../lib/constants';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
@@ -73,7 +73,7 @@ export default class index extends Component {
                 .then((response) => response.json())
                 .then((responseJson) => {
                     // get the response data from {responseJson} e.g responseJson.lastName
-                    if (responseJson.errorcode != 200) {
+                    if (responseJson.errorcode) {
                         // failed
                         return (
                             Alert.alert(
@@ -86,7 +86,7 @@ export default class index extends Component {
                             )
                         );
                     } else {
-                        // sucessful login
+                        this.props.navigation.navigate("Dashboard", {userData: responseJson})
                     }
                 })
             } catch(err) {
@@ -96,12 +96,12 @@ export default class index extends Component {
     }
 
     redirect = (_stage) => {
-        if(_stage === "LOGGEDIN") {
-          this.props.navigation.navigate('Dashboard');
-        }
-        else {
-            this.props.navigation.navigate('Register');
-        }
+        // if(_stage === "LOGGEDIN") {
+        //   this.props.navigation.navigate('Dashboard');
+        // }
+        // else {
+        //     this.props.navigation.navigate('Register');
+        // }
     }
 
     onFocus() {

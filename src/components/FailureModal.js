@@ -6,7 +6,7 @@ import GreenButton from '../components/GreenButton';
 import { Icon } from 'react-native-elements';
 import { scale, scaleHeight } from '../helpers/scale';
 
-const SuccessModal = (props) =>(
+const FailureModal = (props) =>(
   <ScrollView>
     <BottomSheet
       visible={props.visible}
@@ -17,8 +17,8 @@ const SuccessModal = (props) =>(
           {props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.bareIcon]} handlePress={props._toggleView}/>}
           {!props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView}/>}
           <View style={[theme.center, theme.padding_left_right_25]}>
-            <Image source={require('../../assets/icons/check_circle.png')} style={[theme.pad_bottom30]}/>
-            {props.subtitle && <Text style={[theme.typo_bold, theme.font15, theme.pad_bottom20, {color:'#138516'}]}>{props.subtitle}</Text>}
+            <Image source={require('../../assets/icons/cancel.png')} style={[theme.pad_bottom30]}/>
+            {props.subtitle && <Text style={[theme.typo_bold, theme.font15, theme.pad_bottom20, {color:'#f80000'}]}>{props.subtitle}</Text>}
             {props.message && <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(14)}]}>
               {props.message}
             </Text>}
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
 });
-export default SuccessModal;
+export default FailureModal;

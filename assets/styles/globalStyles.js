@@ -339,4 +339,60 @@ export default StyleSheet.create({
     light_border: {
         borderColor: '#d0d0d0'
     },
+    gray_bg: {
+        backgroundColor: '#e9eaeb',
+    },
+    curve_edge: {
+        borderRadius: 5,
+    },
+    curve_edge_10: {
+        borderRadius: 10,
+    },
+    curve_edge_full: {
+        ...Platform.select({
+        ios: {
+            borderRadius: 16,
+            padding: 7
+        },
+        android: {
+            borderRadius: 30,
+        },
+        }),
+    },
+    abs_down: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+    },
+        abs_down_span: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        left: 0,
+    },
+    image_abs: {
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        top: 0,
+        left: 0,
+    },
+    abs_bottom: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        marginBottom: 75,
+    },
+    chat_list_pad: {
+        marginTop: 100
+    },
+    abs_top: {
+        position: 'absolute',
+        right: 0,
+        top: 0,
+    },
+    footerPad: {
+        marginBottom: 63
+    }
 });
