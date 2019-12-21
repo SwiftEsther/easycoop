@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import theme from '../../assets/styles/globalStyles';
 import * as colors from '../../assets/styles/colors';
+import {scale} from '../helpers/scale';
 
 export default class WhiteButton extends Component {
 
@@ -23,12 +24,9 @@ export default class WhiteButton extends Component {
 const styles = StyleSheet.create({
     defaultButton: {
         fontSize: 17,
-        padding: 18,
+        padding: scale(18),
         color: '#138516',
-        borderWidth: StyleSheet.hairlineWidth,
         borderRadius:3,
-        borderColor: '#138516',
         textAlign: 'center',
-        borderWidth: 0.8,  
     }
 })

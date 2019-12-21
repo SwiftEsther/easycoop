@@ -8,21 +8,24 @@ import { scale, scaleHeight } from '../../../helpers/scale';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SuccessModal from '../../../components/SuccessModal';
-import { systemWeights } from 'react-native-typography';
-import { render } from 'react-dom';
+import FailureModal from '../../../components/FailureModal';
 
 export default class ChangeBalance extends Component {
     constructor(props) {
         super(props);
         this.state={
             amount: '',
-            success: false
+            success: false,
+            failure: false
         }
     }
 
-    viewRequest() {
-
-    }
+    showRequestFailure=()=>{
+        this.props._toggleView();
+          this.setState({
+            failure: !this.state.failure
+        })
+      }
 
     showRequestSuccess=()=>{
         this.props._toggleView();
@@ -31,9 +34,13 @@ export default class ChangeBalance extends Component {
     })
 }
 
-     toggleRequest=()=>this.setState({
+    toggleRequest=()=>this.setState({
         success: !this.state.success
     })
+
+    toggleFailure=()=>this.setState({
+        failure: !this.state.failure
+      })
     
     changeState = (value) => {
         this.setState(value);
@@ -78,7 +85,7 @@ export default class ChangeBalance extends Component {
                                 </View>
                             </View>
                         </View>
-                        <TouchableOpacity activeOpacity={0.7} style={[styles.buttons]} onPress={this.showRequestSuccess}>
+                        <TouchableOpacity activeOpacity={0.7} style={[styles.buttons]} onPress={this.showRequestFailure}>
                             <GreenButton button_text='Submit Request' />
                         </TouchableOpacity>
                     </View>
@@ -87,6 +94,9 @@ export default class ChangeBalance extends Component {
                 <SuccessModal visible={this.state.success} _toggleView={this.toggleRequest} 
                                 subtitle="Request Submitted Successfully"
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+                <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
+                    subtitle="Request Submission Failed"
+                    smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
             </ScrollView>
         )
     }

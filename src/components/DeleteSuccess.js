@@ -17,8 +17,8 @@ const DeleteSuccess = (props) => (
         <View style={[styles.header]}>
           <Text style={[theme.typo_bold, theme.font17, { marginVertical: scaleHeight(25)}]}>Delete Request</Text>
         </View>
-        <View>
           <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView} />
+        <View style={{flex: 2}}>
           <View style={[theme.center, theme.padding_left_right_25]}>
             <Image source={require('../../assets/icons/bin.png')} style={[theme.pad_bottom30, {marginTop: scale(10)}]} />
            <Text style={[theme.typo_regular, theme.margin_left_right_25, { textAlign: 'center', fontSize: scale(10), color: '#C6C6C6' }]}>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: scale(270),
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingHorizontal: scale(10)
@@ -55,11 +55,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     fontSize: scale(25),
     padding: scale(6),
-    top: scale(-130),
-    right: 0,
+    top: scale(-135),
+    right: scale(-175),
     position: 'absolute'
   },
   header: {
+    flex: 1,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#efefef',
     flexDirection: 'row',

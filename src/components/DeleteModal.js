@@ -1,38 +1,81 @@
-import React from 'react';
-import { Dimensions, StyleSheet, View, Platform, Text, Button, Image, ScrollView, ScrollViewBase } from 'react-native';
+import React, {Component} from 'react';
+import { Dimensions, StyleSheet, View, Platform, Text, Button, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { BottomSheet } from 'react-native-btr';
 import theme from '../../assets/styles/globalStyles';
 import GreenButton from '../components/GreenButton';
 import { Icon } from 'react-native-elements';
 import { scale, scaleHeight } from '../helpers/scale';
+import DeleteSuccess from './DeleteSuccess';
+import FailureModal from './FailureModal';
 
-const DeleteModal = (props) => (
-  <ScrollView>
-    <BottomSheet
-      visible={props.visible}
-      onBackButtonPress={props._toggleView}
-      onBackdropPress={props._toggleView}
-    >
-      <View style={styles.bottomNavigationView}>
-        <View style={[styles.header]}>
-          <Text style={[theme.typo_bold, theme.font17, { marginVertical: scaleHeight(25)}]}>Delete Request</Text>
-        </View>
-        <View style={{ flex: 3 }}>
-          <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView} />
-          <View style={[theme.center, theme.padding_left_right_25]}>
-            <Image source={require('../../assets/icons/bin.png')} style={[theme.pad_bottom30, {marginTop: scale(10)}]} />
-           <Text style={[theme.typo_regular, theme.margin_left_right_25, { textAlign: 'center', fontSize: scale(10), color: '#C6C6C6' }]}>
-              {props.smallText}
-            </Text>
+export default class DeleteModal extends Component{
+  constructor(props){
+    super(props);
+
+    this.state={
+      success: false,
+      failure: false
+    }
+  }
+
+  showDeleteSuccess=()=>{
+    this.props._toggleView();
+      this.setState({
+        success: !this.state.success
+    })
+  }
+
+  showDeleteFailure=()=>{
+    this.props._toggleView();
+      this.setState({
+        failure: !this.state.failure
+    })
+  }
+
+  toggleFailure=()=>this.setState({
+    failure: !this.state.failure
+  })
+
+  toggleDelete=()=>this.setState({
+    success: !this.state.success
+  })
+
+  render() {
+    return(
+      <ScrollView>
+        <BottomSheet
+          visible={this.props.visible}
+          onBackButtonPress={this.props._toggleView}
+          onBackdropPress={this.props._toggleView}
+        >
+          <View style={styles.bottomNavigationView}>
+            <View style={[styles.header]}>
+              <Text style={[theme.typo_bold, theme.font17, { marginVertical: scaleHeight(25)}]}>Delete Request</Text>
+            </View>
+            <View style={{ flex: 3 }}>
+              <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={this.props._toggleView} />
+              <View style={[theme.center, theme.padding_left_right_25]}>
+                <Image source={require('../../assets/icons/bin.png')} style={[theme.pad_bottom30, {marginTop: scale(10)}]} />
+              <Text style={[theme.typo_regular, theme.margin_left_right_25, { textAlign: 'center', fontSize: scale(10), color: '#C6C6C6' }]}>
+                  {this.props.smallText}
+                </Text>
+              </View>
+            <TouchableOpacity activeOpacity={0.7} style={styles.button} onPress={this.showDeleteFailure}>
+              <GreenButton button_text='Delete Request' />
+            </TouchableOpacity>
+            </View>
           </View>
-        <View style={styles.button}>
-          <GreenButton button_text='Delete Request' handlePress={props.handleClick} />
-        </View>
-        </View>
-      </View>
-    </BottomSheet>
-  </ScrollView>
-);
+        </BottomSheet>
+        <DeleteSuccess visible={this.state.success} _toggleView={this.toggleDelete} 
+          smallText={`Request Deleted Successfully`}/>
+          <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
+            subtitle="Request Submission Failed"
+            smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+      </ScrollView>
+    )
+  }
+}
+
 const {width,  height} = Dimensions.get('window');
 const styles = StyleSheet.create({
   MainContainer: {
@@ -78,4 +121,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(20)
   },
 });
-export default DeleteModal;
