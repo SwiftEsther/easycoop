@@ -47,33 +47,39 @@ export default class index extends Component {
         this.setState(value);
     }
 
+    acceptTerms = () => {
+        this.setState({showTC: false})
+        // Not properly working
+        try {
+            fetch(`${BASE_URL}${SIGN_UP}`, {
+                method: 'POST',
+                body: {
+                    policeId: this.state.policeId,
+                    rank: this.state.rank,
+                    payPoint: this.state.payPoint,
+                    id: this.state.id,
+                    surname: this.state.surname,
+                    phone: this.state.phone,
+                    email: this.state.email,
+                    firstName: this.state.firstName
+                }
+            })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({success: true})
+                // console.log(responseJson)
+            });
+        } catch(err) {
+
+        }
+    }
+
     showSuccessModal=()=>this.setState({success: !this.state.success})
 
     signUp = () => {
         const isValid = this.validate();
         if (isValid) {
             this.setState({showTC: true})
-            try {
-                fetch(`${BASE_URL}${SIGN_UP}`, {
-                    method: 'POST',
-                    body: {
-                        policeId: this.state.policeId,
-                        rank: this.state.rank,
-                        payPoint: this.state.payPoint,
-                        id: this.state.id,
-                        surname: this.state.surname,
-                        phone: this.state.phone,
-                        email: this.state.email,
-                        firstName: this.state.firstName
-                    }
-                })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    console.log(responseJson)
-                });
-            } catch(err) {
-
-            }
         } else {
             return(
                 Alert.alert(
@@ -224,7 +230,7 @@ export default class index extends Component {
                     </View>
                     }
                 </KeyboardAwareScrollView>
-                <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})} handleClick={()=>this.setState({success: !this.state.success})}/>
+                <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})} handleClick={this.acceptTerms}/>
                 <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} bare={true}
                     message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
             </SafeAreaView>
