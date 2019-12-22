@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StatusBar, View, Text, StyleSheet } from 'react-native';
 
 import AppNavigation from './src/containers/navigation/AppNavigation';
-
-import { Platform, StatusBar, View, Text } from 'react-native';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -50,7 +48,6 @@ export default class App extends React.Component {
 
     }
 
-
     render() {
         if (!this.state.isLoadingComplete) {
             return (
@@ -65,6 +62,7 @@ export default class App extends React.Component {
                 <View style={styles.container}>
                     <PersistGate persistor={persistor}>
                         <Provider store={store}>
+                            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
                             <AppNavigation/>
                         </Provider>
                     </PersistGate>
@@ -101,10 +99,9 @@ export default class App extends React.Component {
     };
 }
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#f4f6fa'
     },
 });
