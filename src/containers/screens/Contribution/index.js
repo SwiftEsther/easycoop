@@ -79,13 +79,13 @@ export default class Contributions extends Component {
             <View style={[styles.buttons]}>
                 <Text style={[styles.link, theme.font14, theme.flex1, { backgroundColor: '#fff', paddingLeft: scale(10)}]}>Request to change Voluntary Savings Amount</Text>
               <TouchableOpacity activeOpacity={0.7} style={{flex:1}} onPress={this.showRequest}>
-              <Text style={[styles.link, theme.font14, { backgroundColor: '#138516', color: '#fff', textAlign: 'center', width: width/2.2}]}>Make /  RequestView</Text>
+              <Text style={[styles.link, theme.font14, { backgroundColor: '#138516', color: '#fff', textAlign: 'center', width: width/2.2}]}>Make / View Request</Text>
 </TouchableOpacity>
           </View>
           </View>
         </BottomSheet>
-      <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} handleClick={() => console.log('gdjdhhhh')} />
-      <ViewRequest visible={this.state.request} _toggleView={this.editRequest} back={this.showRequest} handleClick={() => console.log('gdjdhhhh')} />
+      <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} />
+      <ViewRequest visible={this.state.request} _toggleView={this.editRequest} back={this.showRequest}/>
       </KeyboardAwareScrollView >
     )
   }

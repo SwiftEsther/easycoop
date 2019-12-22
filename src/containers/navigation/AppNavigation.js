@@ -13,6 +13,7 @@ import AuthenticationPage from '../screens/Authentication/index';
 import ChangePasswordPage from '../screens/Settings/Change_Password/index';
 import SupportPage from '../screens/Support/index';
 import LoanPage from '../screens/Loan/index';
+import Withdrawal from '../screens/Withdrawal/index';
 import Dashboard from '../screens/Dashboard/index';
 
 const loginNavigation = createStackNavigator({
@@ -33,11 +34,11 @@ const drawernav = createDrawerNavigator({
 
 const homeNavigation = createStackNavigator({
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
-    Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
+    Withdrawal: {screen: Withdrawal, navigationOptions: { header: null, tabBarVisible: false }}
   },
   {
-    initialRouteName:  '',
+    initialRouteName:  'Dashboard',
   }
 );
 
