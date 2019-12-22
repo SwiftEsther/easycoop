@@ -14,8 +14,8 @@ export default class Onboarding extends Component {
             <View style={[style.container]} >
                 <StatusBar hidden />
                 <View style={[style.imageContainer]}>
-                    {/* <Circle /> */}
-                    <Image style={[style.imageStyles]} source={require('../../../../assets/images/onboarding.png')} />
+                     <Circle />
+                    <Image style={[style.imageStyles]} source={require('../../../../assets/images/onboarding.png')} resizeMode={'contain'}/>
                 </View>
                 <View style={[style.contents]}>
                     <View style={[style.iconGroup]}>

@@ -20,16 +20,19 @@ export default StyleSheet.create({
         flex: 7
     },
     imageStyles: {
-        width: scale(deviceWidth),
+        // width: scale(deviceWidth),
         position: 'absolute',
-        top: scale(-210),
+        height: scale(420),
+        // top: scale(-210),
     },
     iconGroup: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginRight: scale(140),
-        marginLeft: scale(140)
+        width:scale(150),
+        alignSelf :'center'
+        // marginRight: scale(140),
+        // marginLeft: scale(140)
     },
     separator: {
         width: scale(80),
@@ -39,8 +42,10 @@ export default StyleSheet.create({
         borderBottomWidth: 1,
     },
     textstyles: {
-        ...systemWeights.bold,
-        fontSize: 15
+        // ...systemWeights.bold,
+        fontSize: 15,
+        fontFamily:'nunito-bold'
+
     },
     alignCenter: {
         alignItems: 'center', 
@@ -58,7 +63,8 @@ export default StyleSheet.create({
         paddingRight: scale(75),
         paddingLeft: scale(75),
         paddingBottom: scale(20),
-        paddingTop: scale(20)
+        paddingTop: scale(20),
+        fontFamily:'nunito-bold'
     },
     contents: {
         flex: 1
