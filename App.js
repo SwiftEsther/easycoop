@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, StatusBar, View, Text, StyleSheet } from 'react-native';
 
-import AppNavigation from './src/navigation/AppNavigation';
+import AppNavigator from './src/navigation/AppNavigator';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -63,7 +63,7 @@ export default class App extends React.Component {
                     <PersistGate persistor={persistor}>
                         <Provider store={store}>
                             <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-                            <AppNavigation/>
+                            <AppNavigator/>
                         </Provider>
                     </PersistGate>
                 </View>
