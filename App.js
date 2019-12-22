@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, StatusBar, View, Text, StyleSheet } from 'react-native';
 
-import AppNavigation from './src/containers/navigation/AppNavigation';
+import AppNavigation from './src/navigation/AppNavigation';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -80,6 +80,7 @@ export default class App extends React.Component {
                 'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
             }),
             Asset.loadAsync([
+                require('./assets/images/splash.png'),
                 require('./assets/images/onboarding.png'),
                 require('./assets/images/Walkthrough_1.png'),
                 require('./assets/images/Walkthrough_2.png'),

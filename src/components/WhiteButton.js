@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import theme from '../../assets/styles/globalStyles';
-import * as colors from '../../assets/styles/colors';
+import * as colors from '../lib/constants/colors';
 import {scale} from '../helpers/scale';
 
 export default class WhiteButton extends Component {

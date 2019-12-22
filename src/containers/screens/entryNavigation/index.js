@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { View, Image, AsyncStorage, TouchableOpacity, ImageBackground, StatusBar } from 'react-native';
 import style from './style';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../../assets/styles/colors';
+import * as colors from '../../../lib/constants/colors';
 import * as constants from '../../../../lib/constants';
 import '../../../../lib/helpers';
 
