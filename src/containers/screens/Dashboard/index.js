@@ -24,7 +24,7 @@ export default class index extends Component {
             contributions: false,
             requestSuccess: false,
             failure: false,
-            userData: this.props.navigation.state.params.userData
+            // userData: this.props.navigation.state.params.userData
         }
     }
 
@@ -40,7 +40,10 @@ export default class index extends Component {
                     <View style={[theme.container, { backgroundColor: '#f4f6fa', }]}>
                         <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} style={theme.footerPad}>
                             <View style={[theme.box_gap_tabbar, { paddingHorizontal: scaleHeight(12) }]}>
-                                <Text style={[theme.typo_bold, { fontSize: 18, marginTop: scaleHeight(10), marginBottom: scaleHeight(20) }]}>{this.state.userData.firstName}</Text>
+                                <Text style={[theme.typo_bold, { fontSize: 18, marginTop: scaleHeight(10), marginBottom: scaleHeight(20) }]}>
+                                    {/* {this.state.userData.firstName} */}
+                                    Hi Joshua
+                                    </Text>
                                 <View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
 
@@ -70,7 +73,7 @@ export default class index extends Component {
                                             </View>
                                         </TouchableOpacity>
 
-                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => console.log('Request History')}>
+                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.props.navigation.navigate("TransactionPage")}>
                                             <View style={[styles.card]}>
                                                 <Image style={[]} source={require('../../../../assets/icons/currency.png')} />
 

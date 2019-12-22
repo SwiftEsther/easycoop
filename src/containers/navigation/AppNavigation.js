@@ -14,6 +14,8 @@ import ChangePasswordPage from '../screens/Settings/Change_Password/index';
 import SupportPage from '../screens/Support/index';
 import LoanPage from '../screens/Loan/index';
 import Dashboard from '../screens/Dashboard/index';
+import NextOfKinPage from '../screens/NextOfKin/index';
+import TransactionPage from '../screens/transactionHistory/index';
 
 const loginNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
@@ -35,6 +37,8 @@ const homeNavigation = createStackNavigator({
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
+    NextOfKinPage: { screen: NextOfKinPage, navigationOptions: { header: null, tabBarVisible: false } },
+    TransactionPage: { screen: TransactionPage, navigationOptions: { header: null, tabBarVisible: false } }
   },
   {
     initialRouteName:  '',
