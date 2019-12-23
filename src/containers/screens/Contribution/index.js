@@ -52,26 +52,32 @@ export default class Contributions extends Component {
         <BottomSheet
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
-          onBackdropPress={this.props._toggleView}
         >
-          <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={this.props._toggleView} />
+          <TouchableOpacity activeOpacity={0.7} style={[styles.icon]} onPress={this.props._toggleView}>
+                            <Icon name='close'/>
+                        </TouchableOpacity>
           <View style={styles.bottomNavigationView}>
+          
             <View style={[theme.container, styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
+
+            <TouchableOpacity activeOpacity={0.7} style={[styles.icon]} onPress={this.props._toggleView}>
+              <Icon name='close' />
+            </TouchableOpacity>
               <Image style={{}} source={require('../../../../assets/icons/wallet.png')} />
               <Text style={[theme.typo_bold, theme.font17, { width: width-80, paddingLeft: scale(20), paddingVertical: scaleHeight(15) }]}>Contributors Balance</Text>
             </View>
-            <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', justifyContent: 'space-between', marginVertical: scaleHeight(50), flex: 4 }]}>
+            <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', justifyContent: 'space-between', flex: 6 }]}>
               <View >
                 <Text style={[theme.typo_regular, { fontSize: 11, marginHorizontal: scaleHeight(20), color: '#138516' }]}>Contributors Balance</Text>
                 <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif', fontSize: 20 }]}>
-                  {/* <Icon name="naira"/> */}
+                 
                   <Text style={[theme.font15]}>{`#100,000,000.00`}</Text>
                 </View>
               </View>
               <View>
                 <Text style={[theme.typo_regular, { fontSize: 11, marginHorizontal: scaleHeight(20), color: '#138516' }]}>Contributors Balance</Text>
                 <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif', fontSize: 20 }]}>
-                  {/* <Icon name="naira"/> */}
+                 
                   <Text style={[theme.font15]}>{`#100,000,000.00`}</Text>
                 </View>
               </View>
@@ -109,30 +115,19 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    width: '100%',
-    height: height / 1.5,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    height: height / 1.8,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    paddingHorizontal: scale(5)
-  },
-  bareIcon: {
-    color: '#138516',
-    borderRadius: 50,
-    fontSize: scale(25),
-    padding: scale(6),
-    top: scaleHeight(-105),
-    right: 0,
-    position: 'absolute'
+    paddingHorizontal: scale(5),
+    fontFamily: 'nunito-regular'
   },
   icon: {
     backgroundColor: '#fff',
     borderRadius: 50,
-    fontSize: scale(25),
+    fontSize: 25,
     alignSelf: 'flex-end',
     padding: scale(6),
-    top: scaleHeight(-65),
+    bottom: scaleHeight(100),
     right: 0,
     position: 'absolute'
   },

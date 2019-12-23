@@ -23,11 +23,13 @@ export default class GreenButton extends Component {
 
 const styles = StyleSheet.create({
     defaultButton: {
-        padding: scale(18),
+        fontFamily: 'nunito-bold' ,
+        padding: 18,
         color: '#fff',
         borderRadius:3,
         textAlign: 'center',
         paddingRight: scale(62),
-        paddingLeft: scale(62)
+        paddingLeft: scale(62),
+        fontSize: 17
     }
 })

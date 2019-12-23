@@ -17,7 +17,7 @@ export default StyleSheet.create({
     },
     imageContainer: {
         alignItems: 'center',
-        flex: 7
+        flex: 8,
     },
     imageStyles: {
         // width: scale(deviceWidth),
@@ -35,9 +35,9 @@ export default StyleSheet.create({
         // marginLeft: scale(140)
     },
     separator: {
-        width: scale(80),
-        marginTop: scale(10),
-        marginBottom: scale(10),
+        width: scale(90),
+        marginTop: scale(20),
+        marginVertical: scale(10),
         borderBottomColor: '#737373',
         borderBottomWidth: 1,
     },
@@ -67,6 +67,6 @@ export default StyleSheet.create({
         fontFamily:'nunito-bold'
     },
     contents: {
-        flex: 1
+        flex: 2
     }
 });

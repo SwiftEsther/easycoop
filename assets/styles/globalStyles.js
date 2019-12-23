@@ -135,6 +135,7 @@ export default StyleSheet.create({
     },
     caption: {
         fontSize: 15,
+        fontFamily:'nunito-bold',
         color: '#000000',
         ...systemWeights.bold
     },
@@ -142,21 +143,24 @@ export default StyleSheet.create({
         textDecorationLine: 'underline'
     },
     caption_lite: {
+        fontFamily:'nunito-bold',
         fontSize: 15,
         color: '#585d5f',
     },
     caption_liter: {
         fontSize: 13,
         color: '#707070',
-
+        fontFamily:'nunito-bold',
     },
     caption_liter2: {
         fontSize: 13,
         color: '#93989c',
+        fontFamily:'nunito-bold'
     },
     caption_liter3: {
         fontSize: 13,
         color: '#585d5f',
+        fontFamily:'nunito-bold'
     },
     font14: {
         fontSize: 14,

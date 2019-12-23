@@ -50,14 +50,14 @@ export default class DeleteModal extends Component{
         >
           <View style={styles.bottomNavigationView}>
             <View style={[styles.header]}>
-              <Text style={[theme.typo_bold, theme.font17, { marginVertical: scaleHeight(25)}]}>Delete Request</Text>
+              <Text style={[{fontSize: 20, fontFamily: 'nunito-bold', marginVertical: scaleHeight(25)}]}>Delete Request</Text>
             </View>
             <View style={{ flex: 3 }}>
-              <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={this.props._toggleView} />
               <View style={[theme.center, theme.padding_left_right_25]}>
                 <Image source={require('../../assets/icons/bin.png')} style={[theme.pad_bottom30, {marginTop: scale(10)}]} />
-              <Text style={[theme.typo_regular, theme.margin_left_right_25, { textAlign: 'center', fontSize: scale(10), color: '#C6C6C6' }]}>
-                  {this.props.smallText}
+              <Text style={[{ textAlign: 'center', color: '#504e4e', fontFamily: 'nunito-medium' }]}>
+                    You are about to delete<Text style={{color:'#f80000'}}>{` ${this.props.itemAction} `}</Text> while on
+                  <Text style={{color:'#f80000'}}>{` ${this.props.applicationSuccess} `}</Text>
                 </Text>
               </View>
             <TouchableOpacity activeOpacity={0.7} style={styles.button} onPress={this.showDeleteFailure}>

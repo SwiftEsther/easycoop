@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Image, Text, StatusBar, TouchableOpacity, Linking} from 'react-native';
 import theme from '../../../../assets/styles/globalStyles';
+import {Colors} from '../../../lib/constants/colors';
 import style from './style';
 import Circle from '../../../components/Circle';
 
@@ -14,8 +15,8 @@ export default class Onboarding extends Component {
             <View style={[style.container]} >
                 <StatusBar hidden />
                 <View style={[style.imageContainer]}>
-                    {/* <Circle /> */}
-                    <Image style={[style.imageStyles]} source={require('../../../../assets/images/onboarding.png')} />
+                     <Circle />
+                    <Image style={[style.imageStyles]} source={require('../../../../assets/images/onboarding.png')} resizeMode={'cover'}/>
                 </View>
                 <View style={[style.contents]}>
                     <View style={[style.iconGroup]}>
@@ -31,8 +32,8 @@ export default class Onboarding extends Component {
                     </View>
                 </View>
                 <View style={[style.buttons]}>
-                    <Text style={[style.link, {backgroundColor: '#fff'}]} onPress={() => this.props.navigation.navigate('SignUp')}>Sign Up</Text>
-                    <Text style={[style.link, {backgroundColor: '#138516'}]} onPress={() => this.props.navigation.navigate('Dashboard')}>Sign In</Text>
+                    <Text style={[style.link, {backgroundColor: Colors.white}]} onPress={() => this.props.navigation.navigate('SignUp')}>Sign Up</Text>
+                    <Text style={[style.link, {backgroundColor: Colors.primary_green, color: Colors.white}]} onPress={() => this.props.navigation.navigate('Dashboard')}>Sign In</Text>
                 </View>
             </View>
         ); 
