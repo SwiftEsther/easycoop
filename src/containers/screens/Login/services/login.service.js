@@ -7,6 +7,7 @@ export class LoginService {
     }
 
     LogIn=(extraHeaders)=>{
+        console.log('Inside Login')
         return this.apirequest.get(`${logIn}`, extraHeaders);
     }
 }
