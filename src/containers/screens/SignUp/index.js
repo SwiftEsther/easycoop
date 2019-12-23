@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
-import {connect, Dispatch} from "react-redux";
-import { TextInput, Picker, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import { connect, Dispatch } from "react-redux";
+import {
+    TextInput,
+    Picker,
+    StatusBar,
+    StyleSheet,
+    TouchableOpacity,
+    Image,
+    SafeAreaView,
+    Text,
+    View,
+    ToastAndroid,
+    Alert,
+    AsyncStorage,
+    Keyboard
+} from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../lib/constants/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {SIGN_UP} from '../../../../lib/constants';
+import { SIGN_UP } from '../../../../lib/constants';
 import style from './style';
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import '../../../../lib/helpers';
@@ -21,9 +35,14 @@ import Tabs from '../../../components/Tabs';
 import CustomModal from '../../../components/CustomModal';
 import SuccessModal from '../../../components/SuccessModal';
 import { scale, scaleHeight } from '../../../helpers/scale';
+import SelectDropdown from "../../../components/SelectPopUp/SelectPopUp";
+import { postLogIn,postSignUp } from "../../../lib/api/url";
+import { axiosInstance } from "../../../lib/api/axiosClient";
+import {showToast} from "../../../components/Toast/actions/toastActions";
+import { loginSuccess } from "../Login/actions/login.actions";
 
 
-export default class index extends Component {
+ class index extends Component {
     constructor(props) {
         super(props);
 
@@ -49,81 +68,116 @@ export default class index extends Component {
         this.setState(value);
     }
 
+    onHandleRegister = () => {
+        Keyboard.dismiss();
+        let {username, password} = this.state;
+
+
+        let token = '';
+        console.log(postLogIn)
+        this.setState({
+            spinner: true,
+            modalLoader: true
+        }, () => {
+            axiosInstance
+                .post(postSignUp, {
+                        "policeId": this.state.policeId,
+                        "rank": this.state.rank,
+                        "payPoint": this.state.payPoint,
+                        "forceNo": this.state.id,
+                        "lastName": this.state.surname,
+                        "phoneNumber": this.state.phone,
+                        "emailAddress": this.state.email,
+                        "firstName": this.state.firstName,
+                        "acceptedTermsAndConditions": false,
+                        "accountClosed": false,
+                        "accountCreationDate": "",
+                        "accountNumber": "",
+                        "accountSuspended": false,
+                        "addressLine1": "",
+                        "addressLine2": "",
+                        "addressLine3": " ",
+                        "alternateEmailAddress": "",
+                        "alternatePhoneNumber": "",
+                        "bank": "",
+                        "bankId": 0,
+                        "bankVerificationNumber": "",
+                        "branchId": 0,
+                        "contributionAmount": 0,
+                        "contributionWithdrawalCount": 0,
+                        "cooperative": "",
+                        "cooperativeCode": "",
+                        "cooperativeId": 2,
+                        "cooperativeMembershipNumber": 0,
+                        "country": "",
+                        "dateOfBirth": "",
+                        "firstTime": false,
+                        "gender": "",
+                        "genderId": 0,
+                        "hasEmailAddress": false,
+                        "hasPhoneNumber": false,
+                        "hasSecurityQuestions": false,
+                        "id": 0,
+                        "ippisNo": "",
+                        "isAccountModuleAdmin": false,
+                        "isCooperativeAdmin": false,
+                        "isSystemAdmin": false,
+                        "lastLoginDate": "",
+                        "lga": "",
+                        "locked": false,
+                        "middleName": "",
+                        "occupation": "",
+                        "participating": false,
+                        "state": "",
+                        "stateId": 0,
+                        "systemAdminPosition": "",
+                        "yearlyIncome": 0
+                    }, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                )
+                .then(res => {
+                    // this.props.clearUserData();
+                    // this.props.resetCache();
+                    // this.props.clearLoanDetails();
+                    // token = res.data.data.token;
+                    console.log(res)
+                    this.setState({
+                        spinner: false,
+                    })
+                    if (res.status === 200) {
+                        this.props.showToast('Successfully registered', 'success');
+                        this.props.navigation.navigate('Login')
+                        this.setState({success: true})
+                    } else {
+                        this.props.showToast('Error', 'error');
+                    }
+
+                })
+                .catch(error => {
+
+                    if (error.response) {
+                        this.props.showToast(error.response.data.message, 'error')
+                        console.log(error.response)
+                    } else {
+                        this.props.showToast(error.message, 'error')
+                    }
+                    this.setState({
+                        spinner: false,
+                    })
+                });
+        })
+    };
+
     acceptTerms = () => {
         this.setState({showTC: false})
-        // Not properly working
-        try {
-            fetch(`${SIGN_UP}`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: {
-                    "policeId": this.state.policeId,
-                    "rank": this.state.rank,
-                    "payPoint": this.state.payPoint,
-                    "forceNo": this.state.id,
-                    "lastName": this.state.surname,
-                    "phoneNumber": this.state.phone,
-                    "emailAddress": this.state.email,
-                    "firstName": this.state.firstName,
-                    "acceptedTermsAndConditions":  false,
-                    "accountClosed":  false,
-                    "accountCreationDate": "",
-                    "accountNumber": "",
-                    "accountSuspended":  false,
-                    "addressLine1": "",
-                    "addressLine2": "",
-                    "addressLine3": " ",
-                    "alternateEmailAddress": "",
-                    "alternatePhoneNumber": "",
-                    "bank": "",
-                    "bankId": 0,
-                    "bankVerificationNumber": "",
-                    "branchId": 0,
-                    "contributionAmount": 0,
-                    "contributionWithdrawalCount": 0,
-                    "cooperative": "",
-                    "cooperativeCode": "",
-                    "cooperativeId": 2,
-                    "cooperativeMembershipNumber": 0,
-                    "country": "",
-                    "dateOfBirth": "",
-                    "firstTime":  false,
-                    "gender": "",
-                    "genderId": 0,
-                    "hasEmailAddress":  false,
-                    "hasPhoneNumber":  false,
-                    "hasSecurityQuestions":  false,
-                    "id": 0,
-                    "ippisNo": "",
-                    "isAccountModuleAdmin":  false,
-                    "isCooperativeAdmin":  false,
-                    "isSystemAdmin":  false,
-                    "lastLoginDate": "",
-                    "lga": "",
-                    "locked":  false,
-                    "middleName": "",
-                    "occupation": "",
-                    "participating":  false,
-                    "state": "",
-                    "stateId": 0,
-                    "systemAdminPosition": "",
-                    "yearlyIncome": 0
-                }
-            })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({success: true})
-                console.log(responseJson)
-            });
-        } catch(err) {
-            console.log(err)
-        }
+        this.onHandleRegister();
     }
 
-    showSuccessModal=()=>this.setState({success: !this.state.success})
+    showSuccessModal = () => this.setState({success: !this.state.success})
 
     navigate = () => {
         this.props.navigation.navigate("Login")
@@ -134,14 +188,14 @@ export default class index extends Component {
         if (isValid) {
             this.setState({showTC: true})
         } else {
-            return(
+            return (
                 Alert.alert(
                     'Warning',
                     'Fill every input',
                     [
-                      {text: 'close', style: 'cancel'},
+                        {text: 'close', style: 'cancel'},
                     ],
-                    { cancelable: false }
+                    {cancelable: false}
                 )
             );
         }
@@ -165,145 +219,219 @@ export default class index extends Component {
     render() {
         const ranks = [
             {label: 'Constable', value: 'constable'},
-            {label: 'Corporal', value: 'corporal'}, 
+            {label: 'Corporal', value: 'corporal'},
             {label: 'Sergent', value: 'sergent'},
-            {label: 'Inspector ', value: 'inspector'}, 
-            {label: 'ASP II', value: 'aspii'}, 
+            {label: 'Inspector ', value: 'inspector'},
+            {label: 'ASP II', value: 'aspii'},
             {label: 'ASP I', value: 'aspi'},
             {label: 'DSP', value: 'dsp'},
-            {label: 'Corporal', value: 'corporal'}, 
+            {label: 'Corporal', value: 'corporal'},
             {label: 'SP', value: 'sp'},
-            {label: 'CSP', value: 'csp'}, 
-            {label: 'ACP', value: 'acp'}, 
+            {label: 'CSP', value: 'csp'},
+            {label: 'ACP', value: 'acp'},
             {label: 'DCP ', value: 'dcp'},
             {label: 'CP', value: 'cp'},
-            {label: 'AIG', value: 'aig'}, 
-            {label: 'DIG', value: 'dig'}, 
+            {label: 'AIG', value: 'aig'},
+            {label: 'DIG', value: 'dig'},
             {label: 'IGP ', value: 'igp'}
         ]
-        const payPoints = [{label: 'First Point', value: 'fPoint'}, {label: 'Second Point', value: 'sPoint'}, {label: 'Third Point', value: 'tPoint'}]
-        const ids = [{label: 'First ID', value: 'fId'}, {label: 'Second ID', value: 'tId'}, {label: 'Third ID', value: 'tId'}]
+        const payPoints = [{label: 'First Point', value: 'fPoint'}, {
+            label: 'Second Point',
+            value: 'sPoint'
+        }, {label: 'Third Point', value: 'tPoint'}]
+        const ids = [{label: 'First ID', value: 'fId'}, {label: 'Second ID', value: 'tId'}, {
+            label: 'Third ID',
+            value: 'tId'
+        }]
         return (
             <SafeAreaView style={[theme.container]}>
-                <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
-                <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
+                <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none"
+                         overlayColor={'rgba(0, 0, 0, 0.5)'}/>
+                <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content"/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
                     <View style={[style.headerContainer]}>
-                    <TouchableOpacity activeOpacity={0.4} onPress={() => this.props.navigation.goBack(null)}>
-                        <Image source={require('../../../../assets/icons/back_24px.png')} />
-                    </TouchableOpacity>
-                    <View style={[theme.margin_left_right_25, {marginTop: 10}]}>
-                        <View style={[style.sign_up_header, theme.box_gap_more, {marginRight: 30}]}>
-                            <View>
-                                <Text style={[style.sign_up_header_text, theme.typo_bold]}>Sign Up</Text>
-                                <GreenLineSeparator/>
+                        <TouchableOpacity activeOpacity={0.4} onPress={() => this.props.navigation.goBack(null)}>
+                            <Image source={require('../../../../assets/icons/back_24px.png')}/>
+                        </TouchableOpacity>
+                        <View style={[theme.margin_left_right_25, {marginTop: 10}]}>
+                            <View style={[style.sign_up_header, theme.box_gap_more, {marginRight: 30}]}>
+                                <View>
+                                    <Text style={[style.sign_up_header_text, theme.typo_bold]}>Sign Up</Text>
+                                    <GreenLineSeparator/>
+                                </View>
+
+                                <Image source={require('../../../../assets/icons/Group.png')}/>
                             </View>
-                            
-                            <Image source={require('../../../../assets/icons/Group.png')}/>
                         </View>
                     </View>
-                </View>
-                <View style={{marginHorizontal: scale(15)}}>
-                    <Tabs 
-                  tab1Text="Profile Info" tab2Text="Force Info" selected={this.state.selected}
-                  tab1Event={() => this.setState({showForceInfo: false, selected: "1", showProfileInfo:true})} 
-                  tab2Event={() => this.setState({ showProfileInfo: false, selected: "2", showForceInfo: true})} />
-                </View>
+                    <View style={{marginHorizontal: scale(15)}}>
+                        <Tabs
+                            tab1Text="Profile Info" tab2Text="Force Info" selected={this.state.selected}
+                            tab1Event={() => this.setState({
+                                showForceInfo: false,
+                                selected: "1",
+                                showProfileInfo: true
+                            })}
+                            tab2Event={() => this.setState({
+                                showProfileInfo: false,
+                                selected: "2",
+                                showForceInfo: true
+                            })}/>
+                    </View>
                     {this.state.showForceInfo && <View style={{marginHorizontal: scale(20)}}>
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Police ID Type</Text>
-                                <View style={[style.pickerStlye, { borderWidth: StyleSheet.hairlineWidth}]}>
+                                <View style={[style.pickerStlye, {borderWidth: StyleSheet.hairlineWidth}]}>
                                     <Picker
                                         selectedValue={this.state.id}
                                         onValueChange={(itemValue, itemIndex) =>
                                             this.setState({id: itemValue})
                                         }>
-                                        <Picker.Item label= '---None---' value= '' />
-                                        {ids.map((item, index) =><Picker.Item key={index} label={item.label} value={item.value} />)}
+                                        <Picker.Item label='---None---' value=''/>
+                                        {ids.map((item, index) => <Picker.Item key={index} label={item.label}
+                                                                               value={item.value}/>)}
                                     </Picker>
-                                </View> 
-                                    <Text style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop:scaleHeight(20)}]}>Police ID<Text style={{color: '#138516', fontSize: 12, fontFamily: 'nunito-medium'}}>&nbsp; Kindly enter only your number</Text></Text>
+
+                                    {/*<SelectDropdown*/}
+                                        {/*options={ids || []}*/}
+                                        {/*value={''}*/}
+                                        {/*textStyle={{*/}
+                                            {/*color: '#484848',*/}
+                                            {/*fontFamily: 'nunito-medium',*/}
+                                            {/*marginRight: scale(3),*/}
+                                            {/*fontSize: scale(16)*/}
+                                        {/*}}*/}
+                                        {/*title={`Select Police Id Type`}*/}
+                                        {/*onChange={(obj) => this.setState({*/}
+                                            {/*id:obj*/}
+                                        {/*})}*/}
+                                    {/*>*/}
+                                        {/*<View style={styles.select}*/}
+                                            {/*// onPress={this.onhandleSubmit}*/}
+                                        {/*>*/}
+                                            {/*/!*<Text style={styles.label}>Bank Name </Text>*!/*/}
+                                            {/*<Text numberOfLines={1} style={styles.value}>{this.state.id.label || ''}</Text>*/}
+                                        {/*</View>*/}
+                                    {/*</SelectDropdown>*/}
+                                </View>
+                                <Text
+                                    style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop: scaleHeight(20)}]}>Police
+                                    ID<Text style={{
+                                        color: '#138516',
+                                        fontSize: 12,
+                                        fontFamily: 'nunito-medium'
+                                    }}>&nbsp; Kindly enter only your number</Text></Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.policeId} keyboardType="number-pad" onChangeText={policeId=> this.changeState({policeId:policeId.trim()})}
-                                        style={[theme.flex1, theme.caption, theme.typo_regular, {borderColor: '#d0d0d0'}]} 
-                                    /> 
-                                </View> 
+                                    <CustomInput value={this.state.policeId} keyboardType="number-pad"
+                                                 onChangeText={policeId => this.changeState({policeId: policeId.trim()})}
+                                                 style={[theme.flex1, theme.caption, theme.typo_regular, {borderColor: '#d0d0d0'}]}
+                                    />
+                                </View>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Rank</Text>
-                                <View style={[style.pickerStlye, { borderWidth: StyleSheet.hairlineWidth}]}>
+                                <View style={[style.pickerStlye, {borderWidth: StyleSheet.hairlineWidth}]}>
                                     <Picker
                                         selectedValue={this.state.rank}
                                         onValueChange={(itemValue, itemIndex) =>
                                             this.setState({rank: itemValue})
                                         }>
-                                        <Picker.Item label= '' value= '' />
-                                        {ranks.map((item, index) =><Picker.Item key={index} label={item.label} value={item.value} />)}
+                                        <Picker.Item label='' value=''/>
+                                        {ranks.map((item, index) => <Picker.Item key={index} label={item.label}
+                                                                                 value={item.value}/>)}
                                     </Picker>
                                 </View>
 
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop:20}]}>Select Pay Point</Text>
-                                <View style={[style.pickerStlye, { borderWidth: StyleSheet.hairlineWidth}]}>
+                                <Text style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop: 20}]}>Select
+                                    Pay Point</Text>
+                                <View style={[style.pickerStlye, {borderWidth: StyleSheet.hairlineWidth}]}>
                                     <Picker
                                         selectedValue={this.state.payPoint}
                                         onValueChange={(itemValue, itemIndex) =>
                                             this.setState({payPoint: itemValue})
                                         }>
-                                        <Picker.Item label= '' value= '' />
-                                        {payPoints.map((item, index) =><Picker.Item key={index} label={item.label} value={item.value} />)}
+                                        <Picker.Item label='' value=''/>
+                                        {payPoints.map((item, index) => <Picker.Item key={index} label={item.label}
+                                                                                     value={item.value}/>)}
                                     </Picker>
                                 </View>
-                                
+
                                 <View style={style.button}>
                                     <BlackButton button_text="Sign Up" handlePress={this.signUp}/>
                                 </View>
-                                
+
                             </View>
                         </View>
-                        
+
                     </View>}
                     {
                         this.state.showProfileInfo && <View style={{marginHorizontal: scale(20)}}>
-                        <View style={[theme.margin_left_right_25]}>
-                            <View style={[theme.fill]}>
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>First Name</Text>
-                                <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.firstName} onChangeText={firstName=> this.changeState({firstName:firstName.trim()})}
-                                        style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]} 
-                                    /> 
-                                </View> 
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Surname</Text>
-                                <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.surname} onChangeText={surname=> this.changeState({surname:surname.trim()})}
-                                        style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]} 
-                                    /> 
-                                </View> 
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Email Address</Text>
-                                <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.email} onChangeText={email=> this.changeState({email:email.trim()})}
-                                        style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]} 
-                                    /> 
-                                </View> 
+                            <View style={[theme.margin_left_right_25]}>
+                                <View style={[theme.fill]}>
+                                    <Text style={[theme.caption, theme.flex1, theme.padded_label]}>First Name</Text>
+                                    <View style={[theme.input_margin_bottom]}>
+                                        <CustomInput value={this.state.firstName}
+                                                     onChangeText={firstName => this.changeState({firstName: firstName.trim()})}
+                                                     style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}
+                                        />
+                                    </View>
+                                    <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Surname</Text>
+                                    <View style={[theme.input_margin_bottom]}>
+                                        <CustomInput value={this.state.surname}
+                                                     onChangeText={surname => this.changeState({surname: surname.trim()})}
+                                                     style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}
+                                        />
+                                    </View>
+                                    <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Email Address</Text>
+                                    <View style={[theme.input_margin_bottom]}>
+                                        <CustomInput value={this.state.email}
+                                                     onChangeText={email => this.changeState({email: email.trim()})}
+                                                     style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}
+                                        />
+                                    </View>
 
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Phone Number</Text>
-                                <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.phone} onChangeText={phone=> this.changeState({phone:phone.trim()})}
-                                        keyboardType="number-pad" style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]} 
-                                    /> 
-                                </View> 
-                                <View style={style.button}>
-                                    <BlackButton button_text="Next" handlePress= {() => this.setState({ showProfileInfo: false, selected: "2", showForceInfo: true})}/>
+                                    <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Phone Number</Text>
+                                    <View style={[theme.input_margin_bottom]}>
+                                        <CustomInput value={this.state.phone}
+                                                     onChangeText={phone => this.changeState({phone: phone.trim()})}
+                                                     keyboardType="number-pad"
+                                                     style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}
+                                        />
+                                    </View>
+                                    <View style={style.button}>
+                                        <BlackButton button_text="Next" handlePress={() => this.setState({
+                                            showProfileInfo: false,
+                                            selected: "2",
+                                            showForceInfo: true
+                                        })}/>
+                                    </View>
+
                                 </View>
-                                
                             </View>
+
                         </View>
-                        
-                    </View>
                     }
                 </KeyboardAwareScrollView>
-                <CustomModal visible={this.state.showTC} _toggleView={()=>this.setState({showTC: !this.state.showTC})} handleClick={this.acceptTerms}/>
-                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} bare={true} close={this.navigate}
-                    message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
+                <CustomModal visible={this.state.showTC} _toggleView={() => this.setState({showTC: !this.state.showTC})}
+                             handleClick={this.acceptTerms}/>
+                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} bare={true}
+                              close={this.navigate}
+                              message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
             </SafeAreaView>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        loginError: state.login.error,
+        isLoading: state.login.loading,
+        isLoggedIn: state.login.isLoggedIn
+    };
+};
+
+const mapDispatchToProps = {
+    showToast,
+    loginSuccess
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(index);

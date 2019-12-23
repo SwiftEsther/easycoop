@@ -1,4 +1,4 @@
-import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, RESET_ERROR_MESSAGE} from './types';
+import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, RESET_ERROR_MESSAGE,USER_LOGOUT} from './types';
 
 export const login = () => {
     return {
@@ -23,5 +23,11 @@ export const loginFailure = (error) => {
 export const resetErrorMessage = () => {
     return {
         type: RESET_ERROR_MESSAGE
+    };
+};
+
+export const logoutUserSuccess = () => {
+    return {
+        type: USER_LOGOUT
     };
 };
