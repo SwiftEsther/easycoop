@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import loginReducer from '../../containers/screens/Login/reducers/login.reducer';
 import toastReducer from '../../components/Toast/toastReducer';
-import resetPasswordReducer from '../../containers/screens/ForgotPassword/forgotpassword.reducer';
+import resetPasswordReducer from '../../containers/screens/Authentication/forgotpassword.reducer';
 
 
 export default combineReducers({

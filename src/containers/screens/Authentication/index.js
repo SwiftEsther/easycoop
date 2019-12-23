@@ -1,26 +1,30 @@
 import React, { Component } from 'react';
-import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import { connect, Dispatch } from "react-redux";
+import { Keyboard, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../lib/constants/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import API from '../../../../lib/api';
+import { axiosInstance } from "../../../lib/api/axiosClient";
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
-import SuccessModal from '../../../components/SuccessModal';
 import ButtonLink from '../../../components/ButtonLink';
-import base64 from 'base-64';
+import {recoverPasswordSuccess} from './actions/forgotpassword.actions';
+import {showToast} from "../../../components/Toast/actions/toastActions";
+import {resetPassword} from '../../../lib/api/url';
+import SuccessModal from '../../../components/SuccessModal';
 
-export default class index extends Component {
+class ResetPassword extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            apNumber: "",
             spinner: false,
             backgroundColor: '#fdfdfd',
             shadowColor: "#000",
@@ -36,50 +40,64 @@ export default class index extends Component {
         }
     }
 
-    showSuccessModal=()=>this.setState({success: !this.state.success})
-
     changeState = (value) => {
         this.setState(value);
     }
 
-    navigate = () => {
-        console.log("here")
-        this.props.navigation.navigate("Login")
+    forgotPassword = () => {
+        if (this.state.apNumber.length == 0) {
+            return(
+                Alert.alert(
+                    'Warning',
+                    'Fill input',
+                    [
+                      {text: 'close', style: 'cancel'},
+                    ],
+                    { cancelable: false }
+                )
+            );
+        } else {
+            this.onhandleResetPassword()
+        }
     }
 
-    redirect = (_stage) => {
-        
-    }
-
-    onFocus() {
+    onhandleResetPassword = () => {
+        Keyboard.dismiss();
         this.setState({
-            backgroundColor: '#fff',
-            borderWidth: 0,
-            shadowColor: "#fdfdfd",
-            shadowOffset: {
-                width: 0,
-                height: 4,
-            },
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-            elevation: 24
-        });
-    }
+            spinner: true,
+            modalLoader: true
+        }, () => {
+            axiosInstance
+                .post(resetPassword, {params: {username: this.props.navigation.getParam('username', '')}})
+                .then(res => {
+                    this.setState({
+                        spinner: false,
+                    })
+                    if (res.status === 200) {
+                        let response = {...res.data};
 
-    onBlur() {
-        this.setState({
-            backgroundColor: '#fdfdfd',
-            borderWidth: StyleSheet.hairlineWidth,
-            shadowColor: "#000",
-            shadowOffset: {
-                width: 0,
-                height: 0,
-            },
-            shadowOpacity: 0,
-            shadowRadius: 0,
-            elevation: 0
+                        this.props.recoverPasswordSuccess(response);
+                        this.setState({success: !this.state.success})
+                        
+                    } else {
+                        this.props.showToast('Error', 'error');
+                    }
+
+                })
+                .catch(error => {
+
+                    if (error.response) {
+                        this.props.showToast(error.response.data.message, 'error')
+                        console.log(error.response)
+                    } else {
+                        this.props.showToast(error.message, 'error')
+                    }
+                    this.setState({
+                        spinner: false,
+                    })
+                });
         })
-    }
+    };
 
     render() {
         return (
@@ -88,24 +106,42 @@ export default class index extends Component {
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
                     <View style={[theme.screen_pad]}>
-                            <AuthenticationHeader text='Authentication' backFunction={() => this.props.navigation.goBack(null)} />
+                            <AuthenticationHeader text='Forgot Password' backFunction={() => this.props.navigation.goBack(null)} />
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.box_gap_more, theme.fill]}>
-                                <View>
-                                    <Text style={{textAlign: "center", color: "green", marginBottom: 60, flexWrap: "wrap"}} >vA textasdbaksbd asdfkhbasfkj sdkfhbaskfbskjbfdasdfh
-                                    sdfjhabsdfjkasvdhjbfaksjdhfabsvdmnf </Text>
-                                </View>
-                                <BlackButton button_text="Send Password"  handlePress={()=>this.setState({success: !this.state.success})}/>
+                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force number / AP Number</Text>
+                                <View style={[theme.input_margin_bottom]}>
+                                    <CustomInput 
+                                        value={this.state.apNumber} onChangeText={apNumber => this.changeState({apNumber: apNumber.trim()})}
+                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
+                                    /> 
+                                </View> 
+                                <Text style={{textAlign: "center", color: "green", marginBottom: 60}} >validating number</Text>
+                                <BlackButton button_text="Recover Password" handlePress= {this.forgotPassword}/>
                             </View>
                         </View>
                         
                     </View>
                 </KeyboardAwareScrollView>
-                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} 
-                    subtitle="Recovery Password Sent"
-                    close={this.navigate}
-                    message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
+                <SuccessModal visible={this.state.success} _toggleView={()=>this.props.navigation.navigate('Login')} 
+                                subtitle="Request Submitted Successfully"
+                                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
             </SafeAreaView>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        resetError: state.resetPassword.error,
+        isLoading: state.resetPassword.loading,
+        isPasswordReset: state.resetPassword.passwordReset
+    };
+};
+
+const mapDispatchToProps = {
+    showToast,
+    recoverPasswordSuccess
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);
