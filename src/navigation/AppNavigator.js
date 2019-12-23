@@ -3,18 +3,18 @@ import { createStackNavigator } from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 
 
-import Login from '../screens/Login/index';
-import SignUp from '../screens/SignUp/index';
-import entryNavigation from '../screens/entryNavigation/index';
-import Onboarding from '../screens/Onboarding/index';
-import Walkthrough from '../screens/Walkthrough/index';
-import ForgotPasswordPage from '../screens/ForgotPassword/index';
-import AuthenticationPage from '../screens/Authentication/index';
-import ChangePasswordPage from '../screens/Settings/Change_Password/index';
-import SupportPage from '../screens/Support/index';
-import LoanPage from '../screens/Loan/index';
-import Withdrawal from '../screens/Withdrawal/index';
-import Dashboard from '../screens/Dashboard/index';
+import Login from '../containers/screens/Login/index';
+import SignUp from '../containers/screens/SignUp/index';
+import entryNavigation from '../containers/screens/entryNavigation/index';
+import Onboarding from '../containers/screens/Onboarding/index';
+import Walkthrough from '../containers/screens/Walkthrough/index';
+import ForgotPasswordPage from '../containers/screens/ForgotPassword/index';
+import AuthenticationPage from '../containers/screens/Authentication/index';
+import ChangePasswordPage from '../containers/screens/Settings/Change_Password/index';
+import SupportPage from '../containers/screens/Support/index';
+import LoanPage from '../containers/screens/Loan/index';
+import Withdrawal from '../containers/screens/Withdrawal/index';
+import Dashboard from '../containers/screens/Dashboard/index';
 
 const loginNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },

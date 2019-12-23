@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { Platform, StatusBar, View, Text, StyleSheet } from 'react-native';
 
-import AppNavigation from './src/containers/navigation/AppNavigation';
-
-import { Platform, StatusBar, View, Text } from 'react-native';
+import AppNavigator from './src/navigation/AppNavigator';
+import * as colors from './src/lib/constants/colors';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -50,7 +49,6 @@ export default class App extends React.Component {
 
     }
 
-
     render() {
         if (!this.state.isLoadingComplete) {
             return (
@@ -65,7 +63,8 @@ export default class App extends React.Component {
                 <View style={styles.container}>
                     <PersistGate persistor={persistor}>
                         <Provider store={store}>
-                            <AppNavigation/>
+                            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+                            <AppNavigator/>
                         </Provider>
                     </PersistGate>
                 </View>
@@ -82,6 +81,7 @@ export default class App extends React.Component {
                 'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
             }),
             Asset.loadAsync([
+                require('./assets/images/splash.png'),
                 require('./assets/images/onboarding.png'),
                 require('./assets/images/Walkthrough_1.png'),
                 require('./assets/images/Walkthrough_2.png'),
@@ -100,7 +100,6 @@ export default class App extends React.Component {
         this.setState({isLoadingComplete: true});
     };
 }
-
 
 const styles = StyleSheet.create({
     container: {

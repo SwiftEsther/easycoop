@@ -144,7 +144,7 @@ export default class ApplyLoanModal extends Component {
                     <Text style={[theme.typo_regular, { fontSize: 11, color: '#138516', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', marginVertical: scaleHeight(20) }]}>At least Two guarantor is needed.</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: scaleHeight(30) }}>
                       <View style={{ flex: 3, flexDirection: 'row' }}>
-                        <Image source={require('../../../../assets/images/pexels_photo_2x.png')} style={{ flex: 1 }} />
+                        <Image source={require('../../../../assets/images/pexels_photo.png')} style={{ flex: 1 }} />
                         <View style={{ flex: 3, justifyContent: 'space-between', paddingVertical: scaleHeight(10),paddingHorizontal: scale(12)}}>
                           <Text style={{ color: '#504e4e' }}>Mr Obasi Suleman</Text>
                           <Text style={{ color: '#c1c1c1' }}>joshuadavid@gmail.com</Text>
