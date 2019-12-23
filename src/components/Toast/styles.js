@@ -7,8 +7,10 @@ const styles = StyleSheet.create({
         backgroundColor:'red',
         position:'absolute',
         zIndex:99999,
-        top:scale(0),
-        width:'100%',
+        top:scale(25),
+        // width:'100%',
+        marginHorizontal:scale(20),
+        borderRadius:scale(10),
         paddingVertical:10,
         paddingLeft:20,
         paddingRight:10,
@@ -31,7 +33,7 @@ const styles = StyleSheet.create({
         fontSize: scale(15),
         letterSpacing: scale(-0.3),
         color: 'white',
-        fontFamily: 'graphik-medium',
+        fontFamily: 'nunito-medium',
         maxWidth: scale(300)
     },
     success:{

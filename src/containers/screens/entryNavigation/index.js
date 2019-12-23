@@ -1,66 +1,102 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { View, Image, AsyncStorage, TouchableOpacity, ImageBackground, StatusBar } from 'react-native';
 import style from './style';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../lib/constants/colors';
 import * as constants from '../../../../lib/constants';
 import '../../../../lib/helpers';
+import { showToast } from "../../../components/Toast/actions/toastActions";
+import { loginSuccess } from "../Login/actions/login.actions";
+import { connect } from "react-redux";
 
-export default class index extends Component {
+class index extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-  
-  componentDidMount() {
-    // this.createNotificationCount();
-    setTimeout(() => {
-      this.props.navigation.navigate('Walkthrough');
-    }, 3000);
-  }
+    constructor(props) {
+        super(props);
+    }
 
-  //Get notifications
+    componentDidMount() {
+        // this.createNotificationCount();
+
+        setTimeout(() => {
+            this._bootstrapAsync();
+        }, 3000);
+    }
+
+    _bootstrapAsync = async () => {
+        if (this.props.password) {
+            this.props.navigation.navigate("Dashboard");
+        } else {
+            this.props.navigation.navigate('Onboarding');
+
+        }
+
+        // This will switch to the App screen or Auth screen and this loading
+        // screen will be unmounted and thrown away.
+        // this.props.navigation.navigate('Auth');
+        // this.props.navigation.navigate(userToken && userName ? 'Main' : 'Auth');
+        // this.props.navigation.navigate('Auth');
+    };
+
+    //Get notifications
 
 //   createNotificationCount = async () => {
 //     let data = JSON.parse(await AsyncStorage.getItem(constants.NOTIFICATION_COUNT) || '{}');
 //     if(!data.friend)
 //       setGlobalState(constants.NOTIFICATION_COUNT, JSON.stringify({friend: 0, challenge: 0, event: 0, group: 0}));
 //   }
-  
-  resetData = () => {
-    setGlobalState(constants.USER_DATA, "{}");
-  }
 
-  // loadData = async () => {
+    resetData = () => {
+        setGlobalState(constants.USER_DATA, "{}");
+    }
 
-  //   // let userData = JSON.parse(await AsyncStorage.getItem(constants.USER_DATA) || '{}');
-  //   // let status = "";
-  //   // let token = "";  if needed
+    // loadData = async () => {
 
-  //   // if(status === "LOGGEDIN") {
-  //   //   if(token) {
-  //   //     this.props.navigation.navigate('homeNavigation');
-  //   //   }
-  //   //   else {
-  //   //     this.resetData();
-  //   //     Toast("Your session has expired. Login again.", "OK");
-  //   //     this.props.navigation.navigate('Login');
-  //   //   }
-  //   // }  
-  //   // else {
-  //   //   this.props.navigation.navigate('loginNavigation');
-  //   // }
-  //   this.props.navigation.navigate('loginNavigation');
-  // };
+    //   // let userData = JSON.parse(await AsyncStorage.getItem(constants.USER_DATA) || '{}');
+    //   // let status = "";
+    //   // let token = "";  if needed
 
-  render() {
-    return (
-        <View style={[style.container]} >
-            <StatusBar hidden />
-            <TouchableOpacity activeOpacity={0.7}>       
-                <Image style={[theme.intro_logo]} source={require('../../../../assets/images/splash.png')} />
-            </TouchableOpacity>
-        </View>
-    ); 
-  }
-} 
+    //   // if(status === "LOGGEDIN") {
+    //   //   if(token) {
+    //   //     this.props.navigation.navigate('homeNavigation');
+    //   //   }
+    //   //   else {
+    //   //     this.resetData();
+    //   //     Toast("Your session has expired. Login again.", "OK");
+    //   //     this.props.navigation.navigate('Login');
+    //   //   }
+    //   // }
+    //   // else {
+    //   //   this.props.navigation.navigate('loginNavigation');
+    //   // }
+    //   this.props.navigation.navigate('loginNavigation');
+    // };
+
+    render() {
+        return (
+            <View style={[style.container]}>
+                <StatusBar hidden/>
+                <TouchableOpacity activeOpacity={0.7}>
+                    <Image style={[theme.intro_logo]} source={require('../../../../assets/images/splash.png')}/>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
+
+
+const mapStateToProps = (state) => {
+    return {
+        loginError: state.login.error,
+        password: state.login.password,
+        isLoading: state.login.loading,
+        isLoggedIn: state.login.isLoggedIn
+    };
+};
+
+const mapDispatchToProps = {
+    showToast,
+    loginSuccess
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(index);
