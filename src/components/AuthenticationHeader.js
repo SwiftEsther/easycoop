@@ -31,6 +31,7 @@ const style = StyleSheet.create({
     sign_up_header_text: {
         fontSize:30,
         paddingBottom:10,
+        fontFamily: 'nunito-bold',
         width: 250
     },
 })

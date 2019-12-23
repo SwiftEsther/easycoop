@@ -12,6 +12,7 @@ import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import base64 from 'base-64';
+import { scale, scaleHeight } from '../../../helpers/scale';
 
 export default class index extends Component {
     constructor(props) {
@@ -147,7 +148,7 @@ export default class index extends Component {
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Username</Text>
                                 <View style={[theme.input_margin_bottom]}>
                                 <CustomInput value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})} onFocus={this.onFocus} maxLength={100} 
-                                    style={[theme.flex1, theme.caption, theme.typo_regular]} 
+                                    style={[theme.flex1 ]} 
                                 /> 
                                 </View>
                                 <Text style={[theme.caption, theme.gap_2, theme.flex1, theme.padded_label]}>Password</Text>
@@ -156,7 +157,7 @@ export default class index extends Component {
                                         [theme.SectionStyle, 
                                             {
                                                 borderWidth: this.state.borderWidth,
-                                                padding: 10,
+                                                padding: scale(10),
                                                 backgroundColor: this.state.backgroundColor,
                                                 
                                                 shadowColor: this.state.shadowColor,
@@ -176,25 +177,24 @@ export default class index extends Component {
                                         onChangeText={password=> this.changeState({password: password})} 
                                         onFocus={this.onFocus}
                                         onBlur={this.onBlur}
-                                        maxLength={100} 
+                                        maxLength={scale(100)} 
                                         underlineColorAndroid={'transparent'}
                                         style={
                                             [
                                                 theme.flex1, 
-                                                theme.caption, 
                                                 theme.typo_regular, 
+                                                {color: '#9f9f9f', fontSize: 15, fontFamily:'nunito-regular'}
                                             ]
                                         } 
                                     />
                                 </View> 
                                 <Text style={
                                     [
-                                        theme.caption_lite, 
+                                        {color: '#000000', fontSize: 15, fontFamily:'nunito-bold', marginVertical: scaleHeight(20)},
                                         theme.typo_bold, theme.font15, 
                                         theme.fill, theme.pad_top15, 
                                         theme.underline, theme.textRight, 
-                                        theme.flex1, theme.padded_label, 
-                                        theme.margin_top_bottom30
+                                        theme.flex1, theme.padded_label,
                                     ]
                                 }
                                 onPress= {() => this.props.navigation.navigate('ForgotPasswordPage')}

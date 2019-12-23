@@ -128,6 +128,5 @@ export default class CustomInput extends BaseInput {
 const styles = StyleSheet.create({
     container: {
     },
-    textInput: {
-    },
+    textInput: {color: '#9f9f9f', fontSize: 15, fontFamily:'nunito-regular'}
 });

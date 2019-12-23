@@ -19,6 +19,7 @@ import GreenLineSeparator from '../../../components/GreenLineSeparator';
 import Tabs from '../../../components/Tabs';
 import CustomModal from '../../../components/CustomModal';
 import SuccessModal from '../../../components/SuccessModal';
+import { scale, scaleHeight } from '../../../helpers/scale';
 
 
 export default class index extends Component {
@@ -161,14 +162,32 @@ export default class index extends Component {
     // };
 
     render() {
-        const ranks = [{label: 'First Rank', value: 'fRank'}, {label: 'Second Rank', value: 'sRank'}, {label: 'Third Rank', value: 'tRank'}]
+        const ranks = [
+            {label: 'Constable', value: 'constable'},
+            {label: 'Corporal', value: 'corporal'}, 
+            {label: 'Sergent', value: 'sergent'},
+            {label: 'Inspector ', value: 'inspector'}, 
+            {label: 'ASP II', value: 'aspii'}, 
+            {label: 'ASP I', value: 'aspi'},
+            {label: 'DSP', value: 'dsp'},
+            {label: 'Corporal', value: 'corporal'}, 
+            {label: 'SP', value: 'sp'},
+            {label: 'CSP', value: 'csp'}, 
+            {label: 'ACP', value: 'acp'}, 
+            {label: 'DCP ', value: 'dcp'},
+            {label: 'CP', value: 'cp'},
+            {label: 'AIG', value: 'aig'}, 
+            {label: 'DIG', value: 'dig'}, 
+            {label: 'IGP ', value: 'igp'}
+        ]
         const payPoints = [{label: 'First Point', value: 'fPoint'}, {label: 'Second Point', value: 'sPoint'}, {label: 'Third Point', value: 'tPoint'}]
         const ids = [{label: 'First ID', value: 'fId'}, {label: 'Second ID', value: 'tId'}, {label: 'Third ID', value: 'tId'}]
         return (
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
-                <View style={[style.headerContainer]}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                    <View style={[style.headerContainer]}>
                     <TouchableOpacity activeOpacity={0.4} onPress={() => this.props.navigation.goBack(null)}>
                         <Image source={require('../../../../assets/icons/back_24px.png')} />
                     </TouchableOpacity>
@@ -183,14 +202,13 @@ export default class index extends Component {
                         </View>
                     </View>
                 </View>
-
-                <Tabs 
+                <View style={{marginHorizontal: scale(15)}}>
+                    <Tabs 
                   tab1Text="Profile Info" tab2Text="Force Info" selected={this.state.selected}
                   tab1Event={() => this.setState({showForceInfo: false, selected: "1", showProfileInfo:true})} 
                   tab2Event={() => this.setState({ showProfileInfo: false, selected: "2", showForceInfo: true})} />
-                    
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
-                    {this.state.showForceInfo && <View style={theme.padding_left_right_25}>
+                </View>
+                    {this.state.showForceInfo && <View style={{marginHorizontal: scale(20)}}>
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Police ID Type</Text>
@@ -204,7 +222,7 @@ export default class index extends Component {
                                         {ids.map((item, index) =><Picker.Item key={index} label={item.label} value={item.value} />)}
                                     </Picker>
                                 </View> 
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop:20}]}>Police ID</Text>
+                                    <Text style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop:scaleHeight(20)}]}>Police ID<Text style={{color: '#138516', fontSize: 12, fontFamily: 'nunito-medium'}}>&nbsp; Kindly enter only your number</Text></Text>
                                 <View style={[theme.input_margin_bottom]}>
                                     <CustomInput value={this.state.policeId} keyboardType="number-pad" onChangeText={policeId=> this.changeState({policeId:policeId.trim()})}
                                         style={[theme.flex1, theme.caption, theme.typo_regular, {borderColor: '#d0d0d0'}]} 
@@ -243,7 +261,7 @@ export default class index extends Component {
                         
                     </View>}
                     {
-                        this.state.showProfileInfo && <View style={theme.padding_left_right_25}>
+                        this.state.showProfileInfo && <View style={{marginHorizontal: scale(20)}}>
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>First Name</Text>
@@ -268,7 +286,7 @@ export default class index extends Component {
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Phone Number</Text>
                                 <View style={[theme.input_margin_bottom]}>
                                     <CustomInput value={this.state.phone} onChangeText={phone=> this.changeState({phone:phone.trim()})}
-                                        style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]} 
+                                        keyboardType="number-pad" style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]} 
                                     /> 
                                 </View> 
                                 <View style={style.button}>
