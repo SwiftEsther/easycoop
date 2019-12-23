@@ -72,7 +72,8 @@ showWithdrawSuccess=()=>{
               <Icon name='close' iconStyle={[styles.icon]} onPress={this.props._toggleView} />
             </TouchableOpacity>
           <View style={styles.bottomNavigationView}>
-            <View style={{ flex: 1 }}>
+            <KeyboardAwareScrollView>
+              <View style={{ flex: 1 }}>
               <View style={[styles.header]}>
                 <Image style={{}} source={require('../../../../assets/icons/coins.png')} />
                 <Text style={[theme.typo_bold, theme.font17, { width: width - 80, paddingLeft: scale(20), marginVertical: scaleHeight(20),}]}>Withdraw Funds</Text>
@@ -99,23 +100,25 @@ showWithdrawSuccess=()=>{
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start',  width: width/1.4 }}>
                       <View style={{ flex: 2, flexDirection: 'column', marginRight: 12 }}>
                         <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Amount</Text>
-                        <View style={[styles.pickerStlye, { borderWidth: StyleSheet.hairlineWidth }]}>
+                        <View style={[styles.pickerStlye]}>
                           <CustomInput value={this.state.policeId} keyboardType="number-pad" onChangeText={policeId => this.changeState({ policeId: policeId.trim() })}
                             style={[ {color:'#504e4e', fontFamily: 'nunito-medium', borderColor: '#d0d0d0' }]}
                           />
                         </View>
                       </View>
                     </View>
-                  </KeyboardAwareScrollView>
-                </View>
-              </View>
               <View style={{flex:1}}>
                 <TouchableOpacity activeOpacity={0.7} style={[styles.buttons]} onPress={this.showWithdrawSuccess}>
                     <GreenButton button_text='Submit Withdrawal' />
                   </TouchableOpacity>
               </View>
+                  </KeyboardAwareScrollView>
+                </View>
+              </View>
                   
             </View>
+            </KeyboardAwareScrollView>
+            
           </View>
         </BottomSheet>
         <RequestSuccessful visible={this.state.success} _toggleView={this.toggleWithdraw} 
@@ -132,7 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 2,
     paddingHorizontal: scale(10),
-    marginTop: scale(20),
+    marginTop: scaleHeight(20),
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
     marginLeft: scale(10)
   },
@@ -142,14 +145,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginVertical: scale(13),
+    marginVertical: scaleHeight(13),
     marginHorizontal: scale(13),
     flex: 1,
     fontFamily: 'nunito-bold' 
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: scaleHeight(height /1.5),
+    height: height /1.3,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     justifyContent: 'flex-start',
@@ -174,7 +177,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flex: 1,
-    marginLeft: scale(30),
+    marginTop: scaleHeight(30),
     marginRight: scale(40)
   },
 });

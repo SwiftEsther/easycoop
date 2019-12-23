@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import { connect, Dispatch } from "react-redux";
+import { Keyboard, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../lib/constants/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {RESET_PASSWORD} from '../../../../lib/constants';
+import { axiosInstance } from "../../../lib/api/axiosClient";
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -13,7 +14,9 @@ import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
-import base64 from 'base-64';
+import {recoverPasswordSuccess} from './actions/forgotpassword.actions';
+import {showToast} from "../../../components/Toast/actions/toastActions";
+import {resetPassword} from '../../../lib/api/url';
 
 export default class index extends Component {
     constructor(props) {
@@ -52,21 +55,7 @@ export default class index extends Component {
                 )
             );
         } else {
-            const api = `${BASE_URL}${RESET_PASSWORD}`
-            var url = new URL(api),
-            params = {username: this.state.username}
-            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-            try {
-                fetch(url)
-                .then((response) => response.json())
-                    .then((responseJson) => {
-                        // get the response data from {responseJson} e.g responseJson.lastName
-                        console.log(responseJson);
-                        this.props.navigation.navigate('AuthenticationPage')
-                    })
-            } catch (err) {
-
-            }
+            this.props.navigation.navigate('AuthenticationPage', {username: this.state.username})
         }
     }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Platform, Text, Button, Image, ScrollView, ScrollViewBase } from 'react-native';
+import { StyleSheet, View, Platform, Text, Button, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { BottomSheet } from 'react-native-btr';
 import theme from '../../assets/styles/globalStyles';
 import GreenButton from '../components/GreenButton';
@@ -11,15 +11,19 @@ const SuccessModal = (props) =>(
     <BottomSheet
       visible={props.visible}
       onBackButtonPress={props._toggleView}
-      onBackdropPress={props._toggleView}
     >
+
+{props.bare && <TouchableOpacity activeOpacity={0.7} style={[ styles.bareIcon ]} onPress={props._toggleView}>
+        <Icon name='close'/>
+      </TouchableOpacity>}
+      {!props.bare && <TouchableOpacity activeOpacity={0.7} style={[ styles.icon ]} onPress={props._toggleView}>
+        <Icon name='close'/>
+      </TouchableOpacity>}
       <View style={styles.bottomNavigationView}>
-          {props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.bareIcon]} handlePress={props._toggleView}/>}
-          {!props.bare && <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} onPress={props.close}/>}
-          <View style={[theme.center, theme.padding_left_right_25]}>
+          <View style={[{alignSelf: 'center',alignItems:'center'}]}>
             <Image source={require('../../assets/icons/check_circle.png')} style={[theme.pad_bottom30]}/>
-            {props.subtitle && <Text style={[theme.typo_bold, theme.font15, theme.pad_bottom20, {color:'#138516'}]}>{props.subtitle}</Text>}
-            {props.message && <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(14)}]}>
+            {props.subtitle && <Text style={[{ctextAlign: 'center',color:'#138516', fontSize: 20, fontStyle: 'nunito-bold'}, theme.pad_bottom20]}>{props.subtitle}</Text>}
+            {props.message && <Text style={[{textAlign: 'center', fontSize: scale(14)}]}>
               {props.message}
             </Text>}
             {props.smallText && <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(10), color:'#C6C6C6'}]}>
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
     borderRadius:50, 
     fontSize: scale(25), 
     padding:scale(6), 
-    top: scaleHeight(-115),
+    top: scaleHeight(280),
     right:0, 
     position: 'absolute'
   },

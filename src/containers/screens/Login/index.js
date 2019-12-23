@@ -26,7 +26,6 @@ import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import base64 from 'base-64';
 import { scale, scaleHeight } from '../../../helpers/scale';
-import { doLogin } from './login.thunk';
 import { axiosInstance } from "../../../lib/api/axiosClient";
 import { postLogIn } from "../../../lib/api/url";
 import {showToast} from "../../../components/Toast/actions/toastActions";
@@ -90,13 +89,10 @@ class Login extends Component {
         }
     }
 
-
     onhandleLogin = () => {
         Keyboard.dismiss();
         let {username, password} = this.state;
 
-
-        let token = '';
         console.log(postLogIn)
         this.setState({
             spinner: true,

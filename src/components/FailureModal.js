@@ -12,7 +12,7 @@ const FailureModal = (props) =>(
       visible={props.visible}
       onBackButtonPress={props._toggleView}
     >
-      <TouchableOpacity activeOpacity={0.7} style={[ styles.icon, {} ]} onPress={props._toggleView}>
+      <TouchableOpacity activeOpacity={0.7} style={[ styles.icon]} onPress={props._toggleView}>
         <Icon name='close'/>
       </TouchableOpacity>
       <View style={styles.bottomNavigationView}>
