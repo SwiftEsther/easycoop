@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TextInput, Picker, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../../assets/styles/colors';
+import * as colors from '../../../lib/constants/Colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {SIGN_UP} from '../../../../lib/constants';
@@ -17,7 +17,11 @@ import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import GreenLineSeparator from '../../../components/GreenLineSeparator';
 import Tabs from '../../../components/Tabs';
-import ApplyLoanModal from '../../../components/ApplyLoanModal';
+import ApplyLoanModal from './ApplyLoanModal';
+import ApplicationSuccessful from './ApplicationSuccessful';
+import ApplicationStatus from './ApplicationStatus';
+import EditApplication from './EditApplication';
+import ReviewApplication from './ReviewApplication';
 
 
 export default class index extends Component {
@@ -31,7 +35,8 @@ export default class index extends Component {
             showProfileInfo: true,
             showForceInfo: false,
             showTC: false,
-            success: false
+            success: false,
+            loanApply: false
         }
     }
 
@@ -39,7 +44,7 @@ export default class index extends Component {
         this.setState(value);
     }
 
-    showSuccessModal=()=>this.setState({success: !this.state.success})
+    showLoanApply=()=>this.setState({loanApply: !this.state.loanApply})
 
     render() {
        return (
@@ -79,16 +84,23 @@ export default class index extends Component {
                         </View>
 
                         <View>
-                            <ApplyLoan applyLoan={()=>this.setState({success: !this.state.success})}/>
+                            <ApplyLoan applyLoan={this.showLoanApply}/>
                         </View>
                         <View>
                             <CalculateLoan/>
                         </View>
                     </View>}
                 </KeyboardAwareScrollView>
-                <ApplyLoanModal visible={this.state.success} _toggleView={this.showSuccessModal} 
+                <ApplyLoanModal visible={this.state.loanApply} _toggleView={this.showLoanApply}/>
+                {/* <ApplicationSuccessful 
+                subtitle="Request Submission Failed"
+                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints`}
+                visible={this.state.success} _toggleView={this.showSuccessModal} /> */}
+                {/* <ApplicationStatus visible={this.state.success} _toggleView={this.showSuccessModal} /> */}
+                {/* <EditApplication visible={this.state.success} _toggleView={this.showSuccessModal} 
                     subtitle="Recovery Password Sent"
-                    message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
+                    message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/> */}
+                    
             </SafeAreaView>
         );
     }

@@ -1,5 +1,5 @@
 import { Dimensions, Platform, StyleSheet } from 'react-native'
-import * as colors from '../../../../assets/styles/colors';
+import * as colors from '../../../lib/constants/Colors';
 import { scale } from '../../../helpers/scale';
 
 const deviceHeight = Dimensions.get('window').height;

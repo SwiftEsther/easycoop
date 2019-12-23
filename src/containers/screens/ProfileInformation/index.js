@@ -3,7 +3,7 @@ import { TextInput, Picker, StatusBar, StyleSheet, TouchableOpacity, Image, Safe
 import { systemWeights } from 'react-native-typography';
 import { Header , Avatar  } from 'react-native-elements';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../../assets/styles/colors';
+// import * as colors from '../../../../assets/styles/colors';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {SIGN_UP} from '../../../../lib/constants';
 import style from './style';

@@ -1,5 +1,5 @@
 import { Dimensions, Platform, StyleSheet } from 'react-native'
-import * as colors from '../../../../assets/styles/colors';
+// import * as colors from '../../../../assets/styles/Colors';
 import { systemWeights } from 'react-native-typography';
 import { scale } from '../../../helpers/scale';
 

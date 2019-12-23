@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
+import { scale } from "../helpers/scale";
+
+const deviceWidth = Dimensions.get('window').width;
 
 export default class Circle extends Component {
     constructor(props) {
@@ -15,12 +18,12 @@ export default class Circle extends Component {
 
 const styles = StyleSheet.create({
     circle: { 
-        width: 500, 
-        height: 500, 
-        borderRadius: 500/2, 
+        width: scale(420),
+        height: scale(420),
+        borderRadius:scale(210),
         backgroundColor: '#fff',
         position: 'relative',
-        left: -38,
-        top: -55
+        // left: -38,
+        top: scale(0)
     }
 });

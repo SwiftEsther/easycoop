@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, StatusBar, Dimensions } from 'react-nati
 import style from "./style"
 import {Icon} from 'react-native-elements';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../../assets/styles/colors';
+// import * as colors from '../../../../assets/styles/colors';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import { SafeAreaView } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -29,7 +29,7 @@ export default class index extends Component {
     render() {
         return(
             <>
-            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+            <StatusBar barStyle="dark-content" />
             <SafeAreaView>
                 <View style={[style.container]}>
                     <TouchableOpacity onPress={() => this.changeState({selected:"l"})}>

@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     borderRadius:50, 
     fontSize: scale(25), 
     padding:scale(6), 
-    top: scaleHeight(-105),
+    top: scaleHeight(-100),
     right:0, 
     position: 'absolute'
   },
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius:50, 
     fontSize: scale(25), 
     padding:scale(6), 
-    top: scaleHeight(-105),
+    top: scaleHeight(-110),
     right:0, 
     position: 'absolute'
   },
