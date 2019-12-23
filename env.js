@@ -5,11 +5,11 @@ let environment = 'dev';
 const generateEnvVariables = () => {
     if (environment === 'dev'){
         return {
-            baseUrl:'https://137.117.211.230:8000',
+            baseUrl:'http://137.117.211.230:8000',
         }
     } else {
         return {
-            
+            baseUrl:'http://137.117.211.230:8000',
         }
     }
 }

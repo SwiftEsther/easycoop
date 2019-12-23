@@ -10,6 +10,7 @@ import {
 import { systemWeights } from 'react-native-typography';
 
 import BaseInput from './BaseInput';
+import { scale } from "../../helpers/scale";
 
 export default class CustomInputWithIcon extends BaseInput {
     static propTypes = {
@@ -142,8 +143,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row-reverse',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#000',
+        borderWidth: scale(1),
+        borderColor: '#868686',
     },
     image_icon: {
         padding: 2,
