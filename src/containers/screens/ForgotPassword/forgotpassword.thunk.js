@@ -1,22 +1,20 @@
 import {Dispatch} from 'react-redux';
 
 import {RecoverPasswordService} from './forgotpassword.service';
-import RecoverPassword from './forgotpassword.reducer';
 import {
     recoverPassword,
     recoverPasswordFailure,
     recoverPasswordSuccess,
     resetErrorMessage
 } from './actions/forgotpassword.actions';
-import { resetPassword } from '../../../lib/api/url';
 
-const recoverPasswordService = new SignupService();
+const recoverPasswordService = new RecoverPasswordService();
 
 export const doResetPassword = (body) => {
     return (dispatch) => {
         dispatch(RecoverPassword());
 
-        RecoverPasswordService
+        recoverPasswordService
             .recoverPassword(body)
             .then((response) => {
                 dispatch(recoverPasswordSuccess(response));

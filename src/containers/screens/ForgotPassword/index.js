@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import { connect, Dispatch } from "react-redux";
+import { Keyboard, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../lib/constants/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {RESET_PASSWORD} from '../../../../lib/constants';
+import { axiosInstance } from "../../../lib/api/axiosClient";
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -13,14 +14,16 @@ import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
-import base64 from 'base-64';
+import {recoverPasswordSuccess} from './actions/forgotpassword.actions';
+import {showToast} from "../../../components/Toast/actions/toastActions";
+import {resetPassword} from '../../../lib/api/url';
 
-export default class index extends Component {
+class ResetPassword extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            username: "",
+            apNumber: "",
             spinner: false,
             backgroundColor: '#fdfdfd',
             shadowColor: "#000",
@@ -40,7 +43,7 @@ export default class index extends Component {
     }
 
     forgotPassword = () => {
-        if (this.state.username.length == 0) {
+        if (this.state.apNumber.length == 0) {
             return(
                 Alert.alert(
                     'Warning',
@@ -52,23 +55,48 @@ export default class index extends Component {
                 )
             );
         } else {
-            const api = `${BASE_URL}${RESET_PASSWORD}`
-            var url = new URL(api),
-            params = {username: this.state.username}
-            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-            try {
-                fetch(url)
-                .then((response) => response.json())
-                    .then((responseJson) => {
-                        // get the response data from {responseJson} e.g responseJson.lastName
-                        console.log(responseJson);
-                        this.props.navigation.navigate('AuthenticationPage')
-                    })
-            } catch (err) {
-
-            }
+            this.onhandleResetPassword()
         }
     }
+
+    onhandleResetPassword = () => {
+        Keyboard.dismiss();
+        let {apNumber} = this.state;
+        this.setState({
+            spinner: true,
+            modalLoader: true
+        }, () => {
+            axiosInstance
+                .post(resetPassword, apNumber)
+                .then(res => {
+                    console.log(res)
+                    this.setState({
+                        spinner: false,
+                    })
+                    if (res.status === 200) {
+                        let response = {...res.data};
+
+                        this.props.recoverPasswordSuccess(response);
+                        this.props.navigation.navigate('Authentication')
+                    } else {
+                        this.props.showToast('Error', 'error');
+                    }
+
+                })
+                .catch(error => {
+
+                    if (error.response) {
+                        this.props.showToast(error.response.data.message, 'error')
+                        console.log(error.response)
+                    } else {
+                        this.props.showToast(error.message, 'error')
+                    }
+                    this.setState({
+                        spinner: false,
+                    })
+                });
+        })
+    };
 
     render() {
         return (
@@ -83,7 +111,7 @@ export default class index extends Component {
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force number / AP Number</Text>
                                 <View style={[theme.input_margin_bottom]}>
                                     <CustomInput 
-                                        value={this.state.username} onChangeText={username => this.changeState({username: username.trim()})}
+                                        value={this.state.apNumber} onChangeText={apNumber => this.changeState({apNumber: apNumber.trim()})}
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
@@ -98,3 +126,18 @@ export default class index extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        resetError: state.resetPassword.error,
+        isLoading: state.resetPassword.loading,
+        isPasswordReset: state.resetPassword.passwordReset
+    };
+};
+
+const mapDispatchToProps = {
+    showToast,
+    recoverPasswordSuccess
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResetPassword);

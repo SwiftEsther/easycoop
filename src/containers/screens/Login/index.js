@@ -95,8 +95,6 @@ class Login extends Component {
         Keyboard.dismiss();
         let {username, password} = this.state;
 
-
-        let token = '';
         console.log(postLogIn)
         this.setState({
             spinner: true,

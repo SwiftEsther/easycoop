@@ -8,8 +8,8 @@ const initialState = {
     passwordReset: false
 }
 
-export default (state=initialState, actionType) => {
-    switch (actionType) {
+export default (state=initialState, action) => {
+    switch (action.type) {
         case RECOVER_PASSWORD:
             return{
                 ...state,
@@ -18,6 +18,7 @@ export default (state=initialState, actionType) => {
         case RECOVER_PASSWORD_SUCCESS:
             return{
                 ...state,
+                ...action.payload,
                 passwordReset: true,
                 loading: false
             }  
@@ -25,6 +26,7 @@ export default (state=initialState, actionType) => {
             return{
                 ...state,
                 error: action.error,
+                passwordReset: false,
                 loading: false
             }  
         case RESET_ERROR_MESSAGE:
