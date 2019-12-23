@@ -54,27 +54,26 @@ export default class ApplicationStatus extends Component {
                 <BottomSheet
                     visible={this.props.visible}
                     onBackButtonPress={this.props._toggleView}
-                    onBackdropPress={this.props._toggleView}
                 >
                     <View >
-                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={this.props._toggleView}>
-                            <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]}/>
+                        <TouchableOpacity activeOpacity={0.7} style={[styles.icon]}>
+                            <Icon name='close' onPress={this.props._toggleView}/>
                         </TouchableOpacity>
                     </View>
                     
                     <View style={styles.bottomNavigationView}>
                         <View style={[theme.container, styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
-                            <Text style={[theme.typo_bold, theme.font17, { width: width, paddingLeft: scale(20), }]}>Request was <Text style={{color: '#f80000'}}>Not Approved</Text></Text>
+                            <Text style={[{ width: width, paddingLeft: scale(20), fontFamily: 'nunito-bold', fontSize: 20 }]}>Request was <Text style={{color: '#f80000'}}>Not Approved</Text></Text>
                         </View>
                         <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', marginBottom: scaleHeight(50), marginHorizontal: scale(20), flex: 4 }]}>
                             <View >
-                                <Text style={{color: '#138516', marginTop: 20}}>Admin's Note: </Text>
-                                <Text style={{color: '#707070', backgroundColor: '#f8f8f8',marginVertical: scaleHeight(10), padding: scale(20)}}>
+                                <Text style={{color: '#138516', marginTop: 20, fontFamily: 'nunito-bold'}}>Admin's Note: </Text>
+                                <Text style={{color: '#707070', backgroundColor: '#f8f8f8', fontFamily: 'nunito-medium', fontSize: 13,marginVertical: scaleHeight(10), padding: scale(20)}}>
                                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore.
                                 </Text>
                             </View>
                         </View>
-                        <View style={[styles.buttons]}>
+                        <View style={[styles.buttons, {marginBottom: 50}]}>
                             <TouchableOpacity activeOpacity={0.7} style={[styles.link]} onPress={this.showChangeForm}>
                                 <WhiteButton button_text='Delete Application'/>
                             </TouchableOpacity>
@@ -114,7 +113,7 @@ const styles = StyleSheet.create({
     },
     bottomNavigationView: {
         backgroundColor: '#fff',
-        height: height / 1.2,
+        height: height / 1.4,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         borderTopLeftRadius: 20,
@@ -138,7 +137,8 @@ const styles = StyleSheet.create({
         padding: scale(6),
         top: scaleHeight(-50),
         right: scale(5),
-        position: 'absolute'
+        position: 'absolute',
+        color: '#138516'
     },
     buttons: {
         flex: 2,

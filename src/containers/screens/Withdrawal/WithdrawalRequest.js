@@ -68,16 +68,16 @@ showWithdrawSuccess=()=>{
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
         >
-            <TouchableOpacity activeOpacity={0.7} onPress={this.props._toggleView} style={{width:'100%', flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10, paddingRight: 10}}>
-              <Icon name='close' iconStyle={[styles.icon]} />
+            <TouchableOpacity activeOpacity={0.7} style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10, paddingRight: 10}}>
+              <Icon name='close' iconStyle={[styles.icon]} onPress={this.props._toggleView} />
             </TouchableOpacity>
           <View style={styles.bottomNavigationView}>
             <View style={{ flex: 1 }}>
               <View style={[styles.header]}>
                 <Image style={{}} source={require('../../../../assets/icons/coins.png')} />
-                <Text style={[theme.typo_bold, theme.font17, { width: width - 80, paddingLeft: scale(20), marginVertical: scaleHeight(20) }]}>Withdraw Funds</Text>
+                <Text style={[theme.typo_bold, theme.font17, { width: width - 80, paddingLeft: scale(20), marginVertical: scaleHeight(20),}]}>Withdraw Funds</Text>
               </View>
-              <View style={{ flex: 4 }}>
+              <View style={{ flex: 6, marginHorizontal: scale(10)}}>
                 <View style={[theme.container, styles.MainContainer,]}>
                   <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
                     <View style={{ flexDirection: 'row', width: width/1.4, marginBottom: scaleHeight(30),}}>
@@ -101,22 +101,25 @@ showWithdrawSuccess=()=>{
                         <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Amount</Text>
                         <View style={[styles.pickerStlye, { borderWidth: StyleSheet.hairlineWidth }]}>
                           <CustomInput value={this.state.policeId} keyboardType="number-pad" onChangeText={policeId => this.changeState({ policeId: policeId.trim() })}
-                            style={[theme.flex1, theme.caption, theme.typo_regular, { borderColor: '#d0d0d0' }]}
+                            style={[ {color:'#504e4e', fontFamily: 'nunito-medium', borderColor: '#d0d0d0' }]}
                           />
                         </View>
                       </View>
                     </View>
                   </KeyboardAwareScrollView>
-                  <TouchableOpacity activeOpacity={0.7} style={[styles.buttons]} onPress={this.showWithdrawSuccess}>
-                    <GreenButton button_text='Submit Withdrawal' />
-                  </TouchableOpacity>
                 </View>
               </View>
+              <View style={{flex:1}}>
+                <TouchableOpacity activeOpacity={0.7} style={[styles.buttons]} onPress={this.showWithdrawSuccess}>
+                    <GreenButton button_text='Submit Withdrawal' />
+                  </TouchableOpacity>
+              </View>
+                  
             </View>
           </View>
         </BottomSheet>
         <RequestSuccessful visible={this.state.success} _toggleView={this.toggleWithdraw} 
-                                subtitle="Request Submitted Successfully"
+                                subtitle="Withdrawal Request Submitted Successfully"
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
       </SafeAreaView >
     );
@@ -141,11 +144,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     marginVertical: scale(13),
     marginHorizontal: scale(13),
-    flex: 1
+    flex: 1,
+    fontFamily: 'nunito-bold' 
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: scaleHeight(height / 1.3),
+    height: scaleHeight(height /1.5),
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     justifyContent: 'flex-start',
@@ -155,12 +159,13 @@ const styles = StyleSheet.create({
   icon: {
     borderRadius: 50,
     fontSize: 25,
-    padding: 4,
+    padding: 6,
     color: '#138516',
     backgroundColor: '#f5f5f5',
   },
   pickerStlye: {
-    color: '#9f9f9f',
+    color:'#504e4e', 
+    fontFamily: 'nunito-medium',
     borderColor: '#d0d0d0',
     backgroundColor: 'rgba(0, 13, 55, 0.02)',
     height: scaleHeight(40),
@@ -169,6 +174,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flex: 1,
-    marginRight: scale(20)
+    marginLeft: scale(30),
+    marginRight: scale(40)
   },
 });

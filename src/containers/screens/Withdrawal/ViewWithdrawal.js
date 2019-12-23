@@ -10,15 +10,21 @@ import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SuccessModal from '../../../components/SuccessModal';
 import FailureModal from '../../../components/FailureModal';
+import WithdrawalRequest from './WithdrawalRequest';
 
-export default class ApplicationStatus extends Component {
+export default class ViewWithdrawal extends Component {
     constructor(props) {
         super(props);
         this.state={
             amount: '',
             success: false,
-            failure: false
+            failure: false,
+            withdraw: false
         }
+    }
+
+    showWithdrawalRequest = () => {
+        this.setState({withdraw: !this.state.withdraw})
     }
 
     showRequestFailure=()=>{
@@ -78,13 +84,14 @@ export default class ApplicationStatus extends Component {
                             <TouchableOpacity activeOpacity={0.7} style={[styles.link]} onPress={this.showChangeForm}>
                                 <WhiteButton button_text='Delete Application'/>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={0.7} style={[styles.link]} onPress={this.showDeleteModal}>
+                            <TouchableOpacity activeOpacity={0.7} style={[styles.link]} onPress={this.showWithdrawalRequest}>
                                 <GreenButton button_text='Apply Again' />
                             </TouchableOpacity>
                         </View>
                     </View>
                     
                 </BottomSheet>
+                <WithdrawalRequest visible={this.state.withdraw} _toggleView={this.showWithdrawalRequest}/>
                 <SuccessModal visible={this.state.success} _toggleView={this.toggleRequest} 
                                 subtitle="Request Submitted Successfully"
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
