@@ -30,6 +30,7 @@ import { doLogin } from './login.thunk';
 import { axiosInstance } from "../../../lib/api/axiosClient";
 import { postLogIn } from "../../../lib/api/url";
 import {showToast} from "../../../components/Toast/actions/toastActions";
+import {loginSuccess} from "./actions/login.actions";
 
 
 class Login extends Component {
@@ -121,17 +122,14 @@ class Login extends Component {
                     })
                     if (res.status === 200) {
                         // this.storeToken(token);
-                        // let userData = {...res.data.data};
-                        // userData.access_token = res.data.data.token;
-                        // userData.stage_id = res.data.data.stage_id;
-                        // userData.activated = res.data.data.activated;
-                        // userData.phone = phone;
-                        //
-                        // this.props.loginUserSuccess(userData);
-                        // // this.props.showToast(res.data.message, 'success');
-                        // this.goToPage(userData)
+                        let userData = {...res.data};
+                        userData.password = password;
+
+                        this.props.loginSuccess(userData);
+                        this.props.showToast('Successfully logged in', 'success');
+                        this.props.navigation.navigate('Dashboard')
                     } else {
-                        // this.props.showToast(res.data.message, 'error')
+                        this.props.showToast('Error', 'error');
                     }
 
                 })
@@ -163,14 +161,14 @@ class Login extends Component {
         this.setState({
             backgroundColor: '#fff',
             borderWidth: 0,
-            shadowColor: "#fdfdfd",
+            shadowColor: "rgba(141, 141, 141, 0.23)",
             shadowOffset: {
                 width: 0,
-                height: 4,
+                height: 3,
             },
-            shadowOpacity: 0.1,
-            shadowRadius: 3,
-            elevation: 24
+            shadowOpacity: 0.8,
+            shadowRadius: 30,
+            elevation: scale(2)
         });
     }
 
@@ -287,11 +285,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onLogin: (body) => dispatch(doLogin(body)),
-        showToast
-    };
-};
+const mapDispatchToProps = {
+    showToast,
+    loginSuccess
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
