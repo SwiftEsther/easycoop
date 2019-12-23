@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { AsyncStorage } from "react-native";
-import { USER_LOGOUT } from "../../screens/Auth/action/types";
 import { store } from "../../../App";
-import NavigationService from '../../../NavigationService';
+// import NavigationService from '../../../NavigationService';
 import env from '../../../env.js'
 
-import { showToast } from "../../components/Toast/actions/toastActions";
+// import { showToast } from "../../components/Toast/actions/toastActions";
 
 const ACCESS_TOKEN = 'access_token';
 
@@ -15,7 +14,7 @@ const ACCESS_TOKEN = 'access_token';
 
 export class apiRequest {
 
-        appendHeaders = (extraHeaders, isUpload) => {
+        appendHeaders = async (extraHeaders, isUpload) => {
             let username = await AsyncStorage.getItem(USERNAME);
             let password = await AsyncStorage.getItem(PASSWORD);
             if (extraHeaders) {

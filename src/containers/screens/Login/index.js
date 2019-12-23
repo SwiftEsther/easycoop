@@ -16,7 +16,7 @@ import base64 from 'base-64';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import { doLogin } from './login.thunk';
 
-export default class index extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
 

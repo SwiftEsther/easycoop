@@ -1,4 +1,4 @@
-import {SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE, RESET_ERROR_MESSAGE} from './actions/types';
+import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, RESET_ERROR_MESSAGE} from '../actions/types';
 
 const initialState = {
     username: '',

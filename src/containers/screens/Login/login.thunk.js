@@ -1,7 +1,6 @@
 import {Dispatch} from 'react-redux';
 
 import {LoginService} from './services/login.service';
-import Login from './reducers/login.reducer';
 import {
     login,
     loginFailure,
