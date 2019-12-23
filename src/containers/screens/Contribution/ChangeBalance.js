@@ -53,7 +53,6 @@ export default class ChangeBalance extends Component {
                 <BottomSheet
                     visible={this.props.visible}
                     onBackButtonPress={this.props._toggleView}
-                    onBackdropPress={this.props._toggleView}
                 >
                     <View >
                     <TouchableOpacity activeOpacity={0.7} onPress={this.props.back} style={{width: width/3}}>

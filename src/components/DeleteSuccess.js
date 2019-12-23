@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View, Platform, Text, Button, Image, ScrollView, ScrollViewBase } from 'react-native';
+import { Dimensions, StyleSheet, View, Platform, Text, TouchableOpacity, Image, ScrollView, ScrollViewBase } from 'react-native';
 import { BottomSheet } from 'react-native-btr';
 import theme from '../../assets/styles/globalStyles';
 import GreenButton from '../components/GreenButton';
@@ -11,8 +11,10 @@ const DeleteSuccess = (props) => (
     <BottomSheet
       visible={props.visible}
       onBackButtonPress={props._toggleView}
-      onBackdropPress={props._toggleView}
     >
+      <TouchableOpacity activeOpacity={0.7} style={[ styles.icon]} onPress={props._toggleView}>
+        <Icon name='close'/>
+      </TouchableOpacity>
       <View style={styles.bottomNavigationView}>
         <View style={[styles.header]}>
           <Text style={[theme.typo_bold, theme.font17, { marginVertical: scaleHeight(25)}]}>Delete Request</Text>
