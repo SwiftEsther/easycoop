@@ -14,7 +14,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../lib/constants/Colors';
+import * as colors from '../../../lib/constants/colors';
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -193,7 +193,8 @@ class Login extends Component {
         return (
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none"
-                         overlayColor={'rgba(255, 255, 255, 0.1)'}/>
+                         overlayColor={'rgba(0, 0, 0, 0.5)'}/>
+
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content"/>
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
                     <View style={[theme.screen_pad]}>

@@ -78,6 +78,7 @@ class App extends React.Component {
 
 
     render() {
+        console.log(this.props.toastShow)
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 {/*<StatusBar/>*/}
