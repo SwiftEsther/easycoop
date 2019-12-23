@@ -1,26 +1,27 @@
 import { Dimensions, Platform, StyleSheet } from 'react-native'
 import * as colors from '../../../lib/constants/colors';
-import { scale } from '../../../helpers/scale';
+import { scale, scaleHeight } from '../../../helpers/scale';
 
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     text: {
-        fontSize: scale(20),
+        fontSize: 20,
+        fontFamily:'nunito-bold',
         color: '#000',
-        lineHeight: scale(27),
-        marginTop: scale(-65),
-        paddingVertical: scale(5),
-        marginBottom: scale(50),
+        lineHeight: scaleHeight(27),
+        marginTop: scaleHeight(-65),
+        paddingVertical: scaleHeight(5),
+        marginBottom: scaleHeight(50),
     },
     image: {
         width: scale(299),
-        height: scale(525),
+        height: scaleHeight(525),
     },
     container: {
-        width: scale(deviceWidth),
-        height: scale(deviceHeight),
+        width: deviceWidth,
+        height: deviceHeight,
         justifyContent: 'center',
         flex: 1,
     },
@@ -28,14 +29,14 @@ export default StyleSheet.create({
         alignItems: 'center', 
         flex: 2,
         position: 'absolute',
-        bottom: scale(-5),
+        bottom: scaleHeight(10),
         left: scale(120),
     },
     pagination: {
         flex: 1,
         alignSelf: 'stretch',
         position: 'absolute',
-        bottom: scale(70),
+        bottom: scaleHeight(90),
         left: scale(125)
     }
 });

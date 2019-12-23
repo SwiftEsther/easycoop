@@ -1,19 +1,15 @@
-import React, {Component} from 'react';
-import {Image, TouchableOpacity, StatusBar, Modal, StyleSheet, ImageBackground, Text, View, ScrollView} from 'react-native';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import { Icon } from 'react-native-elements';
-import Swiper from 'react-native-swiper';
+import React, { Component } from 'react';
+import { Image, TouchableOpacity, Text, View, ScrollView } from 'react-native';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 import style from './style';
 import theme from '../../../../assets/styles/globalStyles';
-import * as constants from '../../../../lib/constants';
-import { systemWeights } from 'react-native-typography';
-import {scale} from '../../../helpers/scale';
+import { scale, scaleHeight } from '../../../helpers/scale';
 
 export default class index extends Component {
 
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       entries: [
         {
           imageUrl: require('../../../../assets/images/Walkthrough_1.png'),
@@ -32,47 +28,48 @@ export default class index extends Component {
     }
   }
   openModal = () => {
-    this.setState({modalVisible: true});
+    this.setState({ modalVisible: true });
   }
 
   _navigate = () => {
     this.props.navigation.navigate('Onboarding');
   }
-  _renderItem = ({item, index}) => {
+  _renderItem = ({ item, index }) => {
     return (
-        <View style={{alignItems: 'center', flexDirection: 'column', justifyContent:'center'}}>
-            <Image style={[style.image]} source={item.imageUrl}/>
-            <Text style={[theme.typo_bold, style.text]}>{item.text}</Text>
-        </View>
+      <View style={{ alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
+        <Image style={[style.image]} source={item.imageUrl} />
+        <Text style={[theme.typo_bold, style.text]}>{item.text}</Text>
+      </View>
     );
   }
 
-  get pagination () {
+  get pagination() {
     const { entries, activeSlide } = this.state;
     return (
-        <Pagination
-          dotsLength={entries.length}
-          activeDotIndex={activeSlide}
-          dotStyle={{
-              width: scale(10),
-              height: scale(10),
-              borderRadius: scale(5),
-              backgroundColor: '#138516',
-          }}
-          inactiveDotStyle={{
-            backgroundColor: '#e3e3e3'
-          }}
-          inactiveDotScale={scale(0.6)}
-        />
+      <Pagination
+        dotsLength={entries.length}
+        activeDotIndex={activeSlide}
+        dotStyle={{
+          width: scale(10),
+          height: scale(10),
+          borderRadius: scale(5),
+          backgroundColor: '#138516',
+        }}
+        inactiveDotStyle={{
+          backgroundColor: '#e3e3e3'
+        }}
+        inactiveDotScale={scale(0.6)}
+      />
     );
   }
 
 
-  render() {   
- 
-    return (  
+  render() {
+
+    return (
+      <ScrollView>
         <View style={[style.container]}>
-          <View style={{ top: scale(-45)}}>
+          <View style={{ top: scaleHeight(-45) }}>
             <Carousel
               ref={(c) => { this._carousel = c; }}
               data={this.state.entries}
@@ -83,13 +80,14 @@ export default class index extends Component {
               onSnapToItem={(index) => this.setState({ activeSlide: index })}
             />
           </View>
-            <View style={style.pagination}>
-              {this.pagination}
-            </View>
-            <TouchableOpacity activeOpacity={0.4} style={[theme.fill, style.arrow_btn]} onPress={this._navigate}>
-              <Image source={require('../../../../assets/icons/White_arrow.png')} style={{height: scale(100), width: scale(120)}}/>
-          </TouchableOpacity> 
-      </View>
+          <View style={style.pagination}>
+            {this.pagination}
+          </View>
+          <TouchableOpacity activeOpacity={0.4} style={[theme.fill, style.arrow_btn]} onPress={this._navigate}>
+            <Image source={require('../../../../assets/icons/White_arrow.png')} style={{ height: scale(100), width: scale(120) }} />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     );
   }
 }
