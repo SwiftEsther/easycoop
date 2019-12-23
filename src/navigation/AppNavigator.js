@@ -15,6 +15,7 @@ import SupportPage from '../containers/screens/Support/index';
 import LoanPage from '../containers/screens/Loan/index';
 import Withdrawal from '../containers/screens/Withdrawal/index';
 import Dashboard from '../containers/screens/Dashboard/index';
+import TransactionPage from '../containers/screens/transactionHistory/index';
 
 const loginNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
@@ -35,7 +36,8 @@ const drawernav = createDrawerNavigator({
 const homeNavigation = createStackNavigator({
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
-    Withdrawal: {screen: Withdrawal, navigationOptions: { header: null, tabBarVisible: false }}
+    Withdrawal: {screen: Withdrawal, navigationOptions: { header: null, tabBarVisible: false }},
+    TransactionPage: {screen: TransactionPage, navigationOptions: { header: null, tabBarVisible: false }}
   },
   {
     initialRouteName:  'Dashboard',

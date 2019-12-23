@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../lib/constants/colors';
+import * as colors from '../../../lib/constants/Colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import {RESET_PASSWORD} from '../../../../lib/constants';

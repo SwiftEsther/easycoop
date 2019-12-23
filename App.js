@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, View, Text, StyleSheet } from 'react-native';
 
 import AppNavigator from './src/navigation/AppNavigator';
-import * as colors from './src/lib/constants/colors';
+import * as colors from './src/lib/constants/Colors';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';

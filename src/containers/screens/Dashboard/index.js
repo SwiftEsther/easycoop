@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, StatusBar, Dimensions } from 'react-native';
 import {Icon} from 'react-native-elements';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../lib/constants/colors';
+import * as colors from '../../../lib/constants/Colors';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import { SafeAreaView } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -70,7 +70,7 @@ export default class index extends Component {
                                             </View>
                                         </TouchableOpacity>
 
-                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => console.log('Request History')}>
+                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.props.navigation.navigate("TransactionPage")}>
                                             <View style={[styles.card]}>
                                                 <Image style={[]} source={require('../../../../assets/icons/currency.png')} />
 
