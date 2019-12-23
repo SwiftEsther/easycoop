@@ -1,3 +1,8 @@
-export const white = '#FFFFFF';
-export const placeholder = '#9f9f9f';
-export const black = '#000000';
+const Colors = {
+    white : '#ffffff',
+    placeholder : '#9f9f9f',
+    black : '#000000',
+    primary_green: '#138516',
+}
+
+export {Colors};

@@ -78,6 +78,7 @@ export default class App extends React.Component {
                 ...Icon.Ionicons.font,
                 ...Icon.SimpleLineIcons.font,
                 'nunito-regular': require('./assets/fonts/Nunito-Regular.ttf'),
+                'nunito-medium': require('./assets/fonts/Nunito-Light.ttf'),
                 'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
             }),
             Asset.loadAsync([
