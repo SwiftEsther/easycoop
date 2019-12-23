@@ -1,4 +1,5 @@
 import {Dispatch} from 'react-redux';
+import base64 from 'base-64';
 
 import {LoginService} from './services/login.service';
 import {
@@ -7,6 +8,8 @@ import {
     loginSuccess,
     resetErrorMessage
 } from './actions/login.actions';
+import {apiRequest} from "../../../lib/api/api";
+import {a} from "../../../lib/api/api";
 
 const loginService = new LoginService();
 
@@ -22,9 +25,12 @@ export const doLogin = (auth) => {
         loginService.
             LogIn(extraHeaders)
             .then((response) => {
+                console.log(response)
                 dispatch(loginSuccess(response));
             })
             .catch((error) => {
+                console.log(error.request)
+                console.log(error)
                 dispatch(loginFailure(error.error_description || 'Server Error. Please try again'));
 
                 setTimeout(() => {

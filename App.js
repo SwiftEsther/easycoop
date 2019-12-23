@@ -2,7 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, View, Text, StyleSheet } from 'react-native';
 
 import AppNavigator from './src/navigation/AppNavigator';
-import * as colors from './src/lib/constants/Colors';
+import {Colors} from './src/lib/constants/colors';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -63,7 +63,7 @@ export default class App extends React.Component {
                 <View style={styles.container}>
                     <PersistGate persistor={persistor}>
                         <Provider store={store}>
-                            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+                            <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
                             <AppNavigator/>
                         </Provider>
                     </PersistGate>
@@ -78,7 +78,7 @@ export default class App extends React.Component {
                 ...Icon.Ionicons.font,
                 ...Icon.SimpleLineIcons.font,
                 'nunito-regular': require('./assets/fonts/Nunito-Regular.ttf'),
-                'nunito-medium': require('./assets/fonts/Nunito-Light.ttf'),
+                'nunito-medium': require('./assets/fonts/Nunito-SemiBold.ttf'),
                 'nunito-bold': require('./assets/fonts/Nunito-Bold.ttf'),
             }),
             Asset.loadAsync([

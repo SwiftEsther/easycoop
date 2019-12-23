@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, StatusBar, Dimensions } from 'react-native';
 import {Icon} from 'react-native-elements';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../lib/constants/Colors';
+import * as colors from '../../../lib/constants/colors';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import { SafeAreaView } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';

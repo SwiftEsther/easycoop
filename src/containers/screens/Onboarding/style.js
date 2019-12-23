@@ -1,5 +1,5 @@
 import { Dimensions, Platform, StyleSheet } from 'react-native'
-import * as colors from '../../../lib/constants/Colors';
+import * as colors from '../../../lib/constants/colors';
 import { systemWeights } from 'react-native-typography';
 import { scale } from '../../../helpers/scale';
 
@@ -20,7 +20,7 @@ export default StyleSheet.create({
         flex: 8,
     },
     imageStyles: {
-        // width: scale(deviceWidth),
+        width: scale(deviceWidth),
         position: 'absolute',
         height: scale(420),
         // top: scale(-210),

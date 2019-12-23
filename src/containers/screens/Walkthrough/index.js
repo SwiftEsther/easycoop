@@ -36,8 +36,8 @@ export default class index extends Component {
   }
   _renderItem = ({ item, index }) => {
     return (
-      <View style={{ alignItems: 'center', flexDirection: 'column', justifyContent: 'center' }}>
-        <Image style={[style.image]} source={item.imageUrl} />
+      <View style={{ alignItems: 'center', flexDirection: 'column', justifyContent: 'center'}}>
+        <Image style={[style.image]} source={item.imageUrl} resizeMode={'cover'} />
         <Text style={[theme.typo_bold, style.text]}>{item.text}</Text>
       </View>
     );
@@ -69,7 +69,7 @@ export default class index extends Component {
     return (
       <ScrollView>
         <View style={[style.container]}>
-          <View style={{ top: scaleHeight(-45) }}>
+          <View style={{}}>
             <Carousel
               ref={(c) => { this._carousel = c; }}
               data={this.state.entries}
