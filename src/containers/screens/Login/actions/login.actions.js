@@ -1,13 +1,26 @@
-import { USER_LOGIN_SUCCESS } from './types';
+import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, RESET_ERROR_MESSAGE} from './types';
 
-import { axiosInstance } from '../../../../lib/api/axiosClient';
+export const login = () => {
+    return {
+        type: LOGIN
+    };
+};
+export const loginSuccess = (payload) => {
+    return {
+        type: LOGIN_SUCCESS,
+        payload
+    };
+};
 
-export const loginUserSuccess = () => {
+export const loginFailure = (error) => {
+    return {
+        type: LOGIN_FAILURE,
+        error
+    };
+};
 
-    return dispatch => {
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
-            payload: data
-        })
-    }
+export const resetErrorMessage = () => {
+    return {
+        type: RESET_ERROR_MESSAGE
+    };
 };

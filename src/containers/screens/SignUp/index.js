@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect, Dispatch} from "react-redux";
 import { TextInput, Picker, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';

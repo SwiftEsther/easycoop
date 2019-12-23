@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {connect, Dispatch} from "react-redux";
 import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../lib/constants/colors';
@@ -13,6 +14,7 @@ import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import base64 from 'base-64';
 import { scale, scaleHeight } from '../../../helpers/scale';
+import { doLogin } from './login.thunk';
 
 export default class index extends Component {
     constructor(props) {
@@ -66,33 +68,7 @@ export default class index extends Component {
                 )
             );
         } else {
-            var headers = new Headers();
-            headers.append("Authorization", "Basic " + base64.encode(this.state.username+":"+this.state.password));
-
-            try {
-                fetch(`${BASE_URL}${LOGIN}`, {headers: headers})
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    // get the response data from {responseJson} e.g responseJson.lastName
-                    if (responseJson.errorcode) {
-                        // failed
-                        return (
-                            Alert.alert(
-                                'Warning',
-                                'Wrong password or username',
-                                [
-                                  {text: 'close', style: 'cancel'},
-                                ],
-                                { cancelable: false }
-                            )
-                        );
-                    } else {
-                        this.props.navigation.navigate("Dashboard", {userData: responseJson})
-                    }
-                })
-            } catch(err) {
-                
-            }
+            onLogin({username, password})
         }
     }
 
@@ -211,3 +187,19 @@ export default class index extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        loginError: state.loginReducer.error,
+        isLoading: state.loginReducer.loading,
+        isLoggedIn: state.loginReducer.isLoggedIn
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: (body) => dispatch(doLogin(body))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

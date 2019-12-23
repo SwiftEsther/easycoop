@@ -1,11 +1,12 @@
-import { apiRequest } from '../../../../lib/api/api';
-import { postAuthInit } from '../../../../lib/api/url';
-import base64 from 'base-64';
+import {logIn} from '../../../../lib/api/url';
+import {apiRequest} from '../../../../lib/api/api';
 
-export const loginService ={
-    logUserIn
-};
+export class LoginService {
+    constructor() {
+        this.apirequest = new apiRequest();
+    }
 
-function logUserIn() {
-    return apiRequest(postAuthInit, "GET", {auth: base64.encode(username+":"+password)} );
+    LogIn=(extraHeaders)=>{
+        return this.apirequest.get(`${logIn}`, extraHeaders);
+    }
 }
