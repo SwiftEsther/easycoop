@@ -25,6 +25,7 @@ import { hideToast, showToast, showPersistentToast } from "../components/Toast/a
 import { connect } from 'react-redux'
 
 
+import TransactionPage from '../containers/screens/transactionHistory/index';
 
 const loginNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
@@ -45,7 +46,8 @@ const drawernav = createDrawerNavigator({
 const homeNavigation = createStackNavigator({
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
-    Withdrawal: {screen: Withdrawal, navigationOptions: { header: null, tabBarVisible: false }}
+    Withdrawal: {screen: Withdrawal, navigationOptions: { header: null, tabBarVisible: false }},
+    TransactionPage: {screen: TransactionPage, navigationOptions: { header: null, tabBarVisible: false }}
   },
   {
     initialRouteName:  'Dashboard',

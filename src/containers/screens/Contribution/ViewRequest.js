@@ -71,7 +71,6 @@ export default class ViewRequest extends Component {
                 <BottomSheet
                     visible={this.props.visible}
                     onBackButtonPress={this.props._toggleView}
-                    onBackdropPress={this.props._toggleView}
                 >
                     <View >
                     <TouchableOpacity activeOpacity={0.7} onPress={this.props.back} style={{width: width/3}}>
@@ -121,7 +120,8 @@ export default class ViewRequest extends Component {
                 </BottomSheet>
                 <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} />
                 <DeleteModal visible={this.state.showDelete} _toggleView={this.delete} handleClick={this.toggleDelete}
-                    smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+                    itemAction={'Some Action'}
+                    applicationSuccess={'Status'}/>
             </ScrollView>
         )
     }

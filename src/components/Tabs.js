@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import theme from '../../assets/styles/globalStyles';
 import { systemWeights } from 'react-native-typography';
-import * as colors from '../lib/constants/colors';
+import * as colors from '../lib/constants/Colors';
 import { scaleHeight, scale } from '../helpers/scale';
  
 export default class Tabs extends Component {

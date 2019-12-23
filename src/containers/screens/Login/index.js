@@ -14,7 +14,7 @@ import {
     ActivityIndicator
 } from 'react-native';
 import theme from '../../../../assets/styles/globalStyles';
-import * as colors from '../../../lib/constants/colors';
+import * as colors from '../../../lib/constants/Colors';
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
