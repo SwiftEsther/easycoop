@@ -17,6 +17,7 @@ class index extends Component {
 
     componentDidMount() {
         // this.createNotificationCount();
+        console.log(this.props.login)
 
         setTimeout(() => {
             this._bootstrapAsync();
@@ -88,6 +89,7 @@ class index extends Component {
 const mapStateToProps = (state) => {
     return {
         loginError: state.login.error,
+        login: state.login,
         password: state.login.password,
         isLoading: state.login.loading,
         isLoggedIn: state.login.isLoggedIn
