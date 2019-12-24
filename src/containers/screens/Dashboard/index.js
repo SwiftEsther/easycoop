@@ -36,10 +36,11 @@ export default class index extends Component {
         return (
             <>
                 <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-                <SafeAreaView style={[theme.container, {fontFamily: 'nunito-bold'}]}>
-                    <View style={[theme.container, { backgroundColor: '#f4f6fa', }]}>
+                <SafeAreaView style={[theme.container]}>
+                    <View style={[theme.container, { backgroundColor: '#f4f6fa', fontFamily: 'nunito-bold'}]}>
                         <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} style={theme.footerPad}>
-                            <View style={[theme.box_gap_tabbar, { paddingHorizontal: scaleHeight(12) }]}>
+                            <Header />
+                            <View style={[theme.box_gap_tabbar, { paddingHorizontal: scaleHeight(12), flex: 1}]}>
                                 <Text style={[theme.typo_bold, { fontSize: 20, marginTop: scaleHeight(10), marginBottom: scaleHeight(20) }]}>Hi, {'Esther' || this.state.userData.firstName}</Text>
                                 <View>
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -48,7 +49,7 @@ export default class index extends Component {
                                             <View style={[styles.card]}>
                                                 <Image style={[]} source={require('../../../../assets/icons/wallet.png')} />
 
-                                                <Text numberOfLines={1} style={[{color: '#575757'}]}>Balances</Text>
+                                                <Text numberOfLines={1} style={[{color: '#575757',fontFamily: 'nunito-bold'}]}>Balances</Text>
                                             </View>
                                         </TouchableOpacity>
 
@@ -56,7 +57,7 @@ export default class index extends Component {
                                             <View style={[styles.card]} onPress={() => this.setState({ withdraw: !this.state.withdraw })}>
                                                 <Image style={[]} source={require('../../../../assets/icons/coins.png')} />
 
-                                                <Text numberOfLines={1} style={{color: '#575757'}}>Withdrawal Request</Text>
+                                                <Text numberOfLines={1} style={{color: '#575757',fontFamily: 'nunito-bold'}}>Withdrawal Request</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -66,15 +67,16 @@ export default class index extends Component {
                                             <View style={[styles.card]}>
                                                 <Image style={[]} source={require('../../../../assets/icons/naira.png')} />
 
-                                                <Text numberOfLines={1} style={{color: '#575757'}}>My Loans</Text>
+                                                <Text numberOfLines={1} style={{color: '#575757',fontFamily: 'nunito-bold'}}>My Loans</Text>
                                             </View>
                                         </TouchableOpacity>
 
                                         <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.props.navigation.navigate("TransactionPage")}>
                                             <View style={[styles.card]}>
-                                                <Image style={[]} source={require('../../../../assets/icons/currency.png')} />
+                                                <Image source={require('../../../../assets/icons/currency.png')} />
 
-                                                <Text numberOfLines={1} style={{color: '#575757'}}>Request History</Text>
+                                                <Text numberOfLines={1} style={{color: '#575757',fontFamily: 'nunito-bold'}}>Request History</Text>
+                                                <Text numberOfLines={1} style={{color: '#575757', flexDirection: 'row', fontFamily: 'nunito-regular', fontSize: 10, flexShrink: 1}}>Loan, Withdrawal, Savings Status</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -91,7 +93,6 @@ export default class index extends Component {
                             {/* <DeleteSuccess visible={this.state.failure} _toggleView={this.showFailureModal} 
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
                     </View>
-                    <Header />
                     {/* <Withdraw visible={this.state.withdraw} _toggleView={()=>this.setState({withdraw: !this.state.withdraw})}/> */}
                 </SafeAreaView>
             </>
@@ -109,10 +110,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: scale(12),
         paddingVertical: scaleHeight(25),
         marginVertical: scaleHeight(7)
-    },
-    card_image: {
-        width: scale(61),
-        height: scaleHeight(61)
     },
     card_text: {
         color: '#575757'
