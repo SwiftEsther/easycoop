@@ -14,9 +14,9 @@ import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
-import {recoverPasswordSuccess} from './actions/forgotpassword.actions';
 import {showToast} from "../../../components/Toast/actions/toastActions";
 import {resetPassword} from '../../../lib/api/url';
+import {scaleHeight} from '../../../helpers/scale';
 
 export default class index extends Component {
     constructor(props) {
@@ -66,7 +66,7 @@ export default class index extends Component {
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
                     <View style={[theme.screen_pad]}>
-                            <AuthenticationHeader text='Forgot Password' backFunction={() => this.props.navigation.goBack(null)} />
+                            <AuthenticationHeader auth={true} text='Forgot Password' backFunction={() => this.props.navigation.goBack(null)} />
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force number / AP Number</Text>
@@ -76,7 +76,7 @@ export default class index extends Component {
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
-                                <Text style={{textAlign: "center", color: "green", marginBottom: 60}} >validating number</Text>
+        <Text style={{textAlign: "center",marginBottom: scaleHeight(60), flexWrap: "wrap"}} >{' '}</Text>
                                 <BlackButton button_text="Recover Password" handlePress= {this.forgotPassword}/>
                             </View>
                         </View>
