@@ -22,7 +22,7 @@ const SuccessModal = (props) =>(
       <View style={styles.bottomNavigationView}>
           <View style={[{alignSelf: 'center',alignItems:'center'}]}>
             <Image source={require('../../assets/icons/check_circle.png')} style={[theme.pad_bottom30]}/>
-            {props.subtitle && <Text style={[{ctextAlign: 'center',color:'#138516', fontSize: 20, fontStyle: 'nunito-bold'}, theme.pad_bottom20]}>{props.subtitle}</Text>}
+            {props.subtitle && <Text style={[{textAlign: 'center',color:'#138516', fontSize: 20, fontStyle: 'nunito-bold'}, theme.pad_bottom20]}>{props.subtitle}</Text>}
             {props.message && <Text style={[{textAlign: 'center', fontSize: scale(14)}]}>
               {props.message}
             </Text>}

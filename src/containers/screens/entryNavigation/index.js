@@ -19,9 +19,7 @@ class index extends Component {
         // this.createNotificationCount();
         console.log(this.props.login)
 
-        setTimeout(() => {
-            this._bootstrapAsync();
-        }, 3000);
+        this._bootstrapAsync();
     }
 
     _bootstrapAsync = async () => {

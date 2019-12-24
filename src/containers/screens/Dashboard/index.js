@@ -66,7 +66,7 @@ class index extends Component {
                                                 <Image style={[]}
                                                        source={require('../../../../assets/icons/wallet.png')}/>
 
-                                                <Text numberOfLines={1} style={[{color: '#575757'}]}>Balances</Text>
+                                                <Text numberOfLines={1} style={[{color: '#575757',fontFamily: 'nunito-bold'}]}>Balances</Text>
                                             </View>
                                         </TouchableOpacity>
 
@@ -77,8 +77,7 @@ class index extends Component {
                                                 <Image style={[]}
                                                        source={require('../../../../assets/icons/coins.png')}/>
 
-                                                <Text numberOfLines={1} style={{color: '#575757'}}>Withdrawal
-                                                    Request</Text>
+                                                <Text numberOfLines={1} style={{color: '#575757',fontFamily: 'nunito-bold'}}>Withdrawal Request</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -90,18 +89,16 @@ class index extends Component {
                                                 <Image style={[]}
                                                        source={require('../../../../assets/icons/naira.png')}/>
 
-                                                <Text numberOfLines={1} style={{color: '#575757'}}>My Loans</Text>
+                                                <Text numberOfLines={1} style={{color: '#575757',fontFamily: 'nunito-bold'}}>My Loans</Text>
                                             </View>
                                         </TouchableOpacity>
 
                                         <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]}
                                                           onPress={() => this.props.navigation.navigate("TransactionPage")}>
                                             <View style={[styles.card]}>
-                                                <Image style={[]}
-                                                       source={require('../../../../assets/icons/currency.png')}/>
+                                                <Image source={require('../../../../assets/icons/currency.png')} />
 
-                                                <Text numberOfLines={1} style={{color: '#575757'}}>Request
-                                                    History</Text>
+                                                <Text numberOfLines={1} style={{color: '#575757',fontFamily: 'nunito-bold'}}>Request History</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -139,10 +136,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: scale(12),
         paddingVertical: scaleHeight(25),
         marginVertical: scaleHeight(7)
-    },
-    card_image: {
-        width: scale(61),
-        height: scaleHeight(61)
     },
     card_text: {
         color: '#575757'
