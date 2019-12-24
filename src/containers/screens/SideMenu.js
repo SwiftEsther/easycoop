@@ -6,7 +6,7 @@ import { scale, scaleHeight } from '../../helpers/scale';
 
 import { connect, Dispatch } from "react-redux";
 import NavigationService from '../../../NavigationService';
-// import {logoutUserSuccess} from "../Auth/action/auth_actions";
+import {logoutUserSuccess} from "./Login/actions/login.actions";
 // import { ComponentGenerator } from "../../components/CustomDynamicComponent/ComponentGenerator";
 // import AccountSvg from '../../../assets/svgs/account'
 import TouchItem from "../../components/TouchItem/_TouchItem";
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         maxWidth: scale(180)
     },
     itemContainer: {
-        backgroundColor: Colors.primary_green,
+        backgroundColor: Colors.white,
         height: scale(48),
         justifyContent: 'center',
         maxWidth: scale(248),
@@ -63,12 +63,38 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: scale(24),
         // marginLeft: scale(40),
     },
+    itemContainerSelected:{
+        backgroundColor: Colors.primary_green,
+        height: scale(48),
+        justifyContent: 'center',
+        maxWidth: scale(248),
+        marginTop: scale(24),
+        borderTopRightRadius: scale(24),
+        borderBottomRightRadius: scale(24),
+    },
     innerContainer: {
         height: scale(40),
         justifyContent: 'center',
         maxWidth: scale(248),
     },
+    innerContainerSelected:{
+        height: scale(40),
+        borderTopRightRadius: scale(20),
+        borderBottomRightRadius: scale(20),
+        backgroundColor: Colors.primary_green,
+        justifyContent: 'center',
+        maxWidth: scale(248),
+    },
     listItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        // height: scale(40),
+        // borderBottomColor: '#00425f33',
+        // borderBottomWidth: 1,
+        paddingLeft: scale(55)
+    },
+    listItemSelected:{
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
@@ -98,6 +124,7 @@ const styles = StyleSheet.create({
         fontSize: scale(15),
         color: '#575757',
         marginBottom: scale(15),
+        marginHorizontal: scale(15),
         // maxWidth: scale(120)
     }
 });
@@ -128,7 +155,7 @@ class SideMenu extends React.Component {
 
     render() {
         let {firstName, username, emailAddress} = this.props.userData;
-        console.log(this.props.userData)
+        console.log(this.props.activeItemKey)
         return (
             <View style={styles.container}>
                 <TouchItem style={styles.topBar} onPress={() => {
@@ -152,9 +179,9 @@ class SideMenu extends React.Component {
                 </TouchItem>
                 <View>
 
-                    <View style={styles.itemContainer}>
-                        <TouchableOpacity onPress={() => this.goToScreen('Home')}>
-                            <View style={styles.listItem}>
+                    <View style={this.props.activeItemKey === 'Dashboard' ? styles.itemContainerSelected : styles.itemContainer}>
+                        <TouchableOpacity onPress={() => this.goToScreen('Dashboard')}>
+                            <View style={this.props.activeItemKey === 'Dashboard'? styles.listItemSelected: styles.listItem}>
                                 {/*<View style={{*/}
                                 {/*// backgroundColor:'red',*/}
                                 {/*width:30*/}
@@ -165,92 +192,68 @@ class SideMenu extends React.Component {
                                     name="md-home"
                                     size={25}
                                     style={{marginRight: scale(15)}}
-                                    color="white"
+                                    color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
                                 />
-                                <Text style={styles.optionText}>Home</Text>
+                                <Text style={[styles.optionText,this.props.activeItemKey === 'Dashboard' ?{}:{color: Colors.gray}]}>Home</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{marginTop: scale(30), paddingHorizontal: scale(15)}}>
+                    <View style={{marginTop: scale(30)}}>
                         <Text style={styles.heading}>Account Information</Text>
 
-                        <TouchableOpacity onPress={() => this.goToScreen('Home')} style={styles.innerContainer}>
-                            <View style={[styles.listItem, {paddingLeft: scale(40)}]}>
-                                {/*<View style={{*/}
-                                {/*// backgroundColor:'red',*/}
-                                {/*width:30*/}
-                                {/*}}>*/}
-                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
-                                {/*</View>*/}
+                        <TouchableOpacity onPress={() => this.goToScreen('Profile')} style={this.props.activeItemKey === 'Profile' ? styles.innerContainerSelected:styles.innerContainer}>
+                            <View style={this.props.activeItemKey === 'Profile'? styles.listItemSelected: styles.listItem}>
                                 <FontAwesome
                                     name="user"
                                     size={18}
                                     style={{marginRight: scale(15)}}
-                                    color="black"
+                                    color={this.props.activeItemKey === 'Profile'?'white':'black'}
                                 />
-                                <Text style={[styles.optionText, {color: Colors.gray}]}>Profile Info</Text>
+                                <Text style={[styles.optionText,this.props.activeItemKey === 'Profile' ?{}:{color: Colors.gray}]}>Profile Info</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.goToScreen('Home')} style={styles.innerContainer}>
-                            <View style={[styles.listItem, {paddingLeft: scale(40)}]}>
-                                {/*<View style={{*/}
-                                {/*// backgroundColor:'red',*/}
-                                {/*width:30*/}
-                                {/*}}>*/}
-                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
-                                {/*</View>*/}
+                        <TouchableOpacity onPress={() => this.goToScreen('NextOfKinUpdate')} style={this.props.activeItemKey === 'NextOfKinUpdate' ? styles.innerContainerSelected:styles.innerContainer}>
+                            <View style={this.props.activeItemKey === 'NextOfKinUpdate'? styles.listItemSelected: styles.listItem}>
                                 <FontAwesome
                                     name="user"
                                     size={18}
                                     style={{marginRight: scale(15)}}
-                                    color="black"
+                                    color={this.props.activeItemKey === 'NextOfKinUpdate'?'white':'black'}
                                 />
-                                <Text style={[styles.optionText, {color: Colors.gray}]}>Next of Kin Update</Text>
+                                <Text style={[styles.optionText,this.props.activeItemKey === 'NextOfKinUpdate' ?{}:{color: Colors.gray}]}>Next of Kin Update</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{marginTop: scale(30), paddingHorizontal: scale(15)}}>
+                    <View style={{marginTop: scale(30)}}>
                         <Text style={styles.heading}>Settings</Text>
 
-                        <TouchableOpacity onPress={() => this.goToScreen('Home')} style={styles.innerContainer}>
-                            <View style={[styles.listItem, {paddingLeft: scale(40)}]}>
-                                {/*<View style={{*/}
-                                {/*// backgroundColor:'red',*/}
-                                {/*width:30*/}
-                                {/*}}>*/}
-                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
-                                {/*</View>*/}
+                        <TouchableOpacity onPress={() => this.goToScreen('ResetPassword')} style={this.props.activeItemKey === 'ResetPassword' ? styles.innerContainerSelected:styles.innerContainer}>
+                            <View style={this.props.activeItemKey === 'ResetPassword'? styles.listItemSelected: styles.listItem}>
                                 <FontAwesome
                                     name="lock"
                                     size={18}
                                     style={{marginRight: scale(15)}}
-                                    color={Colors.primary_green}
+                                    color={this.props.activeItemKey === 'ResetPassword'?'white':Colors.primary_green}
                                 />
-                                <Text style={[styles.optionText, {color: Colors.gray}]}>Reset Password</Text>
+                                <Text style={[styles.optionText,this.props.activeItemKey === 'ResetPassword' ?{}:{color: Colors.gray}]}>Reset Password</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
 
-                    <View style={{marginTop: scale(30), paddingHorizontal: scale(15)}}>
+                    <View style={{marginTop: scale(30)}}>
                         <Text style={styles.heading}>Request for Help</Text>
 
-                        <TouchableOpacity onPress={() => this.goToScreen('Home')} style={styles.innerContainer}>
-                            <View style={[styles.listItem, {paddingLeft: scale(40)}]}>
-                                {/*<View style={{*/}
-                                {/*// backgroundColor:'red',*/}
-                                {/*width:30*/}
-                                {/*}}>*/}
-                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
-                                {/*</View>*/}
+                        <TouchableOpacity onPress={() => this.goToScreen('Support')} style={this.props.activeItemKey === 'Support' ? styles.innerContainerSelected:styles.innerContainer}>
+                            <View style={this.props.activeItemKey === 'Support'? styles.listItemSelected: styles.listItem}>
                                 <Ionicons
                                     name="ios-information-circle"
                                     size={18}
                                     style={{marginRight: scale(15)}}
-                                    color={Colors.primary_green}
+                                    color={this.props.activeItemKey === 'Support'?'white':Colors.primary_green}
                                 />
-                                <Text style={[styles.optionText, {color: Colors.gray}]}>Support</Text>
+                                <Text style={[styles.optionText,this.props.activeItemKey === 'Support' ?{}:{color: Colors.gray}]}>Support</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -260,12 +263,6 @@ class SideMenu extends React.Component {
                     <TouchableOpacity style={[styles.listItem, {paddingLeft: scale(40)}]}   onPress={() => {
                         this._signOutAsync();
                     }}>
-                        {/*<View style={{*/}
-                        {/*// backgroundColor:'red',*/}
-                        {/*width:30*/}
-                        {/*}}>*/}
-                        {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
-                        {/*</View>*/}
                         <Feather
                             name="log-out"
                             size={18}
@@ -293,7 +290,7 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {logoutUserSuccess};
 
 export default connect(
     mapStateToProps,

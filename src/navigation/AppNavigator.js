@@ -56,8 +56,7 @@ const homeNavigation = createDrawerNavigator({
   {
     initialRouteName:  'Dashboard',
       drawerWidth:scale(280),
-      contentComponent: props =>
-          <SideMenu {...props}/>
+      contentComponent: props => <SideMenu {...props}/>,
   }
 );
 

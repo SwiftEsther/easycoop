@@ -22,6 +22,7 @@ import ApplicationSuccessful from './ApplicationSuccessful';
 import ApplicationStatus from './ApplicationStatus';
 import EditApplication from './EditApplication';
 import ReviewApplication from './ReviewApplication';
+import Header from "../../../components/Header";
 
 
 export default class index extends Component {
@@ -91,6 +92,7 @@ export default class index extends Component {
                         </View>
                     </View>}
                 </KeyboardAwareScrollView>
+                <Header navigation={{...this.props.navigation}}/>
                 <ApplyLoanModal visible={this.state.loanApply} _toggleView={this.showLoanApply}/>
                 {/* <ApplicationSuccessful 
                 subtitle="Request Submission Failed"
