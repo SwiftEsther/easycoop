@@ -16,8 +16,8 @@ export default class Header extends Component{
             <View style={[styles.container, theme.fill ,{position: 'absolute', left: 0, right: 0, top: 0, backgroundColor: '#fff'}]}>
                 
                     <View style={{flexDirection: 'row'}}>
-                        {/*<TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={()=> this.props.navigation.openDrawer()}>*/}
-                        <TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={this.props.navigation.openDrawer()}>
+                        <TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={()=> this.props.navigation.openDrawer()}>
+                        {/*<TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={this.props.navigation.openDrawer()}>*/}
                             <Icon name="menu" style={[styles.icons]}/>
                         </TouchableOpacity>
                         <View style={[styles.separator]}></View>

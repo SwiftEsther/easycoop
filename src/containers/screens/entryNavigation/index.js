@@ -17,7 +17,6 @@ class index extends Component {
 
     componentDidMount() {
         // this.createNotificationCount();
-        console.log(this.props.login)
 
         this._bootstrapAsync();
     }
