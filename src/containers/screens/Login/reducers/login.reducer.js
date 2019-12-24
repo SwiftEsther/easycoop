@@ -1,4 +1,4 @@
-import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, RESET_ERROR_MESSAGE} from '../actions/types';
+import {LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE, RESET_ERROR_MESSAGE,USER_LOGOUT} from '../actions/types';
 
 const initialState = {
     username: '',
@@ -33,6 +33,12 @@ export default (state=initialState, action) => {
             return{
                 ...state,
                 error: ""
+            }
+        case USER_LOGOUT:
+            return {
+                ...state,
+                password:'',
+                isLoggedIn:false,
             }
         default:
             return state;

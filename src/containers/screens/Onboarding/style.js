@@ -16,11 +16,12 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     imageContainer: {
-        alignItems: 'center',
+        // alignItems: 'center',
         flex: 8,
     },
     imageStyles: {
-        width: scale(deviceWidth),
+        // width: scale(deviceWidth),
+        width:'100%',
         position: 'absolute',
         height: scale(420),
         // top: scale(-210),

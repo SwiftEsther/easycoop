@@ -3,6 +3,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import React from 'react';
 import { NetInfo, SafeAreaView, View, PanResponder } from 'react-native'
+import { scale, scaleHeight } from '../helpers/scale';
+
 
 
 
@@ -23,6 +25,8 @@ import NavigationService from "../../NavigationService";
 import Toast from '../components/Toast/Toast'
 import { hideToast, showToast, showPersistentToast } from "../components/Toast/actions/toastActions";
 import { connect } from 'react-redux'
+import SideMenu from "../containers/screens/SideMenu";
+
 
 
 import TransactionPage from '../containers/screens/transactionHistory/index';
@@ -40,10 +44,10 @@ const loginNavigation = createStackNavigator({
 );
 
 const drawernav = createDrawerNavigator({
-  Home: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } } 
+  Home: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } }
 })
 
-const homeNavigation = createStackNavigator({
+const homeNavigation = createDrawerNavigator({
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
     Withdrawal: {screen: Withdrawal, navigationOptions: { header: null, tabBarVisible: false }},
@@ -51,6 +55,9 @@ const homeNavigation = createStackNavigator({
   },
   {
     initialRouteName:  'Dashboard',
+      drawerWidth:scale(280),
+      contentComponent: props =>
+          <SideMenu {...props}/>
   }
 );
 
@@ -63,7 +70,7 @@ const AppContainer =  createAppContainer(createSwitchNavigator(
       loginNavigation: loginNavigation,
       homeNavigation: homeNavigation,
       Walkthrough: Walkthrough,
-      drawernav: drawernav
+      // drawernav: drawernav
     },
     {
         initialRouteName: 'entryNavigation'
@@ -78,8 +85,6 @@ class App extends React.Component {
 
 
     render() {
-        console.log(this.props.toastShow)
-        console.log('sjdksdjsdks')
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 {/*<StatusBar/>*/}
