@@ -6,7 +6,7 @@ export class RecoverPasswordService {
         this.apirequest = new apiRequest();
     }
 
-    recoverPassword=(body)=>{
-        return this.apirequest.post(`${resetPassword}`, body);
+    recoverPassword=()=>{
+        return this.apirequest.post(`${resetPassword}`, params);
     }
 }

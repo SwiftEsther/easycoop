@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import { connect, Dispatch } from "react-redux";
+import { Keyboard, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../lib/constants/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
-import {RESET_PASSWORD} from '../../../../lib/constants';
+import { axiosInstance } from "../../../lib/api/axiosClient";
 import AuthenticationHeader from '../../../components/AuthenticationHeader';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -13,7 +14,9 @@ import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
-import base64 from 'base-64';
+import {showToast} from "../../../components/Toast/actions/toastActions";
+import {resetPassword} from '../../../lib/api/url';
+import {scaleHeight} from '../../../helpers/scale';
 
 export default class index extends Component {
     constructor(props) {
@@ -52,21 +55,7 @@ export default class index extends Component {
                 )
             );
         } else {
-            const api = `${BASE_URL}${RESET_PASSWORD}`
-            var url = new URL(api),
-            params = {username: this.state.username}
-            Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-            try {
-                fetch(url)
-                .then((response) => response.json())
-                    .then((responseJson) => {
-                        // get the response data from {responseJson} e.g responseJson.lastName
-                        console.log(responseJson);
-                        this.props.navigation.navigate('AuthenticationPage')
-                    })
-            } catch (err) {
-
-            }
+            this.props.navigation.navigate('AuthenticationPage', {username: this.state.username})
         }
     }
 
@@ -77,7 +66,7 @@ export default class index extends Component {
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
                 <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
                     <View style={[theme.screen_pad]}>
-                            <AuthenticationHeader text='Forgot Password' backFunction={() => this.props.navigation.goBack(null)} />
+                            <AuthenticationHeader auth={true} text='Forgot Password' backFunction={() => this.props.navigation.goBack(null)} />
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.box_gap_more, theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force number / AP Number</Text>
@@ -87,7 +76,7 @@ export default class index extends Component {
                                         style={[theme.flex1, theme.caption, theme.typo_regular]} 
                                     /> 
                                 </View> 
-                                <Text style={{textAlign: "center", color: "green", marginBottom: 60}} >validating number</Text>
+        <Text style={{textAlign: "center",marginBottom: scaleHeight(60), flexWrap: "wrap"}} >{' '}</Text>
                                 <BlackButton button_text="Recover Password" handlePress= {this.forgotPassword}/>
                             </View>
                         </View>
