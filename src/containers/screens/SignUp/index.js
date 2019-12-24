@@ -91,8 +91,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
 
     onHandleRegister = () => {
         Keyboard.dismiss();
-        const {firstName, lastName, emailAddress, phoneNumber, payPoint, rank, forceID, forceNumber, forceNo, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated} = this.state;
-        const user = {firstName, lastName, emailAddress, phoneNumber, payPoint, rank, forceNo,addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated};
+        const {firstName, lastName, emailAddress, phoneNumber, payPoint, rank, forceNumber, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated} = this.state;
 
         console.log(postSignUp)
         this.setState({
@@ -100,7 +99,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
             modalLoader: true
         }, () => {
             axiosInstance
-                .post(postSignUp, {...state, forceNumber: forceID+forceNumber}, {
+                .post(postSignUp, {firstName, lastName, emailAddress, phoneNumber, payPoint, rank, forceNumber: this.state.forceID+this.state.forceNo, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated}, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -151,7 +150,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
     }
 
     signUp = () => {
-        const fields = [this.state.email, this.state.firstName, this.state.phone, this.state.surname];
+        const fields = [this.state.forceID, this.state.forceNo, this.state.rank, this.state.payPoint];
         for (let i = 0; i < fields.length; i++) {
             if (fields[i].length == 0) {
                 this.props.showToast('Kindly fill in the required fields', 'error')
@@ -162,7 +161,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
     }
 
     validateProfileInfo = () => {
-        const fields = [this.state.email, this.state.firstName, this.state.phone, this.state.surname];
+        const fields = [this.state.emailAddress, this.state.firstName, this.state.phoneNumber, this.state.lastName];
         for (let i = 0; i < fields.length; i++) {
             if (fields[i].length == 0) {
                 this.props.showToast('Kindly fill in the required fields', 'error')
@@ -200,9 +199,48 @@ import { loginSuccess } from "../Login/actions/login.actions";
             {label: 'IGP ', value: 'igp'}
         ]
         const payPoints = [
-            {sn: 1, mss: 'Abia', value: "State Police Command, Umuahia. Umuahia - Ohafia Rd, Nkata Ubeku, Umuahia"},
-            {sn: 2, mss: 'Adamawa', value: "Adamawa State Police Headquarters"},
-            {sn: 3, mss: 'Akwa Ibom', value: "The Nigeria Police Divisional Hqters 'E' Division. Akpan Horgan Ekpo Street, Uyo, Akwa Ibom"}
+            {sn:1, mss:"Abia", value: "State Police Command, Umuahia. Umuahia - Ohafia Rd, Nkata Ubeku, Umuahia"},
+            {sn:2, mss:"Adamawa", value: "Adamawa State Police Headquarters"},
+            {sn:3, mss:"Akwa Ibom", value: "The Nigeria Police Divisional Hqters 'E' Division. Akpan Horgan Ekpo Street, Uyo, Akwa Ibom"},
+            {sn:4, mss:"Anambra", value: "Anambra State Police Headquarters, Akwa"},
+            {sn:5, mss:"Bauchi", value: "Bauchi State Police Command Bauchi"},
+            {sn:6, mss:"Bayelsa", value: "Bayelsa  State Police Command  Bayelsa"},
+            {sn:7, mss:"Benue", value: "Nigeria Police Station, Ugbokolo division. Old Otukpo Rd, Ugbokolo"},
+            {sn:8, mss:"Borno", value: "Borno State Police Headquarters."},
+            {sn:9, mss:"Cross RIV     ", value: "Enugu State Police Headquarters, Cross River"},
+            {sn:10, mss:"Delta", value: "The Nigeria Police Delta State Police Command Headqurters. Okpanam Rd, GRA Phase I, Asaba"},
+            {sn:11, mss:"Ebonyi", value: "Ebonyi State Police Command, Abakaliki"},
+            {sn:12, mss:"Edo", value: "Adesuwa Sapele Road, Oka, Benin City, Edo State"},
+            {sn:13, mss:"Ekiti", value: "The Nigerian Police, Ado Central Divisional Headquarters. Barrack Road, Ado Ekiti"},
+            {sn:14, mss:"Enugu", value: "Enugu State Police Headquarters"},
+            {sn:15, mss:"FCT", value: "Federal Capital Territory Command, Abuja"},
+            {sn:16, mss:"FHQ ANNEX", value: "Kam Selem House, Moloney Street, Obalende, Lagos"},
+            {sn:17, mss:"FHQ Abuja", value: "Life-Camp, Gwarinpa, Abuja, FCT"},
+            {sn:18, mss:"Gombe", value: "Police Area Command, Gombe"},
+            {sn:19, mss:"Imo", value: "Police Officers Wives Association, Imo State Command Head Quarters, 460271, Owerri"},
+            {sn:20, mss:"Jigawa", value: "Jigawa State Police Headquarters"},
+            {sn:21, mss:"Kaduna", value: "Kaduna State Police Headquarters"},
+            {sn:22, mss:"Kano", value: "Police Zonal Headquarters, Kano. Katsina Road, Faggae, Ajingi, Kano"},
+            {sn:23, mss:"Kebbi", value: "Kebbi State Police Command Mosque Birnin Kebbi"},
+            {sn:24, mss:"Kogi", value: "Zone 8 police commandHeadquarters, Lokoja"},
+            {sn:25, mss:"Kwara", value: "Kwara State Police Headquarters"},
+            {sn:26, mss:"Katsina", value: "Katsina State Police Headquarters"},
+            {sn:27, mss:"Lagos", value: "Lagos State Police Command Oduduwa, Ikeja"},
+            {sn:28, mss:"Nasarawa", value: "Nasarawa State Police Headquarters,"},
+            {sn:29, mss:"Niger", value: "Nigerian Police Force Headquarters Minna. Yakubu Lami Rd, Minna"},
+            {sn:30, mss:"Ogun", value: "Eleweran Police Headquarters, Abeokuta"},
+            {sn:31, mss:"Ondo", value: "Ondo State Police Headquarters, Akin Akinbobola St, Akure"},
+            {sn:32, mss:"Osun", value: "Osogbo Area Command Headquarters, Osogbo"},
+            {sn:33, mss:"Oyo", value: "Plot 30, Block XII, Oluyole Estate, MKO Abiola Way, Oluyole, Ibadan"},
+            {sn:34, mss:"Plateau", value: "Nigerian Police Force, Plateau State Command Headquarters. 45 Gomwalk Rd, Jos"},
+            {sn:35, mss:"POLAC", value: "Police Academy Wudil, Kano"},
+            {sn:36, mss:"Rivers", value: "Rivers State Police Headquarters, Moscow Rd, Port Harcourt"},
+            {sn:37, mss:"Sokoto", value: "Sokoto State Police Headquarters"},
+            {sn:38, mss:"STAFFPOL", value: "Police Staff College, Jos"},
+            {sn:39, mss:"Taraba", value: "Taraba State Police Headquarters"},
+            {sn:40, mss:"Yobe", value: "Yobe State Police Headquarters"},
+            {sn:41, mss:"Zamfara", value: "Zamfara State Police Headquarters"},
+            {sn:42, mss:"PCI Ikeja", value: "Police College Ikeja"}
         ]
         const forceIDs = [{label: 'AP', value: 'AP'}, {label: 'FN', value: 'FN'}]
 
@@ -235,11 +273,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                 selected: "1",
                                 showProfileInfo: true
                             })}
-                            tab2Event={() => this.setState({
-                                showProfileInfo: false,
-                                selected: "2",
-                                showForceInfo: true
-                            })}/>
+                            tab2Event={this.validateProfileInfo}/>
                     </View>
                     {this.state.showForceInfo && <View style={{marginHorizontal: scale(20)}}>
                         <View style={[theme.margin_left_right_25]}>
@@ -286,8 +320,8 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                         fontFamily: 'nunito-medium'
                                     }}>&nbsp; Kindly enter only your number</Text></Text>
                                 <View style={[theme.input_margin_bottom]}>
-                                    <CustomInput value={this.state.policeId} keyboardType="number-pad"
-                                                 onChangeText={policeId => this.changeState({policeId: policeId.trim()})}
+                                    <CustomInput value={this.state.forceNo} keyboardType="number-pad"
+                                                 onChangeText={forceNo => this.changeState({forceNo: forceNo.trim()})}
                                                  style={[theme.flex1, theme.caption, theme.typo_regular, {borderColor: '#d0d0d0'}]}
                                     />
                                 </View>
@@ -339,23 +373,23 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                     </View>
                                     <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Surname</Text>
                                     <View style={[theme.input_margin_bottom]}>
-                                        <CustomInput value={this.state.surname}
-                                                     onChangeText={surname => this.changeState({surname: surname.trim()})}
+                                        <CustomInput value={this.state.lastName}
+                                                     onChangeText={lastName => this.changeState({lastName: lastName.trim()})}
                                                      style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}
                                         />
                                     </View>
                                     <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Email Address</Text>
                                     <View style={[theme.input_margin_bottom]}>
-                                        <CustomInput value={this.state.email}
-                                                     onChangeText={email => this.changeState({email: email.trim()})}
+                                        <CustomInput value={this.state.emailAddress}
+                                                     onChangeText={emailAddress => this.changeState({emailAddress: emailAddress.trim()})}
                                                      style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}
                                         />
                                     </View>
 
                                     <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Phone Number</Text>
                                     <View style={[theme.input_margin_bottom]}>
-                                        <CustomInput value={this.state.phone}
-                                                     onChangeText={phone => this.changeState({phone: phone.trim()})}
+                                        <CustomInput value={this.state.phoneNumber}
+                                                     onChangeText={phoneNumber => this.changeState({phoneNumber: phoneNumber.trim()})}
                                                      keyboardType="number-pad"
                                                      style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}
                                         />
