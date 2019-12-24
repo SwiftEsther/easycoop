@@ -53,7 +53,7 @@ export default class index extends Component {
                         <View>
                             <LoansTile
                                 index="0"
-                                visible="false"
+                                visible={true}
                                 loanID="AGUUII"
                                 approved="false"
                                 date="12-12-12"
@@ -61,7 +61,7 @@ export default class index extends Component {
                             />
                             <LoansTile
                                 index="1"
-                                visible=""
+                                visible={false}
                                 loanID="AGUUzzzI"
                                 approved="true"
                                 date="24-12-12"

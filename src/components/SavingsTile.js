@@ -22,7 +22,7 @@ export default class LoanTile extends Component {
                         <Text style={{color: "#9F9F9F", fontWeight: "bold"}}>Credited</Text>
                     </View>
                 </View>
-                <View style={{flexDirection: "column", justifyContent: "space-between", alignItems: "right"}}>
+                <View style={{flexDirection: "column", justifyContent: "space-between"}}>
                     <Text>{this.props.date}</Text>
                     <Text style={{fontWeight: "bold"}}>{this.props.amount}</Text>
                 </View>

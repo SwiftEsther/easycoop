@@ -28,12 +28,12 @@ export default class LoanTile extends Component {
                         <Text style={{color: "#05A4CA", fontWeight: "bold"}}>Pending Approval</Text>
                     </View>}
                 </View>
-                <View style={{flexDirection: "column", justifyContent: "space-between", alignItems: "right"}}>
+                <View style={{flexDirection: "column", justifyContent: "space-between"}}>
                     <Text>{this.props.date}</Text>
                     <Text style={{fontWeight: "bold"}}>{this.props.amount}</Text>
                 </View>
               </View>
-              <TouchableOpacity style={{display: (this.props.visible)? '': 'none'}} onPress={() => this.props.viewApplication}>
+              <TouchableOpacity style={{display: (this.props.visible)? 'flex': 'none'}} onPress={() => this.props.viewApplication}>
                     <View style={[styles.button]}>
                         <Text style={{color: "#138516"}}>View Application</Text>
                     </View>
