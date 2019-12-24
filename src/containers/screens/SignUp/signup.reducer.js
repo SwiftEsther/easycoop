@@ -1,16 +1,34 @@
 import {SIGNUP, SIGNUP_SUCCESS, SIGNUP_FAILURE, RESET_ERROR_MESSAGE} from './actions/types';
 
 const initialState = {
-    firstName: '',
-    lastName: '', 
-    email: '',
-    phoneNumber: '',
-    forceNumber: '',
-    acceptedTermsAndConditions: false, 
-    paypoint: '',
-    apNumber: '',
-    error: '',
-    loading: false
+    // acceptedTermsAndConditions: false,
+    firstName: "",
+    lastName: "",
+    emailAddress: "",
+    phoneNumber: "",
+    payPoint: "",
+    rank: "",
+    forceNumber: "",
+    addressLine1: "my address",
+    addressLine2: "my address 2",
+    addressLine3: "my adress 3",
+    cooperative: "my coperateive",
+    cooperativeId: 2,
+    cooperativeName: "my cop name",
+    country: "Nigeria",
+    forwardedToCooperative: true,
+    gender: "male",
+    genderId: 0,
+    id: 0,
+    joinCooperative: true,
+    makeClaim: true,
+    middleName: "MymiddleName",
+    registerCooperative: true,
+    rejectionReason: "non",
+    state: "borno",
+    stateId: 8,
+    totalRecords: 0,
+    treated: true
 }
 
 export default (state=initialState, actionType) => {

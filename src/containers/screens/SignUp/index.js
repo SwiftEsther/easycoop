@@ -36,7 +36,7 @@ import CustomModal from '../../../components/CustomModal';
 import SuccessModal from '../../../components/SuccessModal';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import SelectDropdown from "../../../components/SelectPopUp/SelectPopUp";
-import { postLogIn,postSignUp } from "../../../lib/api/url";
+import { postSignUp } from "../../../lib/api/url";
 import { axiosInstance } from "../../../lib/api/axiosClient";
 import {showToast} from "../../../components/Toast/actions/toastActions";
 import { loginSuccess } from "../Login/actions/login.actions";
@@ -51,14 +51,35 @@ import { loginSuccess } from "../Login/actions/login.actions";
             selected: "1",
             showProfileInfo: true,
             showForceInfo: false,
-            policeId: '',
-            rank: '',
-            payPoint: '',
-            id: '',
-            surname: '',
-            phone: '',
-            email: '',
-            firstName: '',
+            firstName: "",
+            lastName: "",
+            emailAddress: "",
+            phoneNumber: "",
+            payPoint: "",
+            rank: "",
+            forceID: "",
+            forceNumber: "",
+            forceNo: "",
+            addressLine1: "my address",
+            addressLine2: "my address 2",
+            addressLine3: "my adress 3",
+            cooperative: "my coperateive",
+            cooperativeId: 2,
+            cooperativeName: "my cop name",
+            country: "Nigeria",
+            forwardedToCooperative: true,
+            gender: "male",
+            genderId: 0,
+            id: 0,
+            joinCooperative: true,
+            makeClaim: true,
+            middleName: "MymiddleName",
+            registerCooperative: true,
+            rejectionReason: "non",
+            state: "borno",
+            stateId: 8,
+            totalRecords: 0,
+            treated: true,
             showTC: false,
             success: false
         }
@@ -70,69 +91,16 @@ import { loginSuccess } from "../Login/actions/login.actions";
 
     onHandleRegister = () => {
         Keyboard.dismiss();
-        let {username, password} = this.state;
+        const {firstName, lastName, emailAddress, phoneNumber, payPoint, rank, forceID, forceNumber, forceNo, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated} = this.state;
+        const user = {firstName, lastName, emailAddress, phoneNumber, payPoint, rank, forceNo,addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated};
 
-
-        let token = '';
-        console.log(postLogIn)
+        console.log(postSignUp)
         this.setState({
             spinner: true,
             modalLoader: true
         }, () => {
             axiosInstance
-                .post(postSignUp, {
-                        "policeId": this.state.policeId,
-                        "rank": this.state.rank,
-                        "payPoint": this.state.payPoint,
-                        "forceNo": this.state.id,
-                        "lastName": this.state.surname,
-                        "phoneNumber": this.state.phone,
-                        "emailAddress": this.state.email,
-                        "firstName": this.state.firstName,
-                        "acceptedTermsAndConditions": false,
-                        "accountClosed": false,
-                        "accountCreationDate": "",
-                        "accountNumber": "",
-                        "accountSuspended": false,
-                        "addressLine1": "",
-                        "addressLine2": "",
-                        "addressLine3": " ",
-                        "alternateEmailAddress": "",
-                        "alternatePhoneNumber": "",
-                        "bank": "",
-                        "bankId": 0,
-                        "bankVerificationNumber": "",
-                        "branchId": 0,
-                        "contributionAmount": 0,
-                        "contributionWithdrawalCount": 0,
-                        "cooperative": "",
-                        "cooperativeCode": "",
-                        "cooperativeId": 2,
-                        "cooperativeMembershipNumber": 0,
-                        "country": "",
-                        "dateOfBirth": "",
-                        "firstTime": false,
-                        "gender": "",
-                        "genderId": 0,
-                        "hasEmailAddress": false,
-                        "hasPhoneNumber": false,
-                        "hasSecurityQuestions": false,
-                        "id": 0,
-                        "ippisNo": "",
-                        "isAccountModuleAdmin": false,
-                        "isCooperativeAdmin": false,
-                        "isSystemAdmin": false,
-                        "lastLoginDate": "",
-                        "lga": "",
-                        "locked": false,
-                        "middleName": "",
-                        "occupation": "",
-                        "participating": false,
-                        "state": "",
-                        "stateId": 0,
-                        "systemAdminPosition": "",
-                        "yearlyIncome": 0
-                    }, {
+                .post(postSignUp, {...state, forceNumber: forceID+forceNumber}, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -150,7 +118,6 @@ import { loginSuccess } from "../Login/actions/login.actions";
                     })
                     if (res.status === 200) {
                         this.props.showToast('Successfully registered', 'success');
-                        this.props.navigation.navigate('Login')
                         this.setState({success: true})
                     } else {
                         this.props.showToast('Error', 'error');
@@ -184,32 +151,29 @@ import { loginSuccess } from "../Login/actions/login.actions";
     }
 
     signUp = () => {
-        const isValid = this.validate();
-        if (isValid) {
-            this.setState({showTC: true})
-        } else {
-            return (
-                Alert.alert(
-                    'Warning',
-                    'Fill every input',
-                    [
-                        {text: 'close', style: 'cancel'},
-                    ],
-                    {cancelable: false}
-                )
-            );
-        }
-    }
-
-    validate = () => {
-        const fields = [this.state.email, this.state.firstName, this.state.payPoint, this.state.phone, this.state.surname, this.state.id, this.state.rank, this.state.policeId];
-        console.log(fields)
+        const fields = [this.state.email, this.state.firstName, this.state.phone, this.state.surname];
         for (let i = 0; i < fields.length; i++) {
             if (fields[i].length == 0) {
+                this.props.showToast('Kindly fill in the required fields', 'error')
                 return false;
             }
         }
-        return true
+        this.setState({showTC: true})
+    }
+
+    validateProfileInfo = () => {
+        const fields = [this.state.email, this.state.firstName, this.state.phone, this.state.surname];
+        for (let i = 0; i < fields.length; i++) {
+            if (fields[i].length == 0) {
+                this.props.showToast('Kindly fill in the required fields', 'error')
+                return false;
+            }
+        }
+        this.setState({
+            showProfileInfo: false,
+            selected: "2",
+            showForceInfo: true
+        })
     }
 
     // _toggleView = () => {
@@ -235,14 +199,13 @@ import { loginSuccess } from "../Login/actions/login.actions";
             {label: 'DIG', value: 'dig'},
             {label: 'IGP ', value: 'igp'}
         ]
-        const payPoints = [{label: 'First Point', value: 'fPoint'}, {
-            label: 'Second Point',
-            value: 'sPoint'
-        }, {label: 'Third Point', value: 'tPoint'}]
-        const ids = [{label: 'First ID', value: 'fId'}, {label: 'Second ID', value: 'tId'}, {
-            label: 'Third ID',
-            value: 'tId'
-        }]
+        const payPoints = [
+            {sn: 1, mss: 'Abia', value: "State Police Command, Umuahia. Umuahia - Ohafia Rd, Nkata Ubeku, Umuahia"},
+            {sn: 2, mss: 'Adamawa', value: "Adamawa State Police Headquarters"},
+            {sn: 3, mss: 'Akwa Ibom', value: "The Nigeria Police Divisional Hqters 'E' Division. Akpan Horgan Ekpo Street, Uyo, Akwa Ibom"}
+        ]
+        const forceIDs = [{label: 'AP', value: 'AP'}, {label: 'FN', value: 'FN'}]
+
         return (
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none"
@@ -281,7 +244,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                     {this.state.showForceInfo && <View style={{marginHorizontal: scale(20)}}>
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.fill]}>
-                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Police ID Type</Text>
+                                <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force ID Type</Text>
                                 <View style={[style.pickerStlye, {borderWidth: StyleSheet.hairlineWidth}]}>
                                     <Picker
                                         selectedValue={this.state.id}
@@ -289,7 +252,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                             this.setState({id: itemValue})
                                         }>
                                         <Picker.Item label='---None---' value=''/>
-                                        {ids.map((item, index) => <Picker.Item key={index} label={item.label}
+                                        {forceIDs.map((item, index) => <Picker.Item key={index} label={item.label}
                                                                                value={item.value}/>)}
                                     </Picker>
 
@@ -316,7 +279,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                     {/*</SelectDropdown>*/}
                                 </View>
                                 <Text
-                                    style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop: scaleHeight(20)}]}>Police
+                                    style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop: scaleHeight(20)}]}>Force
                                     ID<Text style={{
                                         color: '#138516',
                                         fontSize: 12,
@@ -335,7 +298,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                         onValueChange={(itemValue, itemIndex) =>
                                             this.setState({rank: itemValue})
                                         }>
-                                        <Picker.Item label='' value=''/>
+                                        <Picker.Item label='---None---' value=''/>
                                         {ranks.map((item, index) => <Picker.Item key={index} label={item.label}
                                                                                  value={item.value}/>)}
                                     </Picker>
@@ -349,8 +312,8 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                         onValueChange={(itemValue, itemIndex) =>
                                             this.setState({payPoint: itemValue})
                                         }>
-                                        <Picker.Item label='' value=''/>
-                                        {payPoints.map((item, index) => <Picker.Item key={index} label={item.label}
+                                        <Picker.Item label='---None---' value=''/>
+                                        {payPoints.map((item, index) => <Picker.Item key={index} label={item.mss}
                                                                                      value={item.value}/>)}
                                     </Picker>
                                 </View>
@@ -398,11 +361,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                         />
                                     </View>
                                     <View style={style.button}>
-                                        <BlackButton button_text="Next" handlePress={() => this.setState({
-                                            showProfileInfo: false,
-                                            selected: "2",
-                                            showForceInfo: true
-                                        })}/>
+                                        <BlackButton button_text="Next" handlePress={this.validateProfileInfo}/>
                                     </View>
 
                                 </View>
@@ -413,9 +372,9 @@ import { loginSuccess } from "../Login/actions/login.actions";
                 </KeyboardAwareScrollView>
                 <CustomModal visible={this.state.showTC} _toggleView={() => this.setState({showTC: !this.state.showTC})}
                              handleClick={this.acceptTerms}/>
-                <SuccessModal visible={this.state.success} _toggleView={this.showSuccessModal} bare={true}
-                              close={this.navigate}
-                              message={`A text message would be sent to your Phone number ${'+23470******11'} and Email ${'josh******43@gmail.com'}`}/>
+                <SuccessModal visible={this.state.success} _toggleView={()=>navigation.navigate('Login')} 
+                    subtitle="Password Sent"
+                    message={`A text message was sent to your registered Phone Number and email address.`}/>
             </SafeAreaView>
         );
     }

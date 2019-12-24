@@ -72,7 +72,6 @@ class Login extends Component {
     }
 
     validate = async () => {
-        let {username, password} = this.state
         if (this.state.username.length == 0 || this.state.password.length == 0) {
             return (
                 Alert.alert(
@@ -190,7 +189,7 @@ class Login extends Component {
                          overlayColor={'rgba(0, 0, 0, 0.5)'}/>
 
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content"/>
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
                     <View style={[theme.screen_pad]}>
                         <AuthenticationHeader text='Sign In' backFunction={() => this.props.navigation.goBack(null)}/>
                         <View style={[theme.margin_left_right_25]}>
