@@ -45,6 +45,7 @@ class index extends Component {
     showFailureModal = () => this.setState({failure: !this.state.failure})
 
     render() {
+        const {userData} = this.props;
         return (
             <>
                 <StatusBar backgroundColor={colors.white} barStyle="dark-content"/>
@@ -56,7 +57,7 @@ class index extends Component {
                                     fontSize: 20,
                                     marginTop: scaleHeight(10),
                                     marginBottom: scaleHeight(20)
-                                }]}>Hi, {this.props.userData.firstName}</Text>
+                                }]}>Hi, {userData.firstName[0].toUpperCase() + userData.firstName.slice(1)}</Text>
                                 <View>
                                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
 
@@ -99,6 +100,7 @@ class index extends Component {
                                                 <Image source={require('../../../../assets/icons/currency.png')} />
 
                                                 <Text numberOfLines={1} style={{color: '#575757',fontFamily: 'nunito-bold'}}>Request History</Text>
+                                                <Text numberOfLines={1} style={{color: '#575757',fontFamily: 'nunito-regular', fontSize: 10}}>Loan, Withdrawal, Savings Status</Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>

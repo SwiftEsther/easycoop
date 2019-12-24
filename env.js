@@ -5,13 +5,19 @@ let environment = 'dev';
 const generateEnvVariables = () => {
     if (environment === 'dev'){
         return {
-            baseUrl:'http://137.117.211.230:8000',
-            otehrUrl: 'http://137.117.211.230:8080'
+            credentials:'http://137.117.211.230:8000',
+            cooperative: 'http://137.117.211.230:8080',
+            account: 'http://137.117.211.230:8001',
+            loan: 'http://137.117.211.230:8004',
+            api: 'http://137.117.211.230:8007',
         }
     } else {
         return {
-            baseUrl:'http://137.117.211.230:8000',
-            otehrUrl: 'http://137.117.211.230:8080'
+            credentials:'http://137.117.211.230:8000',
+            cooperative: 'http://137.117.211.230:8080',
+            account: 'http://137.117.211.230:8001',
+            loan: 'http://137.117.211.230:8004',
+            api: 'http://137.117.211.230:8007',
         }
     }
 }
