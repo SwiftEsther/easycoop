@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, AsyncStorage } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { StyleSheet, View, Text, TouchableOpacity, AsyncStorage, Image } from 'react-native';
+import { Ionicons, FontAwesome,Feather } from '@expo/vector-icons';
 
 import { scale, scaleHeight } from '../../helpers/scale';
 
@@ -10,7 +10,7 @@ import NavigationService from '../../../NavigationService';
 // import { ComponentGenerator } from "../../components/CustomDynamicComponent/ComponentGenerator";
 // import AccountSvg from '../../../assets/svgs/account'
 import TouchItem from "../../components/TouchItem/_TouchItem";
-// import Colors from '../../lib/constants/Colors'
+import { Colors } from "../../lib/constants/colors";
 
 
 const styles = StyleSheet.create({
@@ -29,54 +29,76 @@ const styles = StyleSheet.create({
     },
     topBar: {
         width: '100%',
-        height: scale(100),
+        height: scale(130),
         backgroundColor: 'white',
-        justifyContent: 'flex-end',
-        paddingBottom: scale(16),
-        paddingLeft: scale(40),
+        alignItems: 'center',
+        flexDirection: 'row',
+        // paddingBottom: scale(16),
+        paddingLeft: scale(15),
         paddingRight: scale(10),
-        marginBottom: scale(30)
+        // marginBottom: scale(30),
+        borderBottomWidth: scale(1),
+        borderBottomColor: 'rgba(0, 0, 0, 0.35)'
     },
     name: {
         fontFamily: 'nunito-bold',
-        fontSize: scale(14),
-        color: 'white',
-        marginBottom: scale(3),
+        fontSize: scale(15),
+        color: '#575757',
+        marginBottom: scale(4),
         maxWidth: scale(120)
     },
     email: {
         fontFamily: 'nunito-regular',
-        fontSize: scale(12),
-        color: 'white',
-        maxWidth: scale(120)
+        fontSize: scale(15),
+        color: '#ccc',
+        maxWidth: scale(180)
     },
     itemContainer: {
+        backgroundColor: Colors.primary_green,
+        height: scale(48),
+        justifyContent: 'center',
+        maxWidth: scale(248),
+        marginTop: scale(24),
+        borderTopRightRadius: scale(24),
+        borderBottomRightRadius: scale(24),
         // marginLeft: scale(40),
+    },
+    innerContainer: {
+        height: scale(40),
+        justifyContent: 'center',
+        maxWidth: scale(248),
     },
     listItem: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        height: scale(40),
+        // height: scale(40),
         // borderBottomColor: '#00425f33',
         // borderBottomWidth: 1,
-        paddingLeft: scale(40)
+        paddingLeft: scale(80)
     },
-    optionText:{
+    optionText: {
         // color:'rgba(0, 0, 0, 0.8700000047683716)',
-        color:'white',
+        color: 'white',
         fontFamily: 'nunito-medium',
         fontSize: scale(14),
         // marginLeft: scale(20)
     },
-    signout:{
+    signout: {
         position: 'absolute',
-        bottom:0,
-        width:'100%',
-        paddingLeft: scale(40),
+        bottom: 0,
+        width: '100%',
+        paddingLeft: scale(15),
         paddingBottom: scale(40),
         // flexDirection:'row',
 
+    },
+    heading: {
+        fontFamily: 'nunito-bold',
+        fontSize: scale(15),
+        color: '#575757',
+        marginBottom: scale(15),
+        // maxWidth: scale(120)
     }
 });
 
@@ -105,77 +127,153 @@ class SideMenu extends React.Component {
     }
 
     render() {
-        let {firstName, email} = this.props.userData;
+        let {firstName, username, emailAddress} = this.props.userData;
+        console.log(this.props.userData)
         return (
             <View style={styles.container}>
                 <TouchItem style={styles.topBar} onPress={() => {
                     this.goToSettings();
                 }}>
-                    <Text style={styles.name} numberOfLines={1}>{firstName}</Text>
-                    <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-                        <Text style={styles.email} numberOfLines={1}>{'onuegbu.tisd@sd.com'}</Text>
-                        <View
-                            // onPress={() => {
-                            //   this.goToSettings();
-                            // }}
-                            style={{
-                                paddingHorizontal: scale(10)
-                            }}
-                        >
-                            {/* <Ionicons name={"md-settings"} size={scale(20)}
-                                      color={'#fff'}/> */}
+                    <Image style={{
+                        height: scale(52),
+                        width: scale(52),
+                        borderRadius: scale(26),
+                        borderWidth: scale(2),
+                        borderColor: Colors.primary_green,
+                        marginRight: scale(10)
+                    }} source={require('../../../assets/icons/coins.png')}/>
+
+                    <View>
+                        <Text style={styles.name} numberOfLines={1}>{firstName}</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
+                            <Text style={styles.email} numberOfLines={1}>{emailAddress}</Text>
                         </View>
                     </View>
                 </TouchItem>
                 <View>
-                    {this.state.menuOptions.map(item => (
-                        <View style={styles.itemContainer} key={item.id}>
-                            <TouchableOpacity onPress={() => this.goToScreen(item.urlName)}>
-                                <View style={styles.listItem}>
-                                    {/*<View style={{*/}
-                                    {/*// backgroundColor:'red',*/}
-                                    {/*width:30*/}
-                                    {/*}}>*/}
-                                    {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
-                                    {/*</View>*/}
-                                    <Text style={styles.optionText}>{item.name}</Text>
-                                    {/*<Ionicons*/}
-                                    {/*name="ios-arrow-forward"*/}
-                                    {/*size={25}*/}
-                                    {/*style={styles.itemArrow}*/}
-                                    {/*color="rgba(0, 0, 0, 0.25)"*/}
-                                    {/*/>*/}
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    ))}
+
+                    <View style={styles.itemContainer}>
+                        <TouchableOpacity onPress={() => this.goToScreen('Home')}>
+                            <View style={styles.listItem}>
+                                {/*<View style={{*/}
+                                {/*// backgroundColor:'red',*/}
+                                {/*width:30*/}
+                                {/*}}>*/}
+                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
+                                {/*</View>*/}
+                                <Ionicons
+                                    name="md-home"
+                                    size={25}
+                                    style={{marginRight: scale(15)}}
+                                    color="white"
+                                />
+                                <Text style={styles.optionText}>Home</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{marginTop: scale(30), paddingHorizontal: scale(15)}}>
+                        <Text style={styles.heading}>Account Information</Text>
+
+                        <TouchableOpacity onPress={() => this.goToScreen('Home')} style={styles.innerContainer}>
+                            <View style={[styles.listItem, {paddingLeft: scale(40)}]}>
+                                {/*<View style={{*/}
+                                {/*// backgroundColor:'red',*/}
+                                {/*width:30*/}
+                                {/*}}>*/}
+                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
+                                {/*</View>*/}
+                                <FontAwesome
+                                    name="user"
+                                    size={18}
+                                    style={{marginRight: scale(15)}}
+                                    color="black"
+                                />
+                                <Text style={[styles.optionText, {color: Colors.gray}]}>Profile Info</Text>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.goToScreen('Home')} style={styles.innerContainer}>
+                            <View style={[styles.listItem, {paddingLeft: scale(40)}]}>
+                                {/*<View style={{*/}
+                                {/*// backgroundColor:'red',*/}
+                                {/*width:30*/}
+                                {/*}}>*/}
+                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
+                                {/*</View>*/}
+                                <FontAwesome
+                                    name="user"
+                                    size={18}
+                                    style={{marginRight: scale(15)}}
+                                    color="black"
+                                />
+                                <Text style={[styles.optionText, {color: Colors.gray}]}>Next of Kin Update</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{marginTop: scale(30), paddingHorizontal: scale(15)}}>
+                        <Text style={styles.heading}>Settings</Text>
+
+                        <TouchableOpacity onPress={() => this.goToScreen('Home')} style={styles.innerContainer}>
+                            <View style={[styles.listItem, {paddingLeft: scale(40)}]}>
+                                {/*<View style={{*/}
+                                {/*// backgroundColor:'red',*/}
+                                {/*width:30*/}
+                                {/*}}>*/}
+                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
+                                {/*</View>*/}
+                                <FontAwesome
+                                    name="lock"
+                                    size={18}
+                                    style={{marginRight: scale(15)}}
+                                    color={Colors.primary_green}
+                                />
+                                <Text style={[styles.optionText, {color: Colors.gray}]}>Reset Password</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{marginTop: scale(30), paddingHorizontal: scale(15)}}>
+                        <Text style={styles.heading}>Request for Help</Text>
+
+                        <TouchableOpacity onPress={() => this.goToScreen('Home')} style={styles.innerContainer}>
+                            <View style={[styles.listItem, {paddingLeft: scale(40)}]}>
+                                {/*<View style={{*/}
+                                {/*// backgroundColor:'red',*/}
+                                {/*width:30*/}
+                                {/*}}>*/}
+                                {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
+                                {/*</View>*/}
+                                <Ionicons
+                                    name="ios-information-circle"
+                                    size={18}
+                                    style={{marginRight: scale(15)}}
+                                    color={Colors.primary_green}
+                                />
+                                <Text style={[styles.optionText, {color: Colors.gray}]}>Support</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
                 <View style={styles.signout}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this._signOutAsync();
-                        }}
-                        style={{
-                            flexDirection:'row',
-                            alignItems:'center'
-                        }}
-                    >
-                        <Ionicons name={"ios-power"} size={scale(20)}
-                                  color={'white'}/>
-                        <Text style={[styles.optionText,{marginLeft:scale(10)}]}>Sign Out</Text>
+
+                    <TouchableOpacity style={[styles.listItem, {paddingLeft: scale(40)}]}   onPress={() => {
+                        this._signOutAsync();
+                    }}>
+                        {/*<View style={{*/}
+                        {/*// backgroundColor:'red',*/}
+                        {/*width:30*/}
+                        {/*}}>*/}
+                        {/*<ComponentGenerator tag={item.icon} color={'rgba(0, 0, 0, 0.8700000047683716)'}/>*/}
+                        {/*</View>*/}
+                        <Feather
+                            name="log-out"
+                            size={18}
+                            style={{marginRight: scale(15)}}
+                            color={'black'}
+                        />
+                        <Text style={[styles.optionText, {color: Colors.gray}]}>Logout</Text>
                     </TouchableOpacity>
-
-                    {/*<View style={{flexDirection: 'row', justifyContent: 'space-between', paddingRight: scale(30)}}>*/}
-
-                    {/*<Text style={styles.version}>© 2019 Interswitch Group</Text>*/}
-                    {/*<Text style={styles.version}>•</Text>*/}
-                    {/*<TouchableOpacity onPress={() => this.props.navigation.navigate('Help')} style={{*/}
-                    {/*paddingHorizontal: scale(10),*/}
-                    {/*paddingBottom: scale(20)*/}
-                    {/*}}>*/}
-                    {/*<Text style={[styles.version, {color: '#0275d8'}]}>Help</Text>*/}
-                    {/*</TouchableOpacity>*/}
-                    {/*</View>*/}
                 </View>
             </View>
         );
