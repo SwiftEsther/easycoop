@@ -17,13 +17,14 @@ export default class Circle extends Component {
 }
 
 const styles = StyleSheet.create({
-    circle: { 
-        width: scale(420),
-        height: scale(420),
-        borderRadius:scale(210),
+    circle: {
+        width:scale(430),
+        height: scale(430),
+        borderRadius:scale(215),
         backgroundColor: '#fff',
-        position: 'relative',
+        position: 'absolute',
         // left: -38,
-        top: scale(0)
+        alignSelf:'center'
+        // top: scale(10)
     }
 });
