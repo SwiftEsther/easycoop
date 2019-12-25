@@ -31,6 +31,7 @@ import SideMenu from "../containers/screens/SideMenu";
 
 
 import TransactionPage from '../containers/screens/transactionHistory/index';
+import Notifications from "../containers/screens/Notification/Notifications";
 
 const authNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
@@ -54,8 +55,8 @@ const homeNavigation = createDrawerNavigator({
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
     RequestHistory: {screen: RequestHistory, navigationOptions: { header: null, tabBarVisible: false }},
     TransactionPage: {screen: TransactionPage, navigationOptions: { header: null, tabBarVisible: false }},
-    Notifications: {screen: Notifications, navigationOptions: { header: null, tabBarVisible: false }},
-  },
+        Notifications: {screen: Notifications, navigationOptions: { header: null, tabBarVisible: false }}
+    },
   {
     initialRouteName:  'Dashboard',
       drawerWidth:scale(280),
