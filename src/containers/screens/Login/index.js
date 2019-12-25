@@ -73,16 +73,7 @@ class Login extends Component {
 
     validate = async () => {
         if (this.state.username.length == 0 || this.state.password.length == 0) {
-            return (
-                Alert.alert(
-                    'Warning',
-                    'Fill every input',
-                    [
-                        {text: 'close', style: 'cancel'},
-                    ],
-                    {cancelable: false}
-                )
-            );
+            this.props.showToast('Kindly enter your username and password', 'error')
         } else {
             this.onhandleLogin()
         }
@@ -142,15 +133,6 @@ class Login extends Component {
                 });
         })
     };
-
-    redirect = (_stage) => {
-        // if(_stage === "LOGGEDIN") {
-        //   this.props.navigation.navigate('Dashboard');
-        // }
-        // else {
-        //     this.props.navigation.navigate('Register');
-        // }
-    }
 
     onFocus() {
         this.setState({
@@ -228,6 +210,7 @@ class Login extends Component {
                                            style={[theme.image_icon]}/>
                                     <TextInput
                                         value={this.state.password}
+                                        secureTextEntry={true}
                                         onChangeText={password => this.changeState({password: password})}
                                         onFocus={this.onFocus}
                                         onBlur={this.onBlur}
