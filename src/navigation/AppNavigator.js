@@ -4,11 +4,6 @@ import {createDrawerNavigator} from 'react-navigation-drawer';
 import React from 'react';
 import { NetInfo, SafeAreaView, View, PanResponder } from 'react-native'
 import { scale, scaleHeight } from '../helpers/scale';
-
-
-
-
-
 import Login from '../containers/screens/Login/index';
 import SignUp from '../containers/screens/SignUp/index';
 import entryNavigation from '../containers/screens/entryNavigation/index';
@@ -31,7 +26,6 @@ import SideMenu from "../containers/screens/SideMenu";
 
 
 import TransactionPage from '../containers/screens/transactionHistory/index';
-import Notifications from "../containers/screens/Notification/Notifications";
 
 const authNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
