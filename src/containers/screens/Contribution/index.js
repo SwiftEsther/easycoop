@@ -53,28 +53,25 @@ export default class Contributions extends Component {
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
         >
-          <TouchableOpacity activeOpacity={0.7} style={[styles.icon]} onPress={this.props._toggleView}>
-                            <Icon name='close'/>
-                        </TouchableOpacity>
           <View style={styles.bottomNavigationView}>
           
             <View style={[theme.container, styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
 
-            <TouchableOpacity activeOpacity={0.7} style={[styles.icon]} onPress={this.props._toggleView}>
-              <Icon name='close' />
+            <TouchableOpacity activeOpacity={0.7} style={[styles.icon]}>
+              <Icon name='close' onPress={this.props._toggleView}/>
             </TouchableOpacity>
               <Image style={{}} source={require('../../../../assets/icons/wallet.png')} />
               <Text style={[theme.typo_bold, theme.font17, { width: width-80, paddingLeft: scale(20), paddingVertical: scaleHeight(15) }]}>Contributors Balance</Text>
             </View>
-            <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', justifyContent: 'space-between', flex: 6 }]}>
-              <View >
+            <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', justifyContent: 'space-around', flex: 6}]}>
+              <View style={{ paddingVertical: scaleHeight(10) }}>
                 <Text style={[theme.typo_regular, { fontSize: 11, marginHorizontal: scaleHeight(20), color: '#138516' }]}>Contributors Balance</Text>
                 <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif', fontSize: 20 }]}>
                  
                   <Text style={[theme.font15]}>{`#100,000,000.00`}</Text>
                 </View>
               </View>
-              <View>
+              <View style={{ paddingVertical: scaleHeight(10) }}>
                 <Text style={[theme.typo_regular, { fontSize: 11, marginHorizontal: scaleHeight(20), color: '#138516' }]}>Contributors Balance</Text>
                 <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif', fontSize: 20 }]}>
                  
@@ -110,12 +107,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#efefef',
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignSelf: 'center',
     flex: 2,
+    paddingVertical: 20
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: height / 1.8,
+    height: height / 1.5,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingHorizontal: scale(5),
@@ -127,9 +125,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf: 'flex-end',
     padding: scale(6),
-    bottom: scaleHeight(100),
+    bottom: scaleHeight(150),
     right: 0,
-    position: 'absolute'
+    position: 'absolute',
+    backgroundColor: 'red'
   },
   buttons: {
     flexDirection: 'row',

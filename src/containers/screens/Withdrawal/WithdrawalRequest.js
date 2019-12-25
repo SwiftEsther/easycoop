@@ -10,6 +10,7 @@ import { scale, scaleHeight } from '../../../helpers/scale';
 import Tabs from '../../../components/Tabs'
 import { SafeAreaView } from 'react-navigation';
 import RequestSuccessful from './RequestSuccessful';
+import BorderedTabs from '../../../components/BorderedTab';
 // import RequestSuccess from './RequestSuccess';
 
 export default class WithdrawalRequest extends Component {
@@ -19,7 +20,8 @@ export default class WithdrawalRequest extends Component {
     this.state = {
       withdrawalAccount: '',
       amount: '',
-      success: false
+      success: false,
+      selected:"1"
     }
   }
 
@@ -145,14 +147,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginVertical: scaleHeight(13),
+    paddingVertical: scaleHeight(10),
     marginHorizontal: scale(13),
     flex: 1,
     fontFamily: 'nunito-bold' 
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: height /1.3,
+    height: height /1.2,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     justifyContent: 'flex-start',

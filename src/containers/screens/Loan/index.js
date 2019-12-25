@@ -53,6 +53,7 @@ export default class index extends Component {
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
 
+                <Header navigation={{...this.props.navigation}}/>
                 <Tabs buttonTabStyle={this.state.buttonStyle} tabStyle={design.tabStyle} leftTabStyle={design.leftTabStyle}
                   tab1Text="Loan" tab2Text="Gurantor request" selected={this.state.selected}
                   tab1Event={() => this.setState({showForceInfo: false, selected: "1", showProfileInfo:true})} 
@@ -92,7 +93,6 @@ export default class index extends Component {
                         </View>
                     </View>}
                 </KeyboardAwareScrollView>
-                <Header navigation={{...this.props.navigation}}/>
                 <ApplyLoanModal visible={this.state.loanApply} _toggleView={this.showLoanApply}/>
                 {/* <ApplicationSuccessful 
                 subtitle="Request Submission Failed"

@@ -12,3 +12,4 @@ export const api = env().api;
 export const postLogIn = credentials  + '/credentials/v1/api/login';
 export const postSignUp = cooperative + 'cooperative/v1/nonauth/policejoincooperative';
 export const resetPassword = credentials + '/credentials/v1/auth/resetpassword';
+export const getWithdrawalLoans = account +'/viewwithdrawalhistory'
