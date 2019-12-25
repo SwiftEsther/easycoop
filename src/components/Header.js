@@ -17,42 +17,42 @@ export default class Header extends Component{
     render() {
         console.log(this.props)
         return(
-            <View style={[styles.container, theme.fill ,{position: 'absolute', left: 0, right: 0, top: 0, backgroundColor: '#fff'}]}>
+            <View style={[styles.container, theme.fill ,{position: 'absolute', left: 0, right: 0, top: 0, backgroundColor: '#fff', paddingBottom: scaleHeight(20)}]}>
                 
-                    <View style={{flexDirection: 'row'}}>
-                        <TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={()=> this.props.navigation.openDrawer()}>
-                        {/*<TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={this.props.navigation.openDrawer()}>*/}
-                            <Icon name="menu" style={[styles.icons]}/>
-                        </TouchableOpacity>
-                        <View style={[styles.separator]}></View>
-                       <View>
-                           <TouchableOpacity activeOpacity={0.7}   onPress={() => this.props.navigation.navigate('Notifications')}>
-                               <Ionicons
-                                   name="ios-notifications-outline"
-                                   size={25}
-                                   style={styles.icons}
-                                   // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
-                               />
-                           </TouchableOpacity>
-                           {!!this.state.unreadNotificationsLength && (
-                               <View style={styles.badge}>
-                               <Text style={{
-                                   textAlign: 'center',
-                                   justifyContent: 'center',
-                                   color: 'white',
-                                   fontSize: scale(8),
-                                   fontFamily:'nunito-bold',
-                               }}>
-                                   {this.state.unreadNotificationsLength}
-                               </Text>
-                               </View>
-                           )}
-                       </View>
-                    </View>
-                    
-                    <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} >
-                        <Icon name="home" style={[styles.icons,{justifyContent:'flex-end'}]}/>
+                <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={()=> this.props.navigation.openDrawer()}>
+                    {/*<TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={this.props.navigation.openDrawer()}>*/}
+                        <Icon name="menu" style={[styles.icons]}/>
                     </TouchableOpacity>
+                    <View style={[styles.separator]}></View>
+                    <View>
+                        <TouchableOpacity activeOpacity={0.7}   onPress={() => this.props.navigation.navigate('Notifications')}>
+                            <Ionicons
+                                name="ios-notifications-outline"
+                                size={25}
+                                style={styles.icons}
+                                // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
+                            />
+                        </TouchableOpacity>
+                        {!!this.state.unreadNotificationsLength && (
+                            <View style={styles.badge}>
+                            <Text style={{
+                                textAlign: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontSize: scale(8),
+                                fontFamily:'nunito-bold',
+                            }}>
+                                {this.state.unreadNotificationsLength}
+                            </Text>
+                            </View>
+                        )}
+                    </View>
+                </View>
+                
+                <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} >
+                    <Icon name="home" style={[styles.icons,{justifyContent:'flex-end'}]}/>
+                </TouchableOpacity>
                 
                 
                 {/* <Image source={require('../../assets/images/pexels_photo.png')} style={[styles.avatar]}/> */}
@@ -68,7 +68,7 @@ const styles=StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: scale(11),
-        paddingTop: scale(25) 
+        paddingTop: scaleHeight(25) 
     },
     avatar: {
 
