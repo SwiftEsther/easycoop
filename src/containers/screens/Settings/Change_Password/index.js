@@ -110,7 +110,7 @@ class ChangePassword extends Component {
     render() {
         return (
             <SafeAreaView style={[theme.container]}>
-                <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
+                <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(0, 0, 0, 0.5)'} />
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
                     <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
                 <View style={{marginTop: scaleHeight(70)}}>
