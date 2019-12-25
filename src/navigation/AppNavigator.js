@@ -19,7 +19,7 @@ import AuthenticationPage from '../containers/screens/Authentication/index';
 import ChangePasswordPage from '../containers/screens/Settings/Change_Password/index';
 import SupportPage from '../containers/screens/Support/index';
 import LoanPage from '../containers/screens/Loan/index';
-import Withdrawal from '../containers/screens/Withdrawal/index';
+import RequestHistory from '../containers/screens/RequestHistory/index';
 import Dashboard from '../containers/screens/Dashboard/index';
 import NavigationService from "../../NavigationService";
 import Toast from '../components/Toast/Toast'
@@ -50,7 +50,7 @@ const drawernav = createDrawerNavigator({
 const homeNavigation = createDrawerNavigator({
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
-    Withdrawal: {screen: Withdrawal, navigationOptions: { header: null, tabBarVisible: false }},
+    RequestHistory: {screen: RequestHistory, navigationOptions: { header: null, tabBarVisible: false }},
     TransactionPage: {screen: TransactionPage, navigationOptions: { header: null, tabBarVisible: false }}
   },
   {

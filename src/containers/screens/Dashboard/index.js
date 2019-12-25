@@ -13,6 +13,7 @@ import SuccessModal from '../../../components/SuccessModal';
 import FailureModal from '../../../components/FailureModal';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Contributions from '../../screens/Contribution/index';
+import WithdrawalRequest from '../../screens/Withdrawal/WithdrawalRequest';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DeleteModal from '../../../components/DeleteModal';
 import DeleteSuccess from '../../../components/DeleteSuccess';
@@ -29,6 +30,7 @@ class index extends Component {
             contributions: false,
             requestSuccess: false,
             failure: false,
+            withdraw: false
             // userData: this.props.navigation.state.params.userData
         }
     }
@@ -43,6 +45,9 @@ class index extends Component {
     showContributionsBal = () => this.setState({contributions: !this.state.contributions})
     showRequestSuccess = () => this.setState({requestSuccess: !this.state.requestSuccess})
     showFailureModal = () => this.setState({failure: !this.state.failure})
+    showWithdrawalRequest = () => {
+        this.setState({withdraw: !this.state.withdraw})
+    }
 
     render() {
         const {userData} = this.props;
@@ -72,7 +77,7 @@ class index extends Component {
                                         </TouchableOpacity>
 
                                         <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]}
-                                                          onPress={() => this.props.navigation.navigate("Withdrawal")}>
+                                                          onPress={this.showWithdrawalRequest}>
                                             <View style={[styles.card]}
                                                   onPress={() => this.setState({withdraw: !this.state.withdraw})}>
                                                 <Image style={[]}
@@ -94,8 +99,7 @@ class index extends Component {
                                             </View>
                                         </TouchableOpacity>
 
-                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]}
-                                                          onPress={() => this.props.navigation.navigate("TransactionPage")}>
+                                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={() => this.props.navigation.navigate("RequestHistory")}>
                                             <View style={[styles.card]}>
                                                 <Image source={require('../../../../assets/icons/currency.png')} />
 
@@ -110,6 +114,7 @@ class index extends Component {
                                 <Text>Sign Out</Text>
                             </TouchableOpacity>
                         </KeyboardAwareScrollView>
+                        <WithdrawalRequest visible={this.state.withdraw} _toggleView={this.showWithdrawalRequest}/>
                         <Contributions visible={this.state.contributions} _toggleView={this.showContributionsBal}/>
                         {/* <SuccessModal visible={this.state.requestSuccess} _toggleView={this.showRequestSuccess}
                                 subtitle="Request Submitted Successfully"
