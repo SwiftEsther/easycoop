@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, AsyncStorage, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, AsyncStorage, Image,ScrollView } from 'react-native';
 import { Ionicons, FontAwesome,Feather } from '@expo/vector-icons';
 
 import { scale, scaleHeight } from '../../helpers/scale';
@@ -111,9 +111,10 @@ const styles = StyleSheet.create({
         // marginLeft: scale(20)
     },
     signout: {
-        position: 'absolute',
-        bottom: 0,
+        // position: 'absolute',
+        // bottom: 0,
         width: '100%',
+        marginTop:scale(40),
         paddingLeft: scale(15),
         paddingBottom: scale(40),
         // flexDirection:'row',
@@ -157,7 +158,7 @@ class SideMenu extends React.Component {
         let {firstName, username, emailAddress} = this.props.userData;
         console.log(this.props.activeItemKey)
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <TouchItem style={styles.topBar} onPress={() => {
                     this.goToSettings();
                 }}>
@@ -272,7 +273,7 @@ class SideMenu extends React.Component {
                         <Text style={[styles.optionText, {color: Colors.gray}]}>Logout</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 
