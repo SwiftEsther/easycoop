@@ -16,7 +16,7 @@ import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import {recoverPasswordSuccess} from './actions/forgotpassword.actions';
 import {showToast} from "../../../components/Toast/actions/toastActions";
-import {resetPassword} from '../../../lib/api/url';
+import {forgotPassword} from '../../../lib/api/url';
 import SuccessModal from '../../../components/SuccessModal';
 import { scaleHeight } from '../../../helpers/scale';
 
@@ -46,7 +46,7 @@ class AuthenticationPage extends Component {
 
     signIn=()=> this.props.navigation.navigate('Login');
 
-    onhandleResetPassword = () => {
+    onhandleForgotPassword = () => {
         const {navigation} = this.props;
         Keyboard.dismiss();
         this.setState({
@@ -54,7 +54,7 @@ class AuthenticationPage extends Component {
             modalLoader: true
         }, () => {
             axiosInstance
-                .get(resetPassword, {params: {username: navigation.getParam('username', '')}})
+                .get(forgotPassword, {params: {username: navigation.getParam('username', '')}})
                 .then(res => {
                     this.setState({
                         spinner: false,
@@ -99,7 +99,7 @@ class AuthenticationPage extends Component {
                                 <View>
                                     <Text style={{textAlign: "center",marginBottom: scaleHeight(60), flexWrap: "wrap"}} >A message was sent to your registered email and phone number. </Text>
                                 </View>
-                                <BlackButton button_text="Send Password"  handlePress={this.onhandleResetPassword}/>
+                                <BlackButton button_text="Send Password"  handlePress={this.onhandleForgotPassword}/>
                             </View>
                         </View>                        
                     </View>
@@ -114,9 +114,9 @@ class AuthenticationPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        resetError: state.resetPassword.error,
-        isLoading: state.resetPassword.loading,
-        isPasswordReset: state.resetPassword.passwordReset
+        resetError: state.forgotPassword.error,
+        isLoading: state.forgotPassword.loading,
+        isPasswordReset: state.forgotPassword.passwordReset
     };
 };
 

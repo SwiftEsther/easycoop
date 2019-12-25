@@ -18,6 +18,7 @@ import ForgotPasswordPage from '../containers/screens/ForgotPassword/index';
 import AuthenticationPage from '../containers/screens/Authentication/index';
 import ChangePasswordPage from '../containers/screens/Settings/Change_Password/index';
 import SupportPage from '../containers/screens/Support/index';
+import Notifications from '../containers/screens/Notifications/index';
 import LoanPage from '../containers/screens/Loan/index';
 import RequestHistory from '../containers/screens/RequestHistory/index';
 import Dashboard from '../containers/screens/Dashboard/index';
@@ -31,7 +32,7 @@ import SideMenu from "../containers/screens/SideMenu";
 
 import TransactionPage from '../containers/screens/transactionHistory/index';
 
-const loginNavigation = createStackNavigator({
+const authNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },
     Login: { screen: Login, navigationOptions: { header: null, tabBarVisible: false } },
     ForgotPasswordPage: { screen: ForgotPasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
@@ -44,14 +45,16 @@ const loginNavigation = createStackNavigator({
 );
 
 const drawernav = createDrawerNavigator({
-  Home: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } }
+  Home: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
+  ResetPassword: { screen: ChangePasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
 })
 
 const homeNavigation = createDrawerNavigator({
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
     RequestHistory: {screen: RequestHistory, navigationOptions: { header: null, tabBarVisible: false }},
-    TransactionPage: {screen: TransactionPage, navigationOptions: { header: null, tabBarVisible: false }}
+    TransactionPage: {screen: TransactionPage, navigationOptions: { header: null, tabBarVisible: false }},
+    Notifications: {screen: Notifications, navigationOptions: { header: null, tabBarVisible: false }},
   },
   {
     initialRouteName:  'Dashboard',
@@ -66,10 +69,10 @@ const homeNavigation = createDrawerNavigator({
 const AppContainer =  createAppContainer(createSwitchNavigator(
     {
       entryNavigation:entryNavigation,
-      loginNavigation: loginNavigation,
+      authNavigation: authNavigation,
       homeNavigation: homeNavigation,
       Walkthrough: Walkthrough,
-      // drawernav: drawernav
+      drawernav: drawernav
     },
     {
         initialRouteName: 'entryNavigation'

@@ -55,7 +55,7 @@ export default class index extends Component {
                 <StatusBar backgroundColor={Colors.white} barStyle="dark-content"/>
                 <SafeAreaView style={[theme.container, {fontFamily: 'nunito-bold'}]}>
                 <ScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
-                <View style={[theme.container, styles.MainContainer, {marginTop: scaleHeight(100)}]}>
+                <View style={[theme.container, styles.MainContainer, {marginTop: scaleHeight(70)}]}>
                       
                     <BorderedTabs
                         tabNumber={3}

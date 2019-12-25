@@ -110,9 +110,6 @@ class index extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <TouchableOpacity onPress={this._signOutAsync}>
-                                <Text>Sign Out</Text>
-                            </TouchableOpacity>
                         </KeyboardAwareScrollView>
                         <WithdrawalRequest visible={this.state.withdraw} _toggleView={this.showWithdrawalRequest}/>
                         <Contributions visible={this.state.contributions} _toggleView={this.showContributionsBal}/>

@@ -279,7 +279,7 @@ class SideMenu extends React.Component {
     _signOutAsync = async () => {
         this.props.logoutUserSuccess();
         AsyncStorage.removeItem('access_token');
-        NavigationService.navigate('Login');
+        NavigationService.navigate('Onboarding');
     };
 
 }
