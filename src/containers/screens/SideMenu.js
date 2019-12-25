@@ -172,7 +172,7 @@ class SideMenu extends React.Component {
                     }} source={require('../../../assets/icons/coins.png')}/>
 
                     <View>
-                        <Text style={styles.name} numberOfLines={1}>{firstName}</Text>
+                        <Text style={styles.name} numberOfLines={1}>{firstName[0].toUpperCase() + firstName.slice(1)}</Text>
                         <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
                             <Text style={styles.email} numberOfLines={1}>{emailAddress}</Text>
                         </View>

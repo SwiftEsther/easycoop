@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {View, StyleSheet, Image, Text} from 'react-native';
 import {Icon} from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {scale} from '../helpers/scale';
+import {scale, scaleHeight} from '../helpers/scale';
 import theme from '../../assets/styles/globalStyles';
 import { Ionicons } from "@expo/vector-icons";
 
@@ -68,13 +68,10 @@ const styles=StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: scale(11),
-        paddingVertical: scale(20) 
+        paddingTop: scale(25) 
     },
     avatar: {
 
-    }, 
-    icons: {
-        // marginTop: scale(10),
     },
     badge: {
         position: 'absolute',
@@ -90,9 +87,10 @@ const styles=StyleSheet.create({
         zIndex:99999
     },
     separator: {
-        borderRightWidth:scale(1),
-        // marginTop: scale(5),
-        borderRightColor: '#ccc',
-        marginHorizontal: scale(30)
+        borderRightColor: '#bdbdbd',
+        borderRightWidth: 1,
+        height: scaleHeight(21),
+        alignSelf: 'center',
+        marginHorizontal: scale(26)
     }
 })
