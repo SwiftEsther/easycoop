@@ -210,6 +210,7 @@ class Login extends Component {
                                            style={[theme.image_icon]}/>
                                     <TextInput
                                         value={this.state.password}
+                                        secureTextEntry={true}
                                         onChangeText={password => this.changeState({password: password})}
                                         onFocus={this.onFocus}
                                         onBlur={this.onBlur}

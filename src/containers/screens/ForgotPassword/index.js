@@ -15,7 +15,6 @@ import Space from '../../../components/Space';
 import BlackButton from '../../../components/BlackButton';
 import ButtonLink from '../../../components/ButtonLink';
 import {showToast} from "../../../components/Toast/actions/toastActions";
-import {resetPassword} from '../../../lib/api/url';
 import {scaleHeight} from '../../../helpers/scale';
 
 export default class index extends Component {

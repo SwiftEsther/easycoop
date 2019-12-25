@@ -10,6 +10,7 @@ export const api = env().api;
 //----AUTH MANAGEMENT URLS---//
 
 export const postLogIn = credentials  + '/credentials/v1/api/login';
-export const postSignUp = cooperative + 'cooperative/v1/nonauth/policejoincooperative';
-export const resetPassword = credentials + '/credentials/v1/auth/resetpassword';
-export const getWithdrawalLoans = account +'/viewwithdrawalhistory'
+export const postSignUp = cooperative + '/cooperative/v1/nonauth/policejoincooperative';
+export const forgotPassword = credentials + '/credentials/v1/auth/resetpassword';
+export const getWithdrawalLoans = account +'/viewwithdrawalhistory';
+export const postChangePassword = credentials + '/credentials/v1/api/changepassword';

@@ -4,7 +4,7 @@ import {Icon} from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {scale, scaleHeight} from '../helpers/scale';
 import theme from '../../assets/styles/globalStyles';
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Entypo } from "@expo/vector-icons";
 
 export default class Header extends Component{
     constructor(props){
@@ -22,14 +22,19 @@ export default class Header extends Component{
                 <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={()=> this.props.navigation.openDrawer()}>
                     {/*<TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={this.props.navigation.openDrawer()}>*/}
-                        <Icon name="menu" style={[styles.icons]}/>
+                        <Entypo
+                            name="menu"
+                            size={30}
+                            style={styles.icons}
+                            // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
+                        />
                     </TouchableOpacity>
                     <View style={[styles.separator]}></View>
                     <View>
-                        <TouchableOpacity activeOpacity={0.7}   onPress={() => this.props.navigation.navigate('Notifications')}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Notifications')}>
                             <Ionicons
                                 name="ios-notifications-outline"
-                                size={25}
+                                size={30}
                                 style={styles.icons}
                                 // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
                             />
@@ -50,8 +55,13 @@ export default class Header extends Component{
                     </View>
                 </View>
                 
-                <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} >
-                    <Icon name="home" style={[styles.icons,{justifyContent:'flex-end'}]}/>
+                <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={()=> this.props.navigation.navigate('Dashboard')}>
+                    <Entypo
+                        name="home"
+                        size={20}
+                        style={styles.icons}
+                        // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
+                    />
                 </TouchableOpacity>
                 
                 
