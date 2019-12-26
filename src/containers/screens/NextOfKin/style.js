@@ -1,34 +1,37 @@
 import {StyleSheet} from 'react-native';
 
+import {scale, scaleHeight} from '../../../helpers/scale';
 export default StyleSheet.create({
     Container: {
         flexDirection: "column",
         marginBottom: 20
     },
-    header: {
-        backgroundColor: "#F0F0F0",
-        padding: 25,
-        width: "100%",
-        flexDirection: "row",
-        justifyContent: "space-between"
-    },
     fieldContainer: {
-        padding: 20
-    },
-    field: {
-        marginBottom: 20
-    },
-    Input: {
-        padding: 10,
-        marginTop: 15,
-        width: "90%",
-        backgroundColor: "#F8F8F9",
-        borderWidth: 2,
-        borderColor: "#D0D0D0",
+        padding: 20,
+        marginBottom: scaleHeight(49)
     },
     calender: {
         flex: 1,
         backgroundColor: '#FFFFFF',
         marginTop: 100
+    },
+    pageheader: {
+        backgroundColor: '#f0f0f0',
+        paddingHorizontal: scale(18),
+        paddingVertical: scaleHeight(18),
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    icon: {
+        alignSelf: 'flex-end',
+        marginRight: scale(30)
+    },
+    input: {
+        marginBottom: scaleHeight(12),
+        marginRight: scale(40)
+    },
+    label: {
+        fontFamily: 'nunito-bold',
+        marginVertical: scaleHeight(16)
     }
 });

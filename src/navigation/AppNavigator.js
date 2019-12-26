@@ -18,6 +18,8 @@ import LoanPage from '../containers/screens/Loan/index';
 import RequestHistory from '../containers/screens/RequestHistory/index';
 import Dashboard from '../containers/screens/Dashboard/index';
 import NavigationService from "../../NavigationService";
+import NextOfKin from '../containers/screens/NextOfKin/index';
+import Profile from '../containers/screens/ProfileInfo/index';
 import Toast from '../components/Toast/Toast'
 import { hideToast, showToast, showPersistentToast } from "../components/Toast/actions/toastActions";
 import { connect } from 'react-redux'
@@ -40,12 +42,11 @@ const authNavigation = createStackNavigator({
   }
 );
 
-const drawernav = createDrawerNavigator({
-  Home: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
-  ResetPassword: { screen: ChangePasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
-})
-
 const homeNavigation = createDrawerNavigator({
+    ResetPassword: { screen: ChangePasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
+    Support: { screen: SupportPage, navigationOptions: { header: null, tabBarVisible: false } },
+    NextOfKinUpdate: { screen: NextOfKin, navigationOptions: { header: null, tabBarVisible: false } },
+    Profile: { screen: Profile, navigationOptions: { header: null, tabBarVisible: false } },
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
     RequestHistory: {screen: RequestHistory, navigationOptions: { header: null, tabBarVisible: false }},
@@ -68,7 +69,6 @@ const AppContainer =  createAppContainer(createSwitchNavigator(
       authNavigation: authNavigation,
       homeNavigation: homeNavigation,
       Walkthrough: Walkthrough,
-      drawernav: drawernav
     },
     {
         initialRouteName: 'entryNavigation'

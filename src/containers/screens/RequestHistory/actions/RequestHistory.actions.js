@@ -17,6 +17,7 @@ export const getLoanApplications = () => {
     };
 };
 export const getLoanApplicationsSuccess = (payload) => {
+    console.log(payload)
     return {
         type: GET_LOAN_APPLICATIONS_SUCCESS,
         payload
@@ -35,7 +36,8 @@ export const getTransactionHistory = () => {
         type: GET_TRANSACTION_HISTORY
     };
 };
-export const getTransactionHistorySuccess = (payload) => {
+export const getTransactionHistorySuccess = (payload) => {    
+    console.log(payload)
     return {
         type: GET_TRANSACTION_HISTORY_SUCCESS,
         payload
@@ -55,6 +57,7 @@ export const getWithdrawalHistory = () => {
     };
 };
 export const getWithdrawalHistorySuccess = (payload) => {
+    console.log(payload)
     return {
         type: GET_WITHDRAWAL_HISTORY_SUCCESS,
         payload
