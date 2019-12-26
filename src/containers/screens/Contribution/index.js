@@ -16,7 +16,8 @@ export default class Contributions extends Component {
 
     this.state = {
       showChangeBalance: false,
-      request: false
+      request: false,
+      showChangeBalance: false
     }
   }
 
@@ -60,34 +61,36 @@ export default class Contributions extends Component {
           
             <View style={[theme.container, styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
 
-              <Image style={{}} source={require('../../../../assets/icons/wallet.png')} />
-              <Text style={[theme.typo_bold, theme.font17, { width: width-80, paddingLeft: scale(20), paddingVertical: scaleHeight(15) }]}>Contributors Balance</Text>
+              <Image source={require('../../../../assets/icons/wallet.png')} />
+              <Text style={[{ width: width-80, paddingLeft: scale(20), paddingVertical: scaleHeight(15), fontFamily: 'nunito-bold', fontSize: 20 }]}>Contributors Balance</Text>
             </View>
             <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', justifyContent: 'space-around', flex: 6}]}>
               <View style={{ paddingVertical: scaleHeight(10) }}>
-                <Text style={[theme.typo_regular, { fontSize: 11, marginHorizontal: scaleHeight(20), color: '#138516' }]}>Contributors Balance</Text>
-                <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif', fontSize: 20 }]}>
+                <Text style={[{marginHorizontal: scaleHeight(20), color: '#138516', fontFamily: 'nunito-regular' }]}>Mandatory Savings</Text>
+                <View style={[{ flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif'}]}>
                  
-                  <Text style={[theme.font15]}>{`#100,000,000.00`}</Text>
+                  <Text style={{fontFamily: 'nunito-bold', fontSize: 20 }}>{`#100,000,000.00`}</Text>
                 </View>
               </View>
               <View style={{ paddingVertical: scaleHeight(10) }}>
-                <Text style={[theme.typo_regular, { fontSize: 11, marginHorizontal: scaleHeight(20), color: '#138516' }]}>Contributors Balance</Text>
-                <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif', fontSize: 20 }]}>
+                <Text style={[{ marginHorizontal: scaleHeight(20), color: '#138516', fontFamily: 'nunito-regular' }]}>Voluntary Savings</Text>
+                <View style={[{ flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif'}]}>
                  
-                  <Text style={[theme.font15]}>{`#100,000,000.00`}</Text>
+                  <Text style={{fontFamily: 'nunito-bold', fontSize: 20} }>{`#100,000,000.00`}</Text>
                 </View>
               </View>
             </View>
             <View style={[styles.buttons]}>
-                <Text style={[styles.link, theme.font14, theme.flex1, { backgroundColor: '#fff', paddingLeft: scale(10)}]}>Request to change Voluntary Savings Amount</Text>
-              <TouchableOpacity activeOpacity={0.7} style={{flex:1}} onPress={this.showRequest}>
-              <Text style={[styles.link, theme.font14, { backgroundColor: '#138516', color: '#fff', textAlign: 'center', width: width/2.2}]}>Make / View Request</Text>
+              <View style={{flex: 1}}>
+                <Text style={[styles.link,theme.flex1, { backgroundColor: '#fff', paddingLeft: scale(10), fontFamily: 'nunito-medium'},]}>Request to change Voluntary Savings Amount</Text>
+              </View>
+                <TouchableOpacity activeOpacity={0.7} style={{flex:1,backgroundColor: '#138516',}} onPress={this.showRequest}>
+              <Text style={[styles.link,{  color: '#fff', textAlign: 'center', fontFamily: 'nunito-medium'}]}>Make / View Request</Text>
 </TouchableOpacity>
           </View>
           </View>
         </BottomSheet>
-      <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} />
+      {/* <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} /> */}
       <ViewRequest visible={this.state.request} _toggleView={this.editRequest} back={this.showRequest}/>
       </KeyboardAwareScrollView >
     )
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: height / 1.5,
+    height: height / 2,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingHorizontal: scale(5),

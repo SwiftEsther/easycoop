@@ -72,38 +72,38 @@ export default class ViewRequest extends Component {
                     visible={this.props.visible}
                     onBackButtonPress={this.props._toggleView}
                 >
-                    <View >
-                    <TouchableOpacity activeOpacity={0.7} onPress={this.props.back} style={{width: width/3}}>
-                        <Text style={[theme.font17, {color: '#fff', marginBottom: scaleHeight(15), paddingHorizontal: scale(10)}]}>Back</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={this.props.back}>
+                        <Text style={[{color: '#fff', fontFamily: 'nunito-bold', fontSize: 20, marginTop: scaleHeight(5), paddingHorizontal: scale(20), paddingHorizontal: scale(10)}]}>Back</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={this.props._toggleView}>
-                            <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]}/>
+                        <TouchableOpacity activeOpacity={0.7} style={{paddingVertical: scale(9), paddingHorizontal: scaleHeight(15)}}>
+                            <Icon name='close' iconStyle={[styles.icon]} onPress={this.props._toggleView}/>
                         </TouchableOpacity>
                     </View>
                     
                     <View style={styles.bottomNavigationView}>
-                        <View style={[theme.container, styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
-                            <Text style={[theme.typo_bold, theme.font17, { width: width, paddingLeft: scale(20), }]}>Change Savings Amount Preview</Text>
+                        <View style={[styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
+                            <Text style={{paddingLeft: scale(20), fontSize: 20, fontFamily: 'nunito-bold'}}>Change Savings Amount Preview</Text>
                         </View>
-                        <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: scaleHeight(50), marginHorizontal: scale(20), flex: 4 }]}>
+                        <View style={[ styles.MainContainer, { alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: scaleHeight(50), marginHorizontal: scale(20), flex: 4 }]}>
                             <View>
-                                <Text style={[theme.typo_regular, { fontSize: 11,color: '#138516' }]}>Present Voluntary Savings Amount</Text>
+                                <Text style={{ color: '#138516', fontFamily: 'nunito-regular' }}>Present Voluntary Savings Amount</Text>
                                 <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), fontFamily: 'Serif', fontSize: 20 }]}>
                                     {/* <Icon name="naira"/> */}
-                                    <Text style={[theme.font15]}>{`#100,000,000.00`}</Text>
+                                    <Text style={{fontFamily: 'nunito-bold', fontSize: 20}}>{`#100,000,000.00`}</Text>
                                 </View>
                             </View>
                             <View style={{marginTop: scaleHeight(20)}}>
-                                <Text style={[theme.typo_regular, { fontSize: 11,color: '#138516' }]}>Present Voluntary Savings Amount</Text>
+                                <Text style={ {  fontFamily: 'nunito-regular',color: '#138516' }}>Present Voluntary Savings Amount</Text>
                                 <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), fontFamily: 'Serif', fontSize: 20 }]}>
                                     {/* <Icon name="naira"/> */}
-                                    <Text style={[theme.font15]}>{`#100,000,000.00`}</Text>
+                                    <Text style={{fontFamily: 'nunito-bold', fontSize: 20}}>{`#100,000,000.00`}</Text>
                                 </View>
                             </View>
                             <View style={{marginTop: scaleHeight(20)}}>
-                                <Text style={[theme.typo_bold, theme.font15]}>Request Status</Text>
-                                <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10)}]}>
-                                    <Text style={[theme.font15, {color: '#138516', backgroundColor: '#d0e7d1', paddingVertical: scaleHeight(5), paddingHorizontal: 23}]}>{`Pending`}</Text>
+                                <Text style={{fontFamily: 'nunito-bold'}}>Request Status</Text>
+                                <View style={{ flexDirection: 'row', marginVertical: scaleHeight(10)}}>
+                                    <Text style={{color: '#138516', backgroundColor: '#d0e7d1', paddingVertical: scaleHeight(10), paddingHorizontal: scale(26)}}>{`Pending`}</Text>
                                 </View>
                             </View>
                         </View>
@@ -153,24 +153,15 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 20,
         paddingHorizontal: scale(5)
     },
-    bareIcon: {
-        color: '#138516',
-        borderRadius: 50,
-        fontSize: scale(25),
-        padding: scale(6),
-        top: scaleHeight(-105),
-        right: 0,
-        position: 'absolute'
-    },
     icon: {
-        backgroundColor: '#fff',
-        borderRadius: 50,
-        fontSize: scale(25),
-        alignSelf: 'flex-end',
-        padding: scale(6),
-        top: scaleHeight(-50),
-        right: scale(5),
-        position: 'absolute'
+      borderRadius: 50,
+      fontSize: 25,
+      padding: 6,
+      color: '#138516',
+      backgroundColor: '#f5f5f5'
+    },
+    back: {
+        
     },
     buttons: {
         flex: 2,
