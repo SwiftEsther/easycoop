@@ -4,6 +4,17 @@ const initialState = {
     password: '',
     oldPassword: '',
     confirmPassword: '',
+    isfirstTime: true,
+    securityQuestionsDTOs: [
+        {
+            hasSecurityQuestion: true,
+            id: 0,
+            memberProfileId: 0,
+            securityAnswer: "string",
+            securityQuestion: "string"
+        }
+    ],
+    token: "string",
     loading: false,
     passwordChanged: false,
 }
