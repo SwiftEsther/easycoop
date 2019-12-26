@@ -15,3 +15,4 @@ export const forgotPassword = credentials + '/credentials/v1/auth/resetpassword'
 export const getWithdrawalHistory = account +'/viewwithdrawalhistory';
 export const postChangePassword = credentials + '/credentials/v1/api/changepassword';
 export const getloanApplications = loan + '/loan/v1/api/viewallmemberloanapplications';
+export const getmemberbalances = account + 'account/v1/api/getmemberbalances';
