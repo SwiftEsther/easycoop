@@ -6,7 +6,6 @@ export const login = () => {
     };
 };
 export const loginSuccess = (payload) => {
-    console.log(payload)
     return {
         type: LOGIN_SUCCESS,
         payload
