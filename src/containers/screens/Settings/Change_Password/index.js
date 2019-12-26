@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
-import { Keyboard, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import {
+    Keyboard,
+    StatusBar,
+    StyleSheet,
+    TouchableOpacity,
+    Image,
+    SafeAreaView,
+    Text,
+    View,
+    ToastAndroid,
+    Alert,
+    AsyncStorage
+} from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import { connect, Dispatch } from "react-redux";
 import theme from '../../../../../assets/styles/globalStyles';
@@ -7,21 +19,22 @@ import * as colors from '../../../../lib/constants/colors';
 import * as constants from '../../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import API from '../../../../../lib/api';
-import {RESET_PASSWORD} from '../../../../../lib/constants';
+import { RESET_PASSWORD } from '../../../../../lib/constants';
 import AuthenticationHeader from '../../../../components/AuthenticationHeader';
 import '../../../../../lib/helpers';
 import Header from '../../../../components/Header';
-import {showToast} from "../../../../components/Toast/actions/toastActions";
+import { showToast } from "../../../../components/Toast/actions/toastActions";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../../components/CustomTextInput/CustomInput';
 import Space from '../../../../components/Space';
 import base64 from 'base-64';
 import GreenButton from '../../../../components/GreenButton';
-import {scale, scaleHeight} from '../../../../helpers/scale';
+import { scale, scaleHeight } from '../../../../helpers/scale';
 import { postChangePassword } from "../../../../lib/api/url";
 import { axiosInstance } from "../../../../lib/api/axiosClient";
-import {AntDesign} from '@expo/vector-icons';
-import {changePasswordSuccess} from "./actions/changePassword.actions";
+import { AntDesign } from '@expo/vector-icons';
+import { changePasswordSuccess } from "./actions/changePassword.actions";
+import { apiRequest } from "../../../../lib/api/api";
 
 class ChangePassword extends Component {
     constructor(props) {
@@ -42,7 +55,7 @@ class ChangePassword extends Component {
     validate = async () => {
         if (this.state.oldPassword.length == 0 || this.state.password.length == 0 || this.state.confirmPassword.length == 0) {
             this.props.showToast('Kindly fill in all fields', 'error')
-        } else if(this.state.password !== this.state.confirmPassword) {
+        } else if (this.state.password !== this.state.confirmPassword) {
             this.props.showToast('Kindly confirm your password', 'error')
         }
         else {
@@ -60,38 +73,34 @@ class ChangePassword extends Component {
             spinner: true,
             modalLoader: true
         }, () => {
-            axiosInstance
-                .post(postChangePassword, {
-                        headers: {
-                            Authorization: `Basic ${base64.encode(userData.username + ":" + userData.password)}`,
-                        },
-                        params: {},
-                        data: {password,oldPassword,confirmPassword}
-                    }
-                )
-                .then(res => {
-                    // this.props.clearUserData();
-                    // this.props.resetCache();
-                    // this.props.clearLoanDetails();
-                    // token = res.data.data.token;
-                    console.log(res)
-                    this.setState({
-                        spinner: false,
-                    })
-                    if (res.status === 200) {
-                        // this.storeToken(token);
-                        let userData = {...res.data};
-                        userData.password = password;
-
-                        this.props.changePasswordSuccess(userData);
-                        this.props.showToast('Password Changed Successfully', 'success');
-                        this.props.navigation.navigate('Login')
-                    } else {
-                        this.props.showToast('Error', 'error');
-                    }
-
+            apiRequest(postChangePassword, 'post', {
+                password,
+                oldPassword,
+                confirmPassword
+            }).then(res => {
+                // this.props.clearUserData();
+                // this.props.resetCache();
+                // this.props.clearLoanDetails();
+                // token = res.data.data.token;
+                console.log(res)
+                this.setState({
+                    spinner: false,
                 })
+                if (res.status === 200) {
+                    // this.storeToken(token);
+                    let userData = {...res.data};
+                    userData.password = password;
+
+                    this.props.changePasswordSuccess(userData);
+                    this.props.showToast('Password Changed Successfully', 'success');
+                    this.props.navigation.navigate('Login')
+                } else {
+                    this.props.showToast('Error', 'error');
+                }
+
+            })
                 .catch(error => {
+                    console.log(error.response)
 
                     if (error.response) {
                         this.props.showToast(error.response.data.message, 'error')
@@ -110,53 +119,57 @@ class ChangePassword extends Component {
     render() {
         return (
             <SafeAreaView style={[theme.container]}>
-                <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(0, 0, 0, 0.5)'} />
-                <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
-                    <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
-                <View style={{marginTop: scaleHeight(70)}}>
-                    <View style={[style.pageheader]}>
-                        <Text>Settings</Text>
-                        <AntDesign
-                            name="caretup"
-                            size={scale(15)}
-                            color="#138516"
-                            style={style.icon}
-                        />                        
-                    </View>
+                <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none"
+                         overlayColor={'rgba(0, 0, 0, 0.5)'}/>
+                <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content"/>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
+                    <View style={{marginTop: scaleHeight(70)}}>
+                        <View style={[style.pageheader]}>
+                            <Text>Settings</Text>
+                            <AntDesign
+                                name="caretup"
+                                size={scale(15)}
+                                color="#138516"
+                                style={style.icon}
+                            />
+                        </View>
                         <View style={{marginTop: scaleHeight(38), marginBottom: scaleHeight(20)}}>
-                            <Text style={{color: '#138516', fontFamily: 'nunito-bold', paddingHorizontal: scale(18)}}>Password Reset Option</Text>
+                            <Text style={{color: '#138516', fontFamily: 'nunito-bold', paddingHorizontal: scale(18)}}>Password
+                                Reset Option</Text>
                         </View>
                         <View style={{paddingHorizontal: scale(18)}}>
                             <View style={[theme.fill]}>
                                 <Text style={[style.label]}>Old Password</Text>
                                 <View style={[style.input]}>
                                     <CustomInput value={this.state.oldPassword}
-                                        secureTextEntry={true}
-                                        onChangeText={oldPassword => this.changeState({oldPassword: oldPassword})}
-                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
-                                    /> 
-                                </View> 
+                                                 secureTextEntry={true}
+                                                 onChangeText={oldPassword => this.changeState({oldPassword: oldPassword})}
+                                                 style={[theme.flex1, theme.caption, theme.typo_regular]}
+                                    />
+                                </View>
                                 <Text style={[style.label]}>New Password</Text>
                                 <View style={[style.input]}>
                                     <CustomInput value={this.state.password}
-                                        secureTextEntry={true} onChangeText={newPassword=> this.changeState({password:newPassword})}
-                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
-                                    /> 
-                                </View> 
+                                                 secureTextEntry={true}
+                                                 onChangeText={newPassword => this.changeState({password: newPassword})}
+                                                 style={[theme.flex1, theme.caption, theme.typo_regular]}
+                                    />
+                                </View>
                                 <Text style={[style.label]}>Confirm Password</Text>
                                 <View style={[style.input]}>
                                     <CustomInput value={this.state.confirmPassword}
-                                        secureTextEntry={true} onChangeText={confirmPassword=> this.changeState({confirmPassword:confirmPassword})}
-                                        style={[theme.flex1, theme.caption, theme.typo_regular]} 
-                                    /> 
-                                </View> 
-                                <View style={{marginLeft: scale(15), alignContent: 'flex-end'}}>
+                                                 secureTextEntry={true}
+                                                 onChangeText={confirmPassword => this.changeState({confirmPassword: confirmPassword})}
+                                                 style={[theme.flex1, theme.caption, theme.typo_regular]}
+                                    />
+                                </View>
+                                <View style={{marginTop: scale(15), alignContent: 'flex-end'}}>
                                     <GreenButton button_text="Reset Password" handlePress={this.validate}/>
                                 </View>
                             </View>
                         </View>
                     </View>
-                    </KeyboardAwareScrollView>
+                </KeyboardAwareScrollView>
                 <Header navigation={{...this.props.navigation}}/>
             </SafeAreaView>
         );
@@ -209,7 +222,7 @@ const style = StyleSheet.create({
     },
     input: {
         marginBottom: scaleHeight(12),
-        marginRight: scale(40)
+        // marginRight: scale(40)
     },
     label: {
         fontFamily: 'nunito-bold',

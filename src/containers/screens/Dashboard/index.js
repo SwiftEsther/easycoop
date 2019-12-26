@@ -21,6 +21,8 @@ import { loginSuccess, logoutUserSuccess } from "../Login/actions/login.actions"
 import NavigationService from "../../../../NavigationService";
 import { showToast } from "../../../components/Toast/actions/toastActions";
 import { connect, Dispatch } from "react-redux";
+import { registerForPushNotificationsAsync } from "../../../lib/utils/registerPushNotifications";
+
 
 
 class index extends Component {
@@ -33,6 +35,9 @@ class index extends Component {
             withdraw: false
             // userData: this.props.navigation.state.params.userData
         }
+
+        registerForPushNotificationsAsync(this.props.userData.username)
+
     }
 
 

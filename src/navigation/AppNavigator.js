@@ -28,6 +28,7 @@ import SideMenu from "../containers/screens/SideMenu";
 
 
 import TransactionPage from '../containers/screens/transactionHistory/index';
+// import Notifications from "../containers/screens/Notification/Notifications";
 
 const authNavigation = createStackNavigator({
     Onboarding: { screen: Onboarding, navigationOptions: { header: null, tabBarVisible: false } },

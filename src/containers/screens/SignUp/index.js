@@ -242,7 +242,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
             {sn:41, mss:"Zamfara", value: "Zamfara State Police Headquarters"},
             {sn:42, mss:"PCI Ikeja", value: "Police College Ikeja"}
         ]
-        const forceIDs = [{label: 'AP', value: 'AP'}, {label: 'FN', value: 'FN'}]
+        const forceIDs = [{label:"---None---",value:''},{label: 'AP', value: 'AP'}, {label: 'FN', value: 'FN'}]
 
         return (
             <SafeAreaView style={[theme.container]}>
@@ -290,27 +290,27 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                                                                value={item.value}/>)}
                                     </Picker>
 
-                                    {/*<SelectDropdown*/}
-                                        {/*options={ids || []}*/}
-                                        {/*value={''}*/}
-                                        {/*textStyle={{*/}
-                                            {/*color: '#484848',*/}
-                                            {/*fontFamily: 'nunito-medium',*/}
-                                            {/*marginRight: scale(3),*/}
-                                            {/*fontSize: scale(16)*/}
-                                        {/*}}*/}
-                                        {/*title={`Select Police Id Type`}*/}
-                                        {/*onChange={(obj) => this.setState({*/}
-                                            {/*id:obj*/}
-                                        {/*})}*/}
-                                    {/*>*/}
-                                        {/*<View style={styles.select}*/}
-                                            {/*// onPress={this.onhandleSubmit}*/}
-                                        {/*>*/}
-                                            {/*/!*<Text style={styles.label}>Bank Name </Text>*!/*/}
-                                            {/*<Text numberOfLines={1} style={styles.value}>{this.state.id.label || ''}</Text>*/}
-                                        {/*</View>*/}
-                                    {/*</SelectDropdown>*/}
+                                    <SelectDropdown
+                                        options={forceIDs || []}
+                                        value={''}
+                                        textStyle={{
+                                            color: '#484848',
+                                            fontFamily: 'nunito-medium',
+                                            marginRight: scale(3),
+                                            fontSize: scale(16)
+                                        }}
+                                        title={`Select Police Id Type`}
+                                        onChange={(obj) => this.setState({
+                                            id:obj
+                                        })}
+                                    >
+                                        <View style={{}}
+                                            // onPress={this.onhandleSubmit}
+                                        >
+                                            {/*<Text style={styles.label}>Bank Name </Text>*/}
+                                            <Text numberOfLines={1} style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}>{this.state.id.label || ''}</Text>
+                                        </View>
+                                    </SelectDropdown>
                                 </View>
                                 <Text
                                     style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop: scaleHeight(20)}]}>Force
