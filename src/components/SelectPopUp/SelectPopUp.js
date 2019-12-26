@@ -112,7 +112,7 @@ class Dropdown extends Component {
                         {/*}*/}
                         <View style={{flex:1, paddingRight: scale(20)}}>
                             <Text numberOfLines={1}
-                                  style={[styles.optionsTitle, {...this.props.optionsStyle}]}>{item.label}</Text>
+                                  style={[styles.optionsTitle, {...this.props.optionsStyle}]}>{item.label || item.mss}</Text>
                             {item.subtitle && (
                                 <Text
                                     style={[styles.options, {...this.props.optionsStyle}]}>{item.subtitle}</Text>
@@ -172,8 +172,8 @@ class Dropdown extends Component {
                     {this.props.children}
                     <View style={[{
                         position:'absolute',
-                        right:0,
-                        top:scale(15)
+                        right:scale(10),
+                        top:scale(10)
                     },this.props.dropdownImageStyle]}>
                         <MaterialIcons name={this.state.showModal ? "keyboard-arrow-up" : "keyboard-arrow-down"}
                                        size={scale(20)}
@@ -338,7 +338,7 @@ let styles = {
         marginBottom: 20,
         letterSpacing: scale(-0.3),
         color: 'rgba(0, 0, 0, 0.699999988079071)',
-        fontFamily: 'graphik-regular',
+        fontFamily: 'nunito-regular',
         borderRadius: scale(5),
         paddingLeft: scale(10),
         paddingRight: scale(10),
@@ -349,19 +349,19 @@ let styles = {
     },
     title: {
         color: '#00425F',
-        fontFamily: 'graphik-regular',
+        fontFamily: 'nunito-regular',
         fontSize: scale(16),
         letterSpacing: scale(-0.3)
     },
     options: {
         fontSize: scale(12),
         color: 'rgba(0, 0, 0, 0.5400000214576721)',
-        fontFamily: 'graphik-regular',
+        fontFamily: 'nunito-regular',
         width: '90%'
     },
     optionsTitle: {
         color: 'rgba(0, 0, 0, 0.8700000047683716)',
-        fontFamily: 'graphik-regular',
+        fontFamily: 'nunito-regular',
         fontSize: scale(16)
     },
     image: {

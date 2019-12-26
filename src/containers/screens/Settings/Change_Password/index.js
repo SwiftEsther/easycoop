@@ -74,9 +74,20 @@ class ChangePassword extends Component {
             modalLoader: true
         }, () => {
             apiRequest(postChangePassword, 'post', {
-                password,
-                oldPassword,
-                confirmPassword
+                "confirmPassword": confirmPassword,
+                "isfirstTime": true,
+                "oldPassword": oldPassword,
+                "password": password,
+                "securityQuestionsDTOs": [
+                    {
+                        "hasSecurityQuestion": false,
+                        "id": 0,
+                        "memberProfileId": 290151,
+                        "securityAnswer": "",
+                        "securityQuestion": ""
+                    }
+                ],
+                "token": ""
             }).then(res => {
                 // this.props.clearUserData();
                 // this.props.resetCache();
@@ -117,6 +128,9 @@ class ChangePassword extends Component {
 
 
     render() {
+
+        const {userData} = this.props;
+        console.log(userData)
         return (
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none"
