@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { AsyncStorage } from "react-native";
-// import { USER_LOGOUT } from "../../screens/Auth/action/types";
+import { USER_LOGOUT} from "../../containers/screens/Login/actions/types";
 import { store } from "../../../App";
 import NavigationService from '../../../NavigationService';
 import env from '../../../env.js'
+import base64 from "base-64";
 
 // import { showToast } from "../../components/Toast/actions/toastActions";
 
@@ -25,11 +26,14 @@ const baseApiCall = async attrs => {
     let token = await AsyncStorage.getItem(ACCESS_TOKEN);
 
 
-    const accessToken = store.getState().authentication.access_token;
+    const username = store.getState().login.username;
+    const password = store.getState().login.password;
+
+    console.log(username)
+    console.log(password)
     //TODO: remove and replace with correct value above
     // if (token) {
-    headers['Authorization'] = `Bearer ${token}`
-    console.log(accessToken)
+    headers['Authorization'] = `Basic ${base64.encode(username + ":" + password)}`
     // }
 
     const axiosInstance = axios.create({
@@ -66,7 +70,7 @@ const apiRequest = async (url, httpMethod, body = {}, additionalParams = {}) => 
         apiCall(url, httpMethod, body, additionalParams)
             .then(response => {
                 if (response.data.status === 401) {
-                    // store.dispatch({type: USER_LOGOUT, removeAccessToken: true})
+                    store.dispatch({type: USER_LOGOUT})
                     AsyncStorage.removeItem('access_token');
                     NavigationService.navigate('Login');
                     return
@@ -95,7 +99,7 @@ const apiRequest = async (url, httpMethod, body = {}, additionalParams = {}) => 
                 console.log(err.response)
                 if (err.response) {
                     if (err.response.status === 401) {
-                        // store.dispatch({type: USER_LOGOUT, removeAccessToken: true})
+                        store.dispatch({type: USER_LOGOUT});
                         AsyncStorage.removeItem('access_token');
                         NavigationService.navigate('Login');
                     }

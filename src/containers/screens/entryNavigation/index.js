@@ -22,11 +22,11 @@ class index extends Component {
     }
 
     _bootstrapAsync = async () => {
+        console.log(this.props.password)
         if (this.props.password) {
             this.props.navigation.navigate("Dashboard");
         } else {
             this.props.navigation.navigate('Onboarding');
-
         }
 
         // This will switch to the App screen or Auth screen and this loading
