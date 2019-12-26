@@ -12,14 +12,14 @@ import CustomInput from '../../../components/CustomTextInput/CustomInput';
 import { Icon } from 'react-native-elements';
 import { scale, scaleHeight } from '../../../helpers/scale';
 import { AntDesign } from '@expo/vector-icons';
-import GreenButton from '../../../components/GreenButton';
+import { showToast } from "../../../components/Toast/actions/toastActions";
+import { connect, Dispatch } from "react-redux";
 
-
-export default class index extends Component {
+class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: "",
+            firstName: '',
             lastName: '',
             gender: '',
             emailAddress: '',
@@ -38,8 +38,13 @@ export default class index extends Component {
     changeState = (value) => {
         this.setState(value);
     }
+    componentDidMount() {
+        const {userData} = this.props;
+        console.log(userData);
+    }
 
     render() {
+        const {userData} = this.props;
         const genders = [{ label: 'Male', value: 'male' }, { label: 'Female', value: 'female' }]
         return (
             <SafeAreaView>
@@ -61,13 +66,13 @@ export default class index extends Component {
                                 <View>
                                     <Text style={[style.label]}>First Name</Text>
                                     <View style={[style.input]}>
-                                        <CustomInput value={this.state.firstName}
+                                        <CustomInput value={userData.firstName}
                                             onChangeText={firstName => this.changeState({ firstName: firstName.trim() })}
                                         />
                                     </View>
                                     <Text style={[style.label]}>Last Name</Text>
                                     <View style={[style.input]}>
-                                        <CustomInput value={this.state.lastName}
+                                        <CustomInput value={userData.lastName}
                                             onChangeText={lastName => this.changeState({ lastName: lastName.trim() })}
                                         />
                                     </View>
@@ -201,3 +206,15 @@ export default class index extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userData: state.login,
+    };
+};
+
+const mapDispatchToProps = {
+    showToast,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(index);
