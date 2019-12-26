@@ -44,6 +44,8 @@ class ChangePassword extends Component {
             this.props.showToast('Kindly fill in all fields', 'error')
         } else if(this.state.password !== this.state.confirmPassword) {
             this.props.showToast('Kindly confirm your password', 'error')
+        }else if(this.state.oldPassword === this.state.password) {
+            this.props.showToast('You cannot use your previous password', 'error')
         }
         else {
             this.onhandleReset()
