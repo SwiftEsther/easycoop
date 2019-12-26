@@ -41,15 +41,11 @@ const authNavigation = createStackNavigator({
   }
 );
 
-const drawernav = createDrawerNavigator({
-  Home: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
-  ResetPassword: { screen: ChangePasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
-  Support: { screen: SupportPage, navigationOptions: { header: null, tabBarVisible: false } },
-  NextOfKinUpdate: { screen: NextOfKin, navigationOptions: { header: null, tabBarVisible: false } },
-  Profile: { screen: Profile, navigationOptions: { header: null, tabBarVisible: false } },
-})
-
 const homeNavigation = createDrawerNavigator({
+    ResetPassword: { screen: ChangePasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
+    Support: { screen: SupportPage, navigationOptions: { header: null, tabBarVisible: false } },
+    NextOfKinUpdate: { screen: NextOfKin, navigationOptions: { header: null, tabBarVisible: false } },
+    Profile: { screen: Profile, navigationOptions: { header: null, tabBarVisible: false } },
     Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
     RequestHistory: {screen: RequestHistory, navigationOptions: { header: null, tabBarVisible: false }},
@@ -72,7 +68,6 @@ const AppContainer =  createAppContainer(createSwitchNavigator(
       authNavigation: authNavigation,
       homeNavigation: homeNavigation,
       Walkthrough: Walkthrough,
-      drawernav: drawernav
     },
     {
         initialRouteName: 'entryNavigation'
