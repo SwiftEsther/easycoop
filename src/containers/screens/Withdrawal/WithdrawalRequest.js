@@ -74,7 +74,7 @@ showWithdrawSuccess=()=>{
               <Icon name='close' iconStyle={[styles.icon]} onPress={this.props._toggleView} />
             </TouchableOpacity>
           <View style={styles.bottomNavigationView}>
-            <KeyboardAwareScrollView>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
               <View style={{ flex: 1 }}>
               <View style={[styles.header]}>
                 <Image style={{}} source={require('../../../../assets/icons/coins.png')} />
@@ -82,7 +82,6 @@ showWithdrawSuccess=()=>{
               </View>
               <View style={{ flex: 6, marginHorizontal: scale(10)}}>
                 <View style={[theme.container, styles.MainContainer,]}>
-                  <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
                     <View style={{ flexDirection: 'row', width: width/1.4, marginBottom: scaleHeight(30),}}>
                       <View style={{ flex: 2, flexDirection: 'column', marginRight: 12 }}>
                         <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Choose Withdrawal Amount</Text>
@@ -114,7 +113,6 @@ showWithdrawSuccess=()=>{
                     <GreenButton button_text='Submit Withdrawal' />
                   </TouchableOpacity>
               </View>
-                  </KeyboardAwareScrollView>
                 </View>
               </View>
                   
