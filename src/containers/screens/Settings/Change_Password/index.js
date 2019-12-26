@@ -82,7 +82,7 @@ class ChangePassword extends Component {
                     {
                         "hasSecurityQuestion": false,
                         "id": 0,
-                        "memberProfileId": 290151,
+                        "memberProfileId": userData.id,
                         "securityAnswer": "",
                         "securityQuestion": ""
                     }
