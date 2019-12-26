@@ -99,7 +99,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
             modalLoader: true
         }, () => {
             axiosInstance
-                .post(postSignUp, {firstName, lastName, emailAddress, phoneNumber, payPoint, rank, forceNumber: this.state.forceID+this.state.forceNo, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated}, {
+                .post(postSignUp, {firstName, lastName, emailAddress, phoneNumber, payPoint:payPoint.value, rank:rank.value, forceNumber: this.state.forceID+this.state.forceNo, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id:id.value, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated}, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -152,10 +152,10 @@ import { loginSuccess } from "../Login/actions/login.actions";
     signUp = () => {
         const fields = [this.state.forceID, this.state.forceNo, this.state.rank, this.state.payPoint];
         for (let i = 0; i < fields.length; i++) {
-            if (fields[i].length == 0) {
-                this.props.showToast('Kindly fill in the required fields', 'error')
-                return false;
-            }
+            // if (fields[i].length == 0) {
+            //     this.props.showToast('Kindly fill in the required fields', 'error')
+            //     return false;
+            // }
         }
         this.setState({showTC: true})
     }
@@ -280,35 +280,32 @@ import { loginSuccess } from "../Login/actions/login.actions";
                             <View style={[theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force ID Type</Text>
                                 <View style={[style.pickerStlye, {borderWidth: StyleSheet.hairlineWidth}]}>
-                                    <Picker
-                                        selectedValue={this.state.id}
-                                        onValueChange={(itemValue, itemIndex) =>
-                                            this.setState({id: itemValue})
-                                        }>
-                                        <Picker.Item label='---None---' value=''/>
-                                        {forceIDs.map((item, index) => <Picker.Item key={index} label={item.label}
-                                                                               value={item.value}/>)}
-                                    </Picker>
+                                    {/*<Picker*/}
+                                        {/*selectedValue={this.state.id}*/}
+                                        {/*onValueChange={(itemValue, itemIndex) =>*/}
+                                            {/*this.setState({id: itemValue})*/}
+                                        {/*}>*/}
+                                        {/*<Picker.Item label='---None---' value=''/>*/}
+                                        {/*{forceIDs.map((item, index) => <Picker.Item key={index} label={item.label}*/}
+                                                                               {/*value={item.value}/>)}*/}
+                                    {/*</Picker>*/}
 
                                     <SelectDropdown
                                         options={forceIDs || []}
                                         value={''}
-                                        textStyle={{
-                                            color: '#484848',
-                                            fontFamily: 'nunito-medium',
-                                            marginRight: scale(3),
-                                            fontSize: scale(16)
-                                        }}
                                         title={`Select Police Id Type`}
                                         onChange={(obj) => this.setState({
                                             id:obj
                                         })}
+                                        dropdownImageStyle={{
+                                            top:scale(10)
+                                        }}
                                     >
-                                        <View style={{}}
+                                        <View style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border,{height:scale(40),paddingHorizontal:scale(20), justifyContent:'center'}]}
                                             // onPress={this.onhandleSubmit}
                                         >
                                             {/*<Text style={styles.label}>Bank Name </Text>*/}
-                                            <Text numberOfLines={1} style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border]}>{this.state.id.label || ''}</Text>
+                                            <Text numberOfLines={1} style={style.selectText}>{this.state.id.label || ''}</Text>
                                         </View>
                                     </SelectDropdown>
                                 </View>
@@ -327,29 +324,48 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                 </View>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Rank</Text>
                                 <View style={[style.pickerStlye, {borderWidth: StyleSheet.hairlineWidth}]}>
-                                    <Picker
-                                        selectedValue={this.state.rank}
-                                        onValueChange={(itemValue, itemIndex) =>
-                                            this.setState({rank: itemValue})
-                                        }>
-                                        <Picker.Item label='---None---' value=''/>
-                                        {ranks.map((item, index) => <Picker.Item key={index} label={item.label}
-                                                                                 value={item.value}/>)}
-                                    </Picker>
+                                    <SelectDropdown
+                                        options={ranks || []}
+                                        value={''}
+                                        title={`Select Rank`}
+                                        onChange={(obj) => this.setState({
+                                            rank:obj
+                                        })}
+                                        dropdownImageStyle={{
+                                            top:scale(10)
+                                        }}
+                                    >
+                                        <View style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border,{height:scale(40),paddingHorizontal:scale(20), justifyContent:'center'}]}
+                                            // onPress={this.onhandleSubmit}
+                                        >
+                                            {/*<Text style={styles.label}>Bank Name </Text>*/}
+                                            <Text numberOfLines={1} style={style.selectText}>{this.state.rank.label || ''}</Text>
+                                        </View>
+                                    </SelectDropdown>
                                 </View>
 
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label, {paddingTop: 20}]}>Select
                                     Pay Point</Text>
                                 <View style={[style.pickerStlye, {borderWidth: StyleSheet.hairlineWidth}]}>
-                                    <Picker
-                                        selectedValue={this.state.payPoint}
-                                        onValueChange={(itemValue, itemIndex) =>
-                                            this.setState({payPoint: itemValue})
-                                        }>
-                                        <Picker.Item label='---None---' value=''/>
-                                        {payPoints.map((item, index) => <Picker.Item key={index} label={item.mss}
-                                                                                     value={item.value}/>)}
-                                    </Picker>
+
+                                    <SelectDropdown
+                                        options={payPoints || []}
+                                        value={''}
+                                        title={`Select Pay Point`}
+                                        onChange={(obj) => this.setState({
+                                            payPoint:obj
+                                        })}
+                                        dropdownImageStyle={{
+                                            top:scale(10)
+                                        }}
+                                    >
+                                        <View style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border,{height:scale(40),paddingHorizontal:scale(20), justifyContent:'center'}]}
+                                            // onPress={this.onhandleSubmit}
+                                        >
+                                            {/*<Text style={styles.label}>Bank Name </Text>*/}
+                                            <Text numberOfLines={1} style={style.selectText}>{this.state.payPoint.mss || ''}</Text>
+                                        </View>
+                                    </SelectDropdown>
                                 </View>
 
                                 <View style={style.button}>

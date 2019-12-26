@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import { scale } from "../../../helpers/scale";
 
 export default StyleSheet.create({
     headerContainer: {
@@ -24,5 +25,11 @@ export default StyleSheet.create({
     },
     button: {
         margin: 10
+    },
+    selectText:{
+        fontFamily:'nunito-medium',
+        fontSize: scale(15),
+        color:'#9f9f9f'
+
     }
 });
