@@ -249,7 +249,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none"
                          overlayColor={'rgba(0, 0, 0, 0.5)'}/>
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content"/>
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={[style.headerContainer]}>
                         <TouchableOpacity activeOpacity={0.4} onPress={() => this.props.navigation.goBack(null)}>
                             <Image source={require('../../../../assets/icons/back_24px.png')}/>

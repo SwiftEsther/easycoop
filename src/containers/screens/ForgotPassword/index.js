@@ -63,7 +63,7 @@ export default class index extends Component {
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={[theme.screen_pad]}>
                             <AuthenticationHeader auth={true} text='Forgot Password' backFunction={() => this.props.navigation.goBack(null)} />
                         <View style={[theme.margin_left_right_25]}>

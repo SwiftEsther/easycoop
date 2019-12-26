@@ -48,7 +48,7 @@ export default class index extends Component {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <KeyboardAwareScrollView>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false} enableOnAndroid={true}>
                     {this.state.selected === "l" && <View>
                         <View>
                             <LoansTile

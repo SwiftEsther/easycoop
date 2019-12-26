@@ -50,7 +50,7 @@ class index extends Component {
             <SafeAreaView>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(0, 0, 0, 0.5)'} />
                 <StatusBar translucent={true} backgroundColor='#fff' barStyle="dark-content" />
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={{ marginTop: scaleHeight(70) }}>
                         <View style={[style.pageheader]}>
                             <Text>Profile Information</Text>

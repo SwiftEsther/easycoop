@@ -90,14 +90,14 @@ export default class ViewRequest extends Component {
                                 <Text style={{ color: '#138516', fontFamily: 'nunito-regular' }}>Present Voluntary Savings Amount</Text>
                                 <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), fontFamily: 'Serif', fontSize: 20 }]}>
                                     {/* <Icon name="naira"/> */}
-                                    <Text style={{fontFamily: 'nunito-bold', fontSize: 20}}>{`#100,000,000.00`}</Text>
+                                    <Text style={{fontFamily: 'nunito-bold', fontSize: 20, color: '#575757'}}>{`#100,000,000.00`}</Text>
                                 </View>
                             </View>
                             <View style={{marginTop: scaleHeight(20)}}>
-                                <Text style={ {  fontFamily: 'nunito-regular',color: '#138516' }}>Present Voluntary Savings Amount</Text>
+                                <Text style={ {  fontFamily: 'nunito-regular',color: '#138516' }}>Requested Contribution Amount</Text>
                                 <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), fontFamily: 'Serif', fontSize: 20 }]}>
                                     {/* <Icon name="naira"/> */}
-                                    <Text style={{fontFamily: 'nunito-bold', fontSize: 20}}>{`#100,000,000.00`}</Text>
+                                    <Text style={{fontFamily: 'nunito-bold', fontSize: 20, color: '#575757'}}>{`#100,000,000.00`}</Text>
                                 </View>
                             </View>
                             <View style={{marginTop: scaleHeight(20)}}>

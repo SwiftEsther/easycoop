@@ -59,7 +59,7 @@ export default class index extends Component {
                   tab1Event={() => this.setState({showForceInfo: false, selected: "1", showProfileInfo:true})} 
                   tab2Event={() => this.setState({ showProfileInfo: false, selected: "2", showForceInfo: true})} />
                     
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     {this.state.showForceInfo && <View>
                         
                     </View>}

@@ -49,37 +49,37 @@ export default class ChangeBalance extends Component {
     render() {
         const {width, height} = Dimensions.get('window');
         return (
-            <ScrollView>
+            <>
                 <BottomSheet
                     visible={this.props.visible}
                     onBackButtonPress={this.props._toggleView}
                 >
-                    <View >
-                    <TouchableOpacity activeOpacity={0.7} onPress={this.props.back} style={{width: width/3}}>
-                        <Text style={[theme.font17, {color: '#fff', marginBottom: scaleHeight(15), paddingHorizontal: scale(10)}]}>Back</Text>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={this.props.back}>
+                        <Text style={[{color: '#fff', fontFamily: 'nunito-bold', fontSize: 20, marginTop: scaleHeight(5), paddingVertical: scale(10), paddingHorizontal: scale(10)}]}>Back</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={this.props._toggleView}>
-                            <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]}/>
+                        <TouchableOpacity activeOpacity={0.7} style={{paddingVertical: scale(9), paddingHorizontal: scaleHeight(15)}}>
+                            <Icon name='close' iconStyle={[styles.icon]} onPress={this.props._toggleView}/>
                         </TouchableOpacity>
                     </View>
                     
                     <View style={styles.bottomNavigationView}>
-                        <View style={[theme.container, styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
-                            <Text style={[theme.typo_bold, theme.font17, { width: width, paddingLeft: scale(20), }]}>Change Savings Balance</Text>
+                        <View style={[theme.container,styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
+                            <Text style={{ width: width-20, paddingLeft: scale(20), fontSize: 20, fontFamily: 'nunito-bold'}}>Change Savings Balance</Text>
                         </View>
-                        <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', marginBottom: scaleHeight(50), marginHorizontal: scale(20), flex: 4 }]}>
+                        <View style={[theme.container, styles.MainContainer, { alignItems: 'flex-start', marginBottom: scaleHeight(50), marginLeft: scale(20), flex: 4 }]}>
                             <View >
-                                <Text style={[theme.typo_regular, { fontSize: 11,color: '#138516' }]}>Present Voluntary Savings Amount</Text>
-                                <View style={[theme.typo_bold, theme.font17, { flexDirection: 'row', marginVertical: scaleHeight(10), fontFamily: 'Serif', fontSize: 20 }]}>
+                                <Text style={{ color: '#138516', fontFamily: 'nunito-regular' }}>Present Voluntary Savings Amount</Text>
+                                <View style={[{ flexDirection: 'row', marginVertical: scaleHeight(10), fontFamily: 'Serif', fontSize: 20 }]}>
                                     {/* <Icon name="naira"/> */}
-                                    <Text style={[theme.font15]}>{`#100,000,000.00`}</Text>
+                                    <Text style={{fontFamily: 'nunito-bold', fontSize: 20, color: '#575757'}}>{`#100,000,000.00`}</Text>
                                 </View>
                             </View>
                             <View style={{flex:1}}>
-                                <Text style={[theme.caption, theme.flex1,theme.padded_label, {paddingTop:scale(20),flex:1}]}>Enter New Contribution Amount</Text>
-                                <View style={[theme.input_margin_bottom, {width: width-110,flex:2}]}>
+                                <Text style={[styles.label,{flex:1}]}>Enter New Contribution Amount</Text>
+                                <View style={[styles.input, {width: width-110,flex:2}]}>
                                     <CustomInput value={this.state.amount} keyboardType="number-pad" onChangeText={amount=> this.changeState({amount})}
-                                        style={[theme.caption, theme.typo_regular, {borderColor: '#d0d0d0'}]} 
+                                        style={[{borderColor: '#d0d0d0'}]} 
                                     /> 
                                 </View>
                             </View>
@@ -96,7 +96,7 @@ export default class ChangeBalance extends Component {
                 <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
                     subtitle="Request Submission Failed"
                     smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
-            </ScrollView>
+            </>
         )
     }
 }
@@ -119,8 +119,7 @@ const styles = StyleSheet.create({
     },
     bottomNavigationView: {
         backgroundColor: '#fff',
-        width: '100%',
-        height: height / 1.6,
+        height: height / 1.4,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',
         borderTopLeftRadius: 20,
@@ -137,14 +136,14 @@ const styles = StyleSheet.create({
         position: 'absolute'
     },
     icon: {
-        backgroundColor: '#fff',
-        borderRadius: 50,
-        fontSize: scale(25),
-        alignSelf: 'flex-end',
-        padding: scale(6),
-        top: scaleHeight(-50),
-        right: scale(5),
-        position: 'absolute'
+      borderRadius: 50,
+      fontSize: 25,
+      padding: 6,
+      color: '#138516',
+      backgroundColor: '#f5f5f5'
+    },
+    back: {
+        
     },
     buttons: {
         flex: 2,
@@ -161,4 +160,12 @@ const styles = StyleSheet.create({
         paddingVertical: scaleHeight(20),
         fontSize: 12
     },
+    input: {
+        marginBottom: scaleHeight(12),
+        // marginRight: scale(40)
+    },
+    label: {
+        fontFamily: 'nunito-bold',
+        marginVertical: scaleHeight(20)
+    }
 });

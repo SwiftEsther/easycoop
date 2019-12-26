@@ -60,7 +60,7 @@ export default class index extends Component {
                     <Text style={[style.link,style.primary, {backgroundColor: '#138516'}]} onPress={() => console.log('Personal Info')}>Personal Info</Text>
                     <Text style={[style.link,style.secondary, {backgroundColor: '#e8e7e7'}]} onPress={() => console.log('Force Info')}>Force Info</Text>
                 </View> */}
-                {/* <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                {/* <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={theme.padding_left_right_25}>
                         <View style={[theme.margin_left_right_25]}>
                             <View style={[theme.fill]}>
