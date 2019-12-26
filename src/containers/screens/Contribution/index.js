@@ -53,13 +53,13 @@ export default class Contributions extends Component {
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
         >
+            <TouchableOpacity activeOpacity={0.7} style={{flexDirection: 'row', justifyContent: 'flex-end', paddingBottom: 10, paddingRight: 10}}>
+              <Icon name='close' iconStyle={[styles.icon]} onPress={this.props._toggleView} />
+            </TouchableOpacity>
           <View style={styles.bottomNavigationView}>
           
             <View style={[theme.container, styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
 
-            <TouchableOpacity activeOpacity={0.7} style={[styles.icon]}>
-              <Icon name='close' onPress={this.props._toggleView}/>
-            </TouchableOpacity>
               <Image style={{}} source={require('../../../../assets/icons/wallet.png')} />
               <Text style={[theme.typo_bold, theme.font17, { width: width-80, paddingLeft: scale(20), paddingVertical: scaleHeight(15) }]}>Contributors Balance</Text>
             </View>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#efefef',
     flexDirection: 'row',
     alignSelf: 'center',
-    flex: 2,
+    flex: 1,
     paddingVertical: 20
   },
   bottomNavigationView: {
@@ -120,15 +120,11 @@ const styles = StyleSheet.create({
     fontFamily: 'nunito-regular'
   },
   icon: {
-    backgroundColor: '#fff',
     borderRadius: 50,
     fontSize: 25,
-    alignSelf: 'flex-end',
-    padding: scale(6),
-    bottom: scaleHeight(150),
-    right: 0,
-    position: 'absolute',
-    backgroundColor: 'red'
+    padding: 6,
+    color: '#138516',
+    backgroundColor: '#f5f5f5',
   },
   buttons: {
     flexDirection: 'row',
