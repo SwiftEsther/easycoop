@@ -14,6 +14,7 @@ import {
 const initialState = {
     memberId: '',
     loading: false,
+    error: '',
     loanApplicationsFetched: false,
     transactionHistoryFetched: false,
     withdrawalHistoryFetched: false
