@@ -35,6 +35,7 @@ import { axiosInstance } from "../../../../lib/api/axiosClient";
 import { AntDesign } from '@expo/vector-icons';
 import { changePasswordSuccess } from "./actions/changePassword.actions";
 import { apiRequest } from "../../../../lib/api/api";
+import { loginSuccess } from "../../Login/actions/login.actions";
 
 class ChangePassword extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ class ChangePassword extends Component {
             this.props.showToast('Kindly fill in all fields', 'error')
         } else if (this.state.password !== this.state.confirmPassword) {
             this.props.showToast('Kindly confirm your password', 'error')
-        }else if(this.state.oldPassword === this.state.password) {
+        } else if (this.state.oldPassword === this.state.password) {
             this.props.showToast('You cannot use your previous password', 'error')
         }
         else {
@@ -84,7 +85,7 @@ class ChangePassword extends Component {
                     {
                         "hasSecurityQuestion": false,
                         "id": 0,
-                        "memberProfileId": 290151,
+                        "memberProfileId": userData.id,
                         "securityAnswer": "",
                         "securityQuestion": ""
                     }
@@ -99,17 +100,17 @@ class ChangePassword extends Component {
                 this.setState({
                     spinner: false,
                 })
-                if (res.status === 200) {
-                    // this.storeToken(token);
-                    let userData = {...res.data};
-                    userData.password = password;
+                // this.storeToken(token);
+                let userData = {...res.data};
+                userData.password = password;
 
-                    this.props.changePasswordSuccess(userData);
-                    this.props.showToast('Password Changed Successfully', 'success');
-                    this.props.navigation.navigate('Login')
-                } else {
-                    this.props.showToast('Error', 'error');
-                }
+                this.props.changePasswordSuccess(userData);
+                //update password in user object so that it's saved for other api calls
+                this.props.loginSuccess({
+                    password: password
+                });
+                this.props.showToast('Password Changed Successfully', 'success');
+                this.props.navigation.navigate('Dashboard')
 
             })
                 .catch(error => {
@@ -202,7 +203,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     showToast,
-    changePasswordSuccess
+    changePasswordSuccess,
+    loginSuccess
 }
 
 const style = StyleSheet.create({
