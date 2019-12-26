@@ -37,7 +37,7 @@ export default class index extends Component {
             <SafeAreaView style={[theme.container]}>
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none" overlayColor={'rgba(255, 255, 255, 0.1)'} />
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}  style={{backgroundColor: '#fdfdfd', paddingHorizontal: scale(18)}}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}  style={{backgroundColor: '#fdfdfd', paddingHorizontal: scale(18)}}>
                     <View>
                         <View style={{marginTop: scaleHeight(100)}}>
                             <Text style={{color: '#138516', fontFamily: 'nunito-bold'}}>Notifications</Text>

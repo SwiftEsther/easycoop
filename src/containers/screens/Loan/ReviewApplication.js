@@ -89,7 +89,7 @@ export default class ReviewApplication extends Component {
                 </View>
               </View>
               <View style={{ flex: 9 }}>
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                   <View style={[theme.container, styles.MainContainer]}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginRight: scale(12) }}>
                       <View style={{ flex: 2, flexDirection: 'column' }}>

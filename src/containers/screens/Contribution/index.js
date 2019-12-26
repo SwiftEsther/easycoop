@@ -49,7 +49,7 @@ export default class Contributions extends Component {
 
   render() {
     return (
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
         <BottomSheet
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
@@ -69,29 +69,29 @@ export default class Contributions extends Component {
                 <Text style={[{marginHorizontal: scaleHeight(20), color: '#138516', fontFamily: 'nunito-regular' }]}>Mandatory Savings</Text>
                 <View style={[{ flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif'}]}>
                  
-                  <Text style={{fontFamily: 'nunito-bold', fontSize: 20 }}>{`#100,000,000.00`}</Text>
+                  <Text style={{fontFamily: 'nunito-bold', fontSize: 20, color: '#575757' }}>{`#100,000,000.00`}</Text>
                 </View>
               </View>
               <View style={{ paddingVertical: scaleHeight(10) }}>
                 <Text style={[{ marginHorizontal: scaleHeight(20), color: '#138516', fontFamily: 'nunito-regular' }]}>Voluntary Savings</Text>
-                <View style={[{ flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20), fontFamily: 'Serif'}]}>
+                <View style={[{ flexDirection: 'row', marginVertical: scaleHeight(10), marginHorizontal: scale(20)}]}>
                  
-                  <Text style={{fontFamily: 'nunito-bold', fontSize: 20} }>{`#100,000,000.00`}</Text>
+                  <Text style={{fontFamily: 'nunito-bold', fontSize: 20, color: '#575757'} }>{`#100,000,000.00`}</Text>
                 </View>
               </View>
             </View>
             <View style={[styles.buttons]}>
               <View style={{flex: 1}}>
-                <Text style={[styles.link,theme.flex1, { backgroundColor: '#fff', paddingLeft: scale(10), fontFamily: 'nunito-medium'},]}>Request to change Voluntary Savings Amount</Text>
+                <Text style={[styles.link, { backgroundColor: '#fff', paddingHorizontal: scale(10), fontFamily: 'nunito-medium'},]}>Request to change Voluntary Savings Amount</Text>
               </View>
-                <TouchableOpacity activeOpacity={0.7} style={{flex:1,backgroundColor: '#138516',}} onPress={this.showRequest}>
+                <TouchableOpacity activeOpacity={0.7} style={{flex:1,backgroundColor: '#138516',}} onPress={this.showChangeForm}>
               <Text style={[styles.link,{  color: '#fff', textAlign: 'center', fontFamily: 'nunito-medium'}]}>Make / View Request</Text>
 </TouchableOpacity>
           </View>
           </View>
         </BottomSheet>
-      {/* <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} /> */}
-      <ViewRequest visible={this.state.request} _toggleView={this.editRequest} back={this.showRequest}/>
+      <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} />
+      {/* <ViewRequest visible={this.state.request} _toggleView={this.editRequest} back={this.showRequest}/> */}
       </KeyboardAwareScrollView >
     )
   }
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: height / 2,
+    height: height / 1.6,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     paddingHorizontal: scale(5),
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: scaleHeight(5),
+    paddingVertical: scaleHeight(25),
     flex: 2,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: '#efefef',

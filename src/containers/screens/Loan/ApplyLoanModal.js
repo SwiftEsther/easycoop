@@ -81,7 +81,7 @@ export default class ApplyLoanModal extends Component {
               </View>
               <View style={{ flex: 6 }}>
                 {this.state.showLoanInfo && <View style={[theme.container, styles.MainContainer,]}>
-                  <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                  <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={{ flexDirection: 'row', }}>
                       <View style={{ flex: 2, flexDirection: 'column', marginRight: 12 }}>
                         <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Loan Type</Text>
@@ -130,7 +130,7 @@ export default class ApplyLoanModal extends Component {
                   </TouchableOpacity>
                 </View>}
                 {this.state.showGuarantorInfo && <View style={[theme.container, styles.MainContainer]}>
-                  <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                  <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
                       <View style={{ flex: 2, flexDirection: 'column' }}>
                         <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Add a Guarantor </Text>

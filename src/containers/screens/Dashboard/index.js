@@ -61,7 +61,7 @@ class index extends Component {
                 <StatusBar backgroundColor={colors.white} barStyle="dark-content"/>
                 <SafeAreaView style={[theme.container, {fontFamily: 'nunito-bold'}]}>
                     <View style={[theme.container, {backgroundColor: '#f4f6fa',}]}>
-                        <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} style={theme.footerPad}>
+                        <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                             <View style={[theme.box_gap_tabbar, {paddingHorizontal: scaleHeight(12)}]}>
                                 <Text style={[theme.typo_bold, {
                                     fontSize: 20,

@@ -171,7 +171,7 @@ class Login extends Component {
                          overlayColor={'rgba(0, 0, 0, 0.5)'}/>
 
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content"/>
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={[theme.screen_pad]}>
                         <AuthenticationHeader text='Sign In' backFunction={() => this.props.navigation.goBack(null)}/>
                         <View style={[theme.margin_left_right_25]}>

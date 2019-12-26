@@ -30,7 +30,7 @@ export default class index extends Component {
         return (
             <SafeAreaView>
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content" />
-                <KeyboardAwareScrollView>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={[style.Container]}>
                         <View style={[style.header, theme.fill]}>
                             <Text style={{color: "#575757"}}>Profile Infomation</Text>

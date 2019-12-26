@@ -74,7 +74,7 @@ showWithdrawSuccess=()=>{
               <Icon name='close' iconStyle={[styles.icon]} onPress={this.props._toggleView} />
             </TouchableOpacity>
           <View style={styles.bottomNavigationView}>
-            <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
+            <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
               <View style={{ flex: 1 }}>
               <View style={[styles.header]}>
                 <Image style={{}} source={require('../../../../assets/icons/coins.png')} />

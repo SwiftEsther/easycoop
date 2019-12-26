@@ -139,7 +139,7 @@ class ChangePassword extends Component {
                 <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none"
                          overlayColor={'rgba(0, 0, 0, 0.5)'}/>
                 <StatusBar translucent={true} backgroundColor={colors.white} barStyle="dark-content"/>
-                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'}>
+                <KeyboardAwareScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true} scrollEnabled={true} alwaysBounceVertical={false} bounces={false}>
                     <View style={{marginTop: scaleHeight(70)}}>
                         <View style={[style.pageheader]}>
                             <Text>Settings</Text>

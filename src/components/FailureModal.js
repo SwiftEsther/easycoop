@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     borderRadius:50, 
     fontSize: 25, 
     padding:6, 
-    top: scaleHeight(250),
+    top: scaleHeight(300),
     right:10, 
     position: 'absolute'
   },
