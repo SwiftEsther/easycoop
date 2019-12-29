@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import {
-  TextInput,
-  Picker,
-  StatusBar,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  SafeAreaView,
-  Text,
-  View,
-  ToastAndroid,
-  Alert,
-  AsyncStorage,
-  Button
+    TextInput,
+    Picker,
+    StatusBar,
+    Image,
+    StyleSheet,
+    TouchableOpacity,
+    Dimensions,
+    SafeAreaView,
+    Text,
+    View,
+    ToastAndroid,
+    Alert,
+    AsyncStorage,
+    Button, Keyboard
 } from "react-native";
 import { systemWeights } from "react-native-typography";
 import theme from "../../../../assets/styles/globalStyles";
@@ -30,7 +30,17 @@ import { AntDesign } from "@expo/vector-icons";
 import { showToast } from "../../../components/Toast/actions/toastActions";
 import { connect, Dispatch } from "react-redux"; 
 import { updateProfileInfoSuccess } from './actions/profileInfo.actions';
-import { postProfileInfo } from '../../../lib/api/url';
+import { postChangePassword, postProfileInfo } from '../../../lib/api/url';
+import SelectDropdown from "../../../components/SelectPopUp/SelectPopUp";
+
+import DateTimePicker from "react-native-modal-datetime-picker";
+import moment from 'moment'
+import TouchItem from "../../../components/TouchItem/_TouchItem";
+
+import { Appearance } from 'react-native-appearance';
+import { apiRequest } from "../../../lib/api/api";
+
+const colorScheme = Appearance.getColorScheme();
 
 class index extends Component {
   constructor(props) {
@@ -48,7 +58,8 @@ class index extends Component {
       residentialAddress: "",
       country: "",
       state: "",
-      localGovernment: ""
+      localGovernment: "",
+        isDateTimePickerVisible: false,
     };
   }
 
@@ -56,15 +67,35 @@ class index extends Component {
     this.setState(value);
   };
 
-  validateProfileInfo = () => {
-    const fields = [...this.state];
-    for (let i = 0; i < fields.length; i++) {
-      if (fields[i].length == 0) {
-        this.props.showToast('Kindly fill in the required fields', 'error')
-        return false;
-      }
+    handleDatePicked = date => {
+        console.warn("A date has been picked: ", date);
+        this.formatDate(date)
+        this.hideDateTimePicker();
+    };
+
+
+    formatDate(date) {
+
+        this.setState({
+            dateOfBirth: moment(date).format('DD/MM/YYYY')
+        })
+
+        // this.setState({birthdaydate: mths[month] + " " + day + ", " + year})
+
     }
-    this.onhandleUpdate();
+
+    hideDateTimePicker = () => {
+        this.setState({isDateTimePickerVisible: false});
+    };
+
+
+    validateProfileInfo = () => {
+        if (!this.state.dateOfBirth || !this.state.firstName || !this.state.gender || !this.state.lastName) {
+            this.props.showToast('Kindly fill in the required fields', 'error')
+            return false;
+        }else {
+            this.onhandleUpdate();
+        }
   }
 
   onhandleUpdate = () => {
@@ -72,6 +103,7 @@ class index extends Component {
     Keyboard.dismiss();
     const { firstName, lastName, emailAddress, phoneNumber, gender, dateOfBirth, accountNumber, bank, bvn, residentialAddress, country, state, localGovernment } = this.state;
 
+    console.log(userData)
     this.setState({
       spinner: true,
       modalLoader: true
@@ -80,7 +112,7 @@ class index extends Component {
         memberid: userData.id,
         firstName,
         lastName,
-        gender,
+        gender:gender.value,
         emailAddress,
         phoneNumber,
         dateOfBirth,
@@ -90,7 +122,15 @@ class index extends Component {
         addressLine1: residentialAddress,
         country,
         state,
-        lga:localGovernment
+        lga:localGovernment,
+          "branchId": 0,
+          "cooperative": userData.cooperative,
+          "cooperativeId": userData.cooperativeId,
+          "genderId": userData.genderId,
+          "id": userData.id,
+          "middleName": userData.middleName,
+          "occupation": "",
+          "username": userData.username
       }).then(res => {
         console.log(res)
         this.setState({
@@ -124,7 +164,7 @@ class index extends Component {
     this.setState({
       firstName: userData.firstName,
       lastName: userData.lastName,
-      gender: userData.gender,
+      gender: userData.gender || '',
       emailAddress: userData.emailAddress,
       phoneNumber: userData.phoneNumber,
       dateOfBirth: userData.dateOfBirth,
@@ -206,22 +246,44 @@ class index extends Component {
                       { borderWidth: StyleSheet.hairlineWidth }
                     ]}
                   >
-                    <Picker
-                      selectedValue={this.state.gender}
-                      onValueChange={gender =>
-                        this.changeState({ gender: gender })
-                      }
-                    >
-                      <Picker.Item label="---None---" value="" />
-                      {genders.map((item, index) => (
-                        <Picker.Item
-                          key={index}
-                          label={item.label}
-                          value={item.value}
-                        />
-                      ))}
-                    </Picker>
+                      <SelectDropdown
+                          options={genders || []}
+                          value={''}
+                          title={`Select Gender`}
+                          onChange={(obj) => this.setState({
+                              gender:obj
+                          })}
+                          dropdownImageStyle={{
+                              top:scale(10)
+                          }}
+                      >
+                          <View style={[theme.flex1, theme.caption, theme.typo_regular, theme.light_border,{height:scale(40),paddingHorizontal:scale(20), justifyContent:'center'}]}
+                              // onPress={this.onhandleSubmit}
+                          >
+                              {/*<Text style={styles.label}>Bank Name </Text>*/}
+                              <Text numberOfLines={1} style={style.selectText}>{this.state.gender.label || ''}</Text>
+                          </View>
+                      </SelectDropdown>
                   </View>
+
+                    <Text style={[style.label]}>Date of Birth</Text>
+                    <View
+                        style={[
+                            style.input,
+                            { borderWidth: StyleSheet.hairlineWidth }
+                        ]}
+                    >
+                        <TouchItem
+                            style={{height:scale(40), justifyContent:'center',paddingLeft:scale(15)}}
+                                    onPress={() => this.setState({
+                                        isDateTimePickerVisible: true
+                                    })}>
+                            <Text
+                                style={style.selectText}>{this.state.dateOfBirth}</Text>
+                        </TouchItem>
+                    </View>
+
+
                 </View>
               </View>
             </View>
@@ -274,75 +336,75 @@ class index extends Component {
                       }
                     />
                   </View>
-                  <Text style={[style.label]}>Country</Text>
-                  <View
-                    style={[
-                      style.input,
-                      { borderWidth: StyleSheet.hairlineWidth }
-                    ]}
-                  >
-                    <Picker
-                      selectedValue={this.state.country}
-                      onValueChange={country =>
-                        this.changeState({ country: country })
-                      }
-                    >
-                      <Picker.Item label="---None---" value="" />
-                      {genders.map((item, index) => (
-                        <Picker.Item
-                          key={index}
-                          label={item.label}
-                          value={item.value}
-                        />
-                      ))}
-                    </Picker>
-                  </View>
-                  <Text style={[style.label]}>State</Text>
-                  <View
-                    style={[
-                      style.input,
-                      { borderWidth: StyleSheet.hairlineWidth }
-                    ]}
-                  >
-                    <Picker
-                      selectedValue={this.state.state}
-                      onValueChange={state =>
-                        this.changeState({ state: state })
-                      }
-                    >
-                      <Picker.Item label="---None---" value="" />
-                      {genders.map((item, index) => (
-                        <Picker.Item
-                          key={index}
-                          label={item.label}
-                          value={item.value}
-                        />
-                      ))}
-                    </Picker>
-                  </View>
-                  <Text style={[style.label]}>Local Government</Text>
-                  <View
-                    style={[
-                      style.input,
-                      { borderWidth: StyleSheet.hairlineWidth }
-                    ]}
-                  >
-                    <Picker
-                      selectedValue={this.state.localGovernment}
-                      onValueChange={localGovernment =>
-                        this.changeState({ localGovernment: localGovernment })
-                      }
-                    >
-                      <Picker.Item label="---None---" value="" />
-                      {genders.map((item, index) => (
-                        <Picker.Item
-                          key={index}
-                          label={item.label}
-                          value={item.value}
-                        />
-                      ))}
-                    </Picker>
-                  </View>
+                  {/*<Text style={[style.label]}>Country</Text>*/}
+                  {/*<View*/}
+                    {/*style={[*/}
+                      {/*style.input,*/}
+                      {/*{ borderWidth: StyleSheet.hairlineWidth }*/}
+                    {/*]}*/}
+                  {/*>*/}
+                    {/*<Picker*/}
+                      {/*selectedValue={this.state.country}*/}
+                      {/*onValueChange={country =>*/}
+                        {/*this.changeState({ country: country })*/}
+                      {/*}*/}
+                    {/*>*/}
+                      {/*<Picker.Item label="---None---" value="" />*/}
+                      {/*{genders.map((item, index) => (*/}
+                        {/*<Picker.Item*/}
+                          {/*key={index}*/}
+                          {/*label={item.label}*/}
+                          {/*value={item.value}*/}
+                        {/*/>*/}
+                      {/*))}*/}
+                    {/*</Picker>*/}
+                  {/*</View>*/}
+                  {/*<Text style={[style.label]}>State</Text>*/}
+                  {/*<View*/}
+                    {/*style={[*/}
+                      {/*style.input,*/}
+                      {/*{ borderWidth: StyleSheet.hairlineWidth }*/}
+                    {/*]}*/}
+                  {/*>*/}
+                    {/*<Picker*/}
+                      {/*selectedValue={this.state.state}*/}
+                      {/*onValueChange={state =>*/}
+                        {/*this.changeState({ state: state })*/}
+                      {/*}*/}
+                    {/*>*/}
+                      {/*<Picker.Item label="---None---" value="" />*/}
+                      {/*{genders.map((item, index) => (*/}
+                        {/*<Picker.Item*/}
+                          {/*key={index}*/}
+                          {/*label={item.label}*/}
+                          {/*value={item.value}*/}
+                        {/*/>*/}
+                      {/*))}*/}
+                    {/*</Picker>*/}
+                  {/*</View>*/}
+                  {/*<Text style={[style.label]}>Local Government</Text>*/}
+                  {/*<View*/}
+                    {/*style={[*/}
+                      {/*style.input,*/}
+                      {/*{ borderWidth: StyleSheet.hairlineWidth }*/}
+                    {/*]}*/}
+                  {/*>*/}
+                    {/*<Picker*/}
+                      {/*selectedValue={this.state.localGovernment}*/}
+                      {/*onValueChange={localGovernment =>*/}
+                        {/*this.changeState({ localGovernment: localGovernment })*/}
+                      {/*}*/}
+                    {/*>*/}
+                      {/*<Picker.Item label="---None---" value="" />*/}
+                      {/*{genders.map((item, index) => (*/}
+                        {/*<Picker.Item*/}
+                          {/*key={index}*/}
+                          {/*label={item.label}*/}
+                          {/*value={item.value}*/}
+                        {/*/>*/}
+                      {/*))}*/}
+                    {/*</Picker>*/}
+                  {/*</View>*/}
                 </View>
               </View>
             </View>
@@ -380,27 +442,27 @@ class index extends Component {
                       }
                     />
                   </View>
-                  <Text style={[style.label]}>Bank</Text>
-                  <View
-                    style={[
-                      style.input,
-                      { borderWidth: StyleSheet.hairlineWidth }
-                    ]}
-                  >
-                    <Picker
-                      selectedValue={this.state.bank}
-                      onValueChange={bank => this.changeState({ bank: bank })}
-                    >
-                      <Picker.Item label="---None---" value="" />
-                      {genders.map((item, index) => (
-                        <Picker.Item
-                          key={index}
-                          label={item.label}
-                          value={item.value}
-                        />
-                      ))}
-                    </Picker>
-                  </View>
+                  {/*<Text style={[style.label]}>Bank</Text>*/}
+                  {/*<View*/}
+                    {/*style={[*/}
+                      {/*style.input,*/}
+                      {/*{ borderWidth: StyleSheet.hairlineWidth }*/}
+                    {/*]}*/}
+                  {/*>*/}
+                    {/*<Picker*/}
+                      {/*selectedValue={this.state.bank}*/}
+                      {/*onValueChange={bank => this.changeState({ bank: bank })}*/}
+                    {/*>*/}
+                      {/*<Picker.Item label="---None---" value="" />*/}
+                      {/*{genders.map((item, index) => (*/}
+                        {/*<Picker.Item*/}
+                          {/*key={index}*/}
+                          {/*label={item.label}*/}
+                          {/*value={item.value}*/}
+                        {/*/>*/}
+                      {/*))}*/}
+                    {/*</Picker>*/}
+                  {/*</View>*/}
                 </View>
               </View>
             </View>
@@ -434,6 +496,7 @@ class index extends Component {
           </View>
           <TouchableOpacity
             style={{ backgroundColor: "#138516", padding: 15, width: "40%" }}
+            onPress={this.validateProfileInfo}
 
           >
             <View style={{ justifyContent: "center" }}>
@@ -450,6 +513,13 @@ class index extends Component {
             </View>
           </TouchableOpacity>
         </View>
+          <DateTimePicker
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this.handleDatePicked}
+              onCancel={this.hideDateTimePicker}
+              isDarkModeEnabled={colorScheme === 'dark'}
+              // minimumDate={new Date()}
+          />
         <Header navigation={{ ...this.props.navigation }} />
       </SafeAreaView>
     );

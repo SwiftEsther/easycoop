@@ -28,10 +28,16 @@ export default StyleSheet.create({
     },
     input: {
         marginBottom: scaleHeight(12),
-        marginRight: scale(40)
+        // marginRight: scale(40)
     },
     label: {
         fontFamily: 'nunito-bold',
         marginVertical: scaleHeight(16)
+    },
+    selectText:{
+        fontFamily:'nunito-medium',
+        fontSize: scale(15),
+        color:'#9f9f9f'
+
     }
 });
