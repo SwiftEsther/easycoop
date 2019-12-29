@@ -16,60 +16,98 @@ export default class Header extends Component{
 
     render() {
         console.log(this.props)
-        return(
-            <View style={[styles.container, theme.fill ,{position: 'absolute', left: 0, right: 0, top: 0, backgroundColor: '#fff', paddingBottom: scaleHeight(20)}]}>
-                
-                <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={()=> this.props.navigation.openDrawer()}>
-                    {/*<TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={this.props.navigation.openDrawer()}>*/}
-                        <Entypo
-                            name="menu"
-                            size={30}
-                            style={styles.icons}
-                            // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
-                        />
-                    </TouchableOpacity>
-                    <View style={[styles.separator]}></View>
-                    <View>
-                        <TouchableOpacity activeOpacity={0.7} onPress={() => this.props.navigation.navigate('Notifications')}>
-                            <Ionicons
-                                name="ios-notifications-outline"
-                                size={30}
-                                style={styles.icons}
-                                // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
-                            />
-                        </TouchableOpacity>
-                        {!!this.state.unreadNotificationsLength && (
-                            <View style={styles.badge}>
-                            <Text style={{
-                                textAlign: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontSize: scale(8),
-                                fontFamily:'nunito-bold',
-                            }}>
-                                {this.state.unreadNotificationsLength}
-                            </Text>
-                            </View>
-                        )}
-                    </View>
-                </View>
-                
-                <TouchableOpacity activeOpacity={0.7} style={[theme.flex1]} onPress={()=> this.props.navigation.navigate('Dashboard')}>
-                    <Entypo
-                        name="home"
-                        size={20}
-                        style={styles.icons}
-                        // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
-                    />
+        return (
+          <View
+            style={[
+              styles.container,
+              theme.fill,
+              {
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                backgroundColor: "#fff",
+                paddingBottom: scaleHeight(20)
+              }
+            ]}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={[theme.flex1]}
+                onPress={() => this.props.navigation.openDrawer()}
+              >
+                {/*<TouchableOpacity  activeOpacity={0.7} style={[theme.flex1]} onPress={this.props.navigation.openDrawer()}>*/}
+                <Entypo
+                  name="menu"
+                  size={30}
+                  style={styles.icons}
+                  // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
+                />
+              </TouchableOpacity>
+              <View style={[styles.separator]}></View>
+              <View>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() =>
+                    this.props.navigation.navigate("Notifications")
+                  }
+                >
+                  <Ionicons
+                    name="ios-notifications-outline"
+                    size={30}
+                    style={styles.icons}
+                    // color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
+                  />
                 </TouchableOpacity>
-                
-                
-                {/* <Image source={require('../../assets/images/pexels_photo.png')} style={[styles.avatar]}/> */}
-               
-                
+                {!!this.state.unreadNotificationsLength && (
+                  <View style={styles.badge}>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        justifyContent: "center",
+                        color: "white",
+                        fontSize: scale(8),
+                        fontFamily: "nunito-bold"
+                      }}
+                    >
+                      {this.state.unreadNotificationsLength}
+                    </Text>
+                  </View>
+                )}
+              </View>
             </View>
-        )
+
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={[theme.flex1]}
+              onPress={() => this.props.navigation.navigate("Dashboard")}
+            >
+              {!this.props.dashboard && (
+                <Entypo
+                  name="home"
+                  size={20}
+                  style={styles.icons}
+                  //color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
+                />
+              )}
+              {this.props.dashboard && (
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() =>
+                    this.props.navigation.navigate("Profile")
+                  }
+                >
+                  <Image
+                    source={require("../../assets/images/pexels_photo.png")}
+                  />
+                </TouchableOpacity>
+              )}
+            </TouchableOpacity>
+
+            {/* <Image source={require('../../assets/images/pexels_photo.png')} style={[styles.avatar]}/> */}
+          </View>
+        );
     }
 }
 
