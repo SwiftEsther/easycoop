@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Image, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
+import { TextInput, StatusBar, StyleSheet, TouchableOpacity, Keyboard, SafeAreaView, Text, View, ToastAndroid, Alert, AsyncStorage } from 'react-native';
 import { systemWeights } from 'react-native-typography';
 import theme from '../../../../assets/styles/globalStyles';
 import * as colors from '../../../lib/constants/colors';
 import * as constants from '../../../../lib/constants';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { connect, Dispatch } from "react-redux";
-import API from '../../../../lib/api';
+import { apiRequest } from "../../../lib/api/api";
 import Header from '../../../components/Header';
 import '../../../../lib/helpers';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomInput from '../../../components/CustomTextInput/CustomInput';
-import Space from '../../../components/Space';
 import {scale, scaleHeight} from '../../../helpers/scale';
 import GreenButton from '../../../components/GreenButton';
-import ButtonLink from '../../../components/ButtonLink';
 import {sendSupportMailSuccess} from './actions/support.actions';
 import { supportMail } from '../../../lib/api/url';
 import { showToast } from "../../../components/Toast/actions/toastActions";
@@ -26,7 +24,7 @@ class index extends Component {
         this.state = {
             spinner: false,
             message: '',
-            subject: ''
+            subject: "",
         }
     }
 
@@ -52,34 +50,57 @@ class index extends Component {
             spinner: true,
             modalLoader: true
         }, () => {
-            apiRequest(supportMail, 'post', {
-                subject: subject,
-                memberid: userData.id,
-                message: message,
-            }).then(res => {
-                console.log(res)
+            apiRequest(supportMail, "post", {
+              subject,
+              fromUser: userData.username,
+              fromUserEmailPassword: "",
+              placeholder: {
+                amount: 0,
+                balance: 0,
+                coop_admin_comment: "",
+                coop_name: "",
+                desc: "",
+                first_name: "",
+                last_name: "",
+                loan_status: "",
+                password: "",
+                tnx: "",
+                transaction_date: "",
+                transaction_units: 0,
+                username: userData.username
+              },
+            template: "",
+            to_email: "cfc@myeasycoop.com",
+            to_emails: [
+              ""
+            ],
+              emailBody: `${message} Sent from ${userData.firstName}${userData.lastName} \n Email: ${userData.emailAddress} \n Phone Number: ${userData.phoneNumber}`
+            })
+              .then(res => {
+                console.log(res);
                 this.setState({
-                    spinner: false,
-                })
+                  spinner: false,
+                  message: "",
+                  subject: ""
+                });
 
                 this.props.sendSupportMailSuccess(res.data);
-                this.props.showToast('Mail Sent Successfully', 'success');
-                this.props.navigation.navigate('Dashboard')
+                this.props.showToast("Mail Sent Successfully", "success");
+                this.props.navigation.navigate("Dashboard");
+              })
+              .catch(error => {
+                console.log('error', error);
 
-            })
-                .catch(error => {
-                    console.log(error.response)
-
-                    if (error.response) {
-                        this.props.showToast(error.response.data.message, 'error')
-                        console.log(error.response)
-                    } else {
-                        this.props.showToast(error.message, 'error')
-                    }
-                    this.setState({
-                        spinner: false,
-                    })
+                if (error.response) {
+                  this.props.showToast(error.response.data.message, "error");
+                  console.log('err',error.response);
+                } else {
+                  this.props.showToast(error.message, "error");
+                }
+                this.setState({
+                  spinner: false
                 });
+              });
         })
     };
 

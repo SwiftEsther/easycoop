@@ -302,7 +302,7 @@ class index extends Component {
                 {/* <DeleteSuccess visible={this.state.failure} _toggleView={this.showFailureModal}
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
               </View>
-              <Header navigation={{ ...this.props.navigation }} />
+              <Header dashboard={true} navigation={{ ...this.props.navigation }} />
               {/* <Withdraw visible={this.state.withdraw} _toggleView={()=>this.setState({withdraw: !this.state.withdraw})}/> */}
             </SafeAreaView>
           </>

@@ -99,7 +99,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
             modalLoader: true
         }, () => {
             axiosInstance
-                .post(postSignUp, {firstName, lastName, emailAddress, phoneNumber, payPoint:payPoint.value, rank:rank.value, forceNumber: this.state.forceID+this.state.forceNo, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id:id.value, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated}, {
+                .post(postSignUp, {firstName, lastName, emailAddress, phoneNumber, payPoint:payPoint.value, rank:rank.value, forceNumber: this.state.forceID.value+this.state.forceNo, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated}, {
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -152,10 +152,10 @@ import { loginSuccess } from "../Login/actions/login.actions";
     signUp = () => {
         const fields = [this.state.forceID, this.state.forceNo, this.state.rank, this.state.payPoint];
         for (let i = 0; i < fields.length; i++) {
-            // if (fields[i].length == 0) {
-            //     this.props.showToast('Kindly fill in the required fields', 'error')
-            //     return false;
-            // }
+            if (fields[i].length === 0) {
+                this.props.showToast('Kindly fill in the required fields', 'error')
+                return false;
+            }
         }
         this.setState({showTC: true})
     }
@@ -163,7 +163,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
     validateProfileInfo = () => {
         const fields = [this.state.emailAddress, this.state.firstName, this.state.phoneNumber, this.state.lastName];
         for (let i = 0; i < fields.length; i++) {
-            if (fields[i].length == 0) {
+            if (fields[i].length === 0) {
                 this.props.showToast('Kindly fill in the required fields', 'error')
                 return false;
             }
@@ -180,6 +180,10 @@ import { loginSuccess } from "../Login/actions/login.actions";
     // };
 
     render() {
+        const genders = [
+          { id: 0, label: "Male", value: "male" },
+          { id: 1, label: "Female", value: "female" }
+        ];
         const ranks = [
             {label: 'Constable', value: 'constable'},
             {label: 'Corporal', value: 'corporal'},
@@ -188,7 +192,6 @@ import { loginSuccess } from "../Login/actions/login.actions";
             {label: 'ASP II', value: 'aspii'},
             {label: 'ASP I', value: 'aspi'},
             {label: 'DSP', value: 'dsp'},
-            {label: 'Corporal', value: 'corporal'},
             {label: 'SP', value: 'sp'},
             {label: 'CSP', value: 'csp'},
             {label: 'ACP', value: 'acp'},
@@ -280,22 +283,13 @@ import { loginSuccess } from "../Login/actions/login.actions";
                             <View style={[theme.fill]}>
                                 <Text style={[theme.caption, theme.flex1, theme.padded_label]}>Force ID Type</Text>
                                 <View style={[style.pickerStlye, {borderWidth: StyleSheet.hairlineWidth}]}>
-                                    {/*<Picker*/}
-                                        {/*selectedValue={this.state.id}*/}
-                                        {/*onValueChange={(itemValue, itemIndex) =>*/}
-                                            {/*this.setState({id: itemValue})*/}
-                                        {/*}>*/}
-                                        {/*<Picker.Item label='---None---' value=''/>*/}
-                                        {/*{forceIDs.map((item, index) => <Picker.Item key={index} label={item.label}*/}
-                                                                               {/*value={item.value}/>)}*/}
-                                    {/*</Picker>*/}
 
                                     <SelectDropdown
                                         options={forceIDs || []}
                                         value={''}
                                         title={`Select Police Id Type`}
                                         onChange={(obj) => this.setState({
-                                            id:obj
+                                            forceID: obj
                                         })}
                                         dropdownImageStyle={{
                                             top:scale(10)
@@ -305,7 +299,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                                             // onPress={this.onhandleSubmit}
                                         >
                                             {/*<Text style={styles.label}>Bank Name </Text>*/}
-                                            <Text numberOfLines={1} style={style.selectText}>{this.state.id.label || ''}</Text>
+                                            <Text numberOfLines={1} style={style.selectText}>{this.state.forceID.label || ''}</Text>
                                         </View>
                                     </SelectDropdown>
                                 </View>
@@ -422,7 +416,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                 </KeyboardAwareScrollView>
                 <CustomModal visible={this.state.showTC} _toggleView={() => this.setState({showTC: !this.state.showTC})}
                              handleClick={this.acceptTerms}/>
-                <SuccessModal visible={this.state.success} _toggleView={()=>navigation.navigate('Login')} 
+                <SuccessModal visible={this.state.success} _toggleView={this.navigate} 
                     subtitle="Password Sent"
                     message={`A text message was sent to your registered Phone Number and email address.`}/>
             </SafeAreaView>
