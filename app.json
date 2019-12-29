@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "easycoop",
+    "slug": "easycoop",
+    "privacy": "public",
+    "sdkVersion": "36.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.africaprudential.easycoop"
+    },
+    "android": {
+      "package": "com.africaprudential.easycoop"
+    },
+    "description": ""
+  }
+}

@@ -1,0 +1,4 @@
+export const SIGNUP = "SIGNUP";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
+export const RESET_ERROR_MESSAGE = "RESET_ERROR_MESSAGE";
