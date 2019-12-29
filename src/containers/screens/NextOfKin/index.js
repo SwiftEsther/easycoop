@@ -12,7 +12,8 @@ import {
   ToastAndroid,
   Alert,
   AsyncStorage,
-  Button
+  Button,
+  Keyboard
 } from "react-native";
 import { systemWeights } from "react-native-typography";
 import theme from "../../../../assets/styles/globalStyles";
@@ -30,7 +31,7 @@ import {updateKinInfoSuccess, getKinInfoSuccess} from "./actions/nextOfKin.actio
 import { apiRequest } from "../../../lib/api/api";
 import { connect, Dispatch } from "react-redux"; 
 import { showToast } from "../../../components/Toast/actions/toastActions";
-import { getKinDetails, postKinInfo } from '../../../lib/api/url';
+import { getKinDetails } from '../../../lib/api/url';
 
 class index extends Component {
   constructor(props) {
@@ -38,118 +39,16 @@ class index extends Component {
     this.state = {
         spinner: true,
         modalLoader: true,
-      kins: [
-        {
-          accountClosed: false,
-          accountCreationDate: "2019-12-21",
-          accountNumber: "445563535",
-          accountSuspended: false,
-          addressLine1: "getgtgegegyt",
-          addressLine2: "",
-          addressLine3: "",
-          alternateEmailAddress: "0",
-          alternatePhoneNumber: "0",
-          bank: "ABBEY MORTGAGE BANK",
-          bankId: 1,
-          bankVerificationNumber: "353454532",
-          branchId: null,
-          contributionAmount: 0,
-          contributionWithdrawalCount: null,
-          cooperative: "Nigeria Police Cooperative Society",
-          cooperativeCode: "POLCOOP",
-          cooperativeId: 2,
-          cooperativeMembershipNumber: 0,
-          country: "Nigeria",
-          dateOfBirth: "2019-12-01",
-          emailAddress: "estherakinloose@gmail.com",
-          error: "",
-          firstName: "esther",
-          firstTime: false,
-          forceNo: null,
-          gender: null,
-          genderId: 2,
-          hasEmailAddress: true,
-          hasPhoneNumber: true,
-          hasSecurityQuestions: false,
-          id: 4742427,
-          ippisNo: "245522",
-          isAccountModuleAdmin: false,
-          isCooperativeAdmin: false,
-          isLoggedIn: true,
-          isSystemAdmin: false,
-          lastLoginDate: "2019-12-26",
-          lastName: "akinloose",
-          lga: "",
-          loading: false,
-          locked: false,
-          middleName: "",
-          occupation: "",
-          participating: true,
-          password: "Pa$$w0rd",
-          payPoint: null,
-          phoneNumber: "+234893545334",
-          state: "Abia",
-          stateId: 1,
-          systemAdminPosition: "",
-          username: "esther.a",
-          yearlyIncome: 0
-        },
-        {
-          accountClosed: false,
-          accountCreationDate: "2019-12-21",
-          accountNumber: "445563535",
-          accountSuspended: false,
-          addressLine1: "getgtgegegyt",
-          addressLine2: "",
-          addressLine3: "",
-          alternateEmailAddress: "0",
-          alternatePhoneNumber: "0",
-          bank: "ABBEY MORTGAGE BANK",
-          bankId: 1,
-          bankVerificationNumber: "353454532",
-          branchId: null,
-          contributionAmount: 0,
-          contributionWithdrawalCount: null,
-          cooperative: "Nigeria Police Cooperative Society",
-          cooperativeCode: "POLCOOP",
-          cooperativeId: 2,
-          cooperativeMembershipNumber: 0,
-          country: "Nigeria",
-          dateOfBirth: "2019-12-01",
-          emailAddress: "estherakinloose@gmail.com",
-          error: "",
-          firstName: "esther",
-          firstTime: false,
-          forceNo: null,
-          gender: null,
-          genderId: 2,
-          hasEmailAddress: true,
-          hasPhoneNumber: true,
-          hasSecurityQuestions: false,
-          id: 4742427,
-          ippisNo: "245522",
-          isAccountModuleAdmin: false,
-          isCooperativeAdmin: false,
-          isLoggedIn: true,
-          isSystemAdmin: false,
-          lastLoginDate: "2019-12-26",
-          lastName: "akinloose",
-          lga: "",
-          loading: false,
-          locked: false,
-          middleName: "",
-          occupation: "",
-          participating: true,
-          password: "Pa$$w0rd",
-          payPoint: null,
-          phoneNumber: "+234893545334",
-          state: "Abia",
-          stateId: 1,
-          systemAdminPosition: "",
-          username: "esther.a",
-          yearlyIncome: 0
+        kins: [],
+        kinDetails: {
+         firstName: "",
+         lastName: "",
+         gender: "",
+         emailAddress:"",
+         phoneNumber: "",
+         residentialAddress: "",
+         relationship: ""
         }
-      ]
     };
   }
 
@@ -168,7 +67,7 @@ this.setState({
         .then(res => {
             console.log(res);
             let joined = this.state.kins.concat(res);
-            this.setState({ spinner: false,kins: joined });
+            this.setState({ spinner: false,kins: res });
             this.props.getKinInfoSuccess(res);
         this.props.showToast('Next of Kin fetched Successfully', 'success');
         })
@@ -187,9 +86,88 @@ this.setState({
     })
 }
 
+createNewKin=()=> {
+  var joined = this.state.kins.concat(this.state.kinDetails);
+  this.setState({ kins: joined });
+}
+
+validateKin= () => {
+  let {
+    firstName,
+    lastName,
+    gender,
+    emailAddress,
+    phoneNumber,
+    residentialAddress,
+    relationship
+  } = this.state.kinDetails;
+        const fields = [firstName, lastName, emailAddress,gender,phoneNumber, residentialAddress, relationship];
+        for (let i = 0; i < fields.length; i++) {
+            if (fields[i].length === 0) {
+                this.props.showToast('Kindly fill in the required fields', 'error')
+                return false;
+            }
+            else {
+              this.addKin()
+            }
+        }
+    }
+
   addKin = () => {
-      var joined = this.state.kins.concat({});
-      this.setState({ kins: joined });
+      const {userData} = this.props;
+        Keyboard.dismiss();
+        let {firstName, lastName, gender, emailAddress, phoneNumber, residentialAddress, relationship} = this.state.kinDetails;
+
+        this.setState({
+            spinner: true,
+            modalLoader: true
+        }, () => {
+            apiRequest(postChangePassword, "post", {
+              addressLine1: residentialAddress,
+              addressLine2: "",
+              addressLine3: "",
+              alternateEmailAddress: "",
+              alternatePhoneNumber: "",
+              country: "",
+              gender: "male",
+              emailAddress,
+              firstName,
+              genderId: 0,
+              id: 0,
+              lastName,
+              lga: "",
+              memberProfileId: userData.id,
+              middleName: "",
+              phoneNumber,
+              relationship,
+              stateId: 0
+            })
+              .then(res => {
+                console.log(res);
+                this.setState({
+                  spinner: false
+                });
+
+                this.props.updateKinInfoSuccess(res);
+                this.props.showToast(
+                  `${firstName} ${lastName} added Successfully`,
+                );
+              })
+              .catch(error => {
+                console.log(error.response);
+
+                if (error.response) {
+                  this.props.showToast(error.response.data.message, "error");
+                  console.log(error.response);
+                } else {
+                  this.props.showToast(error.message, "error");
+                }
+                this.setState({
+                  spinner: false
+                });
+              });
+        })
+      
   }
 
   render() {
@@ -319,7 +297,7 @@ this.setState({
                 </View>
               ))}
               <View
-                style={{ flexDirection: "row", marginBottom: scaleHeight(139) }}
+                style={{ flexDirection: "row", marginBottom: scaleHeight(139), paddingTop: scaleHeight(20) }}
               >
                 <View
                   style={{
@@ -330,7 +308,7 @@ this.setState({
                     alignSelf: "center"
                   }}
                 ></View>
-                <TouchableOpacity activeOpacity={0.4} onPress={this.addKin}
+                <TouchableOpacity activeOpacity={0.4} onPress={this.createNewKin}
                   style={{
                     width: "70%",
                     padding: 10,
@@ -396,15 +374,16 @@ this.setState({
             </Text>
           </View>
           <TouchableOpacity
-            style={{ backgroundColor: "#138516", padding: 15, width: "40%" }}
+            style={{ backgroundColor: "#138516",width: "40%", paddingTop: scale(5)}} onPress={this.validateKin}
           >
             <View style={{ justifyContent: "center" }}>
               <Text
                 style={{
-                  marginLeft: 15,
+                  marginLeft: scale(15),
                   color: "#fff",
                   fontFamily: "nunito-regular",
-                  fontSize: 17
+                  fontSize: 17,
+                  textAlign: 'center',
                 }}
               >
                 Save Settings
