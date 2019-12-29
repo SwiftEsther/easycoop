@@ -77,20 +77,20 @@ class ChangePassword extends Component {
             modalLoader: true
         }, () => {
             apiRequest(postChangePassword, 'post', {
-                "confirmPassword": confirmPassword,
-                "isfirstTime": true,
-                "oldPassword": oldPassword,
-                "password": password,
-                "securityQuestionsDTOs": [
+                confirmPassword,
+                isfirstTime: true,
+                oldPassword,
+                password,
+                securityQuestionsDTOs: [
                     {
-                        "hasSecurityQuestion": false,
-                        "id": 0,
-                        "memberProfileId": userData.id,
-                        "securityAnswer": "",
-                        "securityQuestion": ""
+                        hasSecurityQuestion: false,
+                        id: 0,
+                        memberProfileId: userData.id,
+                        securityAnswer: "",
+                        securityQuestion: ""
                     }
                 ],
-                "token": ""
+                token: ""
             }).then(res => {
                 // this.props.clearUserData();
                 // this.props.resetCache();

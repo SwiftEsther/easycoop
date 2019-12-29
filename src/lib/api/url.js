@@ -19,5 +19,5 @@ export const getmemberbalances = account + '/account/v1/api/getmemberbalances';
 export const supportMail = api + "/api/radicalmonitor/v1/email/sendgeneralemailfrontend";
 export const postProfileInfo = account + '/account/v1/api/savememberpersonalinformation';
 export const postKinInfo = credentials + '/credentials/v1/api/saveusernextofkindetailsmultiple';
-export const getKinDetails = credentials + "/credentials/v1/api/viewusernextofkindetails";
+export const getKinDetails = credentials + "/credentials/v1/api/viewusernextofkindetailsmultiple";
 export const updateContributionAmount = account + '/account/v1/api/updatecontributionamount';

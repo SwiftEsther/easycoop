@@ -79,7 +79,7 @@ class Login extends Component {
         Keyboard.dismiss();
         let {username, password} = this.state;
 
-        console.log(postLogIn)
+        console.log(`Basic ${base64.encode(username + ":" + password)}`);
         this.setState({
             spinner: true,
             modalLoader: true
