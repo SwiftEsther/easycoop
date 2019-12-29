@@ -192,8 +192,8 @@ class Login extends Component {
                   <View style={[]}>
                     <Text
                       style={{
-                          fontFamily: "nunito-bold",
-                          marginVertical: scaleHeight(16)
+                        fontFamily: "nunito-bold",
+                        marginVertical: scaleHeight(16)
                       }}
                     >
                       Username
@@ -206,24 +206,27 @@ class Login extends Component {
                         }
                         onFocus={this.onFocus}
                         maxLength={100}
-                        style={[{marginBottom: scaleHeight(12)}]}
+                        style={[{ marginBottom: scaleHeight(12) }]}
                       />
                     </View>
-                    <Text style={{fontFamily: "nunito-bold",
-                          marginVertical: scaleHeight(16)}}
-                      
+                    <Text
+                      style={{
+                        fontFamily: "nunito-bold",
+                        marginVertical: scaleHeight(16)
+                      }}
                     >
                       Password
                     </Text>
                     <CustomInputWithIcon
-                        value={this.state.username}
-                        onChangeText={username =>
-                          this.changeState({ username: username.trim() })
-                        }
-                        onFocus={this.onFocus}
-                        maxLength={100}
-                        style={[{marginBottom: scaleHeight(12)}]}
-                      />
+                      value={this.state.password}
+                      secureTextEntry={true}
+                      onChangeText={password =>
+                        this.changeState({ password: password.trim() })
+                      }
+                      onFocus={this.onFocus}
+                      maxLength={100}
+                      style={[{ marginBottom: scaleHeight(12) }]}
+                    />
                     {/* <View
                       style={[
                         theme.SectionStyle,
@@ -274,10 +277,10 @@ class Login extends Component {
                           color: "#707070",
                           fontFamily: "nunito-bold",
                           marginVertical: scaleHeight(20),
-                          alignSelf: 'flex-end',
+                          alignSelf: "flex-end",
                           borderBottomWidth: 1,
-                          borderBottomColor: '#707070'
-                        },
+                          borderBottomColor: "#707070"
+                        }
                       ]}
                       onPress={() =>
                         this.props.navigation.navigate("ForgotPasswordPage")

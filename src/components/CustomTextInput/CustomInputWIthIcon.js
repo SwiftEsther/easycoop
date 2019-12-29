@@ -4,9 +4,11 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   View,
-  StyleSheet
+  StyleSheet,
+  Image
 } from "react-native";
 import { systemWeights } from "react-native-typography";
+import {scale, scaleHeight} from "../../helpers/scale";
 
 import BaseInput from "./BaseInput";
 
@@ -87,6 +89,10 @@ export default class CustomInputWithIcon extends BaseInput {
           styles.container,
           containerStyle,
           {
+            flexDirection: "row-reverse",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 50,
             backgroundColor: this.props.disabled
               ? "#d0d0d0"
               : this.state.backgroundColor,
@@ -123,29 +129,30 @@ export default class CustomInputWithIcon extends BaseInput {
           maxLength={maxLength}
         /> */}
         <Image
-                        source={require("../../assets/icons/ic_lock_24px.png")}
-                        style={[theme.image_icon]}
-                      />
-                      <TextInput
-                        value={this.state.password}
-                        secureTextEntry={true}
-                        onChangeText={password =>
-                          this.changeState({ password: password })
-                        }
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        maxLength={scale(100)}
-                        underlineColorAndroid={"transparent"}
-                        style={[
-                          {
-                              flex: 1,
-                          marginBottom: scaleHeight(12),
-                            color: "#9f9f9f",
-                            fontFamily: "nunito-regular"
-                          }
-                        ]}
-                      />
-                    </View>
+          source={require("../../../assets/icons/ic_lock_24px.png")}
+          style={{ margin: 10 }}
+        />
+        <TextInput
+          ref={this.input}
+          {...this.props}
+          style={[
+            styles.textInput,
+            {
+              flex: 1,
+              width,
+              height: inputHeight,
+              paddingTop: inputPadding / 2,
+              padding: inputPadding
+            }
+          ]}
+          value={value}
+          onBlur={this._onBlur}
+          onChange={this._onChange}
+          onFocus={this._onFocus}
+          underlineColorAndroid={"transparent"}
+          maxLength={maxLength}
+        />
+      </View>
     );
   }
 }
