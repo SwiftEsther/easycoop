@@ -61,7 +61,7 @@ class index extends Component {
       success: false,
       loanApply: false,
       showCalculator: false,
-      loanType: "",
+      loanType: {},
       loanTypes: [],
       guarantorRequests: []
     };
@@ -483,6 +483,7 @@ class index extends Component {
               <CalculateLoan
                 visible={this.state.showCalculator}
                 _toggleView={this.toggleCalculator}
+                loanTypes={this.state.loanTypes}
               />
             </View>
           </ScrollView>
