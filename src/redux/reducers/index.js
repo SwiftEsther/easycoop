@@ -7,6 +7,7 @@ import dashboardReducer from "../../containers/screens/Dashboard/dashboard.reduc
 import supportReducer from "../../containers/screens/Support/support.reducer";
 import profileInfoReducer from "../../containers/screens/ProfileInfo/profileInfo.reducer";
 import nextOfKinReducer from "../../containers/screens/NextOfKin/nextOfKin.reducer";
+import RequestHistoryReducer from "../../containers/screens/RequestHistory/RequestHistory.reducer";
 
 export default combineReducers({
   login: loginReducer,
@@ -16,5 +17,6 @@ export default combineReducers({
   dashboard: dashboardReducer,
   support: supportReducer,
   profile: profileInfoReducer,
-  kin: nextOfKinReducer
+  kin: nextOfKinReducer,
+  histories: RequestHistoryReducer
 });

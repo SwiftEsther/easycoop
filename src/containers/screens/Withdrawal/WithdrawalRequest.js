@@ -24,6 +24,7 @@ import { apiRequest } from "../../../lib/api/api";
 import FailureModal from "../../../components/FailureModal";
 import BorderedTabs from "../../../components/BorderedTab";
 import { withdrawVoluntaryContributions } from "../../../lib/api/url";
+import Toast from "../../../components/Toast/Toast";
 // import RequestSuccess from './RequestSuccess';
 
 export default class WithdrawalRequest extends Component {
@@ -34,7 +35,10 @@ export default class WithdrawalRequest extends Component {
                      spinner: false,
                      success: false,
                      failure: false,
-                     failureMessage: ""
+                     failureMessage: "",
+                     successMessage: "",
+                     showToast: false,
+                     toastMessage: ""
                    };
                  }
 
@@ -91,7 +95,7 @@ export default class WithdrawalRequest extends Component {
                            if (res) {
                              console.log(res);
                              console.log(res.data);
-                             this.setState({ amount: 0 });
+                             this.setState({ amount: 0, successMessage: res.message });
                              this.showWithdrawSuccess();
                            } else {
                              this.showWithdrawSuccess();
@@ -117,14 +121,22 @@ export default class WithdrawalRequest extends Component {
                  };
 
                  validate = async () => {
+                   const { data } = this.props;
                    if (this.state.amount <= 0) {
-                     this.props.showToast(
-                       "Kindly enter a valid amount",
-                       "error"
-                     );
-                   } else {
-                     this.onhandleSubmitWithdrawal();
-                   }
+                     this.setState({
+                       showToast: true,
+                       toastMessage:
+                         "Kindly enter a valid amount"
+                     });
+                   } else if (this.state.amount >= data.voluntaryBalance) {
+                     this.setState({
+                       showToast: true,
+                       toastMessage:
+                         "Kindly enter an amount that is less than your balance"
+                     });
+                          } else {
+                            this.onhandleSubmitWithdrawal();
+                          }
                  };
 
                  render() {
@@ -163,6 +175,7 @@ export default class WithdrawalRequest extends Component {
                            </TouchableOpacity>
                          </View>
 
+                       {this.state.showToast && <Toast message= {this.state.toastMessage} type="error" onClickHandler={()=>this.setState({showToast: false})}/>}
                          <View style={styles.bottomNavigationView}>
                            <View
                              style={[
@@ -262,7 +275,7 @@ export default class WithdrawalRequest extends Component {
                          visible={this.state.success}
                          _toggleView={this.toggleWithdraw}
                          subtitle="Withdrawal Request Submitted Successfully"
-                         smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}
+                         smallText={`${this.state.successMessage}`}
                        />
                        <FailureModal
                          visible={this.state.failure}

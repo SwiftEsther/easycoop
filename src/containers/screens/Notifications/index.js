@@ -122,7 +122,7 @@ export default class index extends Component {
           backgroundColor={colors.white}
           barStyle="dark-content"
         />
-        <ScrollView
+        <View
           style={{
             backgroundColor: "#fdfdfd"
           }}
@@ -139,7 +139,7 @@ export default class index extends Component {
             <Text style={{ fontFamily: "nunito-bold" }}>Notifications</Text>
           </View>
           <FlatList
-            data={DATA}
+            data={this.state.notifications}
             renderItem={({ item, index }) =>
               index % 2 !== 0 ? (
                 <Item
@@ -154,7 +154,7 @@ export default class index extends Component {
             }
             keyExtractor={item => item.id}
           />
-        </ScrollView>
+        </View>
         <Header navigation={{ ...this.props.navigation }} />
       </SafeAreaView>
     );
@@ -205,7 +205,7 @@ const style = StyleSheet.create({
   },
   item: {
     backgroundColor: "#f9c2ff",
-    marginVertical: 8,
+    marginVertical: 8
   },
   title: {
     fontSize: 32

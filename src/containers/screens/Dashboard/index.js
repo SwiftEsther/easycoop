@@ -38,9 +38,7 @@ class index extends Component {
             withdraw: false
             // userData: this.props.navigation.state.params.userData
         }
-
         registerForPushNotificationsAsync(this.props.userData.username)
-
     }
 
 

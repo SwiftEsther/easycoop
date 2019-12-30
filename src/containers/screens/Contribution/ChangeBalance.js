@@ -32,7 +32,8 @@ export default class ChangeBalance extends Component {
       amount: 0,
       success: false,
       failure: false,
-      failureMessage: ""
+      failureMessage: "",
+      successMessage: ""
     };
   }
 
@@ -98,8 +99,7 @@ export default class ChangeBalance extends Component {
             });
             if (res) {
               console.log(res);
-              console.log(res.data);
-              this.setState({ amount: 0 });
+              this.setState({ amount: 0, successMessage: res.message });
               this.showRequestSuccess();
             } else {
               this.showRequestFailure();
@@ -260,7 +260,7 @@ export default class ChangeBalance extends Component {
           visible={this.state.success}
           _toggleView={this.toggleRequest}
           subtitle="Request Submitted Successfully"
-          smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}
+          smallText={`${this.state.successMessage}`}
         />
         <FailureModal
           visible={this.state.failure}

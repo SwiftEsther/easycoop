@@ -9,11 +9,13 @@ import {
     GET_WITHDRAWAL_HISTORY,
     GET_WITHDRAWAL_HISTORY_FAILURE,
     GET_WITHDRAWAL_HISTORY_SUCCESS
-} from './types';
+} from './actions/types';
 
 const initialState = {
     memberId: '',
-    loading: false,
+    loadingLoans: false,
+    loadingWithdrawals: false,
+    loadingTransactions: false,
     error: '',
     loanApplicationsFetched: false,
     transactionHistoryFetched: false,
@@ -25,60 +27,60 @@ export default (state=initialState, action) => {
         case GET_LOAN_APPLICATIONS:
             return{
                 ...state,
-                loading: true
+                loadingLoans: true
             }    
         case GET_LOAN_APPLICATIONS_SUCCESS:
-            return{
-                ...state,
-                ...action.payload,
-                loanApplicationsFetched: true,
-                loading: false
-            }  
+            return {
+              ...state,
+              ...action.payload,
+              loanApplicationsFetched: true,
+              loadingLoans: false
+            };  
         case GET_LOAN_APPLICATIONS_FAILURE:
-            return{
-                ...state,
-                error: action.error,
-                loanApplicationsFetched: false,
-                loading: false
-            }  
+            return {
+              ...state,
+              error: action.error,
+              loanApplicationsFetched: false,
+              loadingLoans: false
+            };  
         case GET_TRANSACTION_HISTORY:
-            return{
-                ...state,
-                loading: true
-            }    
+            return {
+              ...state,
+              loadingTransactions: true
+            };    
         case GET_TRANSACTION_HISTORY_SUCCESS:
-            return{
-                ...state,
-                ...action.payload,
-                transactionHistoryFetched: true,
-                loading: false
-            }  
+            return {
+              ...state,
+              ...action.payload,
+              transactionHistoryFetched: true,
+              loadingTransactions: false
+            };  
         case GET_TRANSACTION_HISTORY_FAILURE:
-            return{
-                ...state,
-                error: action.error,
-                transactionHistoryFetched: false,
-                loading: false
-            } 
+            return {
+              ...state,
+              error: action.error,
+              transactionHistoryFetched: false,
+              loadingTransactions: false
+            }; 
         case GET_WITHDRAWAL_HISTORY:
-            return{
-                ...state,
-                loading: true
-            }    
+            return {
+              ...state,
+              loadingWithdrawals: true
+            };    
         case GET_WITHDRAWAL_HISTORY_SUCCESS:
-            return{
-                ...state,
-                ...action.payload,
-                withdrawalHistoryFetched: true,
-                loading: false
-            }  
+            return {
+              ...state,
+              ...action.payload,
+              withdrawalHistoryFetched: true,
+              loadingWithdrawals: false
+            };  
         case GET_WITHDRAWAL_HISTORY_FAILURE:
-            return{
-                ...state,
-                error: action.error,
-                withdrawalHistoryFetched: false,
-                loading: false
-            }
+            return {
+              ...state,
+              error: action.error,
+              withdrawalHistoryFetched: false,
+              loadingWithdrawals: false
+            };
         case RESET_ERROR_MESSAGE:
             return{
                 ...state,
