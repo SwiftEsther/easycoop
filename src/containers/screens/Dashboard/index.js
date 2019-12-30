@@ -221,7 +221,7 @@ class index extends Component {
                           activeOpacity={0.7}
                           style={[theme.flex1]}
                           onPress={() =>
-                            this.props.navigation.navigate("LoanPage")
+                            this.props.navigation.navigate("LoanPage", {userData: userData})
                           }
                         >
                           <View style={[styles.card]}>

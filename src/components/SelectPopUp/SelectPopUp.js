@@ -112,7 +112,7 @@ class Dropdown extends Component {
                         {/*}*/}
                         <View style={{flex:1, paddingRight: scale(20)}}>
                             <Text numberOfLines={1}
-                                  style={[styles.optionsTitle, {...this.props.optionsStyle}]}>{item.label || item.mss}</Text>
+                                  style={[styles.optionsTitle, {...this.props.optionsStyle}]}>{item.label || item.mss || item.description}</Text>
                             {item.subtitle && (
                                 <Text
                                     style={[styles.options, {...this.props.optionsStyle}]}>{item.subtitle}</Text>
@@ -133,6 +133,9 @@ class Dropdown extends Component {
         }
         if (this.props.value.label) {
             text = this.props.value.label
+        }
+        if (this.props.value.description) {
+            text = this.props.value.description
         }
 
         else if (this.props.value.label == "" && this.props.placeholder) {
@@ -312,7 +315,17 @@ class Dropdown extends Component {
     onSearchChange = (searchTerm) => {
         let options = [...this.state.options]
         let filteredOptions = options.filter((option) => {
-            return option.label.toLowerCase().includes(searchTerm.toLowerCase())
+            if (option.label) {
+                 return (
+              option.label.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            }else if (option.description){
+                                 return (
+option.description
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase()));
+            }
+           
         })
 
         this.setState({

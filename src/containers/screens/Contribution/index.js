@@ -161,7 +161,7 @@ class Contributions extends Component {
                       fontSize: 20,
                       color: "#575757"
                     }}
-                  >{`#${formatBalance(data.compulsoryBalance)}`}</Text>
+                  >{`₦${formatBalance(data.compulsoryBalance)}`}</Text>
                 </View>
               </View>
               <View style={{ paddingVertical: scaleHeight(10) }}>
@@ -191,7 +191,7 @@ class Contributions extends Component {
                       fontSize: 20,
                       color: "#575757"
                     }}
-                  >{`#${formatBalance(data.voluntaryBalance)}`}</Text>
+                  >{`₦${formatBalance(data.voluntaryBalance)}`}</Text>
                 </View>
               </View>
             </View>
