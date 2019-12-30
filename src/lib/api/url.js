@@ -25,3 +25,7 @@ export const updateContributionAmount = account + '/account/v1/api/updatecontrib
 export const withdrawVoluntaryContributions = account + "/account/v1/api/withdrawvoluntarycontributions";
 export const getSavingsHistory = account + "account/v1/api/viewcontributionhistory";
 export const getLoanHistory = account + "account/v1/api/getnotificationssentfrommember_loan";
+
+
+//--PROFILE URLS
+export const postNextOfKin = credentials + "/credentials/v1/api/saveusernextofkindetailsmultiple";
