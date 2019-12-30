@@ -32,7 +32,8 @@ export default class CalculateLoan extends Component {
       amount: 0,
       success: false,
       failure: false,
-      showRecalculate: false
+      showRecalculate: false,
+      loanType: {}
     };
   }
 
@@ -173,12 +174,12 @@ export default class CalculateLoan extends Component {
                     ]}
                   >
                     <SelectDropdown
-                      options={[]}
+                      options={this.props.loanTypes || []}
                       value={""}
-                      title={`Select Rank`}
+                      title={`Select Loan Type`}
                       onChange={obj =>
                         this.setState({
-                          rank: obj
+                          loanType: obj
                         })
                       }
                       dropdownImageStyle={{
@@ -197,7 +198,7 @@ export default class CalculateLoan extends Component {
                       >
                         {/*<Text style={styles.label}>Bank Name </Text>*/}
                         <Text numberOfLines={1} style={styles.selectText}>
-                          {""}
+                          {this.state.loanType.description || ""}
                         </Text>
                       </View>
                     </SelectDropdown>
@@ -210,48 +211,18 @@ export default class CalculateLoan extends Component {
                   value={this.state.amount}
                   keyboardType="number-pad"
                   onChangeText={amount => this.changeState({ amount })}
-                  style={[{ borderColor: "#d0d0d0" }]}
+                  style={[{}]}
                 />
               </View>
               <View>
                 <Text style={[styles.label]}>Duration</Text>
-                <View
-                  style={[
-                    styles.pickerStlye,
-                    {
-                      borderWidth: StyleSheet.hairlineWidth
-                    }
-                  ]}
-                >
-                  <SelectDropdown
-                    options={[]}
-                    value={""}
-                    title={`Select Rank`}
-                    onChange={obj =>
-                      this.setState({
-                        rank: obj
-                      })
-                    }
-                    dropdownImageStyle={{
-                      top: scale(10)
-                    }}
-                  >
-                    <View
-                      style={[
-                        {
-                          height: scale(40),
-                          paddingHorizontal: scale(20),
-                          justifyContent: "center"
-                        }
-                      ]}
-                      // onPress={this.onhandleSubmit}
-                    >
-                      {/*<Text style={styles.label}>Bank Name </Text>*/}
-                      <Text numberOfLines={1} style={styles.selectText}>
-                        {""}
-                      </Text>
-                    </View>
-                  </SelectDropdown>
+                <View style={[styles.input, { width: width - 110 }]}>
+                  <CustomInput
+                    value={this.state.amount}
+                    keyboardType="number-pad"
+                    onChangeText={amount => this.changeState({ amount })}
+                    style={[{}]}
+                  />
                 </View>
               </View>
             </View>
