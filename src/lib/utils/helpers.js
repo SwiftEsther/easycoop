@@ -20,3 +20,13 @@ export const chunkArray = (array, size) => {
 }
 
 export const formatBalance = (balance = 0) => balance.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+export const validateEmail = (email) => {
+    const expression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return expression.test(String(email).toLowerCase());
+}
+
+export const validatePhone = (phone) => {
+    const expression = /^[0]\d{10}$/;
+    return expression.test(phone);
+}

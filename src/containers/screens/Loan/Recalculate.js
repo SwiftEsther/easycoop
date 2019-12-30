@@ -209,7 +209,7 @@ export default class Recalculate extends Component {
                   >
                     Principal Amount:
                   </Text>
-                  <Text style={styles.bold_text}>#100,000,000</Text>
+                  <Text style={styles.bold_text}>₦100,000,000</Text>
                 </View>
                 <View
                   style={{
@@ -239,7 +239,7 @@ export default class Recalculate extends Component {
                   >
                     Outstanding Balance:
                   </Text>
-                  <Text style={styles.bold_text}>#100,000,000</Text>
+                  <Text style={styles.bold_text}>₦100,000,000</Text>
                 </View>
                 <View
                   style={{ flexDirection: "row", marginVertical: scale(12) }}

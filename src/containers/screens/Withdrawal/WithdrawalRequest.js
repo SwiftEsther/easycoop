@@ -175,7 +175,15 @@ export default class WithdrawalRequest extends Component {
                            </TouchableOpacity>
                          </View>
 
-                       {this.state.showToast && <Toast message= {this.state.toastMessage} type="error" onClickHandler={()=>this.setState({showToast: false})}/>}
+                         {this.state.showToast && (
+                           <Toast
+                             message={this.state.toastMessage}
+                             type="error"
+                             onClickHandler={() =>
+                               this.setState({ showToast: false })
+                             }
+                           />
+                         )}
                          <View style={styles.bottomNavigationView}>
                            <View
                              style={[
@@ -238,7 +246,7 @@ export default class WithdrawalRequest extends Component {
                                      fontSize: 20,
                                      color: "#575757"
                                    }}
-                                 >{`#${data.voluntaryBalance}`}</Text>
+                                 >{`₦${data.voluntaryBalance}`}</Text>
                                </View>
                              </View>
                              <View style={{ flex: 1 }}>

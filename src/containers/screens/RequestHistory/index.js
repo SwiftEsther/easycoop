@@ -92,7 +92,8 @@ class index extends Component {
                      () => {
                        apiRequest(getSavingsHistory, "get", {
                          params: {
-                           memberid: userData.id
+                           memberid: userData.id,
+                           isvoluntary: false
                          }
                        })
                          .then(res => {
