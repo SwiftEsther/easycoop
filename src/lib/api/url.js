@@ -22,3 +22,4 @@ export const postProfileInfo = credentials + '/credentials/v1/api/saveuserperson
 export const postKinInfo = credentials + '/credentials/v1/api/saveusernextofkindetailsmultiple';
 export const getKinDetails = credentials + "/credentials/v1/api/viewusernextofkindetailsmultiple";
 export const updateContributionAmount = account + '/account/v1/api/updatecontributionamount';
+export const withdrawVoluntaryContributions = account + "/account/v1/api/withdrawvoluntarycontributions";

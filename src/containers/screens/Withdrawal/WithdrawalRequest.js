@@ -14,6 +14,7 @@ import CustomInput from "../../../components/CustomTextInput/CustomInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import theme from "../../../../assets/styles/globalStyles";
 import GreenButton from "../../../components/GreenButton";
+import Spinner from 'react-native-loading-spinner-overlay';
 import { Icon } from "react-native-elements";
 import { scale, scaleHeight } from "../../../helpers/scale";
 import Tabs from "../../../components/Tabs";
@@ -22,7 +23,7 @@ import RequestSuccessful from "./RequestSuccessful";
 import { apiRequest } from "../../../lib/api/api";
 import FailureModal from "../../../components/FailureModal";
 import BorderedTabs from "../../../components/BorderedTab";
-import { updateContributionAmount } from "../../../lib/api/url";
+import { withdrawVoluntaryContributions } from "../../../lib/api/url";
 // import RequestSuccess from './RequestSuccess';
 
 export default class WithdrawalRequest extends Component {
@@ -30,8 +31,10 @@ export default class WithdrawalRequest extends Component {
                    super(props);
                    this.state = {
                      amount: 0,
+                     spinner: false,
                      success: false,
-                     failure: false
+                     failure: false,
+                     failureMessage: ""
                    };
                  }
 
@@ -58,12 +61,14 @@ export default class WithdrawalRequest extends Component {
                    });
                  };
 
-                 toggleFailure = () =>
+                 toggleFailure = () => {
+                   this.props._toggleView();
                    this.setState({
                      failure: !this.state.failure
                    });
+                 };
 
-                 onhandleUpdateAmount = () => {
+                 onhandleSubmitWithdrawal = () => {
                    const { userData } = this.props;
                    this.setState(
                      {
@@ -71,10 +76,10 @@ export default class WithdrawalRequest extends Component {
                        modalLoader: true
                      },
                      () => {
-                       apiRequest(updateContributionAmount, "get", {
+                       apiRequest(withdrawVoluntaryContributions, "get", {
                          params: {
                            memberid: userData.id,
-                           contributionamount: this.state.amount,
+                           amount: this.state.amount,
                            notitificationcode: "",
                            requirementcode: "UCA"
                          }
@@ -86,15 +91,20 @@ export default class WithdrawalRequest extends Component {
                            if (res) {
                              console.log(res);
                              console.log(res.data);
+                             this.setState({ amount: 0 });
                              this.showWithdrawSuccess();
                            } else {
-                             this.showWithdrawFailure();
+                             this.showWithdrawSuccess();
                            }
                          })
                          .catch(error => {
                            if (error.response) {
+                             this.setState({
+                               failureMessage: error,
+                               amount: 0
+                             });
                              this.showWithdrawFailure();
-                             console.log(error.response);
+                             console.log("error response", error);
                            } else {
                              this.showWithdrawFailure();
                            }
@@ -108,15 +118,26 @@ export default class WithdrawalRequest extends Component {
 
                  validate = async () => {
                    if (this.state.amount <= 0) {
-                     console.log("ENter a valid amount");
+                     this.props.showToast(
+                       "Kindly enter a valid amount",
+                       "error"
+                     );
+                   } else {
+                     this.onhandleSubmitWithdrawal();
                    }
-                   this.onhandleUpdateAmount();
                  };
 
                  render() {
                    const { data } = this.props;
                    return (
                      <SafeAreaView>
+                       <Spinner
+                         visible={this.state.spinner}
+                         size="large"
+                         color="#000000"
+                         animation="none"
+                         overlayColor={"rgba(0, 0, 0, 0.5)"}
+                       />
                        <BottomSheet
                          visible={this.props.visible}
                          onBackButtonPress={this.props._toggleView}
@@ -244,11 +265,11 @@ export default class WithdrawalRequest extends Component {
                          smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}
                        />
                        <FailureModal
-          visible={this.state.failure}
-          _toggleView={this.toggleFailure}
-          subtitle="Request Submission Failed"
-          smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}
-        />
+                         visible={this.state.failure}
+                         _toggleView={this.toggleFailure}
+                         subtitle="Request Submission Failed"
+                         smallText={`${this.state.failureMessage}`}
+                       />
                      </SafeAreaView>
                    );
                  }
