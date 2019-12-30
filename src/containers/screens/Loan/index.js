@@ -41,7 +41,9 @@ export default class index extends Component {
                      showGuarantorRequests: false,
                      success: false,
                      loanApply: false,
-                     showCalculator: false
+                     showCalculator: false,
+                     loanType: "",
+                     loanTypes: []
                    };
                  }
 
@@ -60,7 +62,6 @@ export default class index extends Component {
     });
   };
 
-
                  loans = () =>this.setState({
                     showLoan: true,
                     selected: "1",
@@ -77,24 +78,6 @@ export default class index extends Component {
                    this.setState({ loanApply: !this.state.loanApply });
 
                  render() {
-                   const ranks = [
-                     { label: "Constable", value: "constable" },
-                     { label: "Corporal", value: "corporal" },
-                     { label: "Sergent", value: "sergent" },
-                     { label: "Inspector ", value: "inspector" },
-                     { label: "ASP II", value: "aspii" },
-                     { label: "ASP I", value: "aspi" },
-                     { label: "DSP", value: "dsp" },
-                     { label: "Corporal", value: "corporal" },
-                     { label: "SP", value: "sp" },
-                     { label: "CSP", value: "csp" },
-                     { label: "ACP", value: "acp" },
-                     { label: "DCP ", value: "dcp" },
-                     { label: "CP", value: "cp" },
-                     { label: "AIG", value: "aig" },
-                     { label: "DIG", value: "dig" },
-                     { label: "IGP ", value: "igp" }
-                   ];
                    return (
                      <>
                        <StatusBar
@@ -157,12 +140,12 @@ export default class index extends Component {
                                        ]}
                                      >
                                        <SelectDropdown
-                                         options={ranks || []}
+                                         options={this.state.loanTypes || []}
                                          value={""}
-                                         title={`Select Rank`}
+                                         title={`Select Loan Type`}
                                          onChange={obj =>
                                            this.setState({
-                                             rank: obj
+                                             loanType: obj
                                            })
                                          }
                                          dropdownImageStyle={{
@@ -184,7 +167,7 @@ export default class index extends Component {
                                              numberOfLines={1}
                                              style={style.selectText}
                                            >
-                                             {"dig"}
+                                             {this.state.loanType.label || ""}
                                            </Text>
                                          </View>
                                        </SelectDropdown>
@@ -325,7 +308,7 @@ export default class index extends Component {
                                    </TouchableOpacity>
                                  </View>
                                )}
-                               {this.state.showGuarantorRequests && (
+                               {/* {this.state.showGuarantorRequests && (
                                  <View>
                                    <View
                                      style={{
@@ -383,7 +366,7 @@ export default class index extends Component {
                                      </View>
                                    </View>
                                  </View>
-                               )}
+                               )} */}
                              </KeyboardAwareScrollView>
                              <ApplyLoanModal
                                visible={this.state.showCalculator}

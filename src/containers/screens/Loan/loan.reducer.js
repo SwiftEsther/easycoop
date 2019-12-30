@@ -1,36 +1,35 @@
 import {
-  WITHDRAWAL_REQUEST,
-  WITHDRAWAL_REQUEST_SUCCESS,
-  WITHDRAWAL_REQUEST_FAILURE,
+  GET_LOAN_TYPES_INFO,
+  GET_LOAN_TYPES_INFO_SUCCESS,
+  GET_LOAN_TYPES_INFO_FAILURE,
   RESET_ERROR_MESSAGE
 } from "./actions/types";
 
 const initialState = {
-  error: "",
   loading: false,
-  requestSent: false
+  loanTypesLoaded: false
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case WITHDRAWAL_REQUEST:
+    case UPDATE_PROFILE_INFO:
       return {
         ...state,
         loading: true
       };
-    case WITHDRAWAL_REQUEST_SUCCESS:
+    case UPDATE_PROFILE_INFO_SUCCESS:
       return {
         ...state,
         ...action.payload,
-        loading: false,
-        requestSent: true
+        loanTypesLoaded: true,
+        loading: false
       };
-    case WITHDRAWAL_REQUEST_FAILURE:
+    case UPDATE_PROFILE_INFO_FAILURE:
       return {
         ...state,
         error: action.error,
-        loading: false,
-        requestSent: false
+        loanTypesLoaded: false,
+        loading: false
       };
     case RESET_ERROR_MESSAGE:
       return {

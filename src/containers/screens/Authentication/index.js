@@ -37,6 +37,7 @@ class AuthenticationPage extends Component {
     super(props);
 
     this.state = {
+        spinner: false,
       spinner: false,
       backgroundColor: "#fdfdfd",
       shadowColor: "#000",

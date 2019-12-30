@@ -19,6 +19,7 @@ import CustomInput from "../../../components/CustomTextInput/CustomInput";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import SuccessModal from "../../../components/SuccessModal";
 import FailureModal from "../../../components/FailureModal";
+import Spinner from "react-native-loading-spinner-overlay";
 import { formatBalance } from "../../../lib/utils/helpers";
 import { apiRequest } from "../../../lib/api/api";
 import { updateContributionAmount } from "../../../lib/api/url";
@@ -30,7 +31,9 @@ export default class ChangeBalance extends Component {
     this.state = {
       amount: 0,
       success: false,
-      failure: false
+      failure: false,
+      failureMessage: "",
+      successMessage: ""
     };
   }
 
@@ -53,14 +56,26 @@ export default class ChangeBalance extends Component {
       success: !this.state.success
     });
 
-  toggleFailure = () =>
+  toggleFailure = () =>{
+    this.props._toggleView();
     this.setState({
       failure: !this.state.failure
     });
+  }
+    
 
   changeState = value => {
     this.setState(value);
   };
+
+  validate = async () => {
+    if(this.state.amount <= 0) {
+      this.props.showToast("Kindly enter a valid contribution amount", "error");
+    }
+    else {
+      this.onhandleUpdateAmount();
+    }
+  }
 
   onhandleUpdateAmount = () => {
     const { user } = this.props;
@@ -84,7 +99,7 @@ export default class ChangeBalance extends Component {
             });
             if (res) {
               console.log(res);
-              console.log(res.data);
+              this.setState({ amount: 0, successMessage: res.message });
               this.showRequestSuccess();
             } else {
               this.showRequestFailure();
@@ -92,8 +107,9 @@ export default class ChangeBalance extends Component {
           })
           .catch(error => {
             if (error.response) {
+              this.setState({failureMessage: error, amount:0})
               this.showRequestFailure();
-              console.log(error.response);
+              console.log("error response",error);
             } else {
               this.showRequestFailure();
             }
@@ -105,18 +121,18 @@ export default class ChangeBalance extends Component {
     );
   };
 
-  validate = async () => {
-      if(this.state.amount <= 0) {
-          console.log("ENter a valid amount")
-      }
-      this.onhandleUpdateAmount();
-  }
-
   render() {
     const { width, height } = Dimensions.get("window");
     const { data } = this.props;
     return (
       <SafeAreaView>
+        <Spinner
+          visible={this.state.spinner}
+          size="large"
+          color="#000000"
+          animation="none"
+          overlayColor={"rgba(0, 0, 0, 0.5)"}
+        />
         <BottomSheet
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
@@ -203,7 +219,7 @@ export default class ChangeBalance extends Component {
                   style={[
                     {
                       flexDirection: "row",
-                      marginVertical: scaleHeight(10),
+                      marginVertical: scaleHeight(10)
                     }
                   ]}
                 >
@@ -244,13 +260,13 @@ export default class ChangeBalance extends Component {
           visible={this.state.success}
           _toggleView={this.toggleRequest}
           subtitle="Request Submitted Successfully"
-          smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}
+          smallText={`${this.state.successMessage}`}
         />
         <FailureModal
           visible={this.state.failure}
           _toggleView={this.toggleFailure}
           subtitle="Request Submission Failed"
-          smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}
+          smallText={`${this.state.failureMessage}`}
         />
       </SafeAreaView>
     );

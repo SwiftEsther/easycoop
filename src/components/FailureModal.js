@@ -49,21 +49,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-  bareIcon: {
-    color: '#138516', 
-    borderRadius:50, 
-    fontSize: scale(25), 
-    padding:scale(6), 
-    top: scaleHeight(-100),
-    right:0, 
-    position: 'absolute'
-  },
   icon: {
     backgroundColor: '#fff', 
     borderRadius:50, 
     fontSize: 25, 
     padding:6, 
-    top: scaleHeight(300),
+    top: scaleHeight(250),
     right:10, 
     position: 'absolute'
   },
