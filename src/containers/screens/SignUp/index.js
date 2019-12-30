@@ -40,6 +40,7 @@ import { postSignUp } from "../../../lib/api/url";
 import { axiosInstance } from "../../../lib/api/axiosClient";
 import {showToast} from "../../../components/Toast/actions/toastActions";
 import { loginSuccess } from "../Login/actions/login.actions";
+import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
 
 
  class index extends Component {
@@ -126,7 +127,7 @@ import { loginSuccess } from "../Login/actions/login.actions";
                 .catch(error => {
 
                     if (error.response) {
-                        this.props.showToast(error.response.data.message, 'error')
+                        this.props.showToast(error.message, 'error')
                         console.log(error.response)
                     } else {
                         this.props.showToast(error.message, 'error')
@@ -164,8 +165,23 @@ import { loginSuccess } from "../Login/actions/login.actions";
         const fields = [this.state.emailAddress, this.state.firstName, this.state.phoneNumber, this.state.lastName];
         for (let i = 0; i < fields.length; i++) {
             if (fields[i].length === 0) {
-                this.props.showToast('Kindly fill in the required fields', 'error')
-                return false;
+              this.props.showToast(
+                "Kindly fill in the required fields",
+                "error"
+              );
+              return false;
+            } else if (!validateEmail(this.state.emailAddress)) {
+              this.props.showToast(
+                "Kindly enter a valid email address",
+                "error"
+              );
+              return false;
+            } else if (!validatePhone(this.state.phoneNumber)) {
+              this.props.showToast(
+                "Kindly enter a valid phone number",
+                "error"
+              );
+              return false;
             }
         }
         this.setState({

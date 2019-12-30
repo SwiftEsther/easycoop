@@ -230,7 +230,7 @@ export default class ChangeBalance extends Component {
                       fontSize: 20,
                       color: "#575757"
                     }}
-                  >{`#${data.voluntaryBalance}`}</Text>
+                  >{`₦${data.voluntaryBalance}`}</Text>
                 </View>
               </View>
               <View style={{ flex: 1 }}>

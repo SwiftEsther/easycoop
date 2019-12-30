@@ -23,8 +23,12 @@ export const postKinInfo = credentials + '/credentials/v1/api/saveusernextofkind
 export const getKinDetails = credentials + "/credentials/v1/api/viewusernextofkindetailsmultiple";
 export const updateContributionAmount = account + '/account/v1/api/updatecontributionamount';
 export const withdrawVoluntaryContributions = account + "/account/v1/api/withdrawvoluntarycontributions";
-export const getSavingsHistory = account + "account/v1/api/viewcontributionhistory";
-export const getLoanHistory = account + "account/v1/api/getnotificationssentfrommember_loan";
+export const getSavingsHistory = account + "/account/v1/api/viewcontributionhistory";
+export const getLoanHistory = account + "/account/v1/api/getnotificationssentfrommember_loan";
+export const getLoanTypes = loan + "/loantype/v1/api/getcooperativeloantypes";
+export const getAllGuarantorRequests = loan + "/loan/v1/api/viewallguarantorrequests";
+export const getMemberNotifications =
+         account + "/account/v1/api/getnotificationssenttomember";
 
 
 //--PROFILE URLS
