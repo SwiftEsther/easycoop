@@ -23,289 +23,294 @@ import { getMemberBalancesSuccess } from "./actions/dashboard.actions";
 import NavigationService from "../../../../NavigationService";
 import { showToast } from "../../../components/Toast/actions/toastActions";
 import { connect, Dispatch } from "react-redux";
-import { getmemberbalances } from "../../../lib/api/url";
+import { getmemberbalances, getMemberNotificationsCount } from "../../../lib/api/url";
 import { registerForPushNotificationsAsync } from "../../../lib/utils/registerPushNotifications";
 import { apiRequest } from "../../../lib/api/api";
 
 
 class index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            contributions: false,
-            requestSuccess: false,
-            failure: false,
-            withdraw: false
-            // userData: this.props.navigation.state.params.userData
-        }
-        registerForPushNotificationsAsync(this.props.userData.username)
-    }
-
-
-    _signOutAsync = async () => {
-        this.props.logoutUserSuccess();
-        AsyncStorage.removeItem('access_token');
-        NavigationService.navigate('Login');
+  constructor(props) {
+    super(props);
+    this.state = {
+      contributions: false,
+      requestSuccess: false,
+      failure: false,
+      withdraw: false,
+      // userData: this.props.navigation.state.params.userData
     };
+    registerForPushNotificationsAsync(this.props.userData.username);
+  }
 
-    componentDidMount() {
-        this.ongetBalances();
-    }
+  _signOutAsync = async () => {
+    this.props.logoutUserSuccess();
+    AsyncStorage.removeItem("access_token");
+    NavigationService.navigate("Login");
+  };
 
-    ongetBalances = () => {
-      const {userData} = this.props;
-        this.setState({
-            spinner: true,
-            modalLoader: true
-        }, () => {
-            apiRequest(getmemberbalances,
-                'get',
-                 {
-                    params: {
-                        memberid: userData.id
-                    }
-                }
-            )
-                .then(res => {
-                    this.setState({
-                        spinner: false,
-                    })
-                    if (res) {
-                        console.log(res)
-                        console.log(res.data) // undefined
-                        let memberbalances = { ...res };
+  componentDidMount() {
+    this.ongetBalances();
+  }
 
-                        this.props.getMemberBalancesSuccess(memberbalances);
-                        this.props.showToast('Successfully fetched member balances', 'success');
-                        console.log(this.props.userData);
-                        console.log(this.props.memberbalances)
-                    } else {
-                        this.props.showToast('Error', 'error');
-                    }
-
-                })
-                .catch(error => {
-
-                    if (error.response) {
-                        this.props.showToast(error.response.data.message, 'error')
-                        console.log(error.response)
-                    } else {
-                        this.props.showToast(error, 'error')
-                    }
-                    this.setState({
-                        spinner: false,
-                    })
-                });
+  ongetBalances = () => {
+    const { userData } = this.props;
+    this.setState(
+      {
+        spinner: true,
+        modalLoader: true
+      },
+      () => {
+        apiRequest(getmemberbalances, "get", {
+          params: {
+            memberid: userData.id
+          }
         })
-    };
+          .then(res => {
+            this.setState({
+              spinner: false
+            });
+            if (res) {
+              console.log(res);
+              console.log(res.data); // undefined
+              let memberbalances = { ...res };
 
-    showContributionsBal = () => this.setState({contributions: !this.state.contributions})
-    showRequestSuccess = () => this.setState({requestSuccess: !this.state.requestSuccess})
-    showFailureModal = () => this.setState({failure: !this.state.failure})
-    showWithdrawalRequest = () => {
-        this.setState({withdraw: !this.state.withdraw})
-    }
+              this.props.getMemberBalancesSuccess(memberbalances);
+              this.props.showToast(
+                "Successfully fetched member balances",
+                "success"
+              );
+              console.log(this.props.userData);
+              console.log(this.props.memberbalances);
+            } else {
+              this.props.showToast("Error", "error");
+            }
+          })
+          .catch(error => {
+            if (error.response) {
+              this.props.showToast(error.response.data.message, "error");
+              console.log(error.response);
+            } else {
+              this.props.showToast(error, "error");
+            }
+            this.setState({
+              spinner: false
+            });
+          });
+      }
+    );
+  };
 
-    render() {
-        const {userData, memberbalances} = this.props;
-        return (
-          <>
-            <Spinner
-              visible={this.state.spinner}
-              size="large"
-              color="#000000"
-              animation="none"
-              overlayColor={"rgba(0, 0, 0, 0.5)"}
-            />
-            <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
-            <SafeAreaView
-              style={[theme.container, { fontFamily: "nunito-bold" }]}
+  showContributionsBal = () =>
+    this.setState({ contributions: !this.state.contributions });
+  showRequestSuccess = () =>
+    this.setState({ requestSuccess: !this.state.requestSuccess });
+  showFailureModal = () => this.setState({ failure: !this.state.failure });
+  showWithdrawalRequest = () => {
+    this.setState({ withdraw: !this.state.withdraw });
+  };
+
+  render() {
+    const { userData, memberbalances } = this.props;
+    return (
+      <>
+        <Spinner
+          visible={this.state.spinner}
+          size="large"
+          color="#000000"
+          animation="none"
+          overlayColor={"rgba(0, 0, 0, 0.5)"}
+        />
+        <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+        <SafeAreaView style={[theme.container, { fontFamily: "nunito-bold" }]}>
+          <View style={[theme.container, { backgroundColor: "#f4f6fa" }]}>
+            <KeyboardAwareScrollView
+              keyboardShouldPersistTaps={"handled"}
+              enableOnAndroid={true}
+              scrollEnabled={true}
+              alwaysBounceVertical={false}
+              bounces={false}
             >
-              <View style={[theme.container, { backgroundColor: "#f4f6fa" }]}>
-                <KeyboardAwareScrollView
-                  keyboardShouldPersistTaps={"handled"}
-                  enableOnAndroid={true}
-                  scrollEnabled={true}
-                  alwaysBounceVertical={false}
-                  bounces={false}
+              <View
+                style={[
+                  theme.box_gap_tabbar,
+                  { paddingHorizontal: scaleHeight(12) }
+                ]}
+              >
+                <Text
+                  style={[
+                    theme.typo_bold,
+                    {
+                      fontSize: 20,
+                      marginTop: scaleHeight(10),
+                      marginBottom: scaleHeight(20)
+                    }
+                  ]}
                 >
+                  Hi,{" "}
+                  {userData.firstName[0].toUpperCase() +
+                    userData.firstName.slice(1)}
+                </Text>
+                <View>
                   <View
-                    style={[
-                      theme.box_gap_tabbar,
-                      { paddingHorizontal: scaleHeight(12) }
-                    ]}
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between"
+                    }}
                   >
-                    <Text
-                      style={[
-                        theme.typo_bold,
-                        {
-                          fontSize: 20,
-                          marginTop: scaleHeight(10),
-                          marginBottom: scaleHeight(20)
-                        }
-                      ]}
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={[theme.flex1]}
+                      onPress={() =>
+                        this.setState({
+                          contributions: !this.state.contributions
+                        })
+                      }
                     >
-                      Hi,{" "}
-                      {userData.firstName[0].toUpperCase() +
-                        userData.firstName.slice(1)}
-                    </Text>
-                    <View>
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between"
-                        }}
-                      >
-                        <TouchableOpacity
-                          activeOpacity={0.7}
-                          style={[theme.flex1]}
-                          onPress={() =>
-                            this.setState({
-                              contributions: !this.state.contributions
-                            })
-                          }
+                      <View style={[styles.card]}>
+                        <Image
+                          style={[]}
+                          source={require("../../../../assets/icons/wallet.png")}
+                        />
+
+                        <Text
+                          numberOfLines={1}
+                          style={[
+                            { color: "#575757", fontFamily: "nunito-bold" }
+                          ]}
                         >
-                          <View style={[styles.card]}>
-                            <Image
-                              style={[]}
-                              source={require("../../../../assets/icons/wallet.png")}
-                            />
-
-                            <Text
-                              numberOfLines={1}
-                              style={[
-                                { color: "#575757", fontFamily: "nunito-bold" }
-                              ]}
-                            >
-                              Balances
-                            </Text>
-                          </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                          activeOpacity={0.7}
-                          style={[theme.flex1]}
-                          onPress={this.showWithdrawalRequest}
-                        >
-                          <View
-                            style={[styles.card]}
-                            onPress={() =>
-                              this.setState({ withdraw: !this.state.withdraw })
-                            }
-                          >
-                            <Image
-                              style={[]}
-                              source={require("../../../../assets/icons/coins.png")}
-                            />
-
-                            <Text
-                              numberOfLines={1}
-                              style={{
-                                color: "#575757",
-                                fontFamily: "nunito-bold"
-                              }}
-                            >
-                              Withdrawal Request
-                            </Text>
-                          </View>
-                        </TouchableOpacity>
+                          Balances
+                        </Text>
                       </View>
+                    </TouchableOpacity>
 
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={[theme.flex1]}
+                      onPress={this.showWithdrawalRequest}
+                    >
                       <View
-                        style={{
-                          flexDirection: "row",
-                          justifyContent: "space-between"
-                        }}
+                        style={[styles.card]}
+                        onPress={() =>
+                          this.setState({ withdraw: !this.state.withdraw })
+                        }
                       >
-                        <TouchableOpacity
-                          activeOpacity={0.7}
-                          style={[theme.flex1]}
-                          onPress={() =>
-                            this.props.navigation.navigate("LoanPage", {userData: userData})
-                          }
+                        <Image
+                          style={[]}
+                          source={require("../../../../assets/icons/coins.png")}
+                        />
+
+                        <Text
+                          numberOfLines={1}
+                          style={{
+                            color: "#575757",
+                            fontFamily: "nunito-bold"
+                          }}
                         >
-                          <View style={[styles.card]}>
-                            <Image
-                              style={[]}
-                              source={require("../../../../assets/icons/naira.png")}
-                            />
-
-                            <Text
-                              numberOfLines={1}
-                              style={{
-                                color: "#575757",
-                                fontFamily: "nunito-bold"
-                              }}
-                            >
-                              My Loans
-                            </Text>
-                          </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                          activeOpacity={0.7}
-                          style={[theme.flex1]}
-                          onPress={() =>
-                            this.props.navigation.navigate("RequestHistory")
-                          }
-                        >
-                          <View style={[styles.card]}>
-                            <Image
-                              source={require("../../../../assets/icons/currency.png")}
-                            />
-
-                            <Text
-                              numberOfLines={1}
-                              style={{
-                                color: "#575757",
-                                fontFamily: "nunito-bold"
-                              }}
-                            >
-                              Request History
-                            </Text>
-                            <Text
-                              numberOfLines={1}
-                              style={{
-                                color: "#575757",
-                                fontFamily: "nunito-regular",
-                                fontSize: 10
-                              }}
-                            >
-                              Loan, Withdrawal, Savings Status
-                            </Text>
-                          </View>
-                        </TouchableOpacity>
+                          Withdrawal Request
+                        </Text>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   </View>
-                </KeyboardAwareScrollView>
-                <WithdrawalRequest
-                  visible={this.state.withdraw}
-                  _toggleView={this.showWithdrawalRequest}
-                  data={memberbalances}
-                  userData={userData}
-                />
-                <Contributions
-                  visible={this.state.contributions}
-                  _toggleView={this.showContributionsBal}
-                  data={memberbalances}
-                  userData={userData}
-                />
-                {/* <SuccessModal visible={this.state.requestSuccess} _toggleView={this.showRequestSuccess}
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between"
+                    }}
+                  >
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={[theme.flex1]}
+                      onPress={() =>
+                        this.props.navigation.navigate("LoanPage", {
+                          userData: userData
+                        })
+                      }
+                    >
+                      <View style={[styles.card]}>
+                        <Image
+                          style={[]}
+                          source={require("../../../../assets/icons/naira.png")}
+                        />
+
+                        <Text
+                          numberOfLines={1}
+                          style={{
+                            color: "#575757",
+                            fontFamily: "nunito-bold"
+                          }}
+                        >
+                          My Loans
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={[theme.flex1]}
+                      onPress={() =>
+                        this.props.navigation.navigate("RequestHistory")
+                      }
+                    >
+                      <View style={[styles.card]}>
+                        <Image
+                          source={require("../../../../assets/icons/currency.png")}
+                        />
+
+                        <Text
+                          numberOfLines={1}
+                          style={{
+                            color: "#575757",
+                            fontFamily: "nunito-bold"
+                          }}
+                        >
+                          Request History
+                        </Text>
+                        <Text
+                          numberOfLines={1}
+                          style={{
+                            color: "#575757",
+                            fontFamily: "nunito-regular",
+                            fontSize: 10
+                          }}
+                        >
+                          Loan, Withdrawal, Savings Status
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </KeyboardAwareScrollView>
+            <WithdrawalRequest
+              visible={this.state.withdraw}
+              _toggleView={this.showWithdrawalRequest}
+              data={memberbalances}
+              userData={userData}
+            />
+            <Contributions
+              visible={this.state.contributions}
+              _toggleView={this.showContributionsBal}
+              data={memberbalances}
+              userData={userData}
+            />
+            {/* <SuccessModal visible={this.state.requestSuccess} _toggleView={this.showRequestSuccess}
                                 subtitle="Request Submitted Successfully"
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
-                {/* <FailureModal visible={this.state.failure} _toggleView={this.showFailureModal}
+            {/* <FailureModal visible={this.state.failure} _toggleView={this.showFailureModal}
                                 subtitle="Request Submission Failed"
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
-                {/* <DeleteSuccess visible={this.state.failure} _toggleView={this.showFailureModal}
+            {/* <DeleteSuccess visible={this.state.failure} _toggleView={this.showFailureModal}
                                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
-              </View>
-              <Header dashboard={true} navigation={{ ...this.props.navigation }} />
-              {/* <Withdraw visible={this.state.withdraw} _toggleView={()=>this.setState({withdraw: !this.state.withdraw})}/> */}
-            </SafeAreaView>
-          </>
-        );
-    }
+          </View>
+          <Header
+            dashboard={true}
+            navigation={{ ...this.props.navigation }}
+          />
+          {/* <Withdraw visible={this.state.withdraw} _toggleView={()=>this.setState({withdraw: !this.state.withdraw})}/> */}
+        </SafeAreaView>
+      </>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
