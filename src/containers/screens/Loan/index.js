@@ -293,7 +293,7 @@ class index extends Component {
                     <Text
                       style={{
                         fontFamily: "nunito-bold",
-                        marginBottom: scaleHeight(11)
+                        marginBottom: scaleHeight(17)
                       }}
                     >
                       Loan Summary
@@ -460,10 +460,9 @@ class index extends Component {
                 <View>
                   <FlatList
                     data={this.state.guarantorRequests}
-                    renderItem={({ item, index }) =>
-                     (
-                        <GuarantorRequest item={item}/>)
-                    }
+                    renderItem={({ item, index }) => (
+                      <GuarantorRequest item={item} />
+                    )}
                     keyExtractor={item => item.id}
                   />
                 </View>
@@ -491,6 +490,7 @@ class index extends Component {
           <ApplyLoanModal
             visible={this.state.loanApply}
             _toggleView={this.showLoanApply}
+            loanTypes={this.state.loanTypes}
           />
         </SafeAreaView>
       </>

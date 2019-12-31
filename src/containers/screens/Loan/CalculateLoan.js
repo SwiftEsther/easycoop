@@ -62,6 +62,7 @@ export default class CalculateLoan extends Component {
                    });
 
                  onhandleCalculateLoan = () => {
+                   let amount =0;
                    if (this.state.loanType.loanClassId == "1") {
                      amount = this.state.loanType.fixedAmount;
                    } else amount = this.state.amount;
@@ -254,10 +255,10 @@ export default class CalculateLoan extends Component {
                                style={[styles.input, { width: width - 110 }]}
                              >
                                <CustomInput
-                                 value={this.state.amount}
+                                 value={this.state.loanType.loanClassId===1?this.state.loanType.fixedAmount:this.state.amount}
                                  keyboardType="number-pad"
                                  onChangeText={amount =>
-                                   this.changeState({ amount })
+                                   this.changeState({ amount: amount.trim() })
                                  }
                                  style={[{}]}
                                />
