@@ -32,7 +32,7 @@ const GeneralNotification = props => (
   // </View>
 
   <View
-    style={{ paddingVertical: scaleHeight(13), paddingHorizontal: scale(10) }}
+    style={{ paddingVertical: scaleHeight(13), paddingHorizontal: scale(10)}}
   >
     <Text style={{ fontFamily: "nunito-regular" }}>
       Your <Text style={{ color: "#138516" }}>{`${props.data.title}`}</Text> for{" "}

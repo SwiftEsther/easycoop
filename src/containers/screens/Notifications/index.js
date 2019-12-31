@@ -146,10 +146,12 @@ export default class index extends Component {
                          {item.notificationTypeId === 1 && (
                            <GeneralNotification data={item} />
                          )}
-                         {item.type === "loan" && <LoanTile data={item} />}
-                         {item.type === "withdrawal" && (
-                           <WithdrawTile data={item} />
-                         )}
+                         {item.notificationTypeId == 2 &&
+                           item.requestTagId == 2 && <LoanTile data={item} />}
+                         {item.notificationTypeId == 2 &&
+                           item.requestTagId == 1 && (
+                             <WithdrawTile data={item} />
+                           )}
                          {item.type === "requests" && (
                            <GuarantorRequest data={item} />
                          )}
@@ -196,7 +198,6 @@ export default class index extends Component {
                              index % 2 !== 0 ? (
                                <Item
                                  title={item.title}
-                                 type={item.type}
                                  item={item}
                                  backgroundColor="#f8f7f7"
                                />
@@ -257,7 +258,6 @@ const style = StyleSheet.create({
   },
   item: {
     backgroundColor: "#f9c2ff",
-    marginVertical: 8
   },
   title: {
     fontSize: 32

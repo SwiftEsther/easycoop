@@ -23,6 +23,8 @@ import { getSavingsHistory, getWithdrawalHistory, getLoanHistory } from "../../.
 import { ScrollView } from "react-native-gesture-handler";
 import { connect, Dispatch } from "react-redux"; 
 import BorderedTabs from "../../../components/BorderedTab";
+import { apiRequest } from "../../../lib/api/api";
+import { formatBalance } from "../../../lib/utils/helpers";
 import {getLoanApplicationsSuccess, getWithdrawalHistorySuccess, getTransactionHistorySuccess} from './actions/RequestHistory.actions'
 
 class index extends Component {
@@ -35,8 +37,8 @@ class index extends Component {
                      showWithdrawals: false,
                      showSavings: false,
                      spinner: false,
-                     loanApplications: [],
-                     withdrawals: [],
+                     loanHistory: [],
+                     withdrawalHistory: [],
                      transactions: []
                    };
                  }
@@ -75,8 +77,8 @@ class index extends Component {
                      })
                    );
 
-                 coponentDidMount() {
-                   this.onGetSavingsHistory();
+                 componentDidMount() {
+                  //  this.onGetSavingsHistory();
                    this.onGetLoanHistory();
                    this.onGetWithdrawalHistory();
                    
@@ -130,18 +132,13 @@ class index extends Component {
                  };
 
                  onGetWithdrawalHistory = () => {
-                   const { userData } = this.props;
                    this.setState(
                      {
                        spinner: true,
                        modalLoader: true
                      },
                      () => {
-                       apiRequest(getWithdrawalHistory, "get", {
-                         params: {
-                           memberid: userData.id
-                         }
-                       })
+                       apiRequest(getWithdrawalHistory, "get")
                          .then(res => {
                            this.setState({
                              spinner: false
@@ -178,18 +175,13 @@ class index extends Component {
                  };
 
                  onGetLoanHistory = () => {
-                   const { userData } = this.props;
                    this.setState(
                      {
                        spinner: true,
                        modalLoader: true
                      },
                      () => {
-                       apiRequest(getLoanHistory, "get", {
-                         params: {
-                           memberid: userData.id
-                         }
-                       })
+                       apiRequest(getLoanHistory, "get")
                          .then(res => {
                            this.setState({
                              spinner: false
@@ -299,13 +291,14 @@ class index extends Component {
                        </View>
                      );
                    }
-                   function LoanItem({}) {
+                   function LoanItem({item,backgroundColor}) {
                      return (
                        <View
                          style={{
                            alignItems: "flex-start",
                            paddingHorizontal: scale(14),
-                           paddingVertical: scaleHeight(23)
+                           paddingVertical: scaleHeight(23),
+                           backgroundColor: backgroundColor
                          }}
                        >
                          <View
@@ -331,7 +324,7 @@ class index extends Component {
                                  marginLeft: scale(3)
                                }}
                              >
-                               #AGD212HSU
+                               {`${item.id}`}
                              </Text>
                            </View>
                            <Text
@@ -342,7 +335,7 @@ class index extends Component {
                                fontFamily: "nunito-regular"
                              }}
                            >
-                             24-11-19
+                             {`${item.sentDate.split('-').reverse().join('-')}`}
                            </Text>
                          </View>
                          <View
@@ -369,17 +362,16 @@ class index extends Component {
                                fontFamily: "nunito-bold"
                              }}
                            >
-                             ₦100,000,000
+                             {`₦${formatBalance(item.amount)}`}
                            </Text>
                          </View>
-                         {true && (
+                         {false && (
                            <TouchableOpacity
                              activeOpacity={0.7}
                              style={{
                                marginBottom: scaleHeight(26),
                                marginTop: scaleHeight(40)
                              }}
-                             
                            >
                              <Text
                                style={[
@@ -400,13 +392,14 @@ class index extends Component {
                        </View>
                      );
                    }
-                   function WithdrawalItem({}) {
+                   function WithdrawalItem({item, backgroundColor}) {
                      return (
                        <View
                          style={{
                            alignItems: "flex-start",
                            paddingHorizontal: scale(14),
-                           paddingVertical: scaleHeight(23)
+                           paddingVertical: scaleHeight(23),
+                           backgroundColor: backgroundColor
                          }}
                        >
                          <View
@@ -430,10 +423,9 @@ class index extends Component {
                                  flex: 6,
                                  textAlign: "left",
                                  fontFamily: "nunito-bold",
-                                 paddingLeft: scale(1)
                                }}
                              >
-                               #AGD212HSU
+                               {`${item.id}`}
                              </Text>
                            </View>
                            <Text
@@ -444,7 +436,10 @@ class index extends Component {
                                fontFamily: "nunito-regular"
                              }}
                            >
-                             24-11-19
+                             {`${item.sentDate
+                               .split("-")
+                               .reverse()
+                               .join("-")}`}
                            </Text>
                          </View>
                          <View
@@ -471,17 +466,16 @@ class index extends Component {
                                fontFamily: "nunito-bold"
                              }}
                            >
-                             ₦100,000,000
+                             {`₦${formatBalance(item.amount)}`}
                            </Text>
                          </View>
-                         {true && (
+                         {false && (
                            <TouchableOpacity
                              activeOpacity={0.7}
                              style={{
                                marginBottom: scaleHeight(26),
                                marginTop: scaleHeight(40)
                              }}
-                             
                            >
                              <Text
                                style={[
@@ -518,45 +512,48 @@ class index extends Component {
                        <SafeAreaView
                          style={[{ flex: 1, fontFamily: "nunito-bold" }]}
                        >
-                       <ScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
-                         <View
-                           style={[
-                             { flex:1,marginTop: scaleHeight(70) }
-                           ]}
+                         <ScrollView
+                           keyboardShouldPersistTaps={"handled"}
+                           enableOnAndroid={true}
                          >
-                           <BorderedTabs
-                             tabNumber={3}
-                             tab1Text="Loan"
-                             tab2Text="Withdrawals"
-                             tab3Text="Savings"
-                             selected={this.state.selected}
-                             tab1Event={this.loans}
-                             tab2Event={this.withdrawals}
-                             tab3Event={this.savings}
-                           />
+                           <View
+                             style={[{ flex: 1, marginTop: scaleHeight(70) }]}
+                           >
+                             <BorderedTabs
+                               tabNumber={3}
+                               tab1Text="Loan"
+                               tab2Text="Withdrawals"
+                               tab3Text="Savings"
+                               selected={this.state.selected}
+                               tab1Event={this.loans}
+                               tab2Event={this.withdrawals}
+                               tab3Event={this.savings}
+                             />
                              {this.state.showLoans && (
                                <FlatList
-                                 data={this.state.loanApplications}
-                                 renderItem={({ item, index }) =>
-                                   index % 2 !== 0 ? (
-                                     <LoanItem />
-                                   ) : (
-                                     <SavingsItem />
-                                   )
-                                 }
+                                 data={this.state.loanHistory}
+                                 renderItem={({ item, index }) => (
+                                   <LoanItem
+                                     item={item}
+                                     backgroundColor={
+                                       index % 2 !== 0 ? "#f8f7f7" : "#fff"
+                                     }
+                                   />
+                                 )}
                                  keyExtractor={item => item.id}
                                />
                              )}
                              {this.state.showWithdrawals && (
                                <FlatList
-                                 data={this.state.withdrawals}
-                                 renderItem={({ item, index }) =>
-                                   index % 2 !== 0 ? (
-                                     <LoanItem />
-                                   ) : (
-                                     <SavingsItem />
-                                   )
-                                 }
+                                 data={this.state.withdrawalHistory}
+                                 renderItem={({ item, index }) => (
+                                   <WithdrawalItem
+                                     item={item}
+                                     backgroundColor={
+                                       index % 2 !== 0 ? "#f8f7f7" : "#fff"
+                                     }
+                                   />
+                                 )}
                                  keyExtractor={item => item.id}
                                />
                              )}
@@ -573,7 +570,7 @@ class index extends Component {
                                  keyExtractor={item => item.id}
                                />
                              )}
-                         </View>
+                           </View>
                          </ScrollView>
                          {/* <View style={[{alignItems: 'flex-start', justifyContent: 'flex-start', flex: 1, marginTop: 100}]}>
                     <View style={{backgroundColor: 'red', }}>

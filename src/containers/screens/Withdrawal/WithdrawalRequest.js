@@ -25,6 +25,7 @@ import FailureModal from "../../../components/FailureModal";
 import BorderedTabs from "../../../components/BorderedTab";
 import { withdrawVoluntaryContributions } from "../../../lib/api/url";
 import Toast from "../../../components/Toast/Toast";
+import { formatBalance } from "../../../lib/utils/helpers";
 // import RequestSuccess from './RequestSuccess';
 
 export default class WithdrawalRequest extends Component {
@@ -246,7 +247,9 @@ export default class WithdrawalRequest extends Component {
                                      fontSize: 20,
                                      color: "#575757"
                                    }}
-                                 >{`₦${data.voluntaryBalance}`}</Text>
+                                 >{`₦${formatBalance(
+                                   data.voluntaryBalance
+                                 )}`}</Text>
                                </View>
                              </View>
                              <View style={{ flex: 1 }}>
@@ -256,7 +259,7 @@ export default class WithdrawalRequest extends Component {
                                <View
                                  style={[
                                    styles.input,
-                                   { width: width - 110, flex: 2 }
+                                   { width: width - 110, flex: 1 }
                                  ]}
                                >
                                  <CustomInput
@@ -312,9 +315,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    paddingVertical: scaleHeight(10),
     marginHorizontal: scale(13),
-    flex: 1,
+    flex: 2,
     fontFamily: "nunito-bold"
   },
   bottomNavigationView: {

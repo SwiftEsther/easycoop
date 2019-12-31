@@ -39,7 +39,7 @@ export default class ApplicationSuccessful extends Component{
   })
 
   render() {
-    return(
+    return (
       <ScrollView>
         <BottomSheet
           visible={this.props.visible}
@@ -47,22 +47,64 @@ export default class ApplicationSuccessful extends Component{
           onBackdropPress={this.props._toggleView}
         >
           <View style={styles.bottomNavigationView}>
-          <View style={[styles.header, { marginVertical: scaleHeight(20) }]}>
-            <Image style={{}} source={require('../../../../assets/icons/naira.png')} />
-            <Text style={[theme.typo_bold, theme.font17, { width: width-80, paddingLeft: scale(20), paddingVertical: scaleHeight(15) }]}>Apply For Loan</Text>
-        </View>
+            <View style={[styles.header, { marginVertical: scaleHeight(20) }]}>
+              <Image
+                style={{}}
+                source={require("../../../../assets/icons/naira.png")}
+              />
+              <Text
+                style={[
+                  theme.typo_bold,
+                  theme.font17,
+                  {
+                    width: width - 80,
+                    paddingLeft: scale(20),
+                    paddingVertical: scaleHeight(15)
+                  }
+                ]}
+              >
+                Apply For Loan
+              </Text>
+            </View>
             <View style={{ flex: 4 }}>
               <View style={[theme.center]}>
-                <Image source={require('../../../../assets/icons/check_circle.png')} style={[theme.pad_bottom30, {marginTop: scale(10)}]} />
-                {this.props.subtitle && <Text style={[theme.typo_bold, theme.font15, theme.pad_bottom20, {color:'#138516'}]}>{this.props.subtitle}</Text>}
-              <Text style={[theme.typo_regular, theme.margin_left_right_25, { textAlign: 'center', fontSize: scale(10), color: '#C6C6C6' }]}>
+                <Image
+                  source={require("../../../../assets/icons/check_circle.png")}
+                  style={[theme.pad_bottom30, { marginTop: scale(10) }]}
+                />
+                {this.props.subtitle && (
+                  <Text
+                    style={[
+                      theme.typo_bold,
+                      theme.font15,
+                      theme.pad_bottom20,
+                      { color: "#138516" }
+                    ]}
+                  >
+                    {this.props.subtitle}
+                  </Text>
+                )}
+                <Text
+                  style={[
+                    theme.typo_regular,
+                    theme.margin_left_right_25,
+                    {
+                      textAlign: "center",
+                      fontSize: scale(10),
+                      color: "#C6C6C6"
+                    }
+                  ]}
+                >
                   {this.props.smallText}
                 </Text>
               </View>
-            
             </View>
-            <TouchableOpacity activeOpacity={0.7} style={styles.button} onPress={this.showDeleteFailure}>
-              <GreenButton button_text='Check Request Status' />
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate("RequestHistory")}
+            >
+              <GreenButton button_text="Check Request Status" />
             </TouchableOpacity>
           </View>
         </BottomSheet>
@@ -72,7 +114,7 @@ export default class ApplicationSuccessful extends Component{
             subtitle="Request Submission Failed"
             smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
       </ScrollView>
-    )
+    );
   }
 }
 
