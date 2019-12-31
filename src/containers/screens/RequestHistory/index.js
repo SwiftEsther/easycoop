@@ -365,7 +365,7 @@ class index extends Component {
                              {`₦${formatBalance(item.amount)}`}
                            </Text>
                          </View>
-                         {true && (
+                         {false && (
                            <TouchableOpacity
                              activeOpacity={0.7}
                              style={{
@@ -469,7 +469,7 @@ class index extends Component {
                              {`₦${formatBalance(item.amount)}`}
                            </Text>
                          </View>
-                         {true && (
+                         {false && (
                            <TouchableOpacity
                              activeOpacity={0.7}
                              style={{
