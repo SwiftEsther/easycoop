@@ -19,7 +19,9 @@ export default class ViewWithdrawal extends Component {
             amount: '',
             success: false,
             failure: false,
-            withdraw: false
+            withdraw: false,
+            successMessage: "",
+            failureMessage: ""
         }
     }
 
@@ -93,10 +95,10 @@ export default class ViewWithdrawal extends Component {
                 <WithdrawalRequest visible={this.state.withdraw} _toggleView={this.showWithdrawalRequest}/>
                 <SuccessModal visible={this.state.success} _toggleView={this.toggleRequest} 
                                 subtitle="Request Submitted Successfully"
-                                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+                                smallText={`${this.state.successMessage}`}/>
                 <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
                     subtitle="Request Submission Failed"
-                    smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+                    smallText={`${this.state.failureMessage}`}/>
             </ScrollView>
         )
     }

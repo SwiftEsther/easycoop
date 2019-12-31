@@ -49,7 +49,8 @@ class AuthenticationPage extends Component {
       shadowOpacity: 0,
       shadowRadius: 0,
       elevation: 0,
-      success: false
+      success: false,
+      successMessage: ""
     };
   }
 
@@ -80,7 +81,7 @@ class AuthenticationPage extends Component {
               let response = { ...res.data };
 
               this.props.recoverPasswordSuccess(response);
-              this.setState({ success: !this.state.success });
+              this.setState({ success: !this.state.success, successMessage: res.message });
             } else {
               this.props.showToast("Error", "error");
             }
@@ -152,7 +153,7 @@ class AuthenticationPage extends Component {
           visible={this.state.success}
           _toggleView={() => navigation.navigate("Login")}
           subtitle="Recovery Password Sent"
-          message={`A text message was sent to your registered Phone Number and email address.`}
+          message={`${this.state.successMessage}`}
         />
       </SafeAreaView>
     );

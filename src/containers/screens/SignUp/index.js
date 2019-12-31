@@ -82,7 +82,8 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
             totalRecords: 0,
             treated: true,
             showTC: false,
-            success: false
+            success: false,
+            successMessage: ""
         }
     }
 
@@ -118,7 +119,7 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
                     })
                     if (res.status === 200) {
                         this.props.showToast('Successfully registered', 'success');
-                        this.setState({success: true})
+                        this.setState({success: true, successMessage: res.message})
                     } else {
                         this.props.showToast('Error', 'error');
                     }
@@ -433,8 +434,8 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
                 <CustomModal visible={this.state.showTC} _toggleView={() => this.setState({showTC: !this.state.showTC})}
                              handleClick={this.acceptTerms}/>
                 <SuccessModal visible={this.state.success} _toggleView={this.navigate} 
-                    subtitle="Password Sent"
-                    message={`A text message was sent to your registered Phone Number and email address.`}/>
+                    subtitle="Registration Complete"
+                    message={`${this.state.successMessage}`}/>
             </SafeAreaView>
         );
     }
