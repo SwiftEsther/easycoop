@@ -2,7 +2,7 @@ import { createAppContainer, createSwitchNavigator, DrawerNavigator } from 'reac
 import { createStackNavigator } from 'react-navigation-stack';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import React from 'react';
-import { NetInfo, SafeAreaView, View, PanResponder } from 'react-native'
+import { NetInfo, SafeAreaView, View, PanResponder, AsyncStorage } from 'react-native'
 import { scale, scaleHeight } from '../helpers/scale';
 import Login from '../containers/screens/Login/index';
 import SignUp from '../containers/screens/SignUp/index';
@@ -24,7 +24,7 @@ import Toast from '../components/Toast/Toast'
 import { hideToast, showToast, showPersistentToast } from "../components/Toast/actions/toastActions";
 import { connect } from 'react-redux'
 import SideMenu from "../containers/screens/SideMenu";
-
+import {logoutUserSuccess} from "../containers/screens/Login/actions/login.actions";
 
 
 import TransactionPage from '../containers/screens/transactionHistory/index';
@@ -77,14 +77,52 @@ const AppContainer =  createAppContainer(createSwitchNavigator(
 
 class App extends React.Component {
     state = {
-        inactive: false
+        inactive: false,
+        show : false
     }
 
+    _panResponder = {};
+    timer = 0;
 
+    componentWillMount(){
+        this._panResponder = PanResponder.create({
+
+            onStartShouldSetPanResponder: () => {
+                this.resetTimer()
+                return true
+            },
+            onMoveShouldSetPanResponder: () => true,
+            onStartShouldSetPanResponderCapture: () => { this.resetTimer() ; return false},
+            onMoveShouldSetPanResponderCapture: () => false,
+            onPanResponderTerminationRequest: () => true,
+            onShouldBlockNativeResponder: () => false,
+        });
+        this.timer = setTimeout(()=>this.setState({show:true}),3000)
+    }
+    resetTimer(){
+        clearTimeout(this.timer)
+        if(this.state.show)
+            this.setState({show:false})
+        this.timer = setTimeout(()=>this.setState({show:true}),300000)
+    }
+
+    componentDidUpdate(prevProps, prevState){
+        if (this.props.password && this.state.show) {
+            this._signOutAsync();
+            console.log('logged out')
+        }
+    }
+
+    _signOutAsync = async () => {
+        this.props.logoutUserSuccess();
+        AsyncStorage.removeItem('access_token');
+        NavigationService.navigate('Onboarding');
+    };
 
     render() {
         return (
-            <View style={{flex: 1, backgroundColor: '#fff'}}>
+            <View style={{flex: 1, backgroundColor: '#fff'}} collapsable={false}
+                  {...this._panResponder.panHandlers}>
                 {/*<StatusBar/>*/}
                 <SafeAreaView style={{flex: 1}}>
                     {this.props.toastShow && <Toast
@@ -106,13 +144,15 @@ const mapStateToProps = (state, ownProps) => {
         toastType: state.toast.boxType,
         toastShow: state.toast.show,
         toastMessage: state.toast.message,
+        password: state.login.password,
     };
 };
 
 const mapDispatchToProps = {
     hideToast,
     showToast,
-    showPersistentToast
+    showPersistentToast,
+    logoutUserSuccess
 };
 
 export default connect(
