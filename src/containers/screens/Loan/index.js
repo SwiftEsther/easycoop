@@ -468,10 +468,10 @@ class index extends Component {
                   />
                 </View>
               )}
-              <ApplyLoanModal
+              {/* <ApplyLoanModal
                 visible={this.state.showCalculator}
                 _toggleView={this.toggleCalculator}
-              />
+              /> */}
               {/* <ApplicationSuccessful 
                 subtitle="Request Submission Failed"
                 smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints`}

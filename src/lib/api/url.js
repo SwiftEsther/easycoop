@@ -27,5 +27,5 @@ export const getSavingsHistory = account + "/account/v1/api/viewcontributionhist
 export const getLoanHistory = account + "/account/v1/api/getnotificationssentfrommember_loan";
 export const getLoanTypes = loan + "/loantype/v1/api/getcooperativeloantypes";
 export const getAllGuarantorRequests = loan + "/loan/v1/api/viewallguarantorrequests";
-export const getMemberNotifications =
-         account + "/account/v1/api/getnotificationssenttomember";
+export const getMemberNotifications = account + "/account/v1/api/getnotificationssenttomember";
+export const calculateLoan = loan + "/loan/v1/api/calculateloan";
