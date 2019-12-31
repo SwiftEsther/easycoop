@@ -141,7 +141,7 @@ class index extends Component {
                 "id": 0,
                 "lastName": kin.lastName,
                 "lga": "",
-                "memberProfileId": 0,
+                "memberProfileId": userData.id,
                 "middleName": "",
                 "phoneNumber": kin.phoneNumber,
                 "relationship": kin.relationship,
