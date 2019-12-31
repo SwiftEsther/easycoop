@@ -16,7 +16,9 @@ export default class NotApprovedModal extends Component {
         this.state={
             amount: '',
             success: false,
-            failure: false
+            failure: false,
+            successMessage: "",
+            failureMessage: ""
         }
     }
 
@@ -101,10 +103,10 @@ export default class NotApprovedModal extends Component {
                 </BottomSheet>
                 <SuccessModal visible={this.state.success} _toggleView={this.toggleRequest} 
                                 subtitle="Request Submitted Successfully"
-                                smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+                                smallText={`${this.state.successMessage}`}/>
                 <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
                     subtitle="Request Submission Failed"
-                    smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+                    smallText={`${this.state.failureMessage}`}/>
             </ScrollView>
         )
     }
