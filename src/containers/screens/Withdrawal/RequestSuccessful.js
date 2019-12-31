@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: scaleHeight(height/2),
+    height: scaleHeight(height/1.3),
     justifyContent: 'center',
     alignItems: 'center',
     borderTopLeftRadius: 20,
