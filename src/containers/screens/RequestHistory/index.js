@@ -518,6 +518,7 @@ class index extends Component {
                        <SafeAreaView
                          style={[{ flex: 1, fontFamily: "nunito-bold" }]}
                        >
+                       <ScrollView keyboardShouldPersistTaps={'handled'} enableOnAndroid={true}>
                          <View
                            style={[
                              { flex:1,marginTop: scaleHeight(70) }
@@ -573,6 +574,7 @@ class index extends Component {
                                />
                              )}
                          </View>
+                         </ScrollView>
                          {/* <View style={[{alignItems: 'flex-start', justifyContent: 'flex-start', flex: 1, marginTop: 100}]}>
                     <View style={{backgroundColor: 'red', }}>
                         <View style={{flex: 1, flexDirection: 'row',  backgroundColor: 'red'}}>

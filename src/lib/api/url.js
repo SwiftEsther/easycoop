@@ -29,3 +29,6 @@ export const getLoanTypes = loan + "/loantype/v1/api/getcooperativeloantypes";
 export const getAllGuarantorRequests = loan + "/loan/v1/api/viewallguarantorrequests";
 export const getMemberNotifications = account + "/account/v1/api/getnotificationssenttomember";
 export const calculateLoan = loan + "/loan/v1/api/calculateloan";
+export const getAllGuarantors = loan + "/loan/v1/api/viewallguarantors";
+export const getMemberNotificationsCount = account + "/account/v1/api/getcountcfnotificationssenttomember";
+export const postLoanAppliaction = loan + "/loan/v1/api/submitloanapplication";

@@ -10,76 +10,78 @@ import { loginSuccess } from "../Login/actions/login.actions";
 import { connect } from "react-redux";
 
 class index extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-        super(props);
+  componentDidMount() {
+    // this.createNotificationCount();
+
+    this._bootstrapAsync();
+  }
+
+  _bootstrapAsync = async () => {
+    console.log(this.props.password);
+    if (this.props.password) {
+      this.props.navigation.navigate("Dashboard");
+    } else {
+      this.props.navigation.navigate("Onboarding");
     }
 
-    componentDidMount() {
-        // this.createNotificationCount();
+    // This will switch to the App screen or Auth screen and this loading
+    // screen will be unmounted and thrown away.
+    // this.props.navigation.navigate('Auth');
+    // this.props.navigation.navigate(userToken && userName ? 'Main' : 'Auth');
+    // this.props.navigation.navigate('Auth');
+  };
 
-        this._bootstrapAsync();
-    }
+  //Get notifications
 
-    _bootstrapAsync = async () => {
-        console.log(this.props.password)
-        if (this.props.password) {
-            this.props.navigation.navigate("Dashboard");
-        } else {
-            this.props.navigation.navigate('Onboarding');
-        }
+  //   createNotificationCount = async () => {
+  //     let data = JSON.parse(await AsyncStorage.getItem(constants.NOTIFICATION_COUNT) || '{}');
+  //     if(!data.friend)
+  //       setGlobalState(constants.NOTIFICATION_COUNT, JSON.stringify({friend: 0, challenge: 0, event: 0, group: 0}));
+  //   }
 
-        // This will switch to the App screen or Auth screen and this loading
-        // screen will be unmounted and thrown away.
-        // this.props.navigation.navigate('Auth');
-        // this.props.navigation.navigate(userToken && userName ? 'Main' : 'Auth');
-        // this.props.navigation.navigate('Auth');
-    };
+  resetData = () => {
+    setGlobalState(constants.USER_DATA, "{}");
+  };
 
-    //Get notifications
+  // loadData = async () => {
 
-//   createNotificationCount = async () => {
-//     let data = JSON.parse(await AsyncStorage.getItem(constants.NOTIFICATION_COUNT) || '{}');
-//     if(!data.friend)
-//       setGlobalState(constants.NOTIFICATION_COUNT, JSON.stringify({friend: 0, challenge: 0, event: 0, group: 0}));
-//   }
+  //   // let userData = JSON.parse(await AsyncStorage.getItem(constants.USER_DATA) || '{}');
+  //   // let status = "";
+  //   // let token = "";  if needed
 
-    resetData = () => {
-        setGlobalState(constants.USER_DATA, "{}");
-    }
+  //   // if(status === "LOGGEDIN") {
+  //   //   if(token) {
+  //   //     this.props.navigation.navigate('homeNavigation');
+  //   //   }
+  //   //   else {
+  //   //     this.resetData();
+  //   //     Toast("Your session has expired. Login again.", "OK");
+  //   //     this.props.navigation.navigate('Login');
+  //   //   }
+  //   // }
+  //   // else {
+  //   //   this.props.navigation.navigate('loginNavigation');
+  //   // }
+  //   this.props.navigation.navigate('loginNavigation');
+  // };
 
-    // loadData = async () => {
-
-    //   // let userData = JSON.parse(await AsyncStorage.getItem(constants.USER_DATA) || '{}');
-    //   // let status = "";
-    //   // let token = "";  if needed
-
-    //   // if(status === "LOGGEDIN") {
-    //   //   if(token) {
-    //   //     this.props.navigation.navigate('homeNavigation');
-    //   //   }
-    //   //   else {
-    //   //     this.resetData();
-    //   //     Toast("Your session has expired. Login again.", "OK");
-    //   //     this.props.navigation.navigate('Login');
-    //   //   }
-    //   // }
-    //   // else {
-    //   //   this.props.navigation.navigate('loginNavigation');
-    //   // }
-    //   this.props.navigation.navigate('loginNavigation');
-    // };
-
-    render() {
-        return (
-            <View style={[style.container]}>
-                <StatusBar hidden/>
-                <TouchableOpacity activeOpacity={0.7}>
-                    <Image style={[theme.intro_logo]} source={require('../../../../assets/images/splash.png')}/>
-                </TouchableOpacity>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View style={[style.container]}>
+        <StatusBar hidden />
+        <TouchableOpacity activeOpacity={0.7}>
+          <Image
+            style={[theme.intro_logo]}
+            source={require("../../../../assets/images/splash.png")}
+          />
+        </TouchableOpacity>
+      </View>
+    );
+  }
 }
 
 
