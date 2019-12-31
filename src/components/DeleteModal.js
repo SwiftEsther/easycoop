@@ -14,7 +14,8 @@ export default class DeleteModal extends Component{
 
     this.state={
       success: false,
-      failure: false
+      failure: false,
+      failureMessage: ""
     }
   }
 
@@ -70,7 +71,7 @@ export default class DeleteModal extends Component{
           smallText={`Request Deleted Successfully`}/>
           <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
             subtitle="Request Submission Failed"
-            smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+            smallText={`${this.state.failureMessage}`}/>
       </ScrollView>
     )
   }

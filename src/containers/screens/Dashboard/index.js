@@ -74,10 +74,10 @@ class index extends Component {
               let memberbalances = { ...res };
 
               this.props.getMemberBalancesSuccess(memberbalances);
-              this.props.showToast(
-                "Successfully fetched member balances",
-                "success"
-              );
+              // this.props.showToast(
+              //   "Successfully fetched member balances",
+              //   "success"
+              // );
               console.log(this.props.userData);
               console.log(this.props.memberbalances);
             } else {
