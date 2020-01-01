@@ -26,7 +26,7 @@ export const withdrawVoluntaryContributions = account + "/account/v1/api/withdra
 export const getSavingsHistory = account + "/account/v1/api/viewcontributionhistory";
 export const getLoanHistory = account + "/account/v1/api/getnotificationssentfrommember_loan";
 export const getLoanTypes = loan + "/loantype/v1/api/getcooperativeloantypes";
-export const getAllGuarantorRequests = loan + "/loan/v1/api/viewallguarantorrequests";
+export const getAllGuarantorRequests = loan + "/loan/v1/api/viewunapprovedguarantorrequests";
 export const getMemberNotifications = account + "/account/v1/api/getnotificationssenttomember";
 export const calculateLoan = loan + "/loan/v1/api/calculateloan";
 //--PROFILE URLS
@@ -34,3 +34,4 @@ export const postNextOfKin = credentials + "/credentials/v1/api/saveusernextofki
 export const getAllGuarantors = loan + "/loan/v1/api/viewallguarantors";
 export const getMemberNotificationsCount = account + "/account/v1/api/getcountcfnotificationssenttomember";
 export const postLoanAppliaction = loan + "/loan/v1/api/submitloanapplication";
+export const approveRejectGuarantorRequest = loan + "/loan/v1/api/approverejectguarantorrequest";

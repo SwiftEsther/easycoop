@@ -41,10 +41,12 @@ import ReviewApplication from "./ReviewApplication";
 import Header from "../../../components/Header";
 import ProgressBar from "../../../components/Progressbar";
 import SelectDropdown from "../../../components/SelectPopUp/SelectPopUp";
+import RequestApprovalModal from '../../../components/RequestApprovalModal';
 import BorderedTabs from "../../../components/BorderedTab";
 import CalculateLoan from "./CalculateLoan";
 import { getLoanTypesSuccess, getGuarantorRequestsSuccess } from "./actions/loan.actions.js";
 import { getLoanTypes, getAllGuarantorRequests } from "../../../lib/api/url";
+import GuarantorRequest from "../../../components/GuarantorRequest";
 import { apiRequest } from "../../../lib/api/api";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { connect, Dispatch } from "react-redux"; 
@@ -63,7 +65,10 @@ class index extends Component {
       showCalculator: false,
       loanType: {},
       loanTypes: [],
-      guarantorRequests: []
+      guarantorRequests: [],
+      guarantor: {},
+      showApprovalModal: false,
+      action: ""
     };
   }
 
@@ -96,10 +101,10 @@ class index extends Component {
       showGuarantorRequests: true
     });
 
-    componentDidMount () {
-      this.ongetLoanTypes();
-      this.ongetGuarantorRequests();
-    }
+  componentDidMount() {
+    this.ongetLoanTypes();
+    this.ongetGuarantorRequests();
+  }
 
   showLoanApply = () => this.setState({ loanApply: !this.state.loanApply });
 
@@ -195,66 +200,21 @@ class index extends Component {
     );
   };
 
+  toggleApprovalModal = () => {
+    this.setState({ showApprovalModal: !this.state.showApprovalModal });
+  };
+
+  approve = guarantor => {
+    this.toggleApprovalModal();
+    this.setState({ guarantor, action: "Approve" });
+  };
+
+  decline = guarantor => {
+    this.toggleApprovalModal();
+    this.setState({ guarantor, action: "Decline" });
+  };
+
   render() {
-    function GuarantorRequest(props) {
-      return (
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginHorizontal: scale(9),
-            paddingVertical: scaleHeight(26.5),
-            borderBottomWidth: 1,
-            borderBottomColor: "#bdbdbd"
-          }}
-        >
-          <Image source={require("../../../../assets/icons/man.png")} />
-          <View
-            style={{
-              justifyContent: "space-between"
-            }}
-          >
-            <Text style={{ fontFamily: "nunito-medium" }}>
-              {`${props.item.requesterFirstName} ${props.item.requesterLastName}`}
-            </Text>
-            <Text
-              style={{
-                marginVertical: scaleHeight(15),
-                fontFamily: "nunito-regular",
-                color: "#138516"
-              }}
-            >
-              Guarantor Request{" "}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "nunito-regular"
-              }}
-            >
-              {`Loan Amount: ₦${props.item.requesterAmount}`}
-            </Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between"
-            }}
-          >
-            <TouchableOpacity activeOpacity={0.7}>
-              <Image
-                style={{ marginRight: scale(10) }}
-                source={require("../../../../assets/icons/green_check_circle.png")}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.7}>
-              <Image
-                source={require("../../../../assets/icons/green_cancel.png")}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      );
-    }
     return (
       <>
         <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
@@ -284,6 +244,7 @@ class index extends Component {
                 selected={this.state.selected}
                 tab1Event={this.loans}
                 tab2Event={this.requests}
+                notificationsCount={this.state.guarantorRequests.length}
               />
 
               {/* {this.state.showForceInfo && <View></View>} */}
@@ -461,7 +422,12 @@ class index extends Component {
                   <FlatList
                     data={this.state.guarantorRequests}
                     renderItem={({ item, index }) => (
-                      <GuarantorRequest item={item} />
+                      <GuarantorRequest
+                        data={item}
+                        bordered={true}
+                        approve={() => this.approve(item)}
+                        decline={() => this.decline(item)}
+                      />
                     )}
                     keyExtractor={item => item.id}
                   />
@@ -491,6 +457,13 @@ class index extends Component {
             visible={this.state.loanApply}
             _toggleView={this.showLoanApply}
             loanTypes={this.state.loanTypes}
+          />
+          <RequestApprovalModal
+            action={this.state.action}
+            guarantor={this.state.guarantor}
+            visible={this.state.showApprovalModal}
+            _toggleView={this.toggleApprovalModal}
+            reloadRequests={this.ongetGuarantorRequests}
           />
         </SafeAreaView>
       </>
