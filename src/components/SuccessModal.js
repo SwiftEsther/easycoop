@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Platform, Text, Button, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Platform, Text, Button, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import { BottomSheet } from 'react-native-btr';
 import theme from '../../assets/styles/globalStyles';
 import GreenButton from '../components/GreenButton';
@@ -34,7 +34,7 @@ const SuccessModal = (props) =>(
     </BottomSheet>
   </ScrollView>
 );
-
+const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   bottomNavigationView: {
     backgroundColor: '#fff',
     width: '100%',
-    height: scaleHeight(300),
+    height: height/2,
     justifyContent: 'center',
     alignItems: 'flex-end',
     borderTopLeftRadius: 20,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     borderRadius:50, 
     fontSize: scale(25), 
     padding:scale(6), 
-    top: scaleHeight(-105),
+    top: scaleHeight(-205),
     right:0, 
     position: 'absolute'
   },
@@ -66,8 +66,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', 
     borderRadius:50, 
     fontSize: scale(25), 
+    marginHorizontal: scale(9),
     padding:scale(6), 
-    top: scaleHeight(280),
+    top: scaleHeight(220),
     right:0, 
     position: 'absolute'
   },

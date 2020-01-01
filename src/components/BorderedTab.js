@@ -18,7 +18,7 @@ export default class BorderedTabs extends Component {
             <View
               style={[
                 style.buttons,
-                { justifyContent: "center", display: this.props.buttonTabStyle }
+                { justifyContent: "center" }
               ]}
             >
               <View style={{flex:1}}>
@@ -39,7 +39,7 @@ export default class BorderedTabs extends Component {
                 </Text>
               </View>
               <View style={[style.separator]}></View>
-              <View style={{flex:2}}>
+              <View style={{flex:2, flexDirection: 'row', position: "relative"}}>
                 <Text
                   style={[
                     style.link,
@@ -48,13 +48,29 @@ export default class BorderedTabs extends Component {
                       borderBottomColor: "#138516",
                       borderBottomWidth: 5,
                       color: "#000",
-                      fontFamily: "nunito-bold"
+                      fontFamily: "nunito-bold", 
+                    },
+                    {
+                      paddingHorizontal:scale(38.5)
                     }
                   ]}
                   onPress={this.props.tab2Event}
                 >
                   {this.props.tab2Text}
                 </Text>
+                {this.props.notificationsCount > 0 && <View style={[style.badge,this.props.selected === "2" && {top:scale(2)}]}>
+                               <Text
+                                 style={{
+                                   textAlign: "center",
+                                   justifyContent: "center",
+                                   color: "white",
+                                   fontSize: scale(8),
+                                   fontFamily: "nunito-bold",
+                                 }}
+                               >
+                                 {this.props.notificationsCount}
+                               </Text>
+                               </View>}
               </View>
             </View>
           )}
@@ -140,38 +156,52 @@ export default class BorderedTabs extends Component {
 
 const {width, height} = Dimensions.get('window');
 const style = StyleSheet.create({
-    buttons: {
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        backgroundColor: '#fcfcfc',
+  buttons: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    backgroundColor: "#fcfcfc"
+  },
+  link: {
+    backgroundColor: "#fcfcfc",
+    color: "#9f9f9f",
+    fontFamily: "nunito-medium",
+    textAlign: "center",
+    paddingTop: scaleHeight(18),
+    paddingBottom: scaleHeight(9)
+  },
+  buttonChild: {
+    flex: 1
+  },
+  separator: {
+    backgroundColor: "red",
+    borderRightColor: "#bdbdbd",
+    borderRightWidth: 1,
+    height: scaleHeight(26),
+    alignSelf: "center"
+  },
+  container: {
+    shadowColor: "#fff",
+    borderWidth: 0,
+    shadowOffset: {
+      width: 0,
+      height: 3
     },
-    link: {
-        backgroundColor: '#fcfcfc',
-        color: '#9f9f9f',
-        fontFamily: 'nunito-medium',
-        textAlign: 'center',
-        paddingVertical: scaleHeight(18)
-    },
-    buttonChild: {
-        flex: 1
-    },
-    separator: {
-        backgroundColor: 'red',
-        borderRightColor: '#bdbdbd',
-        borderRightWidth: 1,
-        height: scaleHeight(26),
-        alignSelf: 'center'
-    },
-    container: {
-        shadowColor: "#fff",
-        borderWidth: 0,
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.8,
-        shadowRadius: 10,
-        elevation: scale(4)
-    }
+    shadowOpacity: 0.8,
+    shadowRadius: 10,
+    elevation: scale(4)
+  },
+  badge: {
+    width: scale(14),
+    height: scale(14),
+    backgroundColor: "#138516",
+    borderRadius: scale(7),
+    textAlign: "center",
+    justifyContent: "center",
+    color: "white",
+    alignSelf: "center",
+    zIndex: 99999,
+    left: scale(-30),
+    top: scale(5)
+  }
 });
