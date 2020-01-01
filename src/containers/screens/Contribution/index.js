@@ -39,7 +39,8 @@ class Contributions extends Component {
       totalBalance: 0,
       shareUnitPrice: null,
       shareValue: null,
-      balanceAsAt: ""
+      balanceAsAt: "",
+      toastMessage: ""
     };
   }
 

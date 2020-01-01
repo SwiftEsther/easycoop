@@ -40,7 +40,7 @@ export default class RequestSuccessful extends Component{
     }
 
   render() {
-    return(
+    return (
       <View>
         <BottomSheet
           visible={this.props.visible}
@@ -48,35 +48,82 @@ export default class RequestSuccessful extends Component{
           onBackdropPress={this.props._toggleView}
         >
           <View style={styles.bottomNavigationView}>
-          <View style={[styles.header, { marginVertical: scaleHeight(10)}]}>
-            <Image style={{}} source={require('../../../../assets/icons/coins.png')} />
-            <Text style={[theme.typo_bold, theme.font17, { width: width-80, paddingLeft: scale(20), paddingVertical: scaleHeight(15) }]}>Withdraw Funds</Text>
-        </View>
+            <View style={[styles.header, { marginVertical: scaleHeight(10) }]}>
+              <Image
+                style={{}}
+                source={require("../../../../assets/icons/coins.png")}
+              />
+              <Text
+                style={[
+                  theme.typo_bold,
+                  theme.font17,
+                  {
+                    width: width - 80,
+                    paddingLeft: scale(20),
+                    paddingVertical: scaleHeight(15)
+                  }
+                ]}
+              >
+                Withdraw Funds
+              </Text>
+            </View>
             <View style={{ flex: 4 }}>
               <View style={[theme.center]}>
-                <Image source={require('../../../../assets/icons/check_circle.png')} style={[theme.pad_bottom30, {marginTop: scale(10)}]} />
-                {this.props.subtitle && <Text style={[theme.pad_bottom20, {color:'#138516', textAlign: 'center', fontSize:20, fontFamily: 'nunito-bold'}]}>{this.props.subtitle}</Text>}
-              <Text style={[theme.margin_left_right_25, { fontSize: scale(10), textAlign: 'center', color: '#9f9f9f' }]}>
+                <Image
+                  source={require("../../../../assets/icons/check_circle.png")}
+                  style={[theme.pad_bottom30, { marginTop: scale(10) }]}
+                />
+                {this.props.subtitle && (
+                  <Text
+                    style={[
+                      theme.pad_bottom20,
+                      {
+                        color: "#138516",
+                        textAlign: "center",
+                        fontSize: 20,
+                        fontFamily: "nunito-bold"
+                      }
+                    ]}
+                  >
+                    {this.props.subtitle}
+                  </Text>
+                )}
+                <Text
+                  style={[
+                    theme.margin_left_right_25,
+                    {
+                      fontSize: scale(10),
+                      textAlign: "center",
+                      color: "#9f9f9f"
+                    }
+                  ]}
+                >
                   {this.props.smallText}
                 </Text>
               </View>
-            
             </View>
-            <TouchableOpacity activeOpacity={0.7} style={styles.button} onPress={this.showRequestStatus}>
-              <GreenButton button_text='Check Request Status' />
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={styles.button}
+              onPress={() => this.props.navigation.navigate("RequestHistory")}
+            >
+              <GreenButton button_text="Check Request Status" />
             </TouchableOpacity>
           </View>
         </BottomSheet>
-        <ApplicationStatus visible={this.state.status} _toggleView={this.toggleStatus} 
-            subtitle="Request Submission Failed"
-            smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+        <ApplicationStatus
+          visible={this.state.status}
+          _toggleView={this.toggleStatus}
+          subtitle="Request Submission Failed"
+          smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}
+        />
         {/* <DeleteSuccess visible={this.state.success} _toggleView={this.toggleDelete} 
           smallText={`Request Deleted Successfully`}/>
           <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
             subtitle="Request Submission Failed"
             smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
       </View>
-    )
+    );
   }
 }
 
@@ -91,7 +138,7 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: scaleHeight(height/2),
+    height: scaleHeight(height/1.3),
     justifyContent: 'center',
     alignItems: 'center',
     borderTopLeftRadius: 20,

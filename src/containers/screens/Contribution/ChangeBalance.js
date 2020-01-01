@@ -22,8 +22,8 @@ import FailureModal from "../../../components/FailureModal";
 import Spinner from "react-native-loading-spinner-overlay";
 import { formatBalance } from "../../../lib/utils/helpers";
 import { apiRequest } from "../../../lib/api/api";
+import Toast from "../../../components/Toast/Toast";
 import { updateContributionAmount } from "../../../lib/api/url";
-import {Toast} from '../../../components/Toast/Toast';
 
 export default class ChangeBalance extends Component {
   constructor(props) {
@@ -70,7 +70,10 @@ export default class ChangeBalance extends Component {
 
   validate = async () => {
     if(this.state.amount <= 0) {
-      this.props.showToast("Kindly enter a valid contribution amount", "error");
+      this.setState({
+        showToast: true,
+        toastMessage: "Kindly enter a valid amount"
+      });
     }
     else {
       this.onhandleUpdateAmount();
@@ -174,6 +177,13 @@ export default class ChangeBalance extends Component {
             </TouchableOpacity>
           </View>
 
+          {this.state.showToast && (
+            <Toast
+              message={this.state.toastMessage}
+              type="error"
+              onClickHandler={() => this.setState({ showToast: false })}
+            />
+          )}
           <View style={styles.bottomNavigationView}>
             <View
               style={[
