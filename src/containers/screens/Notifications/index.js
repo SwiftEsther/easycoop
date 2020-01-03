@@ -39,8 +39,11 @@ import { scale, scaleHeight } from "../../../helpers/scale";
 import { getMemberNotifications } from "../../../lib/api/url";
 import { apiRequest } from "../../../lib/api/api";
 import { AntDesign } from "@expo/vector-icons";
+import { connect, Dispatch } from "react-redux";
 
-export default class index extends Component {
+import { updateProfileInfoSuccess } from "../ProfileInfo/actions/profileInfo.actions";
+
+class index extends Component {
                  constructor(props) {
                    super(props);
 
@@ -184,6 +187,25 @@ export default class index extends Component {
                    );
                  }
                }
+
+
+const mapStateToProps = state => {
+    return {
+        // userData: state.login,
+        // isLoading: state.profile.loading,
+        // infoUpdated: state.profile.infoUpdated
+    };
+};
+
+const mapDispatchToProps = {
+    showToast,
+    updateProfileInfoSuccess
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(index);
 
 const style = StyleSheet.create({
   buttons: {

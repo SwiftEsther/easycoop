@@ -10,6 +10,8 @@ import {
 } from "../lib/api/url";
 import { apiRequest } from "../lib/api/api";
 import { connect, Dispatch } from "react-redux";
+import NavigationService from '../../NavigationService';
+
 
 class Header extends Component {
                  constructor(props) {
@@ -128,13 +130,13 @@ componentDidMount() {
                          </View>
                        </View>
 
-                       <TouchableOpacity
-                         activeOpacity={0.7}
-                         style={[theme.flex1]}
-                         onPress={() =>
-                           this.props.navigation.navigate("Dashboard")
-                         }
-                       >
+                       {/*<TouchableOpacity*/}
+                         {/*activeOpacity={0.7}*/}
+                         {/*style={[theme.flex1]}*/}
+                         {/*onPress={() =>*/}
+                           {/*this.props.navigation.navigate("Dashboard")*/}
+                         {/*}*/}
+                       {/*>*/}
                          {!this.props.dashboard && (
                            <Entypo
                              name="home"
@@ -147,7 +149,7 @@ componentDidMount() {
                            <TouchableOpacity
                              activeOpacity={0.7}
                              onPress={() =>
-                               this.props.navigation.navigate("Profile")
+                                 this.props.navigation.navigate("Profile")
                              }
                            >
                              <Image
@@ -155,7 +157,7 @@ componentDidMount() {
                              />
                            </TouchableOpacity>
                          )}
-                       </TouchableOpacity>
+                       {/*</TouchableOpacity>*/}
 
                        {/* <Image source={require('../../assets/images/pexels_photo.png')} style={[styles.avatar]}/> */}
                      </View>
