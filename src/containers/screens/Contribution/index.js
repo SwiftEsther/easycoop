@@ -97,15 +97,16 @@ class Contributions extends Component {
                     // justifyContent: "flex-end",
                     alignSelf:'flex-end',
                     marginBottom:scale(10),
-                    paddingBottom: 10,
-                    paddingRight: 10
+                    marginRight:scale(10),
+                    // paddingBottom: 10,
+                    // paddingRight: 10
                 },
                 styles.icon
             ]}
           >
             <Icon
               name="close"
-              iconStyle={[styles.icon]}
+              // iconStyle={[styles.icon]}
               onPress={this.props._toggleView}
             />
           </TouchableOpacity>
@@ -115,7 +116,7 @@ class Contributions extends Component {
                 theme.container,
                 styles.MainContainer,
                 styles.header,
-                { marginVertical: scaleHeight(20) }
+                { marginVertical: scaleHeight(20), paddingBottom:scale(20) }
               ]}
             >
               <Image source={require("../../../../assets/icons/wallet.png")} />
@@ -124,7 +125,7 @@ class Contributions extends Component {
                   {
                     width: width - 80,
                     paddingLeft: scale(20),
-                    paddingVertical: scaleHeight(15),
+                    // paddingVertical: scaleHeight(15),
                     fontFamily: "nunito-bold",
                     fontSize: 20
                   }

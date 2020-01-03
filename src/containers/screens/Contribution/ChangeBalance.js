@@ -150,7 +150,7 @@ export default class ChangeBalance extends Component {
               animationIn={'slideInUp'}
               onBackdropPress={this.props._toggleView}
               isVisible={this.props.visible}
-              style={{margin: 0}}
+              style={{margin: 0, paddingTop:scale(24)}}
           >
               <View
                   style={{
@@ -159,7 +159,7 @@ export default class ChangeBalance extends Component {
                       position: "absolute",
                       width:'100%',
                       zIndex:999999,
-                      top: scale(80),
+                      top: scale(80)
                       // top: -30,
                       // right: 0,
                   }}
@@ -183,8 +183,11 @@ export default class ChangeBalance extends Component {
                   <TouchableOpacity
                       activeOpacity={0.7}
                       style={[{
-                          paddingVertical: scale(9),
-                          paddingHorizontal: scaleHeight(15)
+                          width:scale(38),
+                          height:scale(38),
+                          borderRadius:scale(19)
+                          // paddingVertical: scale(9),
+                          // paddingHorizontal: scaleHeight(15)
                       },styles.icon]}
                   >
                       <Icon
@@ -198,6 +201,16 @@ export default class ChangeBalance extends Component {
           {/*visible={this.props.visible}*/}
           {/*onBackButtonPress={this.props._toggleView}*/}
         {/*>*/}
+        <View  style={{
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+            top: scale(150),
+            borderTopLeftRadius: scale(10),
+            borderTopRightRadius: scale(10),
+            backgroundColor: "white",
+            paddingTop:scale(20)
+        }}>
               <KeyboardAwareScrollView
                   keyboardShouldPersistTaps={"handled"}
                   enableOnAndroid={true}
@@ -209,13 +222,8 @@ export default class ChangeBalance extends Component {
                       borderTopRightRadius: scale(10),
                   }}
                   style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      width: '100%',
-                      top: scale(150),
                       borderTopLeftRadius: scale(10),
                       borderTopRightRadius: scale(10),
-                      backgroundColor: "white",
                   }}
               >
 
@@ -232,7 +240,7 @@ export default class ChangeBalance extends Component {
                 theme.container,
                 styles.MainContainer,
                 styles.header,
-                { marginVertical: scaleHeight(20) }
+                { paddingBottom: scaleHeight(20) }
               ]}
             >
               <Text
@@ -308,6 +316,7 @@ export default class ChangeBalance extends Component {
             </TouchableOpacity>
           </View>
               </KeyboardAwareScrollView>
+        </View>
         {/*</BottomSheet>*/}
           </Modal>
         <SuccessModal
@@ -350,7 +359,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    paddingHorizontal: scale(5)
+    paddingHorizontal: scale(5),
+
   },
   bareIcon: {
     color: "#138516",
@@ -362,7 +372,7 @@ const styles = StyleSheet.create({
     position: "absolute"
   },
   icon: {
-    borderRadius: 50,
+    // borderRadius: 50,
     fontSize: 25,
     padding: 6,
       color: "#138516",
