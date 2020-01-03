@@ -6,34 +6,37 @@ import GreenButton from '../components/GreenButton';
 import { Icon } from 'react-native-elements';
 import { scale, scaleHeight } from '../helpers/scale';
 
-const SuccessModal = (props) =>(
-  <ScrollView>
-    <BottomSheet
-      visible={props.visible}
-      onBackButtonPress={props._toggleView}
-    >
+const SuccessModal = (props) =>{
+  console.log(props)
+  return (
+      <ScrollView>
+          <BottomSheet
+              visible={props.visible}
+              onBackButtonPress={props._toggleView}
+          >
 
-{props.bare && <TouchableOpacity activeOpacity={0.7} style={[ styles.bareIcon ]} onPress={props._toggleView}>
-        <Icon name='close'/>
-      </TouchableOpacity>}
-      {!props.bare && <TouchableOpacity activeOpacity={0.7} style={[ styles.icon ]} onPress={props._toggleView}>
-        <Icon name='close'/>
-      </TouchableOpacity>}
-      <View style={styles.bottomNavigationView}>
-          <View style={[{alignSelf: 'center',alignItems:'center'}]}>
-            <Image source={require('../../assets/icons/check_circle.png')} style={[theme.pad_bottom30]}/>
-            {props.subtitle && <Text style={[{textAlign: 'center',color:'#138516', fontSize: 20, fontFamily: 'nunito-bold'}, theme.pad_bottom20]}>{props.subtitle}</Text>}
-            {props.message && <Text style={[{textAlign: 'center', fontSize: scale(14)}]}>
-              {props.message}
-            </Text>}
-            {props.smallText && <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(10), color:'#C6C6C6'}]}>
-              {props.smallText}
-            </Text>}
-          </View>
-      </View>
-    </BottomSheet>
-  </ScrollView>
-);
+              {!!props.bare && <TouchableOpacity activeOpacity={0.7} style={[ styles.bareIcon ]} onPress={props._toggleView}>
+                  <Icon name='close'/>
+              </TouchableOpacity>}
+              {!props.bare && <TouchableOpacity activeOpacity={0.7} style={[ styles.icon ]} onPress={props._toggleView}>
+                  <Icon name='close'/>
+              </TouchableOpacity>}
+              <View style={styles.bottomNavigationView}>
+                  <View style={[{alignSelf: 'center',alignItems:'center'}]}>
+                      <Image source={require('../../assets/icons/check_circle.png')} style={[theme.pad_bottom30]}/>
+                      {!!props.subtitle && <Text style={[{textAlign: 'center',color:'#138516', fontSize: 20, fontFamily: 'nunito-bold'}, theme.pad_bottom20]}>{props.subtitle}</Text>}
+                      {!!props.message && <Text style={[{textAlign: 'center', fontSize: scale(14)}]}>
+                          {props.message}
+                      </Text>}
+                      {!!props.smallText && <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(10), color:'#C6C6C6'}]}>
+                          {props.smallText}
+                      </Text>}
+                  </View>
+              </View>
+          </BottomSheet>
+      </ScrollView>
+  )
+};
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   MainContainer: {

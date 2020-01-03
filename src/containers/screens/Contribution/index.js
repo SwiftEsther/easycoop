@@ -45,11 +45,16 @@ class Contributions extends Component {
   }
 
   showChangeForm = () => {
-    this.props._toggleView();
+    // this.props._toggleView();
     this.setState({
       showChangeBalance: !this.state.showChangeBalance
     });
   };
+
+  componentDidUpdate(prevProps, prevState){
+    console.log(prevProps.visible)
+    console.log(this.props.visible)
+  }
 
   changeSavings = () => {
     this.setState({
@@ -86,12 +91,17 @@ class Contributions extends Component {
         >
           <TouchableOpacity
             activeOpacity={0.7}
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              paddingBottom: 10,
-              paddingRight: 10
-            }}
+            style={[
+                {
+                    flexDirection: "row",
+                    // justifyContent: "flex-end",
+                    alignSelf:'flex-end',
+                    marginBottom:scale(10),
+                    paddingBottom: 10,
+                    paddingRight: 10
+                },
+                styles.icon
+            ]}
           >
             <Icon
               name="close"
@@ -230,15 +240,15 @@ class Contributions extends Component {
                 </Text>
               </TouchableOpacity>
             </View>
+              <ChangeBalance
+                  visible={this.state.showChangeBalance}
+                  _toggleView={this.changeSavings}
+                  back={this.showChangeForm}
+                  data={data}
+                  user={userData}
+              />
           </View>
         </BottomSheet>
-        <ChangeBalance
-          visible={this.state.showChangeBalance}
-          _toggleView={this.changeSavings}
-          back={this.showChangeForm}
-          data={data}
-          user={userData}
-        />
         {/* <ViewRequest visible={this.state.request} _toggleView={this.editRequest} back={this.showRequest}/> */}
       </KeyboardAwareScrollView>
     );

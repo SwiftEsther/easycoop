@@ -63,7 +63,7 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
             forceNo: "",
             addressLine1: "my address",
             addressLine2: "my address 2",
-            addressLine3: "my adress 3",
+            addressLine3: "my address 3",
             cooperative: "my coperateive",
             cooperativeId: 2,
             cooperativeName: "my cop name",
@@ -95,7 +95,6 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
         Keyboard.dismiss();
         const {firstName, lastName, emailAddress, phoneNumber, payPoint, rank, forceNumber, addressLine1, addressLine2, addressLine3, cooperative, cooperativeId, cooperativeName, country, forwardedToCooperative, gender, genderId, id, joinCooperative, makeClaim, middleName, registerCooperative, rejectionReason, state, stateId, totalRecords, treated} = this.state;
 
-        console.log(postSignUp)
         this.setState({
             spinner: true,
             modalLoader: true
@@ -119,7 +118,7 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
                     })
                     if (res.status === 200) {
                         this.props.showToast('Successfully registered', 'success');
-                        this.setState({success: true, successMessage: res.message})
+                        this.setState({success: true, successMessage: res.data.message})
                     } else {
                         this.props.showToast('Error', 'error');
                     }
@@ -148,6 +147,9 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
     showSuccessModal = () => this.setState({success: !this.state.success})
 
     navigate = () => {
+        this.setState({
+            success:false
+        })
         this.props.navigation.navigate("Login")
     }
 
@@ -431,11 +433,19 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
                         </View>
                     }
                 </KeyboardAwareScrollView>
-                <CustomModal visible={this.state.showTC} _toggleView={() => this.setState({showTC: !this.state.showTC})}
-                             handleClick={this.acceptTerms}/>
-                <SuccessModal visible={this.state.success} _toggleView={this.navigate} 
-                    subtitle="Registration Complete"
-                    message={`${this.state.successMessage}`}/>
+                {!!this.state.showTC && ( <CustomModal visible={this.state.showTC} _toggleView={() => {
+                    this.setState({showTC: !this.state.showTC})
+                }} handleClick={this.acceptTerms}/>)}
+
+
+                {!!this.state.success && (
+                    <SuccessModal visible={this.state.success}
+                                  _toggleView={this.navigate}
+                                  subtitle="Registration Complete"
+                                  message={`${this.state.successMessage}`}
+                    />
+                )}
+
             </SafeAreaView>
         );
     }
