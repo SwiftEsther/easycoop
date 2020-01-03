@@ -35,7 +35,7 @@ import GreenLineSeparator from "../../../components/GreenLineSeparator";
 import Tabs from "../../../components/Tabs";
 import ApplyLoanModal from "./ApplyLoanModal";
 import ApplicationSuccessful from "./ApplicationSuccessful";
-import ApplicationStatus from "./ApplicationStatus";
+import ApplicationStatus from "../../../components/ApplicationStatus";
 import EditApplication from "./EditApplication";
 import ReviewApplication from "./ReviewApplication";
 import Header from "../../../components/Header";
@@ -215,6 +215,7 @@ class index extends Component {
   };
 
   render() {
+    const switchToGuarantors = this.props.navigation.state.params.switchToGuarantors;
     return (
       <>
         <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
@@ -247,7 +248,6 @@ class index extends Component {
                 notificationsCount={this.state.guarantorRequests.length}
               />
 
-              {/* {this.state.showForceInfo && <View></View>} */}
               {this.state.showLoan && (
                 <View style={{ backgroundColor: "#f4f6fa" }}>
                   <View style={[style.container2]}>
@@ -417,7 +417,7 @@ class index extends Component {
                   </TouchableOpacity>
                 </View>
               )}
-              {this.state.showGuarantorRequests && (
+              {switchToGuarantors||this.state.showGuarantorRequests && (
                 <View>
                   <FlatList
                     data={this.state.guarantorRequests}
