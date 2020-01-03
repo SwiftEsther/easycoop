@@ -52,48 +52,97 @@ export default class ApplicationStatus extends Component {
     render() {
         const {width, height} = Dimensions.get('window');
         return (
-            <ScrollView>
-                <BottomSheet
-                    visible={this.props.visible}
-                    onBackButtonPress={this.props._toggleView}
+          <ScrollView>
+            <BottomSheet
+              visible={this.props.visible}
+              onBackButtonPress={this.props._toggleView}
+            >
+              <View>
+                <TouchableOpacity activeOpacity={0.7} style={[styles.icon]}>
+                  <Icon name="close" onPress={this.props._toggleView} />
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.bottomNavigationView}>
+                <View
+                  style={[
+                    styles.MainContainer,
+                    styles.header,
+                    { marginVertical: scaleHeight(20) }
+                  ]}
                 >
-                    <View >
-                        <TouchableOpacity activeOpacity={0.7} style={[styles.icon]}>
-                            <Icon name='close' onPress={this.props._toggleView}/>
-                        </TouchableOpacity>
-                    </View>
-                    
-                    <View style={styles.bottomNavigationView}>
-                        <View style={[styles.MainContainer, styles.header, { marginVertical: scaleHeight(20) }]}>
-                            <Text style={[{ width: width, paddingLeft: scale(20), fontFamily: 'nunito-bold', fontSize: 20 }]}>Request was <Text style={{color: '#f80000'}}>Not Approved</Text></Text>
-                        </View>
-                        <View style={[{marginHorizontal: scale(20), flex: 3 }]}>
-                            <View >
-                                <Text style={{color: '#138516', fontFamily: 'nunito-bold'}}>Admin's Note: </Text>
-                                <Text style={{color: '#707070', backgroundColor: '#f8f8f8', fontFamily: 'nunito-medium', fontSize: 13,marginVertical: scaleHeight(10), padding: scale(20)}}>
-                                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor si
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={[styles.buttons, {marginBottom: 50}]}>
-                            <TouchableOpacity activeOpacity={0.7} style={[styles.link]} onPress={this.showChangeForm}>
-                                <WhiteButton button_text='Delete Application'/>
-                            </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={0.7} style={[styles.link]} onPress={this.showDeleteModal}>
-                                <GreenButton button_text='Apply Again' />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    
-                </BottomSheet>
-                <SuccessModal visible={this.state.success} _toggleView={this.toggleRequest} 
-                                subtitle="Request Submitted Successfully"
-                                smallText={`${this.state.successMessage}`}/>
-                <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
-                    subtitle="Request Submission Failed"
-                    smallText={`${this.state.failureMessage}`}/>
-            </ScrollView>
-        )
+                  <Text
+                    style={[
+                      {
+                        width: width,
+                        paddingLeft: scale(20),
+                        fontFamily: "nunito-bold",
+                        fontSize: 20
+                      }
+                    ]}
+                  >
+                    Request was{" "}
+                    {!this.props.rejected && (
+                      <Text style={{ color: "#138516" }}>Approved</Text>
+                    )}
+                    {this.props.rejected && (
+                      <Text style={{ color: "#f80000" }}>Not Approved</Text>
+                    )}
+                  </Text>
+                </View>
+                <View style={[{ marginHorizontal: scale(20), flex: 3 }]}>
+                  <View>
+                    <Text
+                      style={{ color: "#138516", fontFamily: "nunito-bold" }}
+                    >
+                      Admin's Note:{" "}
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#707070",
+                        backgroundColor: "#f8f8f8",
+                        fontFamily: "nunito-medium",
+                        fontSize: 13,
+                        marginVertical: scaleHeight(10),
+                        padding: scale(20)
+                      }}
+                    >
+                      {`${this.props.rejectionNote}`}
+                    </Text>
+                  </View>
+                </View>
+                <View style={[styles.buttons, { marginBottom: 50 }]}>
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    style={[styles.link]}
+                    onPress={this.props.deleteApplication}
+                  >
+                    <WhiteButton button_text="Delete Application" />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    activeOpacity={0.7}
+                    style={[styles.link]}
+                    onPress={this.props.reApply}
+                  >
+                    <GreenButton button_text="Apply Again" />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </BottomSheet>
+            <SuccessModal
+              visible={this.state.success}
+              _toggleView={this.toggleRequest}
+              subtitle="Request Submitted Successfully"
+              smallText={`${this.state.successMessage}`}
+            />
+            <FailureModal
+              visible={this.state.failure}
+              _toggleView={this.toggleFailure}
+              subtitle="Request Submission Failed"
+              smallText={`${this.state.failureMessage}`}
+            />
+          </ScrollView>
+        );
     }
 }
 

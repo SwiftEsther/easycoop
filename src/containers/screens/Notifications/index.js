@@ -51,8 +51,18 @@ class index extends Component {
                      spinner: false,
                      notifications: [],
                      viewApplication: false,
-
+                    requestStatusModal: false,
+                    requestRejected: false,
+                    rejectionNote:''
                    };
+                 }
+
+                 viewRequest = () => {
+                   this.setState({
+                     requestStatusModal: !this.state.requestStatusModal,
+                    //  requestRejected: rejected,
+                    //  rejectionNote
+                   });
                  }
 
                  changeState = value => {
@@ -106,24 +116,24 @@ class index extends Component {
                      return (
                        <View style={[style.item, { backgroundColor }]}>
                          {item.notificationTypeId === 1 && (
-                           <TouchableHighlight key={item.value} underlayColor="#f7f7f7" activeOpacity={0.75}
-                                    onPress={() => {
-                                        this.props.navigation.navigate(
-                                          "LoanPage",
-                                          {
-                                            switchToGuarantors: true
-                                          }
-                                        );
-                                    }}
-                >
-                           <GeneralNotification data={item} /></TouchableHighlight>
+                           <TouchableHighlight
+                             key={item.value}
+                             underlayColor="#f7f7f7"
+                             activeOpacity={0.75}
+                             onPress={() => {
+                               this.props.navigation.navigate("LoanPage", {
+                                 switchToGuarantors: true
+                               });
+                             }}
+                           >
+                             <GeneralNotification data={item} />
+                           </TouchableHighlight>
                          )}
                          {item.notificationTypeId == 2 &&
                            item.requestTagId == 2 && <LoanTile data={item} />}
                          {item.notificationTypeId == 2 &&
                            item.requestTagId == 1 && (
-                             
-                             <WithdrawTile data={item} />
+                             <WithdrawTile data={item}/>
                            )}
                          {item.type === "requests" && (
                            <GuarantorRequest data={item} />
@@ -182,7 +192,11 @@ class index extends Component {
                          />
                        </View>
                        <Header navigation={{ ...this.props.navigation }} />
-                       <ApplicationStatus visible={this.state.viewApplication} />
+                       <ApplicationStatus 
+                       visible={this.state.requestStatusModal} 
+                       rejected={this.state.requestRejected}
+                       rejectionNote={this.state.rejectionNote}
+                       />
                      </SafeAreaView>
                    );
                  }
