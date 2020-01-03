@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
-import {View, Image, Text, StatusBar, TouchableOpacity, Linking} from 'react-native';
+import {View, Image, Text, StatusBar, TouchableOpacity} from 'react-native';
 import theme from '../../../../assets/styles/globalStyles';
 import {Colors} from '../../../lib/constants/colors';
 import style from './style';
 import Circle from '../../../components/Circle';
+import TouchItem from "../../../components/TouchItem/_TouchItem";
+import { Linking } from 'expo';
 
 export default class Onboarding extends Component {
     constructor(props) {
         super(props);
+    }
+    openLink = (link) => {
+        if(link === 'fb'){
+            Linking.openURL('https://www.facebook.com/polcoop/');
+        }
     }
 
     render() {
@@ -22,7 +29,9 @@ export default class Onboarding extends Component {
                     <View style={[style.iconGroup]}>
                         <Image source={require('../../../../assets/icons/twitter.png')}/>
                         <Image source={require('../../../../assets/icons/instagram.png')} />
+                        <TouchItem onPress={() => this.openLink('fb')}>
                         <Image source={require('../../../../assets/icons/facebook_logo.png')} />
+                        </TouchItem>
                     </View>
                     <View style={[style.alignCenter]}>
                         <View style={style.separator} />

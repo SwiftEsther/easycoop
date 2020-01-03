@@ -25,6 +25,7 @@ import { hideToast, showToast, showPersistentToast } from "../components/Toast/a
 import { connect } from 'react-redux'
 import SideMenu from "../containers/screens/SideMenu";
 import {logoutUserSuccess} from "../containers/screens/Login/actions/login.actions";
+import StatusBar from "../components/StatusBar/StatusBar";
 
 
 import TransactionPage from '../containers/screens/transactionHistory/index';
@@ -124,7 +125,7 @@ class App extends React.Component {
             <View style={{flex: 1, backgroundColor: '#fff'}} collapsable={false}
                 //   {...this._panResponder.panHandlers}
                   >
-                {/*<StatusBar/>*/}
+                <StatusBar/>
                 <SafeAreaView style={{flex: 1}}>
                     {this.props.toastShow && <Toast
                         show={this.props.toastShow}

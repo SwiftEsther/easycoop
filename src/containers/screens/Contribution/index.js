@@ -91,12 +91,17 @@ class Contributions extends Component {
         >
           <TouchableOpacity
             activeOpacity={0.7}
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              paddingBottom: 10,
-              paddingRight: 10
-            }}
+            style={[
+                {
+                    flexDirection: "row",
+                    // justifyContent: "flex-end",
+                    alignSelf:'flex-end',
+                    marginBottom:scale(10),
+                    paddingBottom: 10,
+                    paddingRight: 10
+                },
+                styles.icon
+            ]}
           >
             <Icon
               name="close"

@@ -119,7 +119,7 @@ class index extends Component {
           animation="none"
           overlayColor={"rgba(0, 0, 0, 0.5)"}
         />
-        <StatusBar backgroundColor={colors.white} barStyle="dark-content" />
+        {/*<StatusBar backgroundColor={colors.white} barStyle="dark-content" />*/}
         <SafeAreaView style={[theme.container, { fontFamily: "nunito-bold" }]}>
           <View style={[theme.container, { backgroundColor: "#f4f6fa" }]}>
             <KeyboardAwareScrollView

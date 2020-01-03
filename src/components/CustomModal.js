@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Platform, Text, Image, ScrollView, ScrollViewBase } from 'react-native';
+import { StyleSheet, View, Platform, Text, Image, ScrollView, ScrollViewBase, TouchableOpacity } from 'react-native';
 import { BottomSheet } from 'react-native-btr';
 import theme from '../../assets/styles/globalStyles';
 import GreenButton from '../components/GreenButton';
@@ -14,12 +14,16 @@ const CustomModal = (props) =>(
       onBackdropPress={props._toggleView}
     >
       <View style={styles.bottomNavigationView}>
-          <Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView}/>
+          {/*<Icon name='close' iconStyle={[theme.typo_bold, styles.icon]} handlePress={props._toggleView}/>*/}
+
+          <TouchableOpacity activeOpacity={0.7} style={[theme.typo_bold, styles.icon]}  onPress={props._toggleView}>
+              <Icon name='close'/>
+          </TouchableOpacity>
           <View style={[theme.center, theme.padding_left_right_25, {paddingTop: 270}]}>
             <Image source={require('../../assets/icons/take_a_note_2.png')} style={[theme.pad_bottom20]}/>
             <Text style={[theme.typo_bold, theme.font15, theme.pad_bottom]}>Terms and Conditions</Text>
-            <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(14)}]}>
-              Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. The passage is attributed to an unknown typesetter in the 15th century who is thought to have scrambled parts of Cicero's De Finibus Bonorum et Malorum for use in a type specimen book. It usually begins with:
+            <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(14), lineHeight:scale(18), color:'#000d37'}]}>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
             </Text>
             <View style={styles.button}>
               <GreenButton button_text='I Accept Terms &amp; Conditions' handlePress={props.handleClick}/>
@@ -47,15 +51,17 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+      paddingVertical:scale(30)
   },
   icon: {
     backgroundColor: '#fff', 
     borderRadius:50, 
     fontSize: scale(25), 
     padding:scale(6), 
-    top: 16, 
+    top: scale(-40),
     right:0, 
-    position: 'absolute'
+    position: 'absolute',
+      zIndex:9999
   },
   button: {
     marginTop: 20, 
