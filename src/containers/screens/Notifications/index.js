@@ -4,6 +4,7 @@ import {
   StatusBar,
   StyleSheet,
   TouchableOpacity,
+  TouchableHighlight,
   Image,
   SafeAreaView,
   Text,
@@ -33,6 +34,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import CustomInput from "../../../components/CustomTextInput/CustomInput";
 import Space from "../../../components/Space";
 import GreenButton from "../../../components/GreenButton";
+import ApplicationStatus from "../../../components/ApplicationStatus";
 import { scale, scaleHeight } from "../../../helpers/scale";
 import { getMemberNotifications } from "../../../lib/api/url";
 import { apiRequest } from "../../../lib/api/api";
@@ -44,7 +46,9 @@ export default class index extends Component {
 
                    this.state = {
                      spinner: false,
-                     notifications: []
+                     notifications: [],
+                     viewApplication: false,
+
                    };
                  }
 
@@ -95,61 +99,27 @@ export default class index extends Component {
                  };
 
                  render() {
-                   const DATA = [
-                     {
-                       type: "savings",
-                       id: "#AHH232938",
-                       title: "Voluntary savings credited - Jan",
-                       time: "3:30am"
-                     },
-                     {
-                       type: "savings",
-                       id: "#GHH232939",
-                       title: "Voluntary savings credited - Jan",
-                       time: "3:30am"
-                     },
-                     {
-                       type: "requests",
-                       name: "Mr Olabisi Suleiman",
-                       title: "Voluntary savings credited",
-                       amount: "200,000,000",
-                       time: "3:30am"
-                     },
-                     {
-                       type: "withdrawal",
-                       id: "#AHH232938",
-                       title: "Voluntary savings credited",
-                       status: "Not Approved",
-                       amount: "200,000,000",
-                       time: "3:30am"
-                     },
-                     {
-                       type: "loan",
-                       id: "#AHH232938",
-                       title: "Voluntary savings credited",
-                       status: "Not Approved",
-                       amount: "200,000,000",
-                       time: "3:30am"
-                     },
-                     {
-                       type: "general",
-                       id: "#AHH232938",
-                       title: "Loan Request",
-                       status: "been Approved and Credited",
-                       time: "3:30am"
-                     }
-                   ];
-
                    function Item({ backgroundColor, title, item, type }) {
                      return (
                        <View style={[style.item, { backgroundColor }]}>
                          {item.notificationTypeId === 1 && (
-                           <GeneralNotification data={item} />
+                           <TouchableHighlight key={item.value} underlayColor="#f7f7f7" activeOpacity={0.75}
+                                    onPress={() => {
+                                        this.props.navigation.navigate(
+                                          "LoanPage",
+                                          {
+                                            switchToGuarantors: true
+                                          }
+                                        );
+                                    }}
+                >
+                           <GeneralNotification data={item} /></TouchableHighlight>
                          )}
                          {item.notificationTypeId == 2 &&
                            item.requestTagId == 2 && <LoanTile data={item} />}
                          {item.notificationTypeId == 2 &&
                            item.requestTagId == 1 && (
+                             
                              <WithdrawTile data={item} />
                            )}
                          {item.type === "requests" && (
@@ -209,6 +179,7 @@ export default class index extends Component {
                          />
                        </View>
                        <Header navigation={{ ...this.props.navigation }} />
+                       <ApplicationStatus visible={this.state.viewApplication} />
                      </SafeAreaView>
                    );
                  }

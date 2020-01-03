@@ -6,7 +6,7 @@ import GreenButton from '../../../components/GreenButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { Icon } from 'react-native-elements';
 import { scale, scaleHeight } from '../../../helpers/scale';
-import ApplicationStatus from '../Loan/ApplicationStatus';
+import ApplicationStatus from '../../../components/ApplicationStatus';
 import ViewWithdrawal from './ViewWithdrawal';
 
 export default class RequestSuccessful extends Component{
