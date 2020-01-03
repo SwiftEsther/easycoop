@@ -23,6 +23,8 @@ import Spinner from "react-native-loading-spinner-overlay";
 import { formatBalance } from "../../../lib/utils/helpers";
 import { apiRequest } from "../../../lib/api/api";
 import Toast from "../../../components/Toast/Toast";
+import Modal from "react-native-modal";
+
 import { updateContributionAmount } from "../../../lib/api/url";
 
 export default class ChangeBalance extends Component {
@@ -136,46 +138,86 @@ export default class ChangeBalance extends Component {
           animation="none"
           overlayColor={"rgba(0, 0, 0, 0.5)"}
         />
-        <BottomSheet
-          visible={this.props.visible}
-          onBackButtonPress={this.props._toggleView}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between"
-            }}
+
+          <Modal
+              // animationType={"fade"}
+              // transparent={true}
+              // onRequestClose={this.closeModal}
+              // onSwipe={() => this.closeModal()}
+              // swipeDirection="down"
+
+              // avoidKeyboard={true}
+              animationIn={'slideInUp'}
+              onBackdropPress={this.props._toggleView}
+              isVisible={this.props.visible}
+              style={{margin: 0}}
           >
-            <TouchableOpacity activeOpacity={0.7} onPress={this.props.back}>
-              <Text
-                style={[
-                  {
-                    color: "#fff",
-                    fontFamily: "nunito-bold",
-                    fontSize: 20,
-                    marginTop: scaleHeight(5),
-                    paddingVertical: scale(10),
-                    paddingHorizontal: scale(10)
-                  }
-                ]}
+              <View
+                  style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      position: "absolute",
+                      width:'100%',
+                      zIndex:999999,
+                      top: scale(80),
+                      // top: -30,
+                      // right: 0,
+                  }}
               >
-                Back
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              style={{
-                paddingVertical: scale(9),
-                paddingHorizontal: scaleHeight(15)
-              }}
-            >
-              <Icon
-                name="close"
-                iconStyle={[styles.icon]}
-                onPress={this.props._toggleView}
-              />
-            </TouchableOpacity>
-          </View>
+                  <TouchableOpacity activeOpacity={0.7} onPress={this.props.back}>
+                      <Text
+                          style={[
+                              {
+                                  color: "#fff",
+                                  fontFamily: "nunito-bold",
+                                  fontSize: 20,
+                                  marginTop: scaleHeight(5),
+                                  paddingVertical: scale(10),
+                                  paddingHorizontal: scale(10)
+                              }
+                          ]}
+                      >
+                          Back
+                      </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={[{
+                          paddingVertical: scale(9),
+                          paddingHorizontal: scaleHeight(15)
+                      },styles.icon]}
+                  >
+                      <Icon
+                          name="close"
+                          // iconStyle={[styles.icon]}
+                          onPress={this.props._toggleView}
+                      />
+                  </TouchableOpacity>
+              </View>
+        {/*<BottomSheet*/}
+          {/*visible={this.props.visible}*/}
+          {/*onBackButtonPress={this.props._toggleView}*/}
+        {/*>*/}
+              <KeyboardAwareScrollView
+                  keyboardShouldPersistTaps={"handled"}
+                  enableOnAndroid={true}
+                  scrollEnabled={true}
+                  alwaysBounceVertical={false}
+                  bounces={false}
+                  contentContainerStyle={{
+                      borderTopLeftRadius: scale(10),
+                      borderTopRightRadius: scale(10),
+                  }}
+                  style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      width: '100%',
+                      top: scale(150),
+                      borderTopLeftRadius: scale(10),
+                      borderTopRightRadius: scale(10),
+                      backgroundColor: "white",
+                  }}
+              >
 
           {this.state.showToast && (
             <Toast
@@ -265,7 +307,9 @@ export default class ChangeBalance extends Component {
               <GreenButton button_text="Submit Request" />
             </TouchableOpacity>
           </View>
-        </BottomSheet>
+              </KeyboardAwareScrollView>
+        {/*</BottomSheet>*/}
+          </Modal>
         <SuccessModal
           visible={this.state.success}
           _toggleView={this.toggleRequest}
@@ -301,7 +345,7 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: "#fff",
-    height: height / 1.4,
+    // height: height / 1.4,
     justifyContent: "flex-start",
     alignItems: "flex-start",
     borderTopLeftRadius: 20,
@@ -321,7 +365,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     fontSize: 25,
     padding: 6,
-    color: "#138516",
+      color: "#138516",
     backgroundColor: "#f5f5f5"
   },
   back: {},

@@ -44,15 +44,18 @@ const authNavigation = createStackNavigator({
 );
 
 const homeNavigation = createDrawerNavigator({
+        Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     ResetPassword: { screen: ChangePasswordPage, navigationOptions: { header: null, tabBarVisible: false } },
     Support: { screen: SupportPage, navigationOptions: { header: null, tabBarVisible: false } },
     NextOfKinUpdate: { screen: NextOfKin, navigationOptions: { header: null, tabBarVisible: false } },
-    Profile: { screen: Profile, navigationOptions: { header: null, tabBarVisible: false } },
-    Dashboard: { screen: Dashboard, navigationOptions: { header: null, tabBarVisible: false } },
     LoanPage: { screen: LoanPage, navigationOptions: { header: null, tabBarVisible: false } },
     RequestHistory: {screen: RequestHistory, navigationOptions: { header: null, tabBarVisible: false }},
     TransactionPage: {screen: TransactionPage, navigationOptions: { header: null, tabBarVisible: false }},
-        Notifications: {screen: Notifications, navigationOptions: { header: null, tabBarVisible: false }}
+        Notifications: {screen: Notifications, navigationOptions: { header: null, tabBarVisible: false }},
+        Profile: { screen: Profile, navigationOptions: { header: null, tabBarVisible: false } },
+
+        // Profile: Profile,
+
     },
   {
     initialRouteName:  'Dashboard',
@@ -67,9 +70,11 @@ const homeNavigation = createDrawerNavigator({
 const AppContainer =  createAppContainer(createSwitchNavigator(
     {
       entryNavigation:entryNavigation,
-      authNavigation: authNavigation,
+
+        authNavigation: authNavigation,
       homeNavigation: homeNavigation,
       Walkthrough: Walkthrough,
+
     },
     {
         initialRouteName: 'entryNavigation'

@@ -197,6 +197,7 @@ class index extends Component {
           backgroundColor="#fff"
           barStyle="dark-content"
         />
+          <Header navigation={{ ...this.props.navigation }} />
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps={"handled"}
           enableOnAndroid={true}
@@ -219,7 +220,7 @@ class index extends Component {
                 <View>
                     <Text style={[style.label]}>First Name</Text>
                   <View style={[style.input]}>
-                    <CustomInput 
+                    <CustomInput
                         editable={false} selectTextOnFocus={false}
                         disabled={true}
                       value={this.state.firstName}
@@ -520,7 +521,7 @@ class index extends Component {
               isDarkModeEnabled={colorScheme === 'dark'}
               // minimumDate={new Date()}
           />
-        <Header navigation={{ ...this.props.navigation }} />
+
       </SafeAreaView>
     );
   }
@@ -543,3 +544,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(index);
+
