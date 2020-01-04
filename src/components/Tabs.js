@@ -47,13 +47,16 @@ const style = StyleSheet.create({
         fontSize: 15,
         ...systemWeights.bold,
         paddingVertical: scaleHeight(16),
-        marginBottom: scaleHeight(28),
+        // marginBottom: scaleHeight(28),
+        fontFamily:'nunito-bold',
         backgroundColor: '#e8e7e7',
         color: '#707070',
         textAlign: 'center'
     },
     buttonChild: {
-        flex: 1
+        flex: 1,
+        height:scale(52),
+        justifyContent:'center'
     },
     container: {
         marginHorizontal: scale(30),

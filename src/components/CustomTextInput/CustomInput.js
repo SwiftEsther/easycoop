@@ -115,7 +115,7 @@ export default class CustomInput extends BaseInput {
                     ]}
                     value={value}
                     onBlur={this._onBlur}
-                    onChange={this._onChange}
+                    // onChange={this._onChange}
                     onFocus={this._onFocus}
                     underlineColorAndroid={'transparent'}
                     maxLength={maxLength}

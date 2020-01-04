@@ -138,12 +138,19 @@ componentDidMount() {
                          {/*}*/}
                        {/*>*/}
                          {!this.props.dashboard && (
+                             <TouchableOpacity
+                                 activeOpacity={0.7}
+                                 onPress={() =>
+                                     this.props.navigation.navigate("Dashboard")
+                                 }
+                             >
                            <Entypo
                              name="home"
                              size={20}
                              style={styles.icons}
                              //color={this.props.activeItemKey === 'Dashboard'?'white':'black'}
                            />
+                             </TouchableOpacity>
                          )}
                          {this.props.dashboard && (
                            <TouchableOpacity

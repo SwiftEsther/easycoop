@@ -25,7 +25,7 @@ export function showToast(message, type, timeout = 5000, path) {
 }
 
 export function hideToast() {
-    
+
     if (redirectPath) {
         setTimeout(() => {
             NavigationService.goBack(redirectPath);

@@ -32,6 +32,7 @@ export const calculateLoan = loan + "/loan/v1/api/calculateloan";
 //--PROFILE URLS
 export const postNextOfKin = credentials + "/credentials/v1/api/saveusernextofkindetailsmultiple";
 export const getAllGuarantors = loan + "/loan/v1/api/viewallguarantors";
+export const getGuarantorForUser = account + "/account/v1/api/getmemberbyusernameandcoopid";
 export const getMemberNotificationsCount = account + "/account/v1/api/getcountcfnotificationssenttomember";
-export const postLoanAppliaction = loan + "/loan/v1/api/submitloanapplication";
 export const approveRejectGuarantorRequest = loan + "/loan/v1/api/approverejectguarantorrequest";
+export const postApplyForLoan = loan + "/loan/v1/api/submitloanapplication";
