@@ -92,6 +92,7 @@ class WithdrawTile extends Component {
                 style={{
                   marginTop: scaleHeight(15)
                 }}
+                onPress={this.props.viewRequest}
               >
                 <Text
                   style={[
