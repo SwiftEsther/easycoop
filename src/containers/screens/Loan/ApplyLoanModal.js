@@ -141,6 +141,25 @@ class ApplyLoanModal extends Component {
 
     onLoanApply = () => {
 
+        console.log(this.state.guarantors)
+        let guarantors = this.state.guarantors.map(g => {
+            return {
+                ...g,
+                    // "active": true,
+                    // "approved": true,
+                    // "lastName": "string",
+                    "loanApplicationId": 0,
+                    "memberProfileId": g.id,
+                    // "middleName": "string",
+                    // "rejected": true,
+                    "requesterAmount": 0,
+                    "requesterFirstName": "",
+                    "requesterLastName": "",
+                    "requesterMiddleName": "",
+                    // "username": "string"
+
+            }
+        })
         this.setState(
             {
                 spinner: true,
@@ -174,7 +193,7 @@ class ApplyLoanModal extends Component {
                         //     "requesterMiddleName": "string",
                         //     "username": "string"
                         // }
-                        ...this.state.guarantors
+                        ...guarantors
                     ],
                     "id": 0,
                     "insuranceAmount": 0,
