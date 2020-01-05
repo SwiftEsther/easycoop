@@ -22,7 +22,7 @@ export default StyleSheet.create({
     imageStyles: {
         // width: scale(deviceWidth),
         width:'100%',
-        position: 'absolute',
+        // position: 'absolute',
         height: scale(420),
         // top: scale(-210),
     },

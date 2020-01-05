@@ -228,7 +228,7 @@ class index extends Component {
             overlayColor={"rgba(0, 0, 0, 0.5)"}
           />
           <ScrollView
-            keyboardShouldPersistTaps={"handled"}
+            keyboardShouldPersistTaps={"never"}
             enableOnAndroid={true}
           >
             <View
@@ -453,11 +453,15 @@ class index extends Component {
             </View>
           </ScrollView>
           <Header navigation={{ ...this.props.navigation }} />
-          <ApplyLoanModal
-            visible={this.state.loanApply}
-            _toggleView={this.showLoanApply}
-            loanTypes={this.state.loanTypes}
-          />
+            {!!this.state.loanApply && (
+                <ApplyLoanModal
+                    visible={this.state.loanApply}
+                    _toggleView={() => this.setState({ loanApply: false })}
+                    loanTypes={this.state.loanTypes}
+                    {...this.props}
+                />
+            )}
+
           <RequestApprovalModal
             action={this.state.action}
             guarantor={this.state.guarantor}

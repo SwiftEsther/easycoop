@@ -6,9 +6,9 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor:'red',
         position:'absolute',
-        zIndex:99999,
+        zIndex:99999999,
+
         top:scale(25),
-        // width:'100%',
         marginHorizontal:scale(20),
         borderRadius:scale(10),
         paddingVertical:10,
