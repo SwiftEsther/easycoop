@@ -554,7 +554,7 @@ class ApplyLoanModal extends Component {
                                                 >
                                                     <View>
                                                         <Text style={[styles.label]}>
-                                                            Loan Summary
+                                                            Loan Type
                                                         </Text>
                                                         <View
                                                             style={[
@@ -1034,7 +1034,7 @@ class ApplyLoanModal extends Component {
                                                     >
                                                         <View>
                                                             <Text style={[styles.label]}>
-                                                                Loan Summary
+                                                                Loan Type
                                                             </Text>
                                                             <View
                                                                 style={[
