@@ -45,12 +45,17 @@ class ChangePassword extends Component {
             spinner: false,
             oldPassword: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            showDetails: true
         }
     }
 
     changeState = (value) => {
         this.setState(value);
+    }
+
+    toggleCaret = () => {
+        this.setState({showDetails: !this.state.showDetails})
     }
 
     validate = async () => {
@@ -143,13 +148,18 @@ class ChangePassword extends Component {
                     <View style={{marginTop: scaleHeight(70)}}>
                         <View style={[style.pageheader]}>
                             <Text>Settings</Text>
+                            <TouchableOpacity
+                activeOpacity={0.7}
+                onPress={this.toggleCaret}
+              >
                             <AntDesign
-                                name="caretup"
+                                name={this.state.showDetails?"caretdown":"caretup"}
                                 size={scale(15)}
                                 color="#138516"
                                 style={style.icon}
-                            />
+                            /></TouchableOpacity>
                         </View>
+                        {this.state.showDetails && <>
                         <View style={{marginTop: scaleHeight(38), marginBottom: scaleHeight(20)}}>
                             <Text style={{color: '#138516', fontFamily: 'nunito-bold', paddingHorizontal: scale(18)}}>Password
                                 Reset Option</Text>
@@ -185,6 +195,7 @@ class ChangePassword extends Component {
                                 </View>
                             </View>
                         </View>
+                        </>}
                     </View>
                 </KeyboardAwareScrollView>
                 <Header navigation={{...this.props.navigation}}/>

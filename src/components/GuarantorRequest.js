@@ -127,7 +127,7 @@ class GuarantorRequest extends Component {
                 source={require("../../assets/icons/green_check_circle.png")}
               />
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.7} onPress={this.props.reject}>
+            <TouchableOpacity activeOpacity={0.7} onPress={this.props.decline}>
               <Image source={require("../../assets/icons/green_cancel.png")} />
             </TouchableOpacity>
           </View>

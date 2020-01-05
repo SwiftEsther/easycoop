@@ -4,16 +4,16 @@ import {scale, scaleHeight} from '../../../helpers/scale';
 export default StyleSheet.create({
     Container: {
         flexDirection: "column",
-        marginBottom: 20
+        marginBottom: scaleHeight(20)
     },
     fieldContainer: {
-        padding: 20,
+        paddingHorizontal: scale(20),
         marginBottom: scaleHeight(49)
     },
     calender: {
         flex: 1,
         backgroundColor: '#FFFFFF',
-        marginTop: 100
+        marginTop: scaleHeight(100)
     },
     pageheader: {
         backgroundColor: '#f0f0f0',
