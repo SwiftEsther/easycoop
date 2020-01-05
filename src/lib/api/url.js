@@ -35,3 +35,6 @@ export const getAllGuarantors = loan + "/loan/v1/api/viewallguarantors";
 export const getMemberNotificationsCount = account + "/account/v1/api/getcountcfnotificationssenttomember";
 export const postLoanAppliaction = loan + "/loan/v1/api/submitloanapplication";
 export const approveRejectGuarantorRequest = loan + "/loan/v1/api/approverejectguarantorrequest";
+export const memberPersonalInformation = account + "/account/v1/api/savememberpersonalinformation";
+export const memberBankDetails = account + "/account/v1/api/savememberbankdetails";
+export const memberContactInformation = account + "/account/v1/api/savemembercontractinformation";
