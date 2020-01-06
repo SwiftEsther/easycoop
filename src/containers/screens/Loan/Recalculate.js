@@ -114,7 +114,8 @@ export default class Recalculate extends Component {
 
   render() {
     const { width, height } = Dimensions.get("window");
-    const { data } = this.props;
+    const { data,calculatedResult } = this.props;
+    let {schedules} = calculatedResult;
     return (
       <SafeAreaView>
         <BottomSheet
@@ -181,85 +182,89 @@ export default class Recalculate extends Component {
               </Text>
             </View>
             <ScrollView style={{ alignSelf: "stretch" }}>
-              <View
-                style={{
-                  paddingHorizontal: scale(14),
-                  backgroundColor: "#f7f7f7",
-                  alignSelf: "stretch"
-                }}
-              >
-                <View>
-                  <Text
-                    style={[
-                      styles.bold_text,
-                      { marginVertical: scale(12), color: "#138516" }
-                    ]}
+                {schedules.map((item, index) => {
+                  return   <View
+                      style={{
+                          paddingHorizontal: scale(14),
+                          backgroundColor: "#f7f7f7",
+                          alignSelf: "stretch",
+                          paddingBottom: scale(15)
+                      }}
                   >
-                    Month 1
-                  </Text>
-                </View>
-                <View
-                  style={{ flexDirection: "row", marginVertical: scale(12) }}
-                >
-                  <Text
-                    style={[
-                      styles.bold_text,
-                      { marginRight: scale(11), color: "#827e7e" }
-                    ]}
-                  >
-                    Principal Amount:
-                  </Text>
-                  <Text style={styles.bold_text}>₦100,000,000</Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    marginVertical: scale(12),
-                    color: "#827e7e"
-                  }}
-                >
-                  <Text
-                    style={[
-                      styles.bold_text,
-                      { marginRight: scale(11), color: "#827e7e" }
-                    ]}
-                  >
-                    Monthly Payable:
-                  </Text>
-                  <Text style={styles.bold_text}>#100,000,000</Text>
-                </View>
-                <View
-                  style={{ flexDirection: "row", marginVertical: scale(12) }}
-                >
-                  <Text
-                    style={[
-                      styles.bold_text,
-                      { marginRight: scale(11), color: "#827e7e" }
-                    ]}
-                  >
-                    Outstanding Balance:
-                  </Text>
-                  <Text style={styles.bold_text}>₦100,000,000</Text>
-                </View>
-                <View
-                  style={{ flexDirection: "row", marginVertical: scale(12) }}
-                >
-                  <Text
-                    style={[
-                      styles.bold_text,
-                      {
-                        marginRight: scale(11),
-                        color: "#827e7e"
-                      }
-                    ]}
-                  >
-                    Interest Rate:
-                  </Text>
-                  <Text style={[styles.bold_text, { color: "#138516" }]}>
-                    10%
-                  </Text>
-                </View>
-              </View>
+                      <View>
+                          <Text
+                              style={[
+                                  styles.bold_text,
+                                  { marginVertical: scale(12), color: "#138516" }
+                              ]}
+                          >
+                              Month {index + 1}
+                          </Text>
+                      </View>
+                      <View
+                          style={{ flexDirection: "row", marginVertical: scale(12) }}
+                      >
+                          <Text
+                              style={[
+                                  styles.bold_text,
+                                  { marginRight: scale(11), color: "#827e7e" }
+                              ]}
+                          >
+                              Principal Amount:
+                          </Text>
+                          <Text style={styles.bold_text}>₦{item.principalAmount}</Text>
+                      </View>
+                      <View
+                          style={{
+                              flexDirection: "row",
+                              marginVertical: scale(12),
+                              color: "#827e7e"
+                          }}
+                      >
+                          <Text
+                              style={[
+                                  styles.bold_text,
+                                  { marginRight: scale(11), color: "#827e7e" }
+                              ]}
+                          >
+                              Monthly Payable:
+                          </Text>
+                          <Text style={styles.bold_text}>#{item.amountPayable}</Text>
+                      </View>
+                      <View
+                          style={{ flexDirection: "row", marginVertical: scale(12) }}
+                      >
+                          <Text
+                              style={[
+                                  styles.bold_text,
+                                  { marginRight: scale(11), color: "#827e7e" }
+                              ]}
+                          >
+                              Outstanding Balance:
+                          </Text>
+                          <Text style={styles.bold_text}>₦{item.outstandingBalance}</Text>
+                      </View>
+                      <View
+                          style={{ flexDirection: "row", marginVertical: scale(12) }}
+                      >
+                          <Text
+                              style={[
+                                  styles.bold_text,
+                                  {
+                                      marginRight: scale(11),
+                                      color: "#827e7e"
+                                  }
+                              ]}
+                          >
+                              Interest Rate:
+                          </Text>
+                          <Text style={[styles.bold_text, { color: "#138516" }]}>
+                              {calculatedResult.interestRate}%
+                          </Text>
+                      </View>
+                  </View>
+                })}
+
             </ScrollView>
           </View>
         </BottomSheet>
