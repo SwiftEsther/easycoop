@@ -14,7 +14,7 @@ export const postSignUp = cooperative + '/cooperative/v1/nonauth/policejoincoope
 export const forgotPassword = credentials + '/credentials/v1/auth/resetpassword';
 export const getWithdrawalHistory = account + "/account/v1/api/getnotificationssentfrommember_withdrawal";
 export const postChangePassword = credentials + '/credentials/v1/api/changepassword';
-// export const getloanApplications = loan + '/loan/v1/api/viewallmemberloanapplications';
+export const getloanApplications = loan + '/loan/v1/api/viewallmemberloanapplications';
 export const getmemberbalances = account + '/account/v1/api/getmemberbalances';
 export const supportMail = api + "/api/radicalmonitor/v1/email/sendgeneralemailfrontend";
 // export const postProfileInfo = account + '/account/v1/api/savememberpersonalinformation';
@@ -40,3 +40,6 @@ export const postApplyForLoan = loan + "/loan/v1/api/submitloanapplication";
 export const memberPersonalInformation = account + "/account/v1/api/savememberpersonalinformation";
 export const memberBankDetails = account + "/account/v1/api/savememberbankdetails";
 export const memberContactInformation = account + "/account/v1/api/savemembercontractinformation";
+
+export const getLoanSummary = loan + "/loan/v1/api/viewloanpaymentbreakdown";
+
