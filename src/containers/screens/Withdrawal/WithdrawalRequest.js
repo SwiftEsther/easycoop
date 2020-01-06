@@ -123,11 +123,11 @@ export default class WithdrawalRequest extends Component {
 
                  validate = async () => {
                    const { data } = this.props;
-                   if (this.state.amount <= 0) {
+                   if (this.state.amount <= 0 || this.state.amount>1000000000) {
                      this.setState({
                        showToast: true,
                        toastMessage:
-                         "Kindly enter a valid amount"
+                         "Kindly enter a valid amount between ₦100 and ₦1,000,000,000"
                      });
                    } else if (this.state.amount >= data.voluntaryBalance) {
                      this.setState({

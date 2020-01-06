@@ -71,17 +71,17 @@ export default class ChangeBalance extends Component {
         this.setState(value);
     };
 
-    validate = async () => {
-        if (this.state.amount <= 0) {
-            this.setState({
-                showToast: true,
-                toastMessage: "Kindly enter a valid amount"
-            });
-        }
-        else {
-            this.onhandleUpdateAmount();
-        }
+  validate = async () => {
+      if(this.state.amount <= 0 || this.state.amount>1000000000) {
+      this.setState({
+        showToast: true,
+        toastMessage: "Kindly enter a valid amount"
+      });
     }
+    else {
+      this.onhandleUpdateAmount();
+    }
+  }
 
     onhandleUpdateAmount = () => {
         const {user} = this.props;

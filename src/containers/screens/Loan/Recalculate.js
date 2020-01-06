@@ -106,8 +106,8 @@ export default class Recalculate extends Component {
   };
 
   validate = async () => {
-    if (this.state.amount <= 0) {
-      console.log("ENter a valid amount");
+    if (this.state.amount <= 0 || this.state.amount>1000000000) {
+      console.log("Kindly enter a valid amount between ₦100 and ₦1,000,000,000");
     }
     this.onhandleUpdateAmount();
   };

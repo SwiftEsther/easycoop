@@ -324,11 +324,11 @@ class ApplyLoanModal extends Component {
             //     showToast: true
             // });
 
-            this.props.showToast('Kindly enter a valid loan type', 'error');
+            this.props.showToast('Kindly enter a valid amount between ₦100 and ₦1,000,000,000', 'error');
 
 
             return false;
-        } else if (this.state.amount <= 0) {
+        } else if (this.state.amount <= 0 || this.state.amount>1000000000) {
             this.props.showToast('Kindly enter a valid amount', 'error');
             // this.setState({
             //     toastMessage: 'Kindly enter a valid amount',
