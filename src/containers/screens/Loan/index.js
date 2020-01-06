@@ -65,11 +65,13 @@ class index extends Component {
       success: false,
       loanApply: false,
       showCalculator: false,
-      loanType: {
-        "description":'ALL LOANS',
-          'id':this.props.userData.id
-      },
+      loanType: {},
+        selectedLoan: {
+            "description":'ALL LOANS',
+            'id':this.props.userData.id
+        },
       loanTypes: [],
+        loanApplications: [],
       guarantorRequests: [],
       guarantor: {},
       showApprovalModal: false,
@@ -110,6 +112,7 @@ class index extends Component {
 
   componentDidMount() {
     this.ongetLoanTypes();
+    this.ongetLoans();
     this.ongetGuarantorRequests();
     this.onFetchLoanSummary();
   }
@@ -124,9 +127,10 @@ class index extends Component {
         modalLoader: true
       },
       () => {
-        apiRequest(getloanApplications, "get", {
+        apiRequest(getLoanTypes, "get", {
           params: {
-              memberprofileid: userData.id
+              // memberprofileid: userData.id,
+              cooperativeid: userData.cooperativeId
           }
         })
           .then(res => {
@@ -137,10 +141,6 @@ class index extends Component {
               console.log(res);
               console.log(res.data); // undefined
                 let loanTypes = [...res];
-                loanTypes.unshift({
-                    "description":'ALL LOANS',
-                    'id':this.props.userData.id
-                })
               this.setState({ loanTypes: loanTypes });
 
               this.props.getLoanTypesSuccess(res);
@@ -167,6 +167,65 @@ class index extends Component {
     );
   };
 
+
+    ongetLoans = () => {
+        const userData = this.props.navigation.state.params.userData;
+        this.setState(
+            {
+                spinner: true,
+                modalLoader: true
+            },
+            () => {
+                apiRequest(getloanApplications, "get", {
+                    params: {
+                        memberprofileid: userData.id,
+                        // cooperativeid: userData.cooperativeId
+                    }
+                })
+                    .then(res => {
+                        this.setState({
+                            spinner: false
+                        });
+                        if (res) {
+                            console.log(res);
+                            console.log(res.data); // undefined
+                            let loanApplications = [...res];
+                            loanApplications = loanApplications.map(loan => {
+                                return {
+                                    ...loan,
+                                    description:loan.id + "-" + loan.applicationDate + "-" + loan.firstName
+                            }
+                            })
+                            loanApplications.unshift({
+                                "description":'ALL LOANS',
+                                'id':this.props.userData.id
+                            })
+                            this.setState({ loanApplications: loanApplications });
+
+                            // this.props.getLoanTypesSuccess(res);
+                            // this.props.showToast(
+                            //     "Successfully fetched loan types",
+                            //     "success"
+                            // );
+                        } else {
+                            this.props.showToast("Error", "error");
+                        }
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            this.props.showToast(error.response.data.message, "error");
+                            console.log(error.response);
+                        } else {
+                            this.props.showToast(error, "error");
+                        }
+                        this.setState({
+                            spinner: false
+                        });
+                    });
+            }
+        );
+    };
+
     onFetchLoanSummary = () => {
         const userData = this.props.navigation.state.params.userData;
         this.setState(
@@ -177,8 +236,8 @@ class index extends Component {
             () => {
                 apiRequest(getLoanSummary, "get", {
                     params: {
-                        forspecificloan: this.state.loanType.id.description !== 'ALL LOANS',
-                        identifier: this.state.loanType.id
+                        forspecificloan: this.state.selectedLoan.description !== 'ALL LOANS',
+                        identifier: this.state.selectedLoan.id
                     }
                 })
                     .then(res => {
@@ -186,7 +245,10 @@ class index extends Component {
                             spinner: false
                         });
                         if (res) {
-                            console.log(res);
+                            this.setState({
+                                amountDue:res.outstandingLoanPayment,
+                                amountPaid:res.completedLoanPayment
+                            })
                             this.props.showToast(
                                 "Successfully fetched loan summary",
                                 "success"
@@ -325,12 +387,12 @@ class index extends Component {
                       ]}
                     >
                       <SelectDropdown
-                        options={this.state.loanTypes || []}
+                        options={this.state.loanApplications || []}
                         value={""}
                         title={`Select Loan Type`}
                         onChange={obj =>
                           this.setState({
-                            loanType: obj
+                              selectedLoan: obj
                           }, () => {
                               this.onFetchLoanSummary()
                           })
@@ -351,7 +413,7 @@ class index extends Component {
                         >
                           {/*<Text style={styles.label}>Bank Name </Text>*/}
                           <Text numberOfLines={1} style={style.selectText}>
-                            {this.state.loanType.description || ""}
+                            {this.state.selectedLoan.description || ""}
                           </Text>
                         </View>
                       </SelectDropdown>
