@@ -286,6 +286,7 @@ class index extends Component {
               _toggleView={this.showWithdrawalRequest}
               data={memberbalances}
               userData={userData}
+              navigation={{ ...this.props.navigation }}
             />
             <Contributions
               visible={this.state.contributions}

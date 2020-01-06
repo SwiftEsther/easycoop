@@ -105,7 +105,7 @@ export default class RequestSuccessful extends Component{
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles.button}
-              onPress={() => this.props.navigation.navigate("RequestHistory")}
+              onPress={this.props.checkStatus}
             >
               <GreenButton button_text="Check Request Status" />
             </TouchableOpacity>
