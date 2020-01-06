@@ -47,6 +47,13 @@ export default class WithdrawalRequest extends Component {
                    this.setState(value);
                  };
 
+                 checkStatus=()=> {
+                  this.setState({
+                    success: !this.state.success
+                  });
+                  this.props.navigation.navigate('RequestHistory')
+                 }
+
                  showWithdrawSuccess = () => {
                    this.props._toggleView();
                    this.setState({
@@ -287,6 +294,7 @@ export default class WithdrawalRequest extends Component {
                          _toggleView={this.toggleWithdraw}
                          subtitle="Withdrawal Request Submitted Successfully"
                          smallText={`${this.state.successMessage}`}
+                         checkStatus={this.checkStatus}
                        />
                        <FailureModal
                          visible={this.state.failure}

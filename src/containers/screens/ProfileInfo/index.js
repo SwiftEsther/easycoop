@@ -61,12 +61,12 @@ class index extends Component {
       phoneNumber: "",
       dateOfBirth: "",
       accountNumber: "",
-      bank: "",
+      bank: {},
       bvn: "",
       residentialAddress: "",
-      country: "",
-      state: "",
-      lga: "",
+      country: {},
+      state: {},
+      lga: {},
       isDateTimePickerVisible: false,
       showProfileInfo: true,
       showBankingDetails: false,
@@ -171,10 +171,12 @@ class index extends Component {
           emailAddress,
           phoneNumber,
           addressLine1: residentialAddress,
-          country,
-          state,
+          addressLine2: "",
+          addressLine3: "",
+          country: country.value,
+          state: state.label,
           stateId: state.id,
-          lga,
+          lga: lga.value,
           branchId: 0,
           cooperative: userData.cooperative,
           cooperativeId: userData.cooperativeId,
@@ -226,15 +228,17 @@ class index extends Component {
           branchId: userData.branchId,
           dateOfBirth,
           firstName,
-          gender: userData.gender,
+          gender: gender.label,
           lastName,
-          middleName: userDate.middleName,
+          middleName: userData.middleName,
           occupation: userData.occupation,
           cooperative: userData.cooperative,
           cooperativeId: userData.cooperativeId,
           genderId: userData.genderId,
           username: userData.username,
-          id: userData.id
+          id: userData.id,
+          gender: "",
+          occupation: 'userData.occupation'
         })
           .then(res => {
             console.log(res);
@@ -325,7 +329,7 @@ class index extends Component {
     this.setState({
       firstName: userData.firstName,
       lastName: userData.lastName,
-      // gender: userData.gender || "",
+      gender: {label: userData.gender, id: userData.genderId},
       emailAddress: userData.emailAddress,
       phoneNumber: userData.phoneNumber,
       dateOfBirth: userData.dateOfBirth,
@@ -333,9 +337,10 @@ class index extends Component {
       bvn: userData.bankVerificationNumber,
       residentialAddress:
         userData.addressLine1 + userData.addressLine2 + userData.addressLine3,
-      country: userData.country,
-      state: userData.state,
-      lga: userData.lga
+      country: {label: userData.country, value: userData.country},
+      state: {label: userData.state, id: userData.stateId},
+      lga: {label: userData.lga, value: userData.lga},
+      bank: {label: userData.bank, id: userData.bankId}
     });
   }
 
@@ -546,10 +551,8 @@ class index extends Component {
                     <Text style={[style.label]}>Email Address</Text>
                     <View style={[style.input]}>
                       <CustomInput
-                        editable={false}
                         selectTextOnFocus={false}
                         value={this.state.emailAddress}
-                        disabled={true}
                         onChangeText={emailAddress =>
                           this.changeState({
                             emailAddress: emailAddress.trim()
@@ -560,10 +563,8 @@ class index extends Component {
                     <Text style={[style.label]}>Phone Number</Text>
                     <View style={[style.input]}>
                       <CustomInput
-                        editable={false}
                         selectTextOnFocus={false}
                         value={this.state.phoneNumber}
-                        disabled={true}
                         keyboardType="number-pad"
                         onChangeText={phoneNumber =>
                           this.changeState({ phoneNumber: phoneNumber.trim() })
@@ -573,12 +574,8 @@ class index extends Component {
                     <Text style={[style.label]}>Residential Address</Text>
                     <View style={[style.input]}>
                       <CustomInput
-                        editable={false}
-                        selectTextOnFocus={false}
-                        editable={false}
                         selectTextOnFocus={false}
                         value={this.state.residentialAddress}
-                        disabled={true}
                         onChangeText={residentialAddress =>
                           this.changeState({
                             residentialAddress: residentialAddress
@@ -696,7 +693,6 @@ class index extends Component {
                           ]}
                           // onPress={this.onhandleSubmit}
                         >
-                          {/*<Text style={styles.label}>Bank Name </Text>*/}
                           <Text numberOfLines={1} style={style.selectText}>
                             {this.state.lga.label || ""}
                           </Text>
@@ -787,7 +783,7 @@ class index extends Component {
                         value={this.state.accountNumber}
                         keyboardType="number-pad"
                         onChangeText={accountNumber =>
-                          this.changeState({
+                          this.setState({
                             accountNumber: accountNumber.trim()
                           })
                         }
