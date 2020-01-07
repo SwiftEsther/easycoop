@@ -19,6 +19,7 @@ import { systemWeights } from "react-native-typography";
 import theme from "../../../../assets/styles/globalStyles";
 import Spinner from "react-native-loading-spinner-overlay";
 import { SIGN_UP } from "../../../../lib/constants";
+// import ImagePicker from "react-native-image-picker";
 import style from "./style";
 import "../../../../lib/helpers";
 import Header from "../../../components/Header";
@@ -70,7 +71,11 @@ class index extends Component {
       isDateTimePickerVisible: false,
       showProfileInfo: true,
       showBankingDetails: false,
-      showContactInfo: false
+      showContactInfo: false,
+      avatarSource: '',
+      imageData: '',
+      imageType: '',
+      imagePath: ''
     };
   }
 
@@ -225,8 +230,8 @@ class index extends Component {
       },
       () => {
         apiRequest(memberPersonalInformation, "post", {
-          branchId: userData.branchId,
-          dateOfBirth,
+          branchId: 0,
+          dateOfBirth: new Date(dateOfBirth),
           firstName,
           gender: gender.label,
           lastName,
@@ -323,6 +328,75 @@ class index extends Component {
     );
   };
 
+  // uploadImage = () => {
+  //   let {imageData, imageType} = this.state;
+  //   const profilePhoto = {imageString: imageData, imageType};
+
+  //   this.setState(
+  //     {
+  //       spinner: true,
+  //       modalLoader: true
+  //     },
+  //     () => {
+  //       apiRequest('uploadlink', "post", {
+  //         imageString: imageData,
+  //         imageType
+  //       })
+  //         .then(res => {
+  //           console.log(res);
+  //           this.setState({
+  //             spinner: false
+  //           });
+  //         })
+  //         .catch(error => {
+  //           console.log(error.response);
+
+  //           if (error.response) {
+  //             this.props.showToast(error.response.data.message, "error");
+  //             console.log(error.response);
+  //           } else {
+  //             this.props.showToast(error.message, "error");
+  //           }
+  //           this.setState({
+  //             spinner: false
+  //           });
+  //         });
+  //     }
+  //   );
+  // }
+
+  chooseImage = () => {
+    const options = {
+            title: 'Choose Profile Photo',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+            allowsEditing: true,
+            maxWidth: 300, 
+            maxHeight: 300,
+        };
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+                Alert.alert("Image Pick Error", response.error)
+            } else {
+                const source = { uri: response.uri };
+                this.setState({
+                  avatarSource: source,
+                    imageData: response.data,
+                    imagePath: response.path,
+                    imageType: response.type
+                });
+            }
+        });r
+  }
+
   componentDidMount() {
     const { userData } = this.props;
     console.log(userData);
@@ -392,6 +466,12 @@ class index extends Component {
               <View style={[style.Container]}>
                 <View>
                   <View style={[style.fieldContainer]}>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            style={{marginTop: scaleHeight(20)}}
+          >
+            <Image source={require("../../../../assets/images/pexels_photo.png")} />
+          </TouchableOpacity>
                     <Text style={[style.label]}>First Name</Text>
                     <View style={[style.input]}>
                       <CustomInput

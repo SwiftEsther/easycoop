@@ -44,7 +44,6 @@ export default class ApplicationSuccessful extends Component{
         <BottomSheet
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
-          onBackdropPress={this.props._toggleView}
         >
           <View style={styles.bottomNavigationView}>
             <View style={[styles.header, { marginVertical: scaleHeight(20) }]}>
@@ -131,8 +130,7 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    width: '100%',
-    height: scaleHeight(400),
+    height: height/1.3,
     justifyContent: 'center',
     alignItems: 'center',
     borderTopLeftRadius: 20,

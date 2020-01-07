@@ -473,15 +473,6 @@ class ApplyLoanModal extends Component {
                             />
                         </TouchableOpacity>
                     </View>
-                    {/*{this.state.showToast && (*/}
-                    {/*<Toast*/}
-                    {/*message={this.state.toastMessage}*/}
-                    {/*type="error"*/}
-                    {/*onClickHandler={() =>*/}
-                    {/*this.setState({showToast: false})*/}
-                    {/*}*/}
-                    {/*/>*/}
-                    {/*)}*/}
 
                     {this.props.toastShow && <Toast
                         show={this.props.toastShow}

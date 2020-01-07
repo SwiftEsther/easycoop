@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Platform, Text, Image, ScrollView, ScrollViewBase } from 'react-native';
+import { StyleSheet, Dimensions, View, Platform, Text, Image, ScrollView, ScrollViewBase } from 'react-native';
 import { BottomSheet } from 'react-native-btr';
 import theme from '../../../../assets/styles/globalStyles';
 import GreenButton from '../../../components/GreenButton';
@@ -44,6 +44,7 @@ export default class index extends Component{
     }
 }
 
+const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
@@ -55,8 +56,7 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    width: '100%',
-    height: scale(450),
+    height: height/1.3,
     justifyContent: 'center',
     alignItems: 'flex-end',
     borderTopLeftRadius: 20,
