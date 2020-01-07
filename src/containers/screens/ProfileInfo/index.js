@@ -230,8 +230,8 @@ class index extends Component {
       },
       () => {
         apiRequest(memberPersonalInformation, "post", {
-          branchId: userData.branchId,
-          dateOfBirth,
+          branchId: 0,
+          dateOfBirth: new Date(dateOfBirth),
           firstName,
           gender: gender.label,
           lastName,
