@@ -1,5 +1,5 @@
 export const TERMSANDCONDITIONS = `
-<p style='text-align: center;'><strong>TERMS AND CONDITIONS</strong></p>
+<p style='text-align: center; font-weight:bold; text-decoration: underline;'><strong>TERMS AND CONDITIONS</strong></p>
 
 <p>Welcome to the EasyCoop Cooperative Manager Website (the "Site" or “EasyCoop”).
 These Terms & Conditions (“T&Cs”) apply to the Site and affiliate operated Internet sites which reference these T&Cs

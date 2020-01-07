@@ -81,7 +81,7 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
             stateId: 8,
             totalRecords: 0,
             treated: true,
-            showTC: true,
+            showTC: false,
             success: false,
             successMessage: ""
         }
