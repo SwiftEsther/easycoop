@@ -444,7 +444,7 @@ class index extends Component {
                         fontFamily: "nunito-medium"
                       }}
                     >
-                      50%
+                        {percentage * 100}%
                     </Text>
                   </View>
                   <TouchableOpacity
