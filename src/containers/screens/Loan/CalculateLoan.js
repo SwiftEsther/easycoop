@@ -118,10 +118,10 @@ export default class CalculateLoan extends Component {
                        toastMessage: "Kindly enter a valid loan type"
                      });
                    }
-                   else if (this.state.amount <= 0) {
+                   else if (this.state.amount <= 0 || this.state.amount>1000000000) {
                      this.setState({
                        showToast: true,
-                       toastMessage: "Kindly enter a valid amount"
+                       toastMessage: "Kindly enter a valid amount between ₦100 and ₦1,000,000,000"
                      });
                    } else if (this.state.duration < 1 || this.state.duration > 12) {
                      this.setState({
