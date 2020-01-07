@@ -51,7 +51,9 @@ export default class WithdrawalRequest extends Component {
                   this.setState({
                     success: !this.state.success
                   });
-                  this.props.navigation.navigate('RequestHistory')
+                  this.props.navigation.navigate("RequestHistory", {
+                    showWithdrawalRequests: true
+                  });
                  }
 
                  showWithdrawSuccess = () => {

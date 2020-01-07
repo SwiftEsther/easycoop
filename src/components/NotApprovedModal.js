@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     },
     bottomNavigationView: {
         backgroundColor: '#fff',
-        width: '100%',
         height: height / 1.6,
         justifyContent: 'flex-start',
         alignItems: 'flex-start',

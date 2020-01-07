@@ -78,10 +78,15 @@ class index extends Component {
                    );
 
                  componentDidMount() {
+                   const showWithdrawalRequests = this.props.navigation.state
+                     .params.showWithdrawalRequests;
                   //  this.onGetSavingsHistory();
-                   this.onGetLoanHistory();
+                  if (showWithdrawalRequests) {
+                    this.withdrawals();
+                  }
+                  this.onGetLoanHistory();
                    this.onGetWithdrawalHistory();
-                   
+                  
                  }
 
                  onGetSavingsHistory = () => {
@@ -216,6 +221,7 @@ class index extends Component {
                  };
 
                  render() {
+
                    function SavingsItem({}) {
                      return (
                        <View

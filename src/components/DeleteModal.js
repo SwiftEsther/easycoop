@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   bottomNavigationView: {
     backgroundColor: '#fff',
     width: '100%',
-    height: scale(350),
+    height: height/1.5,
     justifyContent: 'center',
     alignItems: 'flex-start',
     borderTopLeftRadius: 20,
