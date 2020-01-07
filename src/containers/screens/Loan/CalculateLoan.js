@@ -25,6 +25,8 @@ import SelectDropdown from "../../../components/SelectPopUp/SelectPopUp";
 import { calculateLoan } from "../../../lib/api/url";
 import Recalculate from "./Recalculate";
 import Toast from "../../../components/Toast/Toast";
+import Spinner from "react-native-loading-spinner-overlay";
+import TouchItem from "../../../components/TouchItem/_TouchItem";
 
 export default class CalculateLoan extends Component {
                  constructor(props) {
@@ -37,7 +39,10 @@ export default class CalculateLoan extends Component {
                      loanType: {},
                      duration: 0,
                      showToast: false,
-                     toastMessage: ""
+                     toastMessage: "",
+                       calculatedResult:{
+                       schedules:[]
+                       }
                    };
                  }
 
@@ -56,9 +61,10 @@ export default class CalculateLoan extends Component {
                    });
                  };
 
-                 showCalculator = () =>
+                 showCalculator = (calculatedResult) =>
                    this.setState({
-                     showRecalculate: !this.state.showRecalculate
+                     showRecalculate: !this.state.showRecalculate,
+                       calculatedResult
                    });
 
                  onhandleCalculateLoan = () => {
@@ -86,7 +92,7 @@ export default class CalculateLoan extends Component {
                            if (res) {
                              console.log(res);
                              console.log(res.data);
-                             this.showCalculator();
+                             this.showCalculator(res);
                            } else {
                              this.setState({ toastMessage: res.message });
                              this.toggleToast();
@@ -123,7 +129,7 @@ export default class CalculateLoan extends Component {
                        showToast: true,
                        toastMessage: "Kindly enter a valid amount between ₦100 and ₦1,000,000,000"
                      });
-                   } else if (this.state.duration < 1 || this.state.duration > 12) {
+                   } else if ((this.state.duration < 1 || this.state.duration > 12) && (this.state.loanType.loanClassId!==1) ) {
                      this.setState({
                        showToast: true,
                        toastMessage:
@@ -172,6 +178,8 @@ export default class CalculateLoan extends Component {
                            />
                          )}
                          <View style={styles.bottomNavigationView}>
+                             <Spinner visible={this.state.spinner} size="large" color="#000000" animation="none"
+                                      overlayColor={'rgba(0, 0, 0, 0.5)'}/>
                            <View style={[styles.header]}>
                              <Image
                                source={require("../../../../assets/icons/calculator.png")}
@@ -202,8 +210,8 @@ export default class CalculateLoan extends Component {
                                }
                              ]}
                            >
-                             <View>
-                               <View>
+                             <View style={{flexDirection:'row'}}>
+                               <View style={{flex:1}}>
                                  <Text style={[styles.label]}>
                                    Loan Summary
                                  </Text>
@@ -249,47 +257,92 @@ export default class CalculateLoan extends Component {
                                    </SelectDropdown>
                                  </View>
                                </View>
+                                 <View
+                                     style={{
+                                         // flex: 1,
+                                         // justifyContent: "flex-end",
+                                         marginLeft: 12,
+                                     }}
+                                 >
+                                     <Text style={[styles.label]}>
+                                         Interest Rate
+                                     </Text>
+
+                                     <View
+                                         style={{
+                                             height: scale(40),
+                                             backgroundColor: "#d0e7d1",
+                                             justifyContent: 'center', alignItems: 'center'
+                                         }}
+                                     >
+                                         <Text
+                                             style={[
+                                                 theme.font15,
+                                                 {
+                                                     color: "#138516",
+                                                     textAlign: "center",
+                                                     textAlignVertical: "center"
+                                                 }
+                                             ]}
+                                         >{`${this.state.loanType
+                                             .interestRate || 0}%`}</Text>
+                                     </View>
+                                 </View>
                              </View>
+                               {!!(this.state.loanType.loanClassId!==1) && (
                              <Text style={[styles.label]}>Amount</Text>
+                               )}
                              <View
                                style={[styles.input, { width: width - 110 }]}
                              >
-                               <CustomInput
-                                 value={this.state.loanType.loanClassId===1?this.state.loanType.fixedAmount:this.state.amount}
-                                 keyboardType="number-pad"
-                                 onChangeText={amount =>
-                                   this.changeState({ amount: amount.trim() })
-                                 }
-                                 style={[{}]}
-                               />
+                                 {!!(this.state.loanType.loanClassId!==1) && (
+                                     <CustomInput
+                                         value={this.state.loanType.loanClassId===1?this.state.loanType.fixedAmount:this.state.amount}
+                                         keyboardType="number-pad"
+                                         editable={this.state.loanType.loanClassId!==1}
+                                         onChangeText={amount =>
+                                             this.changeState({ amount: amount.trim() })
+                                         }
+                                         style={[{}]}
+                                     />
+                                 )}
+                                 {!!(this.state.loanType.loanClassId===1) && (
+                                     <View>
+                                     <Text style={[styles.label]}>Fixed Amount: {this.state.loanType.fixedAmount}</Text>
+                                     <Text style={[styles.label]}>Monthly Deduction: {this.state.loanType.deduction}</Text>
+                                     </View>
+                                 )}
+
                              </View>
-                             <View>
-                               <Text style={[styles.label]}>Duration</Text>
-                               <View
-                                 style={[styles.input, { width: width - 110 }]}
-                               >
-                                 <CustomInput
-                                   value={this.state.duration}
-                                   keyboardType="number-pad"
-                                   onChangeText={duration =>
-                                     this.changeState({ duration })
-                                   }
-                                   style={[{}]}
-                                 />
-                               </View>
-                             </View>
+                               {!!(this.state.loanType.loanClassId!==1) && (  <View>
+                                   <Text style={[styles.label]}>Duration</Text>
+                                   <View
+                                       style={[styles.input, { width: width - 110 }]}
+                                   >
+                                       <CustomInput
+                                           value={this.state.duration}
+                                           keyboardType="number-pad"
+                                           onChangeText={duration =>
+                                               this.changeState({ duration })
+                                           }
+                                           style={[{}]}
+                                       />
+                                   </View>
+                               </View>)}
+
                            </View>
-                           <TouchableOpacity
+                           <TouchItem
                              activeOpacity={0.7}
                              style={[styles.buttons]}
                              onPress={this.validate}
                            >
-                             <GreenButton button_text="Calculate Loan" />
-                           </TouchableOpacity>
+                             <GreenButton button_text="Calculate Loan"  handlePress={this.validate} />
+                           </TouchItem>
                          </View>
                        </BottomSheet>
                        <Recalculate
                          visible={this.state.showRecalculate}
+                         calculatedResult={this.state.calculatedResult}
                          _toggleView={this.showCalculator}
                          back={this.recalculate}
                        />
@@ -360,7 +413,7 @@ const styles = StyleSheet.create({
     color: "#9f9f9f",
     borderColor: "#d0d0d0",
     backgroundColor: "rgba(0, 13, 55, 0.02)",
-    width: width - 110
+    // width: width - 110
   },
   selectText: {
     fontFamily: "nunito-medium",

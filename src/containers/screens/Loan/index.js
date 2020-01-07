@@ -45,11 +45,13 @@ import RequestApprovalModal from '../../../components/RequestApprovalModal';
 import BorderedTabs from "../../../components/BorderedTab";
 import CalculateLoan from "./CalculateLoan";
 import { getLoanTypesSuccess, getGuarantorRequestsSuccess } from "./actions/loan.actions.js";
-import { getLoanTypes, getAllGuarantorRequests } from "../../../lib/api/url";
+import { getLoanTypes, getAllGuarantorRequests, getLoanSummary, getloanApplications } from "../../../lib/api/url";
 import GuarantorRequest from "../../../components/GuarantorRequest";
 import { apiRequest } from "../../../lib/api/api";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
-import { connect, Dispatch } from "react-redux"; 
+import { connect, Dispatch } from "react-redux";
+import Progress from 'react-native-progress/Bar';
+
 
 class index extends Component {
   constructor(props) {
@@ -64,11 +66,18 @@ class index extends Component {
       loanApply: false,
       showCalculator: false,
       loanType: {},
+        selectedLoan: {
+            "description":'ALL LOANS',
+            'id':this.props.userData.id
+        },
       loanTypes: [],
+        loanApplications: [],
       guarantorRequests: [],
       guarantor: {},
       showApprovalModal: false,
-      action: ""
+      action: "",
+        amountDue:0,
+        amountPaid:0
     };
   }
 
@@ -103,7 +112,9 @@ class index extends Component {
 
   componentDidMount() {
     this.ongetLoanTypes();
+    this.ongetLoans();
     this.ongetGuarantorRequests();
+    this.onFetchLoanSummary();
   }
 
   showLoanApply = () => this.setState({ loanApply: !this.state.loanApply });
@@ -118,7 +129,8 @@ class index extends Component {
       () => {
         apiRequest(getLoanTypes, "get", {
           params: {
-            cooperativeid: userData.cooperativeId
+              // memberprofileid: userData.id,
+              cooperativeid: userData.cooperativeId
           }
         })
           .then(res => {
@@ -128,7 +140,8 @@ class index extends Component {
             if (res) {
               console.log(res);
               console.log(res.data); // undefined
-              this.setState({ loanTypes: res });
+                let loanTypes = [...res];
+              this.setState({ loanTypes: loanTypes });
 
               this.props.getLoanTypesSuccess(res);
               this.props.showToast(
@@ -153,6 +166,111 @@ class index extends Component {
       }
     );
   };
+
+
+    ongetLoans = () => {
+        const userData = this.props.navigation.state.params.userData;
+        this.setState(
+            {
+                spinner: true,
+                modalLoader: true
+            },
+            () => {
+                apiRequest(getloanApplications, "get", {
+                    params: {
+                        memberprofileid: userData.id,
+                        // cooperativeid: userData.cooperativeId
+                    }
+                })
+                    .then(res => {
+                        this.setState({
+                            spinner: false
+                        });
+                        if (res) {
+                            console.log(res);
+                            console.log(res.data); // undefined
+                            let loanApplications = [...res];
+                            loanApplications = loanApplications.map(loan => {
+                                return {
+                                    ...loan,
+                                    description:loan.id + "-" + loan.applicationDate + "-" + loan.firstName
+                            }
+                            })
+                            loanApplications.unshift({
+                                "description":'ALL LOANS',
+                                'id':this.props.userData.id
+                            })
+                            this.setState({ loanApplications: loanApplications });
+
+                            // this.props.getLoanTypesSuccess(res);
+                            // this.props.showToast(
+                            //     "Successfully fetched loan types",
+                            //     "success"
+                            // );
+                        } else {
+                            this.props.showToast("Error", "error");
+                        }
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            this.props.showToast(error.response.data.message, "error");
+                            console.log(error.response);
+                        } else {
+                            this.props.showToast(error, "error");
+                        }
+                        this.setState({
+                            spinner: false
+                        });
+                    });
+            }
+        );
+    };
+
+    onFetchLoanSummary = () => {
+        const userData = this.props.navigation.state.params.userData;
+        this.setState(
+            {
+                spinner: true,
+                modalLoader: true
+            },
+            () => {
+                apiRequest(getLoanSummary, "get", {
+                    params: {
+                        forspecificloan: this.state.selectedLoan.description !== 'ALL LOANS',
+                        identifier: this.state.selectedLoan.id
+                    }
+                })
+                    .then(res => {
+                        this.setState({
+                            spinner: false
+                        });
+                        if (res) {
+                            this.setState({
+                                amountDue:res.outstandingLoanPayment,
+                                amountPaid:res.completedLoanPayment
+                            })
+                            this.props.showToast(
+                                "Successfully fetched loan summary",
+                                "success"
+                            );
+                        } else {
+                            this.props.showToast("Error", "error");
+                        }
+                    })
+                    .catch(error => {
+                        if (error.response) {
+                            this.props.showToast(error.response.data.message, "error");
+                            console.log(error.response);
+                        } else {
+                            this.props.showToast(error, "error");
+                        }
+                        this.setState({
+                            spinner: false
+                        });
+                    });
+            }
+        );
+    };
 
   ongetGuarantorRequests = () => {
     const userData = this.props.navigation.state.params.userData;
@@ -216,6 +334,7 @@ class index extends Component {
 
   render() {
     const switchToGuarantors = this.props.navigation.state.params.switchToGuarantors;
+      let percentage = (Number(this.state.amountPaid) / Number(this.state.amountDue)) || 0;
     return (
       <>
         <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
@@ -268,12 +387,14 @@ class index extends Component {
                       ]}
                     >
                       <SelectDropdown
-                        options={this.state.loanTypes || []}
+                        options={this.state.loanApplications || []}
                         value={""}
                         title={`Select Loan Type`}
                         onChange={obj =>
                           this.setState({
-                            loanType: obj
+                              selectedLoan: obj
+                          }, () => {
+                              this.onFetchLoanSummary()
                           })
                         }
                         dropdownImageStyle={{
@@ -292,7 +413,7 @@ class index extends Component {
                         >
                           {/*<Text style={styles.label}>Bank Name </Text>*/}
                           <Text numberOfLines={1} style={style.selectText}>
-                            {this.state.loanType.description || ""}
+                            {this.state.selectedLoan.description || ""}
                           </Text>
                         </View>
                       </SelectDropdown>
@@ -303,15 +424,18 @@ class index extends Component {
                     <View style={[style.amount]}>
                       <View>
                         <Text style={[style.amountText]}>Amount Due:</Text>
-                        <Text style={[style.price]}>₦100,000,000</Text>
+                        <Text style={[style.price]}>₦{this.state.amountDue}</Text>
                       </View>
                       <View>
                         <Text style={[style.amountText]}>Amount Paid:</Text>
-                        <Text style={[style.price]}>₦100,000,000</Text>
+                        <Text style={[style.price]}>₦{this.state.amountPaid}</Text>
                       </View>
                     </View>
                     <View>
-                      <ProgressBar percentage={50} />
+                      {/*<ProgressBar percentage={50} />*/}
+                        <Progress progress={percentage} color={'#00a3c9'} borderColor="transparent"
+                                  unfilledColor="#f3f5f9" borderRadius={scale(2)} height={scale(4)}
+                                  width={null}/>
                     </View>
                     <Text
                       style={{
