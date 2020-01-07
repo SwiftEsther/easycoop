@@ -41,11 +41,10 @@ export default class RequestSuccessful extends Component{
 
   render() {
     return (
-      <View>
+      <>
         <BottomSheet
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
-          onBackdropPress={this.props._toggleView}
         >
           <View style={styles.bottomNavigationView}>
             <View style={[styles.header, { marginVertical: scaleHeight(10) }]}>
@@ -122,7 +121,7 @@ export default class RequestSuccessful extends Component{
           <FailureModal visible={this.state.failure} _toggleView={this.toggleFailure} 
             subtitle="Request Submission Failed"
             smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/> */}
-      </View>
+      </>
     );
   }
 }
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    height: scaleHeight(height/1.3),
+    height: height/1.3,
     justifyContent: 'center',
     alignItems: 'center',
     borderTopLeftRadius: 20,

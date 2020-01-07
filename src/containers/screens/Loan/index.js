@@ -41,17 +41,24 @@ import ReviewApplication from "./ReviewApplication";
 import Header from "../../../components/Header";
 import ProgressBar from "../../../components/Progressbar";
 import SelectDropdown from "../../../components/SelectPopUp/SelectPopUp";
-import RequestApprovalModal from '../../../components/RequestApprovalModal';
+import RequestApprovalModal from "../../../components/RequestApprovalModal";
 import BorderedTabs from "../../../components/BorderedTab";
 import CalculateLoan from "./CalculateLoan";
-import { getLoanTypesSuccess, getGuarantorRequestsSuccess } from "./actions/loan.actions.js";
-import { getLoanTypes, getAllGuarantorRequests, getLoanSummary, getloanApplications } from "../../../lib/api/url";
+import {
+  getLoanTypesSuccess,
+  getGuarantorRequestsSuccess
+} from "./actions/loan.actions.js";
+import {
+  getLoanTypes,
+  getAllGuarantorRequests,
+  getLoanSummary,
+  getloanApplications
+} from "../../../lib/api/url";
 import GuarantorRequest from "../../../components/GuarantorRequest";
 import { apiRequest } from "../../../lib/api/api";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { connect, Dispatch } from "react-redux";
-import Progress from 'react-native-progress/Bar';
-
+import Progress from "react-native-progress/Bar";
 
 class index extends Component {
   constructor(props) {
@@ -66,18 +73,18 @@ class index extends Component {
       loanApply: false,
       showCalculator: false,
       loanType: {},
-        selectedLoan: {
-            "description":'ALL LOANS',
-            'id':this.props.userData.id
-        },
+      selectedLoan: {
+        description: "ALL LOANS",
+        id: this.props.userData.id
+      },
       loanTypes: [],
-        loanApplications: [],
+      loanApplications: [],
       guarantorRequests: [],
       guarantor: {},
       showApprovalModal: false,
       action: "",
-        amountDue:0,
-        amountPaid:0
+      amountDue: 0,
+      amountPaid: 0
     };
   }
 
@@ -111,6 +118,11 @@ class index extends Component {
     });
 
   componentDidMount() {
+    const switchToGuarantors = this.props.navigation.state.params
+      .switchToGuarantors;
+    if (switchToGuarantors) {
+      this.requests();
+    }
     this.ongetLoanTypes();
     this.ongetLoans();
     this.ongetGuarantorRequests();
@@ -129,8 +141,8 @@ class index extends Component {
       () => {
         apiRequest(getLoanTypes, "get", {
           params: {
-              // memberprofileid: userData.id,
-              cooperativeid: userData.cooperativeId
+            // memberprofileid: userData.id,
+            cooperativeid: userData.cooperativeId
           }
         })
           .then(res => {
@@ -140,7 +152,7 @@ class index extends Component {
             if (res) {
               console.log(res);
               console.log(res.data); // undefined
-                let loanTypes = [...res];
+              let loanTypes = [...res];
               this.setState({ loanTypes: loanTypes });
 
               this.props.getLoanTypesSuccess(res);
@@ -167,110 +179,111 @@ class index extends Component {
     );
   };
 
+  ongetLoans = () => {
+    const userData = this.props.navigation.state.params.userData;
+    this.setState(
+      {
+        spinner: true,
+        modalLoader: true
+      },
+      () => {
+        apiRequest(getloanApplications, "get", {
+          params: {
+            memberprofileid: userData.id
+            // cooperativeid: userData.cooperativeId
+          }
+        })
+          .then(res => {
+            this.setState({
+              spinner: false
+            });
+            if (res) {
+              console.log(res);
+              console.log(res.data); // undefined
+              let loanApplications = [...res];
+              loanApplications = loanApplications.map(loan => {
+                return {
+                  ...loan,
+                  description:
+                    loan.id + "-" + loan.applicationDate + "-" + loan.firstName
+                };
+              });
+              loanApplications.unshift({
+                description: "ALL LOANS",
+                id: this.props.userData.id
+              });
+              this.setState({ loanApplications: loanApplications });
 
-    ongetLoans = () => {
-        const userData = this.props.navigation.state.params.userData;
-        this.setState(
-            {
-                spinner: true,
-                modalLoader: true
-            },
-            () => {
-                apiRequest(getloanApplications, "get", {
-                    params: {
-                        memberprofileid: userData.id,
-                        // cooperativeid: userData.cooperativeId
-                    }
-                })
-                    .then(res => {
-                        this.setState({
-                            spinner: false
-                        });
-                        if (res) {
-                            console.log(res);
-                            console.log(res.data); // undefined
-                            let loanApplications = [...res];
-                            loanApplications = loanApplications.map(loan => {
-                                return {
-                                    ...loan,
-                                    description:loan.id + "-" + loan.applicationDate + "-" + loan.firstName
-                            }
-                            })
-                            loanApplications.unshift({
-                                "description":'ALL LOANS',
-                                'id':this.props.userData.id
-                            })
-                            this.setState({ loanApplications: loanApplications });
-
-                            // this.props.getLoanTypesSuccess(res);
-                            // this.props.showToast(
-                            //     "Successfully fetched loan types",
-                            //     "success"
-                            // );
-                        } else {
-                            this.props.showToast("Error", "error");
-                        }
-                    })
-                    .catch(error => {
-                        if (error.response) {
-                            this.props.showToast(error.response.data.message, "error");
-                            console.log(error.response);
-                        } else {
-                            this.props.showToast(error, "error");
-                        }
-                        this.setState({
-                            spinner: false
-                        });
-                    });
+              // this.props.getLoanTypesSuccess(res);
+              // this.props.showToast(
+              //     "Successfully fetched loan types",
+              //     "success"
+              // );
+            } else {
+              this.props.showToast("Error", "error");
             }
-        );
-    };
-
-    onFetchLoanSummary = () => {
-        const userData = this.props.navigation.state.params.userData;
-        this.setState(
-            {
-                spinner: true,
-                modalLoader: true
-            },
-            () => {
-                apiRequest(getLoanSummary, "get", {
-                    params: {
-                        forspecificloan: this.state.selectedLoan.description !== 'ALL LOANS',
-                        identifier: this.state.selectedLoan.id
-                    }
-                })
-                    .then(res => {
-                        this.setState({
-                            spinner: false
-                        });
-                        if (res) {
-                            this.setState({
-                                amountDue:res.outstandingLoanPayment,
-                                amountPaid:res.completedLoanPayment
-                            })
-                            this.props.showToast(
-                                "Successfully fetched loan summary",
-                                "success"
-                            );
-                        } else {
-                            this.props.showToast("Error", "error");
-                        }
-                    })
-                    .catch(error => {
-                        if (error.response) {
-                            this.props.showToast(error.response.data.message, "error");
-                            console.log(error.response);
-                        } else {
-                            this.props.showToast(error, "error");
-                        }
-                        this.setState({
-                            spinner: false
-                        });
-                    });
+          })
+          .catch(error => {
+            if (error.response) {
+              this.props.showToast(error.response.data.message, "error");
+              console.log(error.response);
+            } else {
+              this.props.showToast(error, "error");
             }
-        );
-    };
+            this.setState({
+              spinner: false
+            });
+          });
+      }
+    );
+  };
+
+  onFetchLoanSummary = () => {
+    const userData = this.props.navigation.state.params.userData;
+    this.setState(
+      {
+        spinner: true,
+        modalLoader: true
+      },
+      () => {
+        apiRequest(getLoanSummary, "get", {
+          params: {
+            forspecificloan:
+              this.state.selectedLoan.description !== "ALL LOANS",
+            identifier: this.state.selectedLoan.id
+          }
+        })
+          .then(res => {
+            this.setState({
+              spinner: false
+            });
+            if (res) {
+              this.setState({
+                amountDue: res.outstandingLoanPayment,
+                amountPaid: res.completedLoanPayment
+              });
+              this.props.showToast(
+                "Successfully fetched loan summary",
+                "success"
+              );
+            } else {
+              this.props.showToast("Error", "error");
+            }
+          })
+          .catch(error => {
+            if (error.response) {
+              this.props.showToast(error.response.data.message, "error");
+              console.log(error.response);
+            } else {
+              this.props.showToast(error, "error");
+            }
+            this.setState({
+              spinner: false
+            });
+          });
+      }
+    );
+  };
 
   ongetGuarantorRequests = () => {
     const userData = this.props.navigation.state.params.userData;
@@ -333,8 +346,8 @@ class index extends Component {
   };
 
   render() {
-    const switchToGuarantors = this.props.navigation.state.params.switchToGuarantors;
-      let percentage = (Number(this.state.amountPaid) / Number(this.state.amountDue)) || 0;
+    let percentage =
+      Number(this.state.amountPaid) / Number(this.state.amountDue) || 0;
     return (
       <>
         <StatusBar backgroundColor={Colors.white} barStyle="dark-content" />
@@ -391,11 +404,14 @@ class index extends Component {
                         value={""}
                         title={`Select Loan Type`}
                         onChange={obj =>
-                          this.setState({
+                          this.setState(
+                            {
                               selectedLoan: obj
-                          }, () => {
-                              this.onFetchLoanSummary()
-                          })
+                            },
+                            () => {
+                              this.onFetchLoanSummary();
+                            }
+                          )
                         }
                         dropdownImageStyle={{
                           top: scale(10)
@@ -424,18 +440,28 @@ class index extends Component {
                     <View style={[style.amount]}>
                       <View>
                         <Text style={[style.amountText]}>Amount Due:</Text>
-                        <Text style={[style.price]}>₦{this.state.amountDue}</Text>
+                        <Text style={[style.price]}>
+                          ₦{this.state.amountDue}
+                        </Text>
                       </View>
                       <View>
                         <Text style={[style.amountText]}>Amount Paid:</Text>
-                        <Text style={[style.price]}>₦{this.state.amountPaid}</Text>
+                        <Text style={[style.price]}>
+                          ₦{this.state.amountPaid}
+                        </Text>
                       </View>
                     </View>
                     <View>
                       {/*<ProgressBar percentage={50} />*/}
-                        <Progress progress={percentage} color={'#00a3c9'} borderColor="transparent"
-                                  unfilledColor="#f3f5f9" borderRadius={scale(2)} height={scale(4)}
-                                  width={null}/>
+                      <Progress
+                        progress={percentage}
+                        color={"#00a3c9"}
+                        borderColor="transparent"
+                        unfilledColor="#f3f5f9"
+                        borderRadius={scale(2)}
+                        height={scale(4)}
+                        width={null}
+                      />
                     </View>
                     <Text
                       style={{
@@ -541,22 +567,23 @@ class index extends Component {
                   </TouchableOpacity>
                 </View>
               )}
-              {switchToGuarantors||this.state.showGuarantorRequests && (
-                <View>
-                  <FlatList
-                    data={this.state.guarantorRequests}
-                    renderItem={({ item, index }) => (
-                      <GuarantorRequest
-                        data={item}
-                        bordered={true}
-                        approve={() => this.approve(item)}
-                        decline={() => this.decline(item)}
-                      />
-                    )}
-                    keyExtractor={item => item.id}
-                  />
-                </View>
-              )}
+              {switchToGuarantors ||
+                (this.state.showGuarantorRequests && (
+                  <View>
+                    <FlatList
+                      data={this.state.guarantorRequests}
+                      renderItem={({ item, index }) => (
+                        <GuarantorRequest
+                          data={item}
+                          bordered={true}
+                          approve={() => this.approve(item)}
+                          decline={() => this.decline(item)}
+                        />
+                      )}
+                      keyExtractor={item => item.id}
+                    />
+                  </View>
+                ))}
               {/* <ApplyLoanModal
                 visible={this.state.showCalculator}
                 _toggleView={this.toggleCalculator}
@@ -577,14 +604,14 @@ class index extends Component {
             </View>
           </ScrollView>
           <Header navigation={{ ...this.props.navigation }} />
-            {!!this.state.loanApply && (
-                <ApplyLoanModal
-                    visible={this.state.loanApply}
-                    _toggleView={() => this.setState({ loanApply: false })}
-                    loanTypes={this.state.loanTypes}
-                    {...this.props}
-                />
-            )}
+          {!!this.state.loanApply && (
+            <ApplyLoanModal
+              visible={this.state.loanApply}
+              _toggleView={() => this.setState({ loanApply: false })}
+              loanTypes={this.state.loanTypes}
+              {...this.props}
+            />
+          )}
 
           <RequestApprovalModal
             action={this.state.action}
