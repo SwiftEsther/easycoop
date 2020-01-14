@@ -112,7 +112,7 @@ class Dropdown extends Component {
                         {/*}*/}
                         <View style={{flex:1, paddingRight: scale(20)}}>
                             <Text numberOfLines={1}
-                                  style={[styles.optionsTitle, {...this.props.optionsStyle}]}>{item.label || item.mss || item.description}</Text>
+                                  style={[styles.optionsTitle, {...this.props.optionsStyle}]}>{item.label || item.mss || item.description || item.name}</Text>
                             {item.subtitle && (
                                 <Text
                                     style={[styles.options, {...this.props.optionsStyle}]}>{item.subtitle}</Text>

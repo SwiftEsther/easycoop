@@ -38,7 +38,8 @@ import {
 import {
   memberPersonalInformation,
   memberBankDetails,
-  memberContactInformation
+  memberContactInformation,
+  getGenders
 } from "../../../lib/api/url";
 import SelectDropdown from "../../../components/SelectPopUp/SelectPopUp";
 
@@ -58,6 +59,7 @@ class index extends Component {
       firstName: "",
       lastName: "",
       gender: {},
+      genders: [],
       emailAddress: "",
       phoneNumber: "",
       dateOfBirth: "",
@@ -103,7 +105,7 @@ class index extends Component {
 
   formatDate(date) {
     this.setState({
-      dateOfBirth: moment(date).format("DD/MM/YYYY")
+      dateOfBirth: moment(date).format("YYYY-MM-DD")
     });
 
     // this.setState({birthdaydate: mths[month] + " " + day + ", " + year})
@@ -161,6 +163,7 @@ class index extends Component {
       residentialAddress,
       country,
       state,
+      gender,
       lga
     } = this.state;
 
@@ -185,7 +188,7 @@ class index extends Component {
           branchId: 0,
           cooperative: userData.cooperative,
           cooperativeId: userData.cooperativeId,
-          genderId: userData.genderId,
+          genderId: gender.id,
           id: userData.id
         })
           .then(res => {
@@ -231,18 +234,18 @@ class index extends Component {
       () => {
         apiRequest(memberPersonalInformation, "post", {
           branchId: 0,
-          dateOfBirth: new Date(dateOfBirth),
+          dateOfBirth,
           firstName,
-          gender: gender.label,
+          gender: gender.name,
           lastName,
           middleName: userData.middleName,
           occupation: userData.occupation,
           cooperative: userData.cooperative,
           cooperativeId: userData.cooperativeId,
-          genderId: userData.genderId,
+          genderId: gender.id,
           username: userData.username,
           id: userData.id,
-          gender: "",
+          // gender: "",
           occupation: 'userData.occupation'
         })
           .then(res => {
@@ -265,6 +268,46 @@ class index extends Component {
               console.log(error.response);
             } else {
               this.props.showToast(error.message, "error");
+            }
+            this.setState({
+              spinner: false
+            });
+          });
+      }
+    );
+  };
+
+  ongetGenders = () => {
+    this.setState(
+      {
+        spinner: true,
+        modalLoader: true
+      },
+      () => {
+        apiRequest(getGenders, "get", {
+        })
+          .then(res => {
+            this.setState({
+              spinner: false
+            });
+            if (res) {
+              console.log(res);
+              let genders = [...res];
+              this.setState({ genders: genders });
+              this.props.showToast(
+                "Successfully fetched genders",
+                "success"
+              );
+            } else {
+              this.props.showToast("Error", "error");
+            }
+          })
+          .catch(error => {
+            if (error.response) {
+              this.props.showToast(error.response.data.message, "error");
+              console.log(error.response);
+            } else {
+              this.props.showToast(error, "error");
             }
             this.setState({
               spinner: false
@@ -399,6 +442,7 @@ class index extends Component {
 
   componentDidMount() {
     const { userData } = this.props;
+    this.ongetGenders();
     console.log(userData);
     this.setState({
       firstName: userData.firstName,
@@ -419,7 +463,6 @@ class index extends Component {
   }
 
   render() {
-    const genders = [{ label: "Male", id: 1 }, { label: "Female", id: 2 }];
     const countries = [];
     const states = [];
     const banks = [];
@@ -504,7 +547,7 @@ class index extends Component {
                       ]}
                     >
                       <SelectDropdown
-                        options={genders || []}
+                        options={this.state.genders || []}
                         value={""}
                         title={`Select Gender`}
                         onChange={obj =>
@@ -529,7 +572,7 @@ class index extends Component {
                           // onPress={this.onhandleSubmit}
                         >
                           <Text numberOfLines={1} style={style.selectText}>
-                            {this.state.gender.label || ""}
+                            {this.state.gender.name || ""}
                           </Text>
                         </View>
                       </SelectDropdown>

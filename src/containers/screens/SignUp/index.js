@@ -74,7 +74,7 @@ import { validateEmail, validatePhone } from "../../../lib/utils/helpers";
             id: 0,
             joinCooperative: true,
             makeClaim: true,
-            middleName: "MymiddleName",
+            middleName: "",
             registerCooperative: true,
             rejectionReason: "non",
             state: "borno",

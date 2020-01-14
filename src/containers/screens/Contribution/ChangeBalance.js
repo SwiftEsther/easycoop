@@ -33,6 +33,7 @@ export default class ChangeBalance extends Component {
         this.state = {
             amount: 0,
             success: false,
+            currentBalance: 0,
             spinner:false,
             failure: false,
             failureMessage: "",
@@ -82,6 +83,46 @@ export default class ChangeBalance extends Component {
       this.onhandleUpdateAmount();
     }
   }
+
+  ongetCurrentBalance = () => {
+    this.setState(
+      {
+        spinner: true,
+        modalLoader: true
+      },
+      () => {
+        apiRequest(getGenders, "get", {
+        })
+          .then(res => {
+            this.setState({
+              spinner: false
+            });
+            if (res) {
+              console.log(res);
+              let currentBalance = [res];
+              this.setState({ currentBalance: currentBalance });
+              this.props.showToast(
+                "Successfully fetched current balance",
+                "success"
+              );
+            } else {
+              this.props.showToast("Error", "error");
+            }
+          })
+          .catch(error => {
+            if (error.response) {
+              this.props.showToast(error.response.data.message, "error");
+              console.log(error.response);
+            } else {
+              this.props.showToast(error, "error");
+            }
+            this.setState({
+              spinner: false
+            });
+          });
+      }
+    );
+  };
 
     onhandleUpdateAmount = () => {
         const {user} = this.props;
@@ -298,7 +339,7 @@ export default class ChangeBalance extends Component {
                                                     fontSize: 20,
                                                     color: "#575757"
                                                 }}
-                                            >{`₦${data.voluntaryBalance}`}</Text>
+                                            >{`₦${formatBalance(data.voluntaryBalance)}`}</Text>
                                         </View>
                                     </View>
                                     <View style={{flex: 1}}>
