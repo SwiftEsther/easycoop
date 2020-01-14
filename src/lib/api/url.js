@@ -42,4 +42,4 @@ export const memberBankDetails = account + "/account/v1/api/savememberbankdetail
 export const memberContactInformation = account + "/account/v1/api/savemembercontractinformation";
 
 export const getLoanSummary = loan + "/loan/v1/api/viewloanpaymentbreakdown";
-
+export const getGenders = account + "/account/v1/api/getgenders";
