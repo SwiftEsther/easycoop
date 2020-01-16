@@ -22,6 +22,7 @@ import FailureModal from "../../../components/FailureModal";
 import Spinner from "react-native-loading-spinner-overlay";
 import { formatBalance } from "../../../lib/utils/helpers";
 import { apiRequest } from "../../../lib/api/api";
+import { getCurrentBalance } from "../../../lib/api/url";
 import Toast from "../../../components/Toast/Toast";
 import Modal from "react-native-modal";
 
@@ -85,13 +86,15 @@ export default class ChangeBalance extends Component {
   }
 
   ongetCurrentBalance = () => {
+    const {userData} = this.props;
     this.setState(
       {
         spinner: true,
         modalLoader: true
       },
       () => {
-        apiRequest(getGenders, "get", {
+        apiRequest(getCurrentBalance, "get", {
+            params: {memberid: userData.id}
         })
           .then(res => {
             this.setState({
@@ -99,8 +102,7 @@ export default class ChangeBalance extends Component {
             });
             if (res) {
               console.log(res);
-              let currentBalance = [res];
-              this.setState({ currentBalance: currentBalance });
+              this.setState({ currentBalance: res.voluntaryBalance });
               this.props.showToast(
                 "Successfully fetched current balance",
                 "success"
@@ -110,19 +112,23 @@ export default class ChangeBalance extends Component {
             }
           })
           .catch(error => {
+            this.setState({
+              spinner: false
+            });
             if (error.response) {
               this.props.showToast(error.response.data.message, "error");
               console.log(error.response);
             } else {
               this.props.showToast(error, "error");
             }
-            this.setState({
-              spinner: false
-            });
           });
       }
     );
   };
+
+  componentDidMount() {
+      this.ongetCurrentBalance();
+  }
 
     onhandleUpdateAmount = () => {
         const {user} = this.props;
@@ -147,6 +153,7 @@ export default class ChangeBalance extends Component {
                         if (res) {
                             console.log(res);
                             this.setState({amount: 0, successMessage: res.message});
+                            this.ongetCurrentBalance();
                             this.showRequestSuccess();
                         } else {
                             this.showRequestFailure();
@@ -170,7 +177,7 @@ export default class ChangeBalance extends Component {
 
     render() {
         const {width, height} = Dimensions.get("window");
-        const {data} = this.props;
+        const {currentBalance} = this.state;
         return (
             <SafeAreaView>
                 <Spinner
@@ -339,7 +346,7 @@ export default class ChangeBalance extends Component {
                                                     fontSize: 20,
                                                     color: "#575757"
                                                 }}
-                                            >{`₦${formatBalance(data.voluntaryBalance)}`}</Text>
+                                            >{`₦${formatBalance(currentBalance)}`}</Text>
                                         </View>
                                     </View>
                                     <View style={{flex: 1}}>

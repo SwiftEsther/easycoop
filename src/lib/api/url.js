@@ -43,3 +43,4 @@ export const memberContactInformation = account + "/account/v1/api/savemembercon
 
 export const getLoanSummary = loan + "/loan/v1/api/viewloanpaymentbreakdown";
 export const getGenders = account + "/account/v1/api/getgenders";
+export const getCurrentBalance = account + "/account/v1/api/getmembermonthlycontributionamount";

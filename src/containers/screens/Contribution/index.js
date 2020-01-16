@@ -244,6 +244,7 @@ class Contributions extends Component {
               <ChangeBalance
                   visible={this.state.showChangeBalance}
                   _toggleView={this.changeSavings}
+                  userData={userData}
                   back={this.showChangeForm}
                   data={data}
                   user={userData}
