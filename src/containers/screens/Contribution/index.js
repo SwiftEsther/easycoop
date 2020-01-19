@@ -106,7 +106,6 @@ class Contributions extends Component {
           >
             <Icon
               name="close"
-              // iconStyle={[styles.icon]}
               onPress={this.props._toggleView}
             />
           </TouchableOpacity>

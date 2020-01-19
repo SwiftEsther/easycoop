@@ -185,13 +185,15 @@ class index extends Component {
                     <TouchableOpacity
                       activeOpacity={0.7}
                       style={[theme.flex1]}
-                      onPress={this.showWithdrawalRequest}
+                      onPress={() =>
+                        this.setState({
+                          withdraw: !this.state.withdraw
+                        })
+                      }
                     >
                       <View
                         style={[styles.card]}
-                        onPress={() =>
-                          this.setState({ withdraw: !this.state.withdraw })
-                        }
+                        
                       >
                         <Image
                           style={[]}

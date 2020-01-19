@@ -57,26 +57,28 @@ export default class WithdrawalRequest extends Component {
                  }
 
                  showWithdrawSuccess = () => {
-                   this.props._toggleView();
+                  //  this.props._toggleView();
                    this.setState({
                      success: !this.state.success
                    });
                  };
 
                  toggleWithdraw = () =>
+                 {
+                  this.props._toggleView();
                    this.setState({
                      success: !this.state.success
                    });
+                 }
 
                  showWithdrawFailure = () => {
-                   this.props._toggleView();
+                  //  this.props._toggleView();
                    this.setState({
                      failure: !this.state.failure
                    });
                  };
 
                  toggleFailure = () => {
-                   this.props._toggleView();
                    this.setState({
                      failure: !this.state.failure
                    });
@@ -145,6 +147,7 @@ export default class WithdrawalRequest extends Component {
                          "Kindly enter an amount that is less than your balance"
                      });
                           } else {
+                            this.setState({showToast: false})
                             this.onhandleSubmitWithdrawal();
                           }
                  };
@@ -171,16 +174,12 @@ export default class WithdrawalRequest extends Component {
                            }}
                          >
                            <TouchableOpacity
+                               onPress={this.props._toggleView}
                              activeOpacity={0.7}
-                             style={{
-                               paddingVertical: scale(9),
-                               paddingHorizontal: scaleHeight(15)
-                             }}
+                             style={[styles.icon,]}
                            >
                              <Icon
                                name="close"
-                               iconStyle={[styles.icon]}
-                               onPress={this.props._toggleView}
                              />
                            </TouchableOpacity>
                          </View>
@@ -197,8 +196,6 @@ export default class WithdrawalRequest extends Component {
                          <View style={styles.bottomNavigationView}>
                            <View
                              style={[
-                               theme.container,
-                               styles.MainContainer,
                                styles.header,
                                { marginVertical: scaleHeight(20) }
                              ]}
@@ -222,13 +219,11 @@ export default class WithdrawalRequest extends Component {
                            </View>
                            <View
                              style={[
-                               theme.container,
                                styles.MainContainer,
                                {
                                  alignItems: "flex-start",
-                                 marginBottom: scaleHeight(50),
                                  marginLeft: scale(20),
-                                 flex: 4
+                                 flex: 6
                                }
                              ]}
                            >
@@ -249,7 +244,6 @@ export default class WithdrawalRequest extends Component {
                                    }
                                  ]}
                                >
-                                 {/* <Icon name="naira"/> */}
                                  <Text
                                    style={{
                                      fontFamily: "nunito-bold",
@@ -261,8 +255,8 @@ export default class WithdrawalRequest extends Component {
                                  )}`}</Text>
                                </View>
                              </View>
-                             <View style={{ flex: 1 }}>
-                               <Text style={[styles.label, { flex: 1 }]}>
+                             <View >
+                               <Text style={[styles.label]}>
                                  Amount
                                </Text>
                                <View
@@ -285,12 +279,9 @@ export default class WithdrawalRequest extends Component {
                            <TouchableOpacity
                              activeOpacity={0.7}
                              style={[styles.buttons]}
-                             onPress={this.validate}
                            >
-                             <GreenButton button_text="Submit Withdrawal" />
+                             <GreenButton button_text="Submit Withdrawal" handlePress={this.validate}/>
                            </TouchableOpacity>
-                         </View>
-                       </BottomSheet>
                        <RequestSuccessful
                          visible={this.state.success}
                          _toggleView={this.toggleWithdraw}
@@ -304,6 +295,8 @@ export default class WithdrawalRequest extends Component {
                          subtitle="Request Submission Failed"
                          smallText={`${this.state.failureMessage}`}
                        />
+                         </View>
+                       </BottomSheet>
                      </SafeAreaView>
                    );
                  }
@@ -312,10 +305,8 @@ export default class WithdrawalRequest extends Component {
 const { width, height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   MainContainer: {
-    flex: 1,
     margin: 2,
     paddingHorizontal: scale(10),
-    marginTop: scaleHeight(20),
     paddingTop: Platform.OS === "ios" ? 20 : 0,
     marginLeft: scale(10)
   },
@@ -323,11 +314,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: "#efefef",
     flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    marginHorizontal: scale(13),
+    alignSelf: "center",
     flex: 2,
-    fontFamily: "nunito-bold"
   },
   bottomNavigationView: {
     backgroundColor: "#fff",
@@ -340,26 +328,18 @@ const styles = StyleSheet.create({
 
   icon: {
     borderRadius: 50,
+    marginVertical: scaleHeight(9),
+    marginHorizontal: scale(9),
     fontSize: 25,
     padding: 6,
     color: "#138516",
     backgroundColor: "#f5f5f5"
   },
-  pickerStlye: {
-    color: "#504e4e",
-    fontFamily: "nunito-medium",
-    borderColor: "#d0d0d0",
-    backgroundColor: "rgba(0, 13, 55, 0.02)",
-    height: scaleHeight(40),
-    flexDirection: "column",
-    justifyContent: "center"
-  },
   buttons: {
-    flex: 2,
     alignSelf: "stretch",
     justifyContent: "center",
     marginHorizontal: scale(30),
-    marginBottom: 30
+    flex: 2
   },
   input: {
     marginBottom: scaleHeight(12)

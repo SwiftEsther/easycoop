@@ -13,7 +13,7 @@ export default class GreenButton extends Component {
     render() {
         return (
           <View>
-                <TouchableOpacity activeOpacity={0.7} style={{flex: 1, alignSelf: 'stretch'}} onPress={this.props.handlePress}>
+                <TouchableOpacity activeOpacity={0.7} style={{ alignSelf: 'stretch'}} onPress={this.props.handlePress}>
                     <Text style={[styles.defaultButton, {backgroundColor: '#138516', fontFamily: 'nunito-bold'}]}>{this.props.button_text}</Text>
                 </TouchableOpacity>
           </View>
