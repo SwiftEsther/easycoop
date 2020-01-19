@@ -46,6 +46,22 @@ export default class RequestSuccessful extends Component{
           visible={this.props.visible}
           onBackButtonPress={this.props._toggleView}
         >
+          <View
+                           style={{
+                             flexDirection: "row",
+                             justifyContent: "flex-end"
+                           }}
+                         >
+        <TouchableOpacity
+            onPress={this.props._toggleView}
+          activeOpacity={0.7}
+          style={[styles.icon,]}
+        >
+          <Icon
+            name="close"
+          />
+        </TouchableOpacity>
+      </View>
           <View style={styles.bottomNavigationView}>
             <View style={[styles.header, { marginVertical: scaleHeight(10) }]}>
               <Image
@@ -134,6 +150,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: Platform.OS === 'ios' ? 20 : 0,
+  },
+  icon: {
+    borderRadius: 50,
+    marginVertical: scaleHeight(9),
+    marginHorizontal: scale(9),
+    fontSize: 25,
+    padding: 6,
+    color: "#138516",
+    backgroundColor: "#f5f5f5"
   },
   bottomNavigationView: {
     backgroundColor: '#fff',

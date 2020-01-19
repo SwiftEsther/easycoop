@@ -16,7 +16,7 @@ const FailureModal = (props) =>(
         <Icon name='close'/>
       </TouchableOpacity>
       <View style={styles.bottomNavigationView}>
-          <View style={[theme.center, theme.padding_left_right_25]}>
+          <View style={[theme.center, {paddingHorizontal: scale(25)}]}>
             <Image source={require('../../assets/icons/cancel.png')} style={[theme.pad_bottom30]}/>
             {props.subtitle && <Text style={[theme.pad_bottom20, {color:'#f80000', fontSize: 20, fontFamily: 'nunito-bold'}]}>{props.subtitle}</Text>}
             {props.message && <Text style={[theme.typo_regular, theme.margin_left_right_25, {textAlign: 'center', fontSize: scale(14)}]}>
@@ -43,10 +43,9 @@ const styles = StyleSheet.create({
   },
   bottomNavigationView: {
     backgroundColor: '#fff',
-    width: '100%',
     height: height/1.8,
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },

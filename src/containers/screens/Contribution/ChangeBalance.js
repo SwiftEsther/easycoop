@@ -6,7 +6,6 @@ import {
     SafeAreaView,
     Platform,
     Text,
-    Button,
     TouchableOpacity,
     ScrollView
 } from "react-native";
