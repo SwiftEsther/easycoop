@@ -78,8 +78,11 @@ class index extends Component {
                    );
 
                  componentDidMount() {
-                   const showWithdrawalRequests = this.props.navigation.state
-                     .params.showWithdrawalRequests;
+                   // const showWithdrawalRequests = this.props.navigation.state
+                   //   .params.showWithdrawalRequests;
+
+                     const showWithdrawalRequests =  this.props.navigation.getParam('showWithdrawalRequests', '')
+
                   //  this.onGetSavingsHistory();
                   if (showWithdrawalRequests) {
                     this.withdrawals();

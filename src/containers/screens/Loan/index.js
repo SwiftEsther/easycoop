@@ -118,9 +118,10 @@ class index extends Component {
     });
 
   componentDidMount() {
-    const switchToGuarantors = this.props.navigation.state.params
-      .switchToGuarantors;
-    if (switchToGuarantors) {
+
+      const switchToGuarantors =  this.props.navigation.getParam('switchToGuarantors', '')
+
+      if (switchToGuarantors) {
       this.requests();
     }
     this.ongetLoanTypes();
@@ -470,7 +471,7 @@ class index extends Component {
                         fontFamily: "nunito-medium"
                       }}
                     >
-                      50%
+                        {percentage * 100}%
                     </Text>
                   </View>
                   <TouchableOpacity
@@ -567,8 +568,7 @@ class index extends Component {
                   </TouchableOpacity>
                 </View>
               )}
-              {switchToGuarantors ||
-                (this.state.showGuarantorRequests && (
+              {this.state.showGuarantorRequests && (
                   <View>
                     <FlatList
                       data={this.state.guarantorRequests}
@@ -583,7 +583,7 @@ class index extends Component {
                       keyExtractor={item => item.id}
                     />
                   </View>
-                ))}
+                )}
               {/* <ApplyLoanModal
                 visible={this.state.showCalculator}
                 _toggleView={this.toggleCalculator}

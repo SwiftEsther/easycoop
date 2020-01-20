@@ -19,7 +19,6 @@ import { systemWeights } from "react-native-typography";
 import theme from "../../../../assets/styles/globalStyles";
 import Spinner from "react-native-loading-spinner-overlay";
 import { SIGN_UP } from "../../../../lib/constants";
-// import ImagePicker from "react-native-image-picker";
 import style from "./style";
 import "../../../../lib/helpers";
 import Header from "../../../components/Header";
@@ -28,6 +27,9 @@ import CustomInput from "../../../components/CustomTextInput/CustomInput";
 import { Icon } from "react-native-elements";
 import { scale, scaleHeight } from "../../../helpers/scale";
 import { AntDesign } from "@expo/vector-icons";
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+
 import { showToast } from "../../../components/Toast/actions/toastActions";
 import { connect, Dispatch } from "react-redux"; 
 import {
@@ -49,6 +51,7 @@ import TouchItem from "../../../components/TouchItem/_TouchItem";
 
 import { Appearance } from 'react-native-appearance';
 import { apiRequest } from "../../../lib/api/api";
+import {loginSuccess} from "../Login/actions/login.actions";
 
 const colorScheme = Appearance.getColorScheme();
 
@@ -371,74 +374,30 @@ class index extends Component {
     );
   };
 
-  // uploadImage = () => {
-  //   let {imageData, imageType} = this.state;
-  //   const profilePhoto = {imageString: imageData, imageType};
 
-  //   this.setState(
-  //     {
-  //       spinner: true,
-  //       modalLoader: true
-  //     },
-  //     () => {
-  //       apiRequest('uploadlink', "post", {
-  //         imageString: imageData,
-  //         imageType
-  //       })
-  //         .then(res => {
-  //           console.log(res);
-  //           this.setState({
-  //             spinner: false
-  //           });
-  //         })
-  //         .catch(error => {
-  //           console.log(error.response);
 
-  //           if (error.response) {
-  //             this.props.showToast(error.response.data.message, "error");
-  //             console.log(error.response);
-  //           } else {
-  //             this.props.showToast(error.message, "error");
-  //           }
-  //           this.setState({
-  //             spinner: false
-  //           });
-  //         });
-  //     }
-  //   );
-  // }
+    _pickImage = async () => {
+        const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        const cameraPermission = await Permissions.askAsync(Permissions.CAMERA);
 
-  chooseImage = () => {
-    const options = {
-            title: 'Choose Profile Photo',
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-            allowsEditing: true,
-            maxWidth: 300, 
-            maxHeight: 300,
-        };
+        if (status === 'granted' && cameraPermission.status === 'granted') {
+            let result = await ImagePicker.launchCameraAsync({
+                // allowsEditing: true,
+                // aspect: [4, 4],
+            });
 
-        ImagePicker.showImagePicker(options, (response) => {
-            console.log('Response = ', response);
 
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-                Alert.alert("Image Pick Error", response.error)
-            } else {
-                const source = { uri: response.uri };
-                this.setState({
-                  avatarSource: source,
-                    imageData: response.data,
-                    imagePath: response.path,
-                    imageType: response.type
-                });
+            if (!result.cancelled) {
+                this.props.loginSuccess({
+                    profileImage: result.uri
+                })
+                // this.props.showToast("Profile picture updated successfully", "success");
             }
-        });r
-  }
+        } else {
+            throw new Error('Camera permission not granted');
+        }
+
+    }
 
   componentDidMount() {
     const { userData } = this.props;
@@ -467,6 +426,12 @@ class index extends Component {
     const states = [];
     const banks = [];
     const lgas = [];
+
+
+      let profileImage = ''
+      if (this.props.userData.profileImage) {
+          profileImage = {uri: this.props.userData.profileImage}
+      }
 
     return (
       <SafeAreaView>
@@ -509,12 +474,20 @@ class index extends Component {
               <View style={[style.Container]}>
                 <View>
                   <View style={[style.fieldContainer]}>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            style={{marginTop: scaleHeight(20)}}
-          >
-            <Image source={require("../../../../assets/images/pexels_photo.png")} />
-          </TouchableOpacity>
+
+                          <TouchableOpacity
+                              activeOpacity={0.7}
+                              onPress={this._pickImage}
+                              style={{marginTop: scaleHeight(20)}}
+                          >
+                              {!!profileImage && ( <Image source={profileImage}  style={{
+                                  width: scale(50),
+                                  height: scale(50),
+                                  borderRadius: scale(25)
+                              }}/>)}
+                              {!profileImage && (  <Image source={require("../../../../assets/images/pexels_photo.png")} />)}
+
+                          </TouchableOpacity>
                     <Text style={[style.label]}>First Name</Text>
                     <View style={[style.input]}>
                       <CustomInput
@@ -1030,7 +1003,8 @@ const mapDispatchToProps = {
   showToast,
   updatePersonalInfoSuccess,
   updateContactInfoSuccess,
-  updateBankDetailsSuccess
+  updateBankDetailsSuccess,
+    loginSuccess
 };
 
 export default connect(

@@ -118,7 +118,7 @@ export default class ViewRequest extends Component {
                     </View>
                     
                 </BottomSheet>
-                <ChangeBalance visible={this.state.showChangeBalance} _toggleView={this.changeSavings} back={this.showChangeForm} />
+                <ChangeBalance visible={this.state.showChangeBalance} _toggleView={() => this.setState({showChangeBalance:false})} back={this.showChangeForm} />
                 <DeleteModal visible={this.state.showDelete} _toggleView={this.delete} handleClick={this.toggleDelete}
                     itemAction={'Some Action'}
                     applicationSuccess={'Status'}/>

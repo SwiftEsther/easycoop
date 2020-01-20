@@ -68,7 +68,12 @@ componentDidMount() {
 
                  render() {
                    console.log(this.props);
-                   return (
+                     let profileImage = ''
+                     if (this.props.userData.profileImage) {
+                         profileImage = {uri: this.props.userData.profileImage}
+                     }
+
+                     return (
                      <View
                        style={[
                          styles.container,
@@ -153,16 +158,20 @@ componentDidMount() {
                              </TouchableOpacity>
                          )}
                          {this.props.dashboard && (
-                           <TouchableOpacity
+
+                             <TouchableOpacity
                              activeOpacity={0.7}
-                             onPress={() =>
-                                 this.props.navigation.navigate("Profile")
-                             }
-                           >
-                             <Image
-                               source={require("../../assets/images/pexels_photo.png")}
-                             />
-                           </TouchableOpacity>
+                             onPress={()=>this.props.navigation.navigate("Profile")}
+                             // style={{marginTop: scaleHeight(20)}}
+                             >
+                         {!!profileImage && ( <Image source={profileImage}  style={{
+                             width: scale(40),
+                             height: scale(40),
+                             borderRadius: scale(20)
+                         }}/>)}
+                         {!profileImage && (  <Image source={require("../../assets/images/pexels_photo.png")} />)}
+
+                             </TouchableOpacity>
                          )}
                        {/*</TouchableOpacity>*/}
 
@@ -187,7 +196,8 @@ const styles=StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: scale(11),
-        paddingTop: scaleHeight(25) 
+        paddingTop: scaleHeight(25) ,
+        zIndex: 9999999999
     },
     avatar: {
 

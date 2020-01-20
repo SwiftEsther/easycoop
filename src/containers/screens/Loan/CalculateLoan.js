@@ -101,7 +101,7 @@ export default class CalculateLoan extends Component {
                          .catch(error => {
                            if (error.response) {
                              this.toggleToast();
-                             this.setState({ toastMessage: error.response });
+                             this.setState({ toastMessage: error.response.data.message });
                              console.log(error.response);
                            } else {
                              this.toggleToast();

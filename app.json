@@ -25,7 +25,8 @@
       "bundleIdentifier": "com.africaprudential.easycoop"
     },
     "android": {
-      "package": "com.africaprudential.easycoop"
+      "package": "com.africaprudential.easycoop",
+      "versionCode": 1
     },
     "description": ""
   }
