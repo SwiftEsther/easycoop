@@ -91,19 +91,19 @@ class App extends React.Component {
     timer = 0;
 
     componentWillMount(){
-        // this._panResponder = PanResponder.create({
+        this._panResponder = PanResponder.create({
 
-        //     onStartShouldSetPanResponder: () => {
-        //         this.resetTimer()
-        //         return true
-        //     },
-        //     onMoveShouldSetPanResponder: () => true,
-        //     onStartShouldSetPanResponderCapture: () => { this.resetTimer() ; return false},
-        //     onMoveShouldSetPanResponderCapture: () => false,
-        //     onPanResponderTerminationRequest: () => true,
-        //     onShouldBlockNativeResponder: () => false,
-        // });
-        // this.timer = setTimeout(()=>this.setState({show:true}),3000)
+            onStartShouldSetPanResponder: () => {
+                this.resetTimer()
+                return true
+            },
+            onMoveShouldSetPanResponder: () => true,
+            onStartShouldSetPanResponderCapture: () => { this.resetTimer() ; return false},
+            onMoveShouldSetPanResponderCapture: () => false,
+            onPanResponderTerminationRequest: () => true,
+            onShouldBlockNativeResponder: () => false,
+        });
+        this.timer = setTimeout(()=>this.setState({show:true}),3000)
     }
     resetTimer(){
         clearTimeout(this.timer)
@@ -128,7 +128,7 @@ class App extends React.Component {
     render() {
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}} collapsable={false}
-                //   {...this._panResponder.panHandlers}
+                  {...this._panResponder.panHandlers}
                   >
                 <StatusBar/>
                 <SafeAreaView style={{flex: 1}}>

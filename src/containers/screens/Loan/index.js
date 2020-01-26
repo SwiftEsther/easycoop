@@ -558,7 +558,7 @@ class index extends Component {
                             marginTop: scaleHeight(9)
                           }}
                         >
-                          Lorem Ipsum
+                          
                         </Text>
                       </View>
                       <View style={{ alignSelf: "center" }}>

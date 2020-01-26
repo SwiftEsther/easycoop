@@ -19,9 +19,10 @@ import { scale, scaleHeight } from "../../../helpers/scale";
 import { systemWeights } from "react-native-typography";
 import ChangeBalance from "./ChangeBalance.js";
 import ViewRequest from "./ViewRequest";
-import { loginSuccess, logoutUserSuccess } from "../Login/actions/login.actions";
 import { showToast } from "../../../components/Toast/actions/toastActions";
 import {formatBalance} from '../../../lib/utils/helpers';
+import { apiRequest } from "../../../lib/api/api";
+import { getCurrentBalance } from "../../../lib/api/url";
 import { getMemberBalancesSuccess } from "./actions/balances.actions";
 
 class Contributions extends Component {
@@ -40,7 +41,8 @@ class Contributions extends Component {
       shareUnitPrice: null,
       shareValue: null,
       balanceAsAt: "",
-      toastMessage: ""
+      toastMessage: "",
+      currentBalance: 0
     };
   }
 
@@ -61,6 +63,51 @@ class Contributions extends Component {
       showChangeBalance: !this.state.showChangeBalance
     });
   };
+
+  ongetCurrentBalance = () => {
+    const {userData} = this.props;
+    this.setState(
+      {
+        spinner: true,
+        modalLoader: true
+      },
+      () => {
+        apiRequest(getCurrentBalance, "get", {
+            params: {memberid: userData.id}
+        })
+          .then(res => {
+            this.setState({
+              spinner: false
+            });
+            if (res) {
+              console.log(res);
+              this.setState({ currentBalance: res.voluntaryBalance });
+              this.props.showToast(
+                "Successfully fetched current balance",
+                "success"
+              );
+            } else {
+              this.props.showToast("Error", "error");
+            }
+          })
+          .catch(error => {
+            this.setState({
+              spinner: false
+            });
+            if (error.response) {
+              this.props.showToast(error.response.data.message, "error");
+              console.log(error.response);
+            } else {
+              this.props.showToast(error, "error");
+            }
+          });
+      }
+    );
+  };
+
+  componentDidMount() {
+    this.ongetCurrentBalance();
+  }
 
   showRequest = () => {
     this.props._toggleView();
@@ -202,7 +249,7 @@ class Contributions extends Component {
                       fontSize: 20,
                       color: "#575757"
                     }}
-                  >{`₦${formatBalance(data.voluntaryBalance)}`}</Text>
+                  >{`₦${formatBalance(this.state.currentBalance)}`}</Text>
                 </View>
               </View>
             </View>
