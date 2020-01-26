@@ -390,7 +390,6 @@ export default class ChangeBalance extends Component {
                     />
                 )}
 
-
             </SafeAreaView>
         );
     }

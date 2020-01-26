@@ -48,7 +48,8 @@ class ApplyLoanModal extends Component {
             guarantors: [],
             review: false,
             showToast: false,
-            toastMessage: ""
+            toastMessage: "",
+            successMessage: ""
         };
     }
 
@@ -246,7 +247,8 @@ class ApplyLoanModal extends Component {
                                 showLoanInfo: true,
                                 showGuarantorInfo: false,
                                 review: false,
-                                success: true
+                                success: true,
+                                successMessage: res.message
                             })
                         } else {
                             this.props.showToast(res.message, 'error');
@@ -1393,7 +1395,7 @@ class ApplyLoanModal extends Component {
                         {...this.props}
                         subtitle="Request Submitted Successfully"
 
-                        smallText={`Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out prints'}`}/>
+                        smallText={this.state.successMessage}/>
                 )}
 
             </View>

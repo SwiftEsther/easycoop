@@ -19,7 +19,6 @@ import { scale, scaleHeight } from "../../../helpers/scale";
 import { systemWeights } from "react-native-typography";
 import ChangeBalance from "./ChangeBalance.js";
 import ViewRequest from "./ViewRequest";
-import { loginSuccess, logoutUserSuccess } from "../Login/actions/login.actions";
 import { showToast } from "../../../components/Toast/actions/toastActions";
 import {formatBalance} from '../../../lib/utils/helpers';
 import { apiRequest } from "../../../lib/api/api";

@@ -248,7 +248,6 @@ class index extends Component {
           genderId: gender.id,
           username: userData.username,
           id: userData.id,
-          // gender: "",
           occupation: 'userData.occupation'
         })
           .then(res => {
@@ -297,10 +296,6 @@ class index extends Component {
               console.log(res);
               let genders = [...res];
               this.setState({ genders: genders });
-              this.props.showToast(
-                "Successfully fetched genders",
-                "success"
-              );
             } else {
               this.props.showToast("Error", "error");
             }
